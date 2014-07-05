@@ -1,0 +1,70 @@
+<?php
+/**
+ * Extensions Manager Extension
+ *
+ * PHP versions 4 and 5
+ *
+ * LICENSE: This source file is subject to version 3.0 of the PHP license
+ * that is available through the world-wide-web at the following URI:
+ * http://store.onlinebizsoft.com/license.txt.  If you did not receive a copy of
+ * the PHP License and are unable to obtain it through the web, please
+ * send a note to admin@onlinebizsoft.com so we can mail you a copy immediately.
+ *
+ * @category   Magento Extensions
+ * @package    ExtensionManager
+ * @author     OnlineBiz <sales@onlinebizsoft.com>
+ * @copyright  2007-2011 OnlineBiz
+ * @license    http://store.onlinebizsoft.com/license.txt
+ * @version    1.0.1
+ * @link       http://store.onlinebizsoft.com
+ */
+?>
+<div id="message-popup-window" style="display:none;"></div>	
+
+<div style="position:relative;margin-left:-390px;">
+	<div id="onl_notif" class="notification" style="display:none;">
+		<div class="head">
+			<h3><?php echo $this->getHeaderText();?></h3>
+			<button type="button"  class="close" onclick="closeMessagePopupWindow()"><span ><?php echo $this->getCloseText(); ?></span></button>
+		</div>
+		<div class="content">
+			<?php echo $this->getNoticeMessageText(); ?>
+		</div>
+	</div>
+</div>
+<script>
+function showNot(){	
+	openMessagePopupWindow();
+	Effect.Appear('onl_notif', { duration: 1.0 });
+}
+Event.observe(window, 'load', showNot);
+
+
+function openMessagePopupWindow(){
+    var height = $('html-body').getHeight();
+    $('message-popup-window').setStyle({'height':height+'px'});
+    toggleSelectsUnderBlock($('message-popup-window'), false);
+    Element.show('message-popup-window');
+}
+
+function closeMessagePopupWindow()
+{
+    toggleSelectsUnderBlock($('message-popup-window'), true);
+	Effect.Fade('onl_notif', { duration: 0.5 });
+    Element.hide('message-popup-window');
+}
+
+
+function saveCloseMessagePopupWindow()
+{	
+	$('onl_firstrun').request({
+		onComplete: function(){ 
+			toggleSelectsUnderBlock($('message-popup-window'), true);
+			Effect.Fade('onl_notif', { duration: 0.5 });
+		    Element.hide('message-popup-window');
+		}
+	})
+    
+}
+
+</script>

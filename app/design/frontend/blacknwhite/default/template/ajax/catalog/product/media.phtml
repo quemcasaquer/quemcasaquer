@@ -1,0 +1,121 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * Product media data template
+ *
+ * @see Mage_Catalog_Block_Product_View_Media
+ */
+?>
+<?php
+	$meigee_blacknwhite_productpage = MAGE::helper('ThemeOptionsBlacknwhite')->getThemeOptionsBlacknwhite('meigee_blacknwhite_productpage');
+    $_product = $this->getProduct();
+    $_helper = $this->helper('catalog/output');
+    $productpage_moreviews = $meigee_blacknwhite_productpage['general']['moreviews'];
+    $helpImg = $this->helper('ThemeOptionsBlacknwhite/images');
+
+	$imgSize = 240;
+	
+	if ($_product->getBlacknwhiteProductimg() == 0):
+		$productimg = $meigee_blacknwhite_productpage['general']['productimg'];
+	else:
+		$productimg = $_product->getBlacknwhiteProductimg();
+		switch ($productimg) {
+			case 1:
+				$productimg = 'Cloud Zoom';
+			break;
+			case 2:
+				$productimg = 'Slider';
+			break;
+		}
+	endif;
+	
+	if($productimg == 'zoom'){
+		$isZoom = true;
+	}
+	
+	$meigee_blacknwhite_general = MAGE::helper('ThemeOptionsBlacknwhite')->getThemeOptionsBlacknwhite('meigee_blacknwhite_general');
+	$labelsoptions = $meigee_blacknwhite_general['productlabels'];
+	$labelsType = $meigee_blacknwhite_general['productlabels']['labelview'];
+?>
+<div class="product-image<?php echo ' '.$labelsType; ?>">
+<?php if($isZoom == true): ?>
+	<div class="img-holder<?php if($labelsoptions['labelsorder'] == 'sale_new'):?> labels-sale-new<?php endif; ?>">
+		<a id='zoom' class="cloud-zoom" data-zoom="showTitle: false, adjustX: -5, adjustY:-5, tint: '#fff', tintOpacity:0.6, position:'inside'" href="<?php echo $this->helper('catalog/image')->init($_product, 'image'); ?>"><?php
+			$_img = '<img id="image" src="' . $helpImg->getImg($_product, 'image', $imgSize, null) .'"" alt="'.$this->htmlEscape($this->getImageLabel()).'" title="'.$this->htmlEscape($this->getImageLabel()).'" />';
+			echo $_helper->productAttribute($_product, $_img, 'image');
+		?></a>
+		<?php echo MAGE::helper('ThemeOptionsBlacknwhite')->getProductLabels($_product, 'new'); ?>
+		<?php echo MAGE::helper('ThemeOptionsBlacknwhite')->getProductLabels($_product, 'sale'); ?>
+	</div>
+<?php else: ?>
+	<div id="more-views-slider-2" class="es-carousel-wrapper<?php if (count($this->getGalleryImages()) > 0){echo ' slider-on';}else{ echo ' slider-off';} ?>">
+		<ul class="carousel-ul">
+		<?php foreach ($this->getGalleryImages() as $_image): ?>
+			<li>
+				<a href="#" title="<?php echo $this->htmlEscape($_image->getLabel()) ?>"><img <?php echo $helpImg->getImgSources($_product, 'image', $imgSize, null, $_image->getFile()); ?> alt="<?php echo $this->htmlEscape($_image->getLabel()) ?>" /></a>
+			</li>
+		<?php endforeach; ?>
+		</ul>
+		<?php if (count($this->getGalleryImages()) > 0): ?>
+		<div class = 'next'><i class="fa fa-angle-right"></i></div>
+		<div class = 'prev unselectable'><i class="fa fa-angle-left"></i></div>
+		<?php endif; ?>
+	</div>
+	<?php if($labelsoptions['labelsorder'] == 'sale_new'):?><div class="labels-sale-new"><?php endif; ?>
+		<?php echo MAGE::helper('ThemeOptionsBlacknwhite')->getProductLabels($_product, 'new'); ?>
+		<?php echo MAGE::helper('ThemeOptionsBlacknwhite')->getProductLabels($_product, 'sale'); ?>
+	<?php if($labelsoptions['labelsorder'] == 'sale_new'):?></div><?php endif; ?>
+<?php endif; ?>
+<?php if (count($this->getGalleryImages()) > 0): ?>
+<div class="more-views-container">
+	<div class="more-views<?php if ($productpage_moreviews == 'moreviews_slider' && count($this->getGalleryImages()) > 3){echo ' slider-on';} ?>">
+		<h2><?php echo $this->__('More Views') ?></h2>
+		<?php if ($productpage_moreviews == 'moreviews_slider' && count($this->getGalleryImages()) > 3): ?>
+		<div id="more-views-slider" class="es-carousel-wrapper">
+			<ul class="carousel-ul">
+			<?php foreach ($this->getGalleryImages() as $_image): ?>
+				<li>
+					<a <?php if($isZoom == true): ?> class='cloud-zoom-gallery' data-zoom="useZoom: 'zoom', smallImage: '<?php echo $helpImg->getImg($this->getProduct(), 'thumbnail', 240, null, $_image->getFile()); ?>' " href="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile()); ?>"<?php else:?> href="javascript:void(0);"<?php endif; ?> title="<?php echo $this->htmlEscape($_image->getLabel()) ?>"><img <?php echo $helpImg->getImgSources($_product, 'thumbnail', 240, null, $_image->getFile()); ?> alt="<?php echo $this->htmlEscape($_image->getLabel()) ?>" /></a>
+				</li>
+			<?php endforeach; ?>
+			</ul>
+		</div>
+		<div class = 'next'><i class="fa fa-angle-right"></i></div>
+		<div class = 'prev unselectable'><i class="fa fa-angle-left"></i></div>
+		<?php else: ?>
+		<ul class="no-slider">
+			<?php foreach ($this->getGalleryImages() as $_image): ?>
+				<li>
+					<a <?php if($isZoom == true): ?> class='cloud-zoom-gallery' data-zoom="useZoom: 'zoom', smallImage: '<?php echo $helpImg->getImg($this->getProduct(), 'thumbnail', 240, null, $_image->getFile()); ?>' " href="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile()); ?>"<?php else:?> href="javascript:void(0);"<?php endif; ?> title="<?php echo $this->htmlEscape($_image->getLabel()) ?>"><img <?php echo $helpImg->getImgSources($_product, 'thumbnail', 240, null, $_image->getFile()); ?> alt="<?php echo $this->htmlEscape($_image->getLabel()) ?>" /></a>
+				</li>
+			<?php endforeach; ?>
+		</ul>
+		<?php endif; ?>
+	</div>
+</div>
+<?php endif; ?>
+</div>

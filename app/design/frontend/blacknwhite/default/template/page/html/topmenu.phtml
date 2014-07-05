@@ -1,0 +1,23 @@
+<?php
+/**
+ * Top menu for store
+ *
+ * @see Mage_Page_Block_Html_Topmenu
+ */
+?>
+<?php
+$_menu = $this->getHtml('level-top');
+$menuStatus = Mage::getStoreConfig('meigee_categoriesenhanced/options/status');
+if ($menuStatus == 1) {
+	$navAttr = 'class="nav-wide" id="nav-wide"';
+}
+else {
+	$navAttr = 'class="nav" id="nav"';
+}
+ 
+?>
+<nav class="nav-container">
+    <ul <?php echo $navAttr; ?>>
+	<?php echo $_menu; ?>
+    </ul>
+</nav>

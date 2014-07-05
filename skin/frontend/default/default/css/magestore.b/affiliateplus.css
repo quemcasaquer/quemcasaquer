@@ -1,0 +1,179 @@
+/* Affiliateplus stylesheet */
+.affiliate_message { margin: 10px 0px 0px 0px; }
+
+/* Banner-Links */
+#banner-view-list li.banner-view-item{ border-top: 2px solid #CCCCCC; margin-bottom: 45px; }
+#banner-view-list li.banner-view-item span.share{ float: right; }
+
+/* Referer */
+#referer_grid thead th a { color: #0A263C; }
+#referer_grid thead th a:hover{ color: #0A263C; }
+
+/* Miniform request money */
+.affiliateplus_form_request { overflow: hidden; margin-bottom: 10px; }
+
+/* Tiers */
+#tiers_grid thead th a { color: #0A263C; }
+#tiers_grid thead th a:hover{ color: #0A263C; }
+
+/* Payment Method */
+li.payment_method_form { margin-left: 21px; }
+#affiliateplus_payment_request_form input.radio { float:left; margin: 3px 5px 0px 0px; }
+
+/*  Contact Group */
+#group-table tr { cursor:pointer;}
+#group-table tr:hover{ background-color:#FCF5DD}
+
+
+
+/* Refer a Friend */
+#affiliateplus-sidebar {
+	width: 345px;
+}
+
+#affiliateplus-sidebar .allow .step-title {
+	cursor: pointer;
+	border-bottom: 1px solid #BBAFA0;
+}
+
+#affiliateplus-sidebar .allow .step-title:hover{
+	background: #F9F3E3;
+}
+
+#affiliateplus-sidebar .allow .step-title:hover .number{
+	background: #F18200;
+	border-color: #F19900;
+	color: #FFF;
+}
+
+#affiliateplus-sidebar .allow .step-title:hover h2{
+	color: #F18200;
+}
+	
+#affiliateplus-sidebar .step, #affiliateplus-sidebar p.box-content{
+	padding: 8px;
+}
+
+#affiliateplus-sidebar .form-list textarea{
+	width: 318px;
+	height: 100px;
+}
+
+#affiliateplus-sidebar .step-title span.logo{
+	width: 16px;
+	height: 16px;
+	margin-right: 4px;
+	border: none;
+}
+
+/* Personal */
+#affiliateplus-sidebar #input-personal-url{
+	width: 219px;
+	float: right;
+}
+#affiliateplus-sidebar #input-personal-url #personal_url{
+	width: 215px;
+}
+#affiliateplus-sidebar #personal_affiliate_url{
+	width: 327px;
+	text-align: center;
+}
+
+/* Email */
+#affiliateplus-sidebar .step-title span.email-logo{
+	background: url('images/email-grayscale.png') no-repeat;
+}
+#affiliateplus-sidebar .active .step-title span.email-logo, #affiliate-opc-email .step-title:hover span.logo{
+	background: url('images/email-color.png') no-repeat;
+}
+#affiliateplus-contact-list .form-list .input-box, #affiliateplus-contact-list .form-list .input-box select{
+	width: 100%;
+}
+#affiliateplus-contact-list .buttons-set{
+	padding-top: 7px;
+	border-top: 0px;
+	margin-top: 0px;
+}
+
+/* Google */
+#affiliateplus-sidebar .step-title span.google-logo{
+	background: url('images/gplus-grayscale.png') no-repeat;
+}
+#affiliateplus-sidebar .active .step-title span.google-logo, #affiliate-opc-google .step-title:hover span.logo{
+	background: url('images/gplus-color.png') no-repeat;
+}
+
+/* Facebook */
+#affiliateplus-sidebar .step-title span.facebook-logo{
+	background: url('images/facebook-grayscale.png') no-repeat;
+}
+#affiliateplus-sidebar .active .step-title span.facebook-logo, #affiliate-opc-facebook .step-title:hover span.logo{
+	background: url('images/facebook-color.png') no-repeat;
+}
+
+/* Tweeter */
+#affiliateplus-sidebar .step-title span.twitter-logo{
+	background: url('images/tweet.png') no-repeat 0px -17px;
+}
+#affiliateplus-sidebar .active .step-title span.twitter-logo, #affiliate-opc-twitter .step-title:hover span.logo{
+	background: url('images/tweet.png') no-repeat 0px 3px;
+}
+
+#affiliateplus-sidebar .tweeter span.span{
+	-webkit-border-radius: 3px;
+	border: #CCC solid 1px;
+	padding: 2px;
+	-moz-border-radius: 3px; border-radius: 3px;
+	background-image: -moz-linear-gradient(top, white, #DEDEDE);
+	background-image: -webkit-gradient(linear, left top, left bottom, from(white), to(#DEDEDE));
+	background-image: -ms-linear-gradient(top, white, #DEDEDE);
+	background-image: linear-gradient(top, white, #DEDEDE);
+	background-image: -o-linear-gradient(top, white, #DEDEDE);
+}
+#affiliateplus-sidebar button.tweeter span.span span{
+	background: url('images/tweet.png') no-repeat -26px 3px;
+	padding: 0px 3px 0px 24px;
+	color: #1E7EC8;
+	margin-left: 2px;
+}
+
+
+#affiliateplus-sidebar .buttons-set{
+	padding-top: 7px;
+	border-top: 0px;
+	margin-top: 0px;
+}
+
+#affiliateplus-sidebar .affiliateplus-opc li{
+	margin-bottom: 8px;
+}
+
+/* End Refer Friend */
+
+/* Commissions */
+ul.affiliate-commission-tab{
+	height: 27px;
+	font-weight: bold;
+	margin-top: 10px;
+}
+ul.affiliate-commission-tab li.affiliate-tab-item{
+	float: left;
+	height: 20px;
+	border: 1px solid #E2E2E2;
+	border-bottom: 0px;
+	margin: 1px 2px;
+	padding: 3px 6px;
+	background-color: #E2E2E2;
+}
+ul.affiliate-commission-tab li.active-tab{
+	font-size: 1.1em;
+	background-color: #FFF;
+	color: #DE5400;
+}
+ul.affiliate-commission-tab li a{
+	text-decoration: none;
+	color: #999;
+}
+/* End commissions */
+
+/* End */

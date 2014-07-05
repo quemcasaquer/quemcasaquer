@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config>
+   <modules>
+	  <Meigee_MeigeewidgetsBlacknwhite>
+		 <active>true</active>
+		 <codePool>local</codePool>
+		 <depends>
+            <Mage_Cms />
+            <Meigee_ThemeOptionsBlacknwhite />
+         </depends>
+	  </Meigee_MeigeewidgetsBlacknwhite>
+   </modules>
+</config>

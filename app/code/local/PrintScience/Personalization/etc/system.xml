@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<config>
+    <sections>
+        <catalog translate="label" module="catalog">
+            <groups>
+                <personalization translate="label">
+                    <label>Product Personalization</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>310</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>   
+                    <fields>
+                        <api_username transalte="label">
+                            <label>API Username</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>                             
+                        </api_username>
+                        <api_password transalte="label">
+                            <label>API Key</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>                             
+                        </api_password>
+                        <api_version translate="label">
+                            <label>Api Version</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>printscience_personalization/system_config_source_apiVersion</source_model>
+                        </api_version>
+                        <api_url transalte="label">
+                            <label>API URL</label>
+                            <frontend_type>text</frontend_type>
+                            <backend_model>printscience_personalization/system_config_backend_apiUrl</backend_model>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>                             
+                        </api_url>
+                        <api_image_url transalte="label">
+                            <label>API Image URL</label>
+                            <frontend_type>text</frontend_type>
+                            <backend_model>printscience_personalization/system_config_backend_apiUrl</backend_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </api_image_url>
+						<window_type transalte="label">
+                            <label>Window type for Design Online applications</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>printscience_personalization/system_config_source_windowType</source_model>
+                        </window_type>
+						<background_color transalte="label">
+                            <label>Background color of Margin surround the modal window</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>7</sort_order>
+							<validate>color</validate>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+							<comment>Specify the background color.</comment>                             
+                        </background_color>
+						<margin_width transalte="label">
+                            <label>Width of Margin surround the modal window</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>8</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+							<comment>(px)</comment>                             
+                        </margin_width>
+						<window_opacity transalte="label">
+                            <label>Modal window opacity</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>8</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+							<comment>Specify the modal window opacity.</comment>                             
+                        </window_opacity>
+                    </fields>             
+                </personalization>
+            </groups>
+        </catalog>
+    </sections>
+</config>

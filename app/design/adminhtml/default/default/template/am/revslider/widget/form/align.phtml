@@ -1,0 +1,57 @@
+<?php
+/**
+ * @category    AM
+ * @package     AM_RevSlider
+ * @copyright   Copyright (C) 2008-2013 ArexMage.com. All Rights Reserved.
+ * @license     GNU General Public License version 2 or later
+ * @author      ArexMage.com
+ * @email       support@arexmage.com
+ */
+?>
+<tr>
+    <td class="label"><?php echo $this->getElement()->getLabel() ?></td>
+    <td class="" style="width: 100%;padding-left: 5px">
+        <table class="align_table" id="<?php echo $this->getElement()->getHtmlId()?>">
+            <tr>
+                <td><a href="#" data-id="1" data-hor="left" data-ver="top"></a></td>
+                <td><a href="#" data-id="2" data-hor="center" data-ver="top"></a></td>
+                <td><a href="#" data-id="3" data-hor="right" data-ver="top"></a></td>
+            </tr>
+            <tr>
+                <td><a href="#" data-id="4" data-hor="left" data-ver="middle"></a></td>
+                <td><a href="#" data-id="5" data-hor="center" data-ver="middle"></a></td>
+                <td><a href="#" data-id="6" data-hor="right" data-ver="middle"></a></td>
+            </tr>
+            <tr>
+                <td><a href="#" data-id="7" data-hor="left" data-ver="bottom"></a></td>
+                <td><a href="#" data-id="8" data-hor="center" data-ver="bottom"></a></td>
+                <td><a href="#" data-id="9" data-hor="right" data-ver="bottom"></a></td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<style>
+    .align_table td{
+        border: 1px solid #000;
+        padding: 2px;
+    }
+    .align_table td a{
+        text-decoration: none;
+        display: block;
+        width: 20px;
+        height: 20px;
+        background-color: #888;
+        cursor: pointer;
+    }
+    .align_table td a.selected{
+        background-color: #ED6502;
+        cursor: default;
+    }
+    .align_table.disabled td{
+        border: 1px solid #ACACAC;
+    }
+    .align_table.disabled td a{
+        background-color: #ACACAC;
+        cursor: default;
+    }
+</style>

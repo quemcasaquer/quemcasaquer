@@ -1,0 +1,32 @@
+<?php
+/**
+ * Magento
+ *
+ * @category    design
+ * @package     meigeetheme_default
+ * @copyright   Copyright (c) 2012 MeigeeTeam. (http://www.meigeeteam.com)
+ */
+ $meigee_blacknwhite_general = MAGE::helper('ThemeOptionsBlacknwhite')->getThemeOptionsBlacknwhite('meigee_blacknwhite_general');
+ $footer_status = $meigee_blacknwhite_general['footer']['footer_status'];
+ $footer_static = $meigee_blacknwhite_general['footer']['footer_static'];
+?>
+<footer id="footer"<?php if ($footer_status == 0): ?> class="default-footer"<?php endif; ?>>
+	ASDF
+        <?php if ($footer_status == 1): ?>
+		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId($footer_static)->toHtml() ?>
+	<?php else: ?>
+		<div class="footer-bottom-wrapper">
+			<div class="container_12">
+				<div class="grid_12">
+					<address><?php echo $this->getCopyright(); ?></address>
+					<?php echo $this->getChildHtml('store_switcher'); ?>
+					<div class="footer-links">
+						<?php echo $this->getChildHtml('cms_footer_links') ?>
+						<?php echo $this->getChildHtml('footer_links'); ?>
+					</div>
+				</div>
+				<div class="clear"></div>
+			</div>
+		</div>
+	<?php endif; ?>
+</footer>

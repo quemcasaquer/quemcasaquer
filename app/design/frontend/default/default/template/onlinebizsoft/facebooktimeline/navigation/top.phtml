@@ -1,0 +1,65 @@
+<?php
+
+/**
+ * Export Product data to xml data
+ *
+ * @category   OnlineBiz
+ * @package    OnlineBiz_Facebookstore
+ * @author     Nguyen Viet Tung (http://onlinebizsoft.com)
+ */
+?>
+
+<?php 
+$cartTotal = null;
+//$total = $this->helper('checkout')->formatPrice(Mage::getSingleton('checkout/cart')->getQuote()->getGrandTotal(), true, false); 
+$total = Mage::helper('core')->currency(Mage::getSingleton('checkout/cart')->getQuote()->getGrandTotal(), true, false); 
+if($total)
+	$cartTotal = ' ('.$total.')';
+?>
+<?php $_menu = $this->renderCategoriesMenuHtml(0,'level-top') ?>
+
+<div id="headNav">
+    <ul id="nav">
+		<li class="level0 nav-1 level-top first parent" id="">
+			<a href="" onclick="setLocation('<?php echo $this->getUrl('facebookstore?limit=all', array('_secure'=>Mage::app()->getStore()->isCurrentlySecure()?true : false))?>'); return false;"><?php echo $this->__('Home')?></a>
+		</li>
+		<?php if($_menu): ?>
+		<li class="level0 nav-1 level-top first parent" id="">
+			<a class="level-top" href="#">
+			<span><?php echo $this->__('Catalog')?></span>
+			</a>
+			<ul class="level0">
+			<?php echo $_menu ?>
+			</ul>
+		</li>
+		<?php endif ?>
+		<li class="level0 nav-1 level-top first parent" id="">
+			<a title="Basket" href="<?php echo $this->getUrl('facebookstore/index/cart', array('_secure'=>Mage::app()->getStore()->isCurrentlySecure()?true : false))?>"><?php echo $this->__('Your Basket')?><?php echo $cartTotal?></a>
+		</li>
+    </ul>
+	<div class="link">
+		<?php if(Mage::getStoreConfig('facebookstore/connect/enabled')&& !Mage::getSingleton('customer/session')->isLoggedIn()):?>
+		<a rel="facebook-connect" role="button" class="mls uiButton" title="Facebook Connect" href="#"><span class="uiButtonText"><?php echo $this->__('Login with Facebook')?></span></a>
+		<?php endif;?>
+		<?php if(Mage::getStoreConfig('facebookstore/invite_friend/enabled')):?>
+			<?php 
+			$modules = array_keys((array)Mage::getConfig()->getNode('modules')->children());
+			sort($modules);
+			$affInstalled = false;
+			foreach ($modules as $moduleName) {
+				if ($moduleName == 'OnlineBiz_Affiliate') {
+					$affInstalled = true;
+					break;
+				}
+			}
+			$link = Mage::getBaseUrl();
+			if($affInstalled && Mage::getSingleton('customer/session')->isLoggedIn())
+				$link.='?ref='.Mage::getSingleton('customer/session')->getCustomer()->getId();
+			$messageContent = Mage::getStoreConfig('facebookstore/invite_friend/template_message');
+			$messageContent = str_ireplace("{store_link}", $link, $messageContent);
+			?>
+			<a onclick="FB.ui({ method:'apprequests', message:'<?php echo $messageContent?>', data: '', title: 'Invite Friends'});return false;" href="#" role="button"class="mls uiButton"><span class="uiButtonText"><?php echo $this->__('Invite Friends')?></span></a>
+		<?php endif ?>
+	</div>
+</div>
+

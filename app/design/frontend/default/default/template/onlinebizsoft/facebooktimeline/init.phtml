@@ -1,0 +1,40 @@
+
+<div id="fb-root"></div>
+<script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
+<script type="text/javascript">
+//<![CDATA[
+
+window.fbAsyncInit = function() {
+	FB.init({
+		appId  : <?php echo json_encode($this->getApiKey()) ?>,
+		status : true, // check login status
+		oauth  : true,
+		cookie : true, // enable cookies to allow the server to access the session
+		xfbml  : true,  // parse XFBML
+		channelUrl : '<?php echo $this->getChannelUrl() ?>'  // custom channel
+	});
+	FB.Canvas.setAutoResize();
+	Event.fire(window, "facebook:fbAsyncInit");
+};
+/*
+(function() {
+	var e = document.createElement('script');
+	e.src = document.location.protocol + '//connect.facebook.net/<?php echo $this->getLocale() ?>/all.js';
+	e.async = true;
+	document.getElementById('fb-root').appendChild(e);
+}());
+*/
+document.observe('click', function(e){
+	var target = e.findElement('a[rel^=facebook-invite]') || e.findElement('a[rel^=facebook-connect]') || e.findElement('button[rel^=facebook-connect]');
+	if (target && target.readAttribute('rel')=='facebook-connect') {
+		e.stop();
+		try{
+			FB.login(function(response){
+				if(response.status=='connected') setLocation('<?php echo $this->getConnectUrl() ?>');
+			}, {scope:<?php echo $this->getRequiredPermissions() ?>});
+		}catch(error){}
+	}
+	
+});
+//]]>
+</script>

@@ -1,0 +1,39 @@
+<div class="block block-layered-nav">
+    <div class="block-title">
+        <strong><span>Navegar Por</span></strong>
+    </div>
+    <div class="block-content">
+        <dl id="narrow-by-list2">
+            <dt>Categoria</dt>
+            <dd>
+                <ol>
+                                                        <li>
+                        <a href="http://quemcasaquer.com/recepcao/placas-para-cadeira.html?___SID=U">Placas de Cadeira</a> (16)
+                    </li>
+                                                                            <li>
+                        <a href="http://quemcasaquer.com/recepcao/placas-para-reservar-mesas.html?___SID=U">Placas de Reservar Mesas</a> (3)
+                    </li>
+                                                                            <li>
+                        <a href="http://quemcasaquer.com/recepcao/placas-de-banheiro.html?___SID=U">Placas de Banheiro</a> (17)
+                    </li>
+                                                                            <li>
+                        <a href="http://quemcasaquer.com/recepcao/tags-para-carro.html?___SID=U">Tags para Carro</a> (2)
+                    </li>
+                                                                            <li>
+                        <a href="http://quemcasaquer.com/recepcao/livro-de-visitas.html?___SID=U">Livro de Visitas</a> (23)
+                    </li>
+                                                                            <li>
+                        <a href="http://quemcasaquer.com/recepcao/tacas-para-brinde.html?___SID=U">Taças para Brinde</a> (9)
+                    </li>
+                                                                            <li>
+                        <a href="http://quemcasaquer.com/recepcao/aderecos-para-pista-de-danca.html?___SID=U">Adereços pista de dança</a> (9)
+                    </li>
+                                                                            <li>
+                        <a href="http://quemcasaquer.com/recepcao/bottons.html?___SID=U">Bottons</a> (3)
+                    </li>
+                                                    </ol>
+            </dd>
+        </dl>
+        <script type="text/javascript">decorateDataList('narrow-by-list2')</script>
+    </div>
+</div>

@@ -1,0 +1,317 @@
+<?xml version="1.0"?>
+<config>
+	<sections>
+		<facebookstore translate="label" module="facebookstore">
+			<class>separator-top</class>
+			<label>Facebook Store</label>
+			<tab>obbase</tab>
+			<frontend_type>text</frontend_type>
+			<sort_order>1</sort_order>
+			<show_in_default>1</show_in_default>
+			<show_in_website>1</show_in_website>
+			<show_in_store>1</show_in_store>
+			<groups>
+                <general translate="label">
+					<label>General Settings</label>
+					<sort_order>1</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<enabled translate="label">
+							<label>Enable</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>0</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment></comment>
+						</enabled>
+						<key>
+                            <label>License Key</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </key>
+						<category_root_id translate="label">
+							<label>Root Category ID</label>
+							<comment>Root category to be shown on Facebook Page, Put "0" to show all store categories.</comment>
+							<frontend_type>text</frontend_type>
+							<sort_order>5</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<can_be_empty>1</can_be_empty>
+						</category_root_id>
+						<frontend_per_page_values translate="label">
+							<label>Products per Page</label>
+							<comment></comment>
+							<frontend_type>text</frontend_type>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<can_be_empty>1</can_be_empty>
+						</frontend_per_page_values>
+						<listview translate="label">
+							<label>Products listing view as</label>
+							<comment></comment>
+							<frontend_type>select</frontend_type>
+                            <source_model>facebookstore/adminhtml_system_config_source_view</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+						</listview>
+						<fanpage_mode translate="label">
+							<label>Facebook Page Style</label>
+							<comment></comment>
+							<frontend_type>select</frontend_type>
+                            <source_model>facebookstore/adminhtml_system_config_source_mode</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+						</fanpage_mode>
+						<checkout_enabled translate="label">
+							<label>Enable Checkout On Facebook</label>
+							<comment></comment>
+							<frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+						</checkout_enabled>
+					</fields>
+				</general>
+				<connect translate="label" module="facebookstore">
+                    <label>Facebook Connect Options</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>2</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enabled translate="label">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabled>
+                        <api_key translate="label" module="facebookstore">
+                            <label>Application Api Key</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </api_key>
+						<secret translate="label" module="facebookstore">
+                            <label>Application Secret</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </secret>
+						<locale translate="label" module="facebookstore">
+                            <label>Locale</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>facebookstore/adminhtml_system_config_source_locale</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </locale>
+                    </fields>
+	            </connect>
+				<postwall>
+					<label>Personal Wall Posting(when place order)</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>3</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+						<enabled translate="label">
+                            <label>Enable</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabled>
+						<!--
+						<post_to_fiends>
+							<label>Post message to friend's wall</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+						</post_to_fiends>
+						-->
+						<template_message_place_order translate="label">
+							<label>Wall message title</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>Message title can contain variable:<![CDATA[ <br/> ]]> <![CDATA[{product_quantity}]]> - product's quantity<![CDATA[ <br/>{store_link}]]> - store's link</comment>
+                        </template_message_place_order>
+						<template_description_place_order translate="label">
+							<label>Wall message description</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>40</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>Message description can contain variable:<![CDATA[ <br/> ]]> <![CDATA[{product_name}]]> - product's name<![CDATA[ <br/>{product_link}]]> - product's link<![CDATA[ <br/>{product_quantity}]]> - product's quantity<![CDATA[ <br/>{product_price}]]> - product's price</comment>
+                        </template_description_place_order>
+						<post_image>
+							<label>Post product Image</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+						</post_image>	
+					</fields>
+				</postwall>
+				<register translate="label">
+                    <label>Personal Wall Posting(when register an account)</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>4</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+						<enable translate="label">
+                            <label>Enable</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enable>				
+						<template_message_connect_via_facebook translate="label">
+							<label>Wall message</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>4</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>Message can contain variable:<![CDATA[ <br/> ]]> <![CDATA[{user_name}]]> - user name<![CDATA[ <br/>{store_link}]]> - link to your main store</comment>
+                        </template_message_connect_via_facebook>
+					</fields> 
+				</register>	
+				<invite_friend>
+					<label>Invite Friends</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>5</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+						<enabled translate="label">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabled>
+						<template_message translate="label">
+							<label>Message</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>Message can contain variable:<![CDATA[ <br/>{store_link}]]> - link to your main site</comment>
+                        </template_message>
+					</fields>
+				</invite_friend>
+				<like_discount>
+					<label>Show Discount to Fan</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>6</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+						<enabled translate="label">
+                            <label>Enabled</label>
+							<comment>Show discount coupon to whom likes your store</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabled>
+						<discount translate="label">
+							<label>Discount Information</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+                        </discount>
+					</fields>
+				</like_discount>
+				<homepage translate="label" module="facebookstore">
+					<label>Homepage Settings</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>7</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<display_type translate="label">
+							<label>Display Option</label>
+							<comment></comment>
+							<frontend_type>select</frontend_type>
+                            <source_model>facebookstore/adminhtml_system_config_source_homepage</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+						</display_type>
+						<product_ids>
+							<label>Product Ids</label>
+							<comment>Use for Featured Product Option, seperated by commas.</comment>
+							<frontend_type>text</frontend_type>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</product_ids>
+						<text_content>
+							<label>Promotion Text Content</label>
+							<comment></comment>
+							<frontend_type>textarea</frontend_type>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</text_content>
+					</fields>
+				</homepage>
+            </groups>
+		</facebookstore>
+	</sections>
+</config>

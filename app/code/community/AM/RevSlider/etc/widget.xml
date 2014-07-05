@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+@category    AM
+@package     AM_RevSlider
+@copyright   Copyright (C) 2008-2013 ArexMage.com. All Rights Reserved.
+@license     GNU General Public License version 2 or later
+@author      ArexMage.com
+@email       support@arexmage.com
+-->
+<widgets>
+    <revslider type="revslider/slider_preview" translate="name description">
+        <name>AM Revolution Slider</name>
+        <description>Adds a slider to block / page</description>
+        <parameters>
+            <id translate="label">
+                <label>Slider ID</label>
+                <visible>1</visible>
+                <required>1</required>
+                <type>select</type>
+                <source_model>revslider/source_slider</source_model>
+            </id>
+        </parameters>
+    </revslider>
+</widgets>

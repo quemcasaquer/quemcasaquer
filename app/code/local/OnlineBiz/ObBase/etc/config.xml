@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <OnlineBiz_ObBase>
+      <version>0.1.0</version>
+    </OnlineBiz_ObBase>
+  </modules>
+  
+	<global>
+		<blocks>
+		    <obbase>
+				<class>OnlineBiz_ObBase_Block</class>
+		    </obbase>
+			<adminhtml>
+				<rewrite>
+					<notification_window>OnlineBiz_ObBase_Block_Notification_Window</notification_window>
+				</rewrite>	
+			</adminhtml>
+		</blocks>
+		<resources>
+		  <obbase_setup>
+			  <setup>
+				  <module>OnlineBiz_ObBase</module>
+			  </setup>
+			  <connection>
+				  <use>core_setup</use>
+			  </connection>
+		  </obbase_setup>
+		  <obbase_write>
+			  <connection>
+				  <use>core_write</use>
+			  </connection>
+		  </obbase_write>
+		  <obbase_read>
+			  <connection>
+				  <use>core_read</use>
+			  </connection>
+		  </obbase_read>
+		</resources>
+		<models>
+			<obbase>
+				<class>OnlineBiz_ObBase_Model</class>
+			</obbase>
+		</models>
+
+	  <helpers>
+		  <obbase>
+			  <class>OnlineBiz_ObBase_Helper</class>
+		  </obbase>
+	  </helpers>
+	</global>
+	
+	<adminhtml>
+		<layout>
+			<updates>
+				<obbase module="obbase">
+					<file>onlinebizsoft/obbase.xml</file>
+				</obbase>
+			</updates>
+		</layout>
+		
+		<acl>
+			<resources>
+				<all>
+					<title>Allow Everything</title>
+				</all>
+				<admin>
+					<children>
+						<system>
+							<children>
+								<config>
+									<children>
+										<obbase>
+											<title>Extentions Manager</title>
+										</obbase>
+										<storeview>
+                                            <title>OnlineBiz Extensions Store</title>
+                                        </storeview>
+										<conflict>
+                                            <title>Extensions Conflict</title>
+                                        </conflict>
+									</children>
+								</config>
+							</children>
+						</system>
+					</children>
+				</admin>
+			</resources>
+		</acl>
+		<events>
+            <controller_action_predispatch>
+                <observers>
+                    <ob_extensions>
+                        <type>singleton</type>
+                        <class>obbase/feed_extensions</class>
+                        <method>check</method>
+                    </ob_extensions>
+                    <ob_upds>
+                        <type>singleton</type>
+                        <class>obbase/feed_updates</class>
+                        <method>check</method>
+                    </ob_upds>
+                </observers>
+            </controller_action_predispatch>
+        </events>
+	</adminhtml>
+</config>

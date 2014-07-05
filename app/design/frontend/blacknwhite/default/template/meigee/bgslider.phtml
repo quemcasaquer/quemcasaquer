@@ -1,0 +1,22 @@
+<?php
+$meigee_blacknwhite_bgslider = MAGE::helper('ThemeOptionsBlacknwhite')->getThemeOptionsBlacknwhite('meigee_blacknwhite_bgslider');
+$slider = $meigee_blacknwhite_bgslider;
+$mediaUrl = MAGE::helper('ThemeOptionsBlacknwhite')->getThemeOptionsBlacknwhite('mediaurl');
+if ($slider['slideroptions']['enabled']) {
+    $html = "";
+    $i = 0;
+    foreach ($slider['slides'] as $slide) {
+        if ($i > 0) {
+            $html .= ', ';
+        }
+        $html .= '"' . $mediaUrl . $slide . '"';
+        $i++;
+    }
+?>
+<script>
+        jQuery(window).load(function() {
+            jQuery.backstretch([<?php echo $html;?>], {duration: <?php echo $slider['slideroptions']['duration']; ?>, fade: <?php echo $slider['slideroptions']['fade']; ?>});
+        });
+</script>
+<?php 
+}

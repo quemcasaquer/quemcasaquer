@@ -1,0 +1,48 @@
+<?php
+/**
+ * @category    AM
+ * @package     AM_RevSlider
+ * @copyright   Copyright (C) 2008-2013 ArexMage.com. All Rights Reserved.
+ * @license     GNU General Public License version 2 or later
+ * @author      ArexMage.com
+ * @email       support@arexmage.com
+ */
+?>
+<?php
+$element = $this->getElement();
+$id = $element->getHtmlId();
+?>
+<tr>
+    <td class="label">
+        <?php echo $this->getElement()->getLabel()?>
+    </td>
+    <td class="value">
+        <?php foreach ($this->getAll() as $data):?>
+        <div class="css-slider-wrapper">
+        <div id="<?php echo $data['id']?>" class="css-slider"></div>
+        <input type="hidden" id="<?php echo $data['id'] ?>_value" name="<?php echo $element->getName()?>"/>
+        </div>
+        <?php endforeach ?>
+    </td>
+</tr>
+<script type="text/javascript">
+    <?php foreach ($this->getAll() as $i => $data):?>
+    jQuery('#<?php echo $data['id']?>').slider({
+        range: 'min',
+        min: <?php echo $element->getData('min')?>,
+        max: <?php echo $element->getData('max')?>,
+        slide: function(e,u){
+            jQuery(u.handle).text(u.value);
+            jQuery('#<?php echo $data['id'] ?>_value').val(u.value + 'px');
+        },
+        change: function(e,u){
+            jQuery(u.handle).text(u.value);
+            jQuery('#<?php echo $data['id'] ?>_value').val(u.value + 'px');
+        },
+        create: function(){
+            jQuery(this).data('sid', <?php echo $i ?>);
+            jQuery(this).find('a.ui-slider-handle').attr('title', '<?php echo $data['label']?>');
+        }
+    });
+    <?php endforeach ?>
+</script>

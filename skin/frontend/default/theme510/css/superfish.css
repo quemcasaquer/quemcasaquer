@@ -1,0 +1,215 @@
+.nav-container {
+  position: relative;
+  z-index: 2;
+  background:#ffffff;
+}
+.cms-home .nav-container { margin-top: 0px; margin-left: -30px; margin-bottom: 0px;}
+.sf-menu {
+  font-size: 10px;
+  line-height: 8px;
+  margin: -50px;
+}
+.sf-menu li {
+  float: left;
+  text-align: left;
+  position: relative;
+  border-right: 0px solid #3b3b3b;
+  z-index: 99;
+}
+.sf-menu > li:first-child {border-left: 0px solid #3b3b3b;}
+.sf-menu li a {
+  display: block;
+  color: #d15a9d;
+  text-decoration: none;
+  position: relative;
+  text-transform: uppercase;
+  font-family: 'Fjalla One', sans-serif;
+}
+.sf-menu > li > a > span {
+  display: block;
+  font-size: 17px;
+  line-height: 15px;
+  cursor: pointer;
+  white-space: nowrap;
+  padding: 0px 15px 10px;
+}
+.sf-menu li ul a span {  white-space: normal;}
+.sf-menu > li.parent > a > span {  background: url(../images/marker-8.gif) center -50px no-repeat;}
+
+.sf-menu > li.sfHover > a,
+.sf-menu> li > a:hover,
+.sf-menu > li.active > a {  color: #7fb5c9;}
+.sf-menu li a:hover {  text-decoration: none;}
+
+.sf-menu > li > a:before {
+  content: ".";
+  font-size: 0;
+  position: relative; 
+  width: 0%; 
+  height: 5px; 
+  background: #feeaf3; 
+  left: 50%; 
+  bottom: 0;
+} 
+.sf-menu > li.sfHover > a:before,
+.sf-menu> li > a:hover:before,
+.sf-menu > li.active > a:before { width: 100%; left: 0;}
+
+.sf-menu ul {
+  position: absolute;
+  top: -999em;
+  z-index: 99;
+  width: 192px;
+  display: none;
+  background: #feeaf3;
+  padding: 20px 30px;
+  margin-top: 5px;
+}
+.sf-menu li li.last {  border-bottom: none;}
+.sf-menu li li.sfHover,
+.sf-menu li li,
+.sf-menu li li:hover {
+  float: none;
+  border-right: none;
+  position: relative;
+  padding: 4px 0;
+}
+.sf-menu li li a:before { content: "\f0a9" ;font-size: 16px; color: #e39ec5; margin-right: 10px;}
+
+.sf-menu li li > a:hover:before,
+.sf-menu li li.sfHover > a:before,
+.sf-menu li li.active > a:before {color: #7fb5c9;}
+
+.sf-menu li li a,
+.sf-menu li.sfHover li a,
+.sf-menu li.active li a {
+  display: inline-block;
+  background: none;
+  font-size: 14px;
+  line-height: 15px;
+  color: #787878;
+  padding: 0;
+}
+.sf-menu li li > a:hover,
+.sf-menu li li.sfHover > a,
+.sf-menu li li.active > a {  color: #3ae6db;}
+
+.sf-menu ul ul {
+  position: absolute;
+  top: -999em;
+  z-index: 99;
+  width: 192px;
+}
+.sf-menu li:hover ul,
+.sf-menu li.sfHover ul {
+  left: 0px;
+  top: 45px;
+  /* match top ul list item height */
+}
+
+ul.sf-menu li:hover li ul,
+ul.sf-menu li.sfHover li ul {
+  top: -999em;
+}
+ul.sf-menu li li:hover ul,
+ul.sf-menu li li.sfHover ul {
+  left: 193px;
+  /* match ul width */
+  top: 0;
+}
+ul.sf-menu li li:hover li ul,
+ul.sf-menu li li.sfHover li ul {
+  top: -999em;
+}
+ul.sf-menu li li li:hover ul,
+ul.sf-menu li li li.sfHover ul {
+  left: 193px;
+  /* match ul width */
+  top: 0;
+}
+@media only screen and (min-width: 1200px) and (max-width: 1280px) { 
+  .sf-menu {margin: 0 -10px;}
+}
+@media only screen and (min-width: 980px) {
+    #menu-icon,
+    .sf-menu-phone {  display: none !important;}
+}
+@media only screen and (max-width: 979px) {
+  .nav-container {background: none; }
+  .cms-home .nav-container {margin-bottom: 20px;}
+  .nav-container:before {
+    content: ".";
+    font-size: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 60px;
+    width: 100%;
+    background: #feeaf3;
+    z-index: -1;
+  }
+  .sf-menu,
+  .sf-menu-phone {display: none;}
+  /* menu icon */
+  #menu-icon {
+    font-family: 'Fjalla One', sans-serif;
+    display: block;
+    background: url(../images/menu-icon-bg.png) left 18px no-repeat;
+    font-size: 28px;
+    line-height: 30px;
+    color: #3e3e3e;
+    cursor: pointer;
+    text-transform: uppercase;
+    padding: 16px 0 0 40px;
+    height: 44px;
+    margin: 0 10px;
+  }
+
+  #menu-icon.active { background-position: left -40px;  }
+
+  .sf-menu-phone {
+    font-family: 'Fjalla One', sans-serif;
+    background: #feeaf3;
+    position: relative;
+    padding:0;
+    z-index: 2;
+    border: 1px solid #d3d3d3; 
+  }
+  .sf-menu-phone li { padding: 10px 20px;  position: relative; font-size: 18px; text-transform: uppercase;  }
+  .sf-menu-phone > li {  border-bottom: 1px solid #d3d3d3; }
+  .sf-menu-phone li a { display: inline-block;  color: #3e3e3e;  }
+  .sf-menu-phone li a:hover { color: #7fb5c9; }
+  .sf-menu-phone li li {font-size: 14px; padding: 5px 0; }
+  .sf-menu-phone li li.last { padding-bottom: 0;  }
+  .sf-menu-phone li strong {
+    position: absolute;
+    display: block;
+    background: url(../images/toogle-button2.png) center -54px no-repeat;
+    top: 4px;
+    right: 0;
+    height: 24px;
+    width: 24px;
+  }
+  .sf-menu-phone > li > strong {top:8px; right: 10px;}
+  .sf-menu-phone li strong:hover { cursor: pointer; }
+  .sf-menu-phone li strong.opened { background-position: center 7px; }
+
+  /* dropdown */
+  .sf-menu-phone ul {  width: auto;  padding: 8px 0 0 20px;  display: none;  }
+  .sf-menu-phone > li.active > a > span {color: inherit;}
+  .sf-menu-phone > li.active > a,
+  .sf-menu-phone > li > a:hover { color: #7fb5c9;  }
+
+  .sf-menu-phone li li a {color: #787878;}
+  .sf-menu-phone li li.active > a,
+  .sf-menu-phone li li a:hover {color: #3ae6db;}
+}
+
+@media only screen and (min-width: 980px) and (max-width: 1199px) { 
+  .sf-menu {margin: 0 -10px;}
+}
+@media only screen and (min-width: 768px) and (max-width: 979px) { 
+  .cms-home .nav-container {margin-bottom: 20px;}
+  #menu-icon,
+  .sf-menu-phone {margin: 0 -11px;}
+}

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <OnlineBiz_Facebookstore>
+            <active>true</active>
+            <codePool>local</codePool>
+        </OnlineBiz_Facebookstore>
+    </modules>
+</config> 

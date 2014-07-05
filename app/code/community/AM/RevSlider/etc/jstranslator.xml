@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+@category    AM
+@package     AM_RevSlider
+@copyright   Copyright (C) 2008-2013 ArexMage.com. All Rights Reserved.
+@license     GNU General Public License version 2 or later
+@author      ArexMage.com
+@email       support@arexmage.com
+-->
+<jstranslator>
+    <confirm-delete-all-layers translate="message" module="revslider">
+        <message>Do you really want to delete all the layers?</message>
+    </confirm-delete-all-layers>
+</jstranslator>
+

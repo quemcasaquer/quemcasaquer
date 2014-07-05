@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <PrintScience_Personalization>
+            <active>true</active>
+            <codePool>local</codePool>
+        </PrintScience_Personalization>
+    </modules>
+</config>

@@ -1,0 +1,42 @@
+<?php $_product = $this->getProduct(); ?>
+<?php
+	$increments = 1;
+	$productData = Mage::getModel('cataloginventory/stock_item')->loadByProduct($_product);
+	$qtyIncrements = $productData->getQtyIncrements();
+	if($qtyIncrements > 0){
+		$increments = $qtyIncrements;
+	}
+?>
+<?php $buttonTitle = $this->__('Add to Cart'); ?>
+<?php if($_product->isSaleable()): ?>
+    <div class="add-to-cart">
+        <?php if(!$_product->isGrouped()): ?>
+		<label for="qty"><?php echo $this->__('Qty:') ?></label>
+        <div class="quantity-decrease" onclick="qtyDown()"><?php echo MAGE::helper('ThemeOptionsBlacknwhite')->getIcon('descreaseqty'); ?></div>
+		<input type="text" name="qty" id="qty" maxlength="12" value="<?php if($qtyIncrements > 0){echo $increments;}else{echo $this->getProductDefaultQty() * 1;} ?>" title="<?php echo $this->__('Qty') ?>" class="input-text qty" />
+        <div class="quantity-increase" onclick="qtyUp()"><?php echo MAGE::helper('ThemeOptionsBlacknwhite')->getIcon('increaseqty'); ?></div>
+		<?php endif; ?>
+        <button type="button" title="<?php echo $buttonTitle ?>" class="button btn-cart" onclick="productAddToCartForm.submit(this)"><span><span><?php echo $buttonTitle ?></span></span></button>
+        <span id='ajax_loader' style='display:none'><img src='<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif')?>'/></span>
+        
+        <?php echo $this->getChildHtml('', true, true) ?>
+    </div>
+	<script type="text/javascript">
+		function qtyDown(){
+			qty_el = document.getElementById('qty');
+			qty = qty_el.value;
+			if( !isNaN( qty ) && qty > <?php echo $increments; ?> ){
+				qty_el.value = parseInt(qty_el.value)-<?php echo $increments; ?>
+			}
+			return false;
+		}
+		function qtyUp(){
+			qty_el = document.getElementById('qty');
+			qty = qty_el.value;
+			if( !isNaN( qty )) {
+				qty_el.value = parseInt(qty_el.value)+<?php echo $increments; ?>
+			}
+			return false;
+		}
+    </script>
+<?php endif; ?>

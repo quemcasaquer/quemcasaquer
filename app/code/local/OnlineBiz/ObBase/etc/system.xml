@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+        <obbase translate="label" module="obbase">
+            <label>OnlineBizSoft</label>
+            <sort_order>300</sort_order>
+        </obbase>
+    </tabs>
+	<sections>
+		<obbase translate="label" module="obbase">
+			<label>Extensions Info</label>
+			<tab>obbase</tab>
+			<frontend_type>text</frontend_type>
+			<sort_order>9999</sort_order>
+			<show_in_default>1</show_in_default>
+			<show_in_website>1</show_in_website>
+			<show_in_store>1</show_in_store>
+			<groups>
+                <installed_extensions translate="label">
+                    <label>Installed OnlineBiz Extensions</label>
+                    <frontend_type>text</frontend_type>
+                    <frontend_model>obbase/system_config_form_fieldset_extensions</frontend_model>
+                    <sort_order>2</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                </installed_extensions>
+				<extensions_conflict translate="label">
+                    <label>Extensions Conflict</label>
+                    <frontend_type>text</frontend_type>
+                    <frontend_model>obbase/system_config_form_fieldset_conflict</frontend_model>
+                    <sort_order>3</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                </extensions_conflict>
+			</groups>
+		</obbase>
+		<storeview translate="label" module="obbase">
+            <label>Hot Plugins Today</label>
+            <tab>obbase</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>999</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+			<groups>
+                <extensions translate="label">
+                    <label>OnlineBiz Extensions Store</label>
+                    <frontend_type>text</frontend_type>
+                    <frontend_model>obbase/system_config_form_fieldset_store</frontend_model>
+                    <sort_order>2</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                </extensions>
+            </groups>
+        </storeview>
+	</sections>
+</config>

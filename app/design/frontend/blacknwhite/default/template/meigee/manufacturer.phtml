@@ -1,0 +1,87 @@
+<?php 
+$_helper = $this->helper('catalog/output');
+$_product = $this->getProduct();
+$meigee_blacknwhite_productpage = MAGE::helper('ThemeOptionsBlacknwhite')->getThemeOptionsBlacknwhite('meigee_blacknwhite_productpage');
+
+if ($_product->getBlacknwhitePrbrandpos() == 0) {
+        $man_pos = $meigee_blacknwhite_productpage['brand']['brandpos'];
+}
+else {
+    switch ($_product->getBlacknwhitePrbrandpos()) {
+        case 2:
+            $man_pos = 'sidebar';
+            break;
+        case 3:
+            $man_pos = 'center';
+            break;
+        default:
+            $man_pos = 'center';
+            break;
+    }
+}
+
+if ($man_pos == 'sidebar') {
+	
+	if ($_product->getBlacknwhitePrbrand() == 0) {
+		$pr_brand = $meigee_blacknwhite_productpage['brand']['productbrand'];
+	}
+	else {
+		switch ($_product->getBlacknwhitePrbrand()) {
+	        case 1:
+	            $pr_brand = 1;
+	            break;
+	        case 2:
+	            $pr_brand = 0;
+	            break;
+	        default:
+	            $pr_brand = 1;
+	            break;
+	    }
+	}
+
+	if ($_product->getBlacknwhitePrbrandlink() == 0) {
+		$pr_brandsearch = $meigee_blacknwhite_productpage['brand']['brandsearch'];
+	}
+	else {
+		switch ($_product->getBlacknwhitePrbrandlink()) {
+	        case 1:
+	            $pr_brandsearch = 1;
+	            break;
+	        case 2:
+	            $pr_brandsearch = 0;
+	            break;
+	        default:
+	            $pr_brandsearch = 1;
+	            break;
+	    }
+	}
+
+	if ($_product->getBlacknwhitePrbrandtarget() == 0) {
+		$pr_brandtarget = $meigee_blacknwhite_productpage['brand']['brandtarget'];
+	}
+	else {
+		switch ($_product->getBlacknwhitePrbrandtarget()) {
+	        case 1:
+	            $pr_brandtarget = 1;
+	            break;
+	        case 2:
+	            $pr_brandtarget = 0;
+	            break;
+	        default:
+	            $pr_brandtarget = 1;
+	            break;
+	    }
+	}
+
+if ($pr_brand == 1 && $_product->getAttributeText('manufacturer')): ?>
+	<div class="product-brand<?php echo $_product->getData('manufacturer_info') ? ' description' : false ?>">
+	<div class="brand-img"><?php if ($pr_brandsearch): ?>
+	<a <?php echo ($pr_brandtarget ? 'target="_blank"' : false); ?> href="<?php echo Mage::getBaseUrl() . 'catalogsearch/advanced/result/?name=&manufacturer=' . $_product->getData('manufacturer'); ?>">
+	<?php endif; ?>
+	<img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . 'brands/' . $_product->getAttributeText('manufacturer') . $meigee_blacknwhite_productpage['brand']['brandformat']; ?>" data-srcX2="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . 'brands/' . $_product->getAttributeText('manufacturer') . '@x2' . $meigee_blacknwhite_productpage['brand']['brandformat']; ?>">
+	<?php if ($pr_brandsearch): ?>
+	</a>
+	<?php endif; ?></div>
+	<?php echo $_product->getData('manufacturer_info'); ?>
+	</div>
+<?php endif; } ?>

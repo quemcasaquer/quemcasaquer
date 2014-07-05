@@ -1,0 +1,20 @@
+<div class="fb_multi_friend_selector">
+<?php if(count($this->getFanlist())):?>
+	<ul style="height: 280px;" id="friends">
+		<div class="page-title"><?php echo $this->__('Select fans below')?></div>
+		<div id="all_friends">
+		<?php foreach($this->getFanlist() as $fan):?>
+		<li id="li<?=$fan['id']?>">
+		<a onclick="doClick('<?=$fan['id']?>'); return false;" title="<?=$fan['name']?>" href="#"><span style="background-image:url('https://graph.facebook.com/<?= $fan['id'] ?>/picture')" class="square"><span></span></span><strong><?=$fan['name']?></strong></a></li>
+		<?php endforeach;?>
+		</div>
+	</ul>
+	<div class="invite-message">
+		<span class="label"><strong><?php echo $this->__('Message')?></strong></span>
+		<textarea id="message" name="message"></textarea>
+		<input id="fanIds" value="" name="ids" style="display:none"/>
+	</div>
+<?php else:?>
+	<div style="padding:10px"><?php echo $this->__('No fan was found in your account')?></div>
+<?php endif;?>
+</div>

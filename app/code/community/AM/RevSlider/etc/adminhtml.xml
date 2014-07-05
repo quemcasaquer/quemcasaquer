@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!--
+@category    AM
+@package     AM_RevSlider
+@copyright   Copyright (C) 2008-2013 ArexMage.com. All Rights Reserved.
+@license     GNU General Public License version 2 or later
+@author      ArexMage.com
+@email       support@arexmage.com
+-->
+<config>
+    <menu>
+        <am>
+            <title>AM</title>
+            <sort_order>71</sort_order>
+            <children>
+                <revslider translate="title">
+                    <title>AM Revolution Slider</title>
+                    <children>
+                        <manager translate="title">
+                            <title>Manage Slider</title>
+                            <action>revslideradmin/slider/index</action>
+                        </manager>
+                        <import translate="title">
+                            <title>Import</title>
+                            <action>revslideradmin/slider/import</action>
+                        </import>
+                    </children>
+                    <sort_order>10</sort_order>
+                </revslider>
+            </children>
+        </am>
+    </menu>
+
+    <acl>
+        <resources>
+            <all>
+                <title>Allow Everything</title>
+            </all>
+            <admin>
+                <children>
+                    <am>
+                        <title>AM Extension</title>
+                        <children>
+                            <revslider translate="title">
+                                <title>AM Revolution Slider</title>
+                                <children>
+                                    <manager translate="title">
+                                        <title>Manage Slider</title>
+                                        <action>revslideradmin/slider/index</action>
+                                    </manager>
+                                    <import translate="title">
+                                        <title>Import</title>
+                                        <action>revslideradmin/slider/import</action>
+                                    </import>
+                                </children>
+                            </revslider>
+                        </children>
+                    </am>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

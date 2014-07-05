@@ -1,0 +1,29 @@
+<?php
+/**
+ * @category    AM
+ * @package     AM_RevSlider
+ * @copyright   Copyright (C) 2008-2013 ArexMage.com. All Rights Reserved.
+ * @license     GNU General Public License version 2 or later
+ * @author      ArexMage.com
+ * @email       support@arexmage.com
+ */
+?>
+<tr>
+    <td class="" style="" colspan="2">
+        <div>
+            <div id="layer_animation_preview" class="layer_animation_preview_wrapper">
+                <div id="animation_preview" class="animation_preview_target">
+                    <?php echo Mage::helper('revslider')->__('LAYER SAMPLE')?>
+                </div>
+                <div id="animation_control">
+                    <span class="ico on" title="<?php echo Mage::helper('revslider')->__('Toogle autorun')?>" onclick="return revLayer.toggleAutotun()"></span>
+                </div>
+            </div>
+            <?php if ($note = $this->getElement()->getNote()):?>
+                <p class="note" id="note_delay" style="">
+                    <span><?php echo $note?></span>
+                </p>
+            <?php endif?>
+        </div>
+    </td>
+</tr>

@@ -1,0 +1,94 @@
+<?php
+/**
+ * Magento
+ *
+ * @category    design
+ * @package     meigeetheme_default
+ * @copyright   Copyright (c) 2012 MeigeeTeam. (http://www.meigeeteam.com)
+ */
+/**
+ * @var Mage_Page_Block_Html_Header $this
+ */
+?>
+<?php
+	$meigee_blacknwhite_general = MAGE::helper('ThemeOptionsBlacknwhite')->getThemeOptionsBlacknwhite('meigee_blacknwhite_general');
+	$customlogo = $meigee_blacknwhite_general['customlogo'];
+	$mediaurl = MAGE::helper('ThemeOptionsBlacknwhite')->getThemeOptionsBlacknwhite('mediaurl');
+	$loginAjaxStatus = $meigee_blacknwhite_general['loginajax']['status'];
+	$customer = Mage::getSingleton('customer/session');
+?>
+<div class="header-wrapper">
+	<header id="header">
+		<div class="container_12">
+			<div class="grid_12">
+				<?php if ($customlogo['logo_status'] == 0): ?>
+					<h2 class="logo"><strong><?php echo $this->getLogoAlt() ?></strong><a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><img src="<?php echo $this->getLogoSrc() ?>" <?php echo MAGE::helper('ThemeOptionsBlacknwhite/Retina')->getRetinaData('logo'); ?> alt="<?php echo $this->getLogoAlt() ?>" /></a></h2>
+					<?php else:?>
+					<h2 class="logo"><strong><?php echo $customlogo['logo_alt']; ?></strong><a href="<?php echo $this->getUrl('') ?>" title="<?php echo $customlogo['logo_alt']; ?>" class="logo"><img src="<?php echo $mediaurl.$customlogo['logo']; ?>" <?php echo MAGE::helper('ThemeOptionsBlacknwhite/Retina')->getRetinaData('logo_custom'); ?> alt="<?php echo $customlogo['logo_alt']; ?>" /></a></h2>
+				<?php endif; ?>
+				<div class="header-top-right">
+					<div class="quick-access">
+						<?php if (Mage::getSingleton('customer/session')->isLoggedIn()==0): ?>
+							<p class="welcome-msg"><span><?php echo $this->getChildHtml('welcome') ?> <?php echo $this->getAdditionalHtml() ?></span></p>
+						<?php else: 
+							echo '<span class="customer-name"><span class="user">'. MAGE::helper('ThemeOptionsBlacknwhite')->getIcon('account') .'</span>' . $customer->getCustomer()->getName() . '<span class="arrow"><i class="fa fa-caret-down"></i></span></span>';
+						 endif; ?>
+						<?php echo $this->getChildHtml('topLinks') ?>
+					</div>
+					<div class="clear"></div>
+					<?php echo $this->getChildHtml('currency') ?>
+					<?php echo $this->getChildHtml('store_language') ?>
+					<?php echo $this->getChildHtml('topSearch') ?>
+				</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="topline">
+			<div class="container_12">
+				<div class="grid_12">
+					<?php if ($customlogo['small_logo_status'] == 0): ?>
+						<h2 class="small_logo"><strong><?php echo $this->getLogoAlt() ?></strong><a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="small-logo"><img src="<?php echo $this->getSkinUrl('images/small_logo.png') ?>" <?php echo MAGE::helper('ThemeOptionsBlacknwhite/Retina')->getRetinaData('small_logo'); ?> alt="<?php echo $this->getLogoAlt() ?>" /></a></h2>
+						<?php else:?>
+						<h2 class="small_logo"><strong><?php echo $customlogo['logo_alt']; ?></strong><a href="<?php echo $this->getUrl('') ?>" title="<?php echo $customlogo['logo_alt']; ?>" class="small-logo"><img src="<?php echo $mediaurl.$customlogo['small_logo']; ?>" <?php echo MAGE::helper('ThemeOptionsBlacknwhite/Retina')->getRetinaData('small_logo_custom'); ?> alt="<?php echo $customlogo['logo_alt']; ?>" /></a></h2>
+					<?php endif; ?>
+					<?php echo $this->getChildHtml('topMenu') ?>
+					<div class="menu-button"><?php echo MAGE::helper('ThemeOptionsBlacknwhite')->getIcon('mobilemenu'); ?><span><?php echo $this->__('Menu'); ?></span></div>
+					<span class="wishlist-items"><?php echo $this->helper('wishlist')->getItemCount() ?></span>
+					<?php echo $this->getChildHtml('cart_sidebar') ?>
+				</div>
+				<div class="clear"></div>
+			</div>
+		</div>
+	</header>
+</div>
+<?php if (Mage::getSingleton('cms/page')->getIdentifier() == 'home' && Mage::app()->getFrontController()->getRequest()->getRouteName() == 'cms'): ?>
+	<?php if ($static_html = $this->getChildHtml('blacknwhite_home_text_blocks')): ?>
+		<div class="home-text-blocks">
+			<div class="container_12">
+				<div class="grid_12">
+					<?php echo $static_html; ?>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div class="clear"></div>
+		</div>
+	<?php endif; ?>
+<?php endif; ?>
+<?php echo $this->getChildHtml('header_slider_container') ?>
+<?php if($this->getChildHtml('topContainer')): ?>
+<div class="container_12 header-position">
+	<div class="grid_12">
+		<?php echo $this->getChildHtml('topContainer'); ?>
+	</div>
+	<div class="clear"></div>
+</div>
+<?php endif; ?>
+<?php if($loginAjaxStatus): ?>
+	<script type="text/javascript">
+		/* Login ajax */
+		jQuery('.top-link-login').on('click', function(){
+			ajaxLogin("<?php echo $this->getUrl('meigeeactions/login/') ?>", false);
+			return false;
+		});
+	</script>
+<?php endif; ?>

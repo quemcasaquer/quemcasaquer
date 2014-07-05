@@ -1,0 +1,24 @@
+<div class="block block-layered-nav">
+    <div class="block-title">
+        <strong><span>Navegar Por</span></strong>
+    </div>
+    <div class="block-content">
+        <dl id="narrow-by-list2">
+            <dt>Categoria</dt>
+            <dd>
+                <ol>
+                                                        <li>
+                        <a href="http://quemcasaquer.com/outros-eventos/cha-de-panela/bottons.html">Bottons</a> (3)
+                    </li>
+                                                                            <li>
+                        <a href="http://quemcasaquer.com/outros-eventos/cha-de-panela/baloes.html">Balões</a> (3)
+                    </li>
+                                                                            <li>
+                        <a href="http://quemcasaquer.com/outros-eventos/cha-de-panela/lembrancinhas.html">Lembrancinhas</a> (12)
+                    </li>
+                                                    </ol>
+            </dd>
+        </dl>
+        <script type="text/javascript">decorateDataList('narrow-by-list2')</script>
+    </div>
+</div>

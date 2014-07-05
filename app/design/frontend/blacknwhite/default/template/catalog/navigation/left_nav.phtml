@@ -1,0 +1,17 @@
+<?php
+	$meigee_blacknwhite_sidebar = MAGE::helper('ThemeOptionsBlacknwhite')->getThemeOptionsBlacknwhite('meigee_blacknwhite_sidebar');
+    $block_categories = $meigee_blacknwhite_sidebar['block_categories']; 
+?>
+<div class="block block-vertical-nav">
+    <div class="block-title">
+        <strong><span><?php echo $this->__('Categories') ?></span></strong>
+    </div>
+    <div class="block-content">
+        <?php $_menu = $this->renderCategoriesMenuHtml(0,'level-top') ?>
+        <?php if($_menu): ?>
+                <ul <?php if ($block_categories['option_2'] == 1): ?> class="closed-default"<?php endif; ?> <?php if ($block_categories['option'] == 1): ?> id="categories-accordion" <?php endif; ?>>
+                	<?php echo $_menu ?>
+                </ul>
+        <?php endif ?>
+    </div>
+</div>

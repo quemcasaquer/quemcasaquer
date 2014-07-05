@@ -1,0 +1,300 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">	
+	<default>
+	</default>
+	<init_facebookstore>
+		<reference name="after_body_start">
+            <block type="facebookstore/template" template="onlinebizsoft/onlinebizsoft/facebooktimeline/init.phtml" name="facebook_init" />
+        </reference>
+	</init_facebookstore>
+	<facebookstore_index_index>
+		<reference name="root">
+            <action method="setTemplate"><template>onlinebizsoft/facebooktimeline/page/facebook.phtml</template></action>
+        </reference>
+        <reference name="content">
+            <block type="facebookstore/product_list" name="product.list" template="onlinebizsoft/facebooktimeline/product/list.phtml"/>
+        </reference>
+    </facebookstore_index_index>
+	<facebookstore_index_category translate="label">
+        <label>Catalog Category (Non-Anchor)</label>
+		<reference name="root">
+            <action method="setTemplate"><template>onlinebizsoft/facebooktimeline/page/facebook.phtml</template></action>
+        </reference>
+        <reference name="content">
+            <block type="facebookstore/category_view" name="category.products" template="onlinebizsoft/facebooktimeline/category/view.phtml">
+                <block type="facebookstore/product_list" name="product_list" template="onlinebizsoft/facebooktimeline/product/list.phtml" />
+            </block>
+        </reference>
+    </facebookstore_index_category>
+	<facebookstore_index_view translate="label">
+         <label>Catalog Product View (Any)</label>
+        <!-- Mage_Catalog -->
+		<reference name="root">
+            <action method="setTemplate"><template>onlinebizsoft/facebooktimeline/page/facebook.phtml</template></action>
+        </reference>
+        <reference name="content">
+            <block type="catalog/product_view" name="product.info" template="onlinebizsoft/facebooktimeline/product/view.phtml">
+                <block type="catalog/product_view_media" name="product.info.media" as="media" template="onlinebizsoft/facebooktimeline/product/view/media.phtml"/>
+                <block type="core/text_list" name="alert.urls" as="alert_urls" translate="label">
+                    <label>Alert Urls</label>
+                </block>
+
+                <action method="setTierPriceTemplate"><template>catalog/product/view/tierprices.phtml</template></action>
+
+                <block type="catalog/product_view_tabs" name="product.info.tabs" as="info_tabs" template="onlinebizsoft/facebooktimeline/product/tabs.phtml" >
+                    <action method="addTab" translate="title" module="catalog"><alias>description</alias><title>Product Description</title><block>catalog/product_view_description</block><template>catalog/product/view/description.phtml</template></action>
+                    <action method="addTab" translate="title" module="catalog"><alias>upsell_products</alias><title>We Also Recommend</title><block>catalog/product_list_upsell</block><template>onlinebizsoft/facebooktimeline/product/list/upsell.phtml</template></action>
+                    <action method="addTab" translate="title" module="catalog"><alias>additional</alias><title>Additional Information</title><block>catalog/product_view_attributes</block><template>catalog/product/view/attributes.phtml</template></action>
+                </block>
+
+                <block type="catalog/product_view_additional" name="product.info.additional" as="product_additional_data" />
+                <block type="catalog/product_view" name="product.info.addto" as="addto" template="catalog/product/view/addto.phtml"/>
+                <block type="catalog/product_view" name="product.info.addtocart" as="addtocart" template="catalog/product/view/addtocart.phtml"/>
+                
+                <block type="core/text_list" name="product.info.extrahint" as="extrahint" translate="label">
+                    <label>Product View Extra Hint</label>
+                </block>
+
+                <block type="catalog/product_view" name="product.info.options.wrapper" as="product_options_wrapper" template="catalog/product/view/options/wrapper.phtml" translate="label">
+                    <label>Info Column Options Wrapper</label>
+                    <block type="core/template" name="options_js" template="catalog/product/view/options/js.phtml"/>
+                    <block type="catalog/product_view_options" name="product.info.options" as="product_options" template="catalog/product/view/options.phtml">
+                        <action method="addOptionRenderer"><type>text</type><block>catalog/product_view_options_type_text</block><template>catalog/product/view/options/type/text.phtml</template></action>
+                        <action method="addOptionRenderer"><type>file</type><block>catalog/product_view_options_type_file</block><template>catalog/product/view/options/type/file.phtml</template></action>
+                        <action method="addOptionRenderer"><type>select</type><block>catalog/product_view_options_type_select</block><template>catalog/product/view/options/type/select.phtml</template></action>
+                        <action method="addOptionRenderer"><type>date</type><block>catalog/product_view_options_type_date</block><template>catalog/product/view/options/type/date.phtml</template></action>
+                    </block>
+                    <block type="core/html_calendar" name="html_calendar" as="html_calendar" template="page/js/calendar.phtml"/>
+                </block>
+                <block type="catalog/product_view" name="product.info.options.wrapper.bottom" as="product_options_wrapper_bottom" template="catalog/product/view/options/wrapper/bottom.phtml" translate="label">
+                    <label>Bottom Block Options Wrapper</label>
+                    <action method="insert"><block>product.tierprices</block></action>
+                    <block type="catalog/product_view" name="product.clone_prices" as="prices" template="catalog/product/view/price_clone.phtml"/>
+                    <action method="append"><block>product.info.addtocart</block></action>
+                </block>
+
+                <block type="core/template_facade" name="product.info.container1" as="container1">
+                    <action method="setDataByKey"><key>alias_in_layout</key><value>container1</value></action>
+                    <action method="setDataByKeyFromRegistry"><key>options_container</key><key_in_registry>product</key_in_registry></action>
+                    <action method="append"><block>product.info.options.wrapper</block></action>
+                    <action method="append"><block>product.info.options.wrapper.bottom</block></action>
+                </block>
+                <block type="core/template_facade" name="product.info.container2" as="container2">
+                    <action method="setDataByKey"><key>alias_in_layout</key><value>container2</value></action>
+                    <action method="setDataByKeyFromRegistry"><key>options_container</key><key_in_registry>product</key_in_registry></action>
+                    <action method="append"><block>product.info.options.wrapper</block></action>
+                    <action method="append"><block>product.info.options.wrapper.bottom</block></action>
+                </block>
+                <action method="unsetCallChild"><child>container1</child><call>ifEquals</call><if>0</if><key>alias_in_layout</key><key>options_container</key></action>
+                <action method="unsetCallChild"><child>container2</child><call>ifEquals</call><if>0</if><key>alias_in_layout</key><key>options_container</key></action>
+            </block>
+        </reference>
+
+    </facebookstore_index_view>
+	
+	<facebookstore_index_search translate="label">
+        <label>Quick Search Form</label>
+		<reference name="root">
+            <action method="setTemplate"><template>onlinebizsoft/facebooktimeline/page/facebook.phtml</template></action>
+        </reference>
+        <reference name="content">
+            <block type="facebookstore/search" name="search.result" template="onlinebizsoft/facebooktimeline/search/result.phtml">
+                <block type="facebookstore/product_search" name="search_result_list" template="onlinebizsoft/facebooktimeline/product/list.phtml" />
+                <action method="setListOrders"/>
+                <action method="setListModes"/>
+                <action method="setListCollection"/>
+            </block>
+        </reference>
+    </facebookstore_index_search>
+	
+	<facebookstore_index_cart translate="label">
+        <label>Shopping Cart</label>
+        <remove name="right"/>
+        <remove name="left"/>
+        <!-- Mage_Checkout -->
+        <reference name="root">
+            <action method="setTemplate"><template>onlinebizsoft/facebooktimeline/page/facebook.phtml</template></action>
+        </reference>
+        <reference name="content">
+            <block type="checkout/cart" name="checkout.cart.fbstore">
+                <action method="setCartTemplate"><value>onlinebizsoft/facebooktimeline/cart/cart.phtml</value></action>
+                <action method="setEmptyTemplate"><value>onlinebizsoft/facebooktimeline/cart/noItems.phtml</value></action>
+                <action method="chooseTemplate"/>
+                <action method="addItemRender"><type>simple</type><block>checkout/cart_item_renderer</block><template>onlinebizsoft/facebooktimeline/cart/item/default.phtml</template></action>
+                <action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>onlinebizsoft/facebooktimeline/cart/item/default.phtml</template></action>
+                <action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>onlinebizsoft/facebooktimeline/cart/item/default.phtml</template></action>
+				<action method="addItemRender"><type>downloadable</type><block>downloadable/checkout_cart_item_renderer</block><template>onlinebizsoft/facebooktimeline/cart/item/downloadable/default.phtml</template></action>
+				<action method="addItemRender"><type>bundle</type><block>bundle/checkout_cart_item_renderer</block><template>onlinebizsoft/facebooktimeline/cart/item/default.phtml</template></action>
+                <block type="core/text_list" name="checkout.cart.top_methods" as="top_methods" translate="label">
+                    <label>Payment Methods Before Checkout Button</label>
+                    <block type="checkout/onepage_link" name="checkout.cart.methods.onepage" template="checkout/onepage/link.phtml"/>
+                </block>
+
+                <block type="page/html_wrapper" name="checkout.cart.form.before" as="form_before" translate="label">
+                    <label>Shopping Cart Form Before</label>
+                </block>
+
+                <block type="core/text_list" name="checkout.cart.methods" as="methods" translate="label">
+                    <label>Payment Methods After Checkout Button</label>
+                    <block type="checkout/onepage_link" name="checkout.cart.methods.onepage" template="onlinebizsoft/facebooktimeline/cart/link.phtml"/>
+                </block>
+
+                <block type="checkout/cart_coupon" name="checkout.cart.coupon" as="coupon" template="onlinebizsoft/facebooktimeline/cart/coupon.phtml"/>
+                <block type="checkout/cart_shipping" name="checkout.cart.shipping" as="shipping" template="onlinebizsoft/facebooktimeline/cart/shipping.phtml"/>
+                <block type="checkout/cart_totals" name="checkout.cart.totals" as="totals" template="onlinebizsoft/facebooktimeline/cart/totals.phtml"/>
+            </block>
+        </reference>
+        <block type="core/text_list" name="additional.product.info" translate="label">
+            <label>Additional Product Info</label>
+        </block>
+    </facebookstore_index_cart>
+<!--
+checkout main layout
+-->
+
+    <facebookstore_checkout_index translate="label">
+        <label>One Page Checkout</label>
+        <!-- Mage_Checkout -->
+        <remove name="left"/>
+
+        <reference name="root">
+            <action method="setTemplate"><template>onlinebizsoft/facebooktimeline/page/facebook.phtml</template></action>
+        </reference>
+        <reference name="right">
+            <action method="unsetChildren"></action>
+            <block type="page/html_wrapper" name="checkout.progress.wrapper" translate="label">
+                <label>Checkout Progress Wrapper</label>
+                <action method="setElementId"><value>checkout-progress-wrapper</value></action>
+                <block type="checkout/onepage_progress" name="checkout.progress" before="-" template="checkout/onepage/progress.phtml"/>
+            </block>
+        </reference>
+        <reference name="content">
+            <block type="checkout/onepage" name="checkout.onepage" template="checkout/onepage.phtml">
+                <block type="checkout/onepage_login" name="checkout.onepage.login" as="login" template="onlinebizsoft/facebooktimeline/checkout/login.phtml">
+                    <block type="page/html_wrapper" name="checkout.onepage.login.before" as="login_before" translate="label">
+                        <label>Login/Registration Before</label>
+                        <action method="setMayBeInvisible"><value>1</value></action>
+                    </block>
+                </block>
+                <block type="checkout/onepage_billing" name="checkout.onepage.billing" as="billing" template="onlinebizsoft/facebooktimeline/checkout/billing.phtml"/>
+                <block type="checkout/onepage_shipping" name="checkout.onepage.shipping" as="shipping" template="onlinebizsoft/facebooktimeline/checkout/shipping.phtml"/>
+                <block type="checkout/onepage_shipping_method" name="checkout.onepage.shipping_method" as="shipping_method" template="onlinebizsoft/facebooktimeline/checkout/shipping_method.phtml">
+                    <block type="checkout/onepage_shipping_method_available" name="checkout.onepage.shipping_method.available" as="available" template="checkout/onepage/shipping_method/available.phtml"/>
+                    <block type="checkout/onepage_shipping_method_additional" name="checkout.onepage.shipping_method.additional" as="additional" template="checkout/onepage/shipping_method/additional.phtml"/>
+                </block>
+                <block type="checkout/onepage_payment" name="checkout.onepage.payment" as="payment" template="onlinebizsoft/facebooktimeline/checkout/payment.phtml">
+                    <block type="checkout/onepage_payment_methods" name="checkout.payment.methods" as="methods" template="checkout/onepage/payment/methods.phtml">
+                        <action method="setMethodFormTemplate"><method>purchaseorder</method><template>payment/form/purchaseorder.phtml</template></action>
+                    </block>
+                </block>
+				
+                <block type="checkout/onepage_review" name="checkout.onepage.review" as="review" template="onlinebizsoft/facebooktimeline/checkout/review.phtml">
+                    <block type="checkout/agreements" name="checkout.onepage.agreements" as="agreements" template="checkout/onepage/agreements.phtml"/>
+                </block>
+            </block>
+        </reference>
+    </facebookstore_checkout_index>
+
+<!--
+One page checkout progress block
+-->
+
+    <facebookstore_checkout_progress>
+        <!-- Mage_Checkout -->
+        <remove name="right"/>
+        <remove name="left"/>
+
+        <block type="checkout/onepage_progress" name="root" output="toHtml" template="checkout/onepage/progress.phtml">
+            <block type="checkout/onepage_payment_info" name="payment_info">
+                <action method="setInfoTemplate"><method></method><template></template></action>
+            </block>
+        </block>
+    </facebookstore_checkout_progress>
+
+<!--
+One page checkout payment methods block
+-->
+    <facebookstore_checkout_paymentmethod>
+        <remove name="right"/>
+        <remove name="left"/>
+
+        <block type="checkout/onepage_payment_methods" name="root" output="toHtml" template="checkout/onepage/payment/methods.phtml">
+            <action method="setMethodFormTemplate"><method>purchaseorder</method><template>payment/form/purchaseorder.phtml</template></action>
+        </block>
+    </facebookstore_checkout_paymentmethod>
+
+
+<!--
+One page checkout shipping methods block
+-->
+
+    <facebookstore_checkout_shippingmethod>
+        <!-- Mage_Checkout -->
+        <remove name="right"/>
+        <remove name="left"/>
+
+        <block type="checkout/onepage_shipping_method_available" name="root" output="toHtml" template="checkout/onepage/shipping_method/available.phtml"/>
+    </facebookstore_checkout_shippingmethod>
+
+    <facebookstore_checkout_additional>
+        <!-- Mage_Checkout -->
+        <remove name="right"/>
+        <remove name="left"/>
+
+        <block type="checkout/onepage_shipping_method_additional" name="root" output="toHtml" template="checkout/onepage/shipping_method/additional.phtml">
+            <action method="setDontDisplayContainer"><param>1</param></action>
+        </block>
+    </facebookstore_checkout_additional>
+
+<!--
+One page checkout order review block
+-->
+
+    <facebookstore_checkout_review translate="label">
+        <label>One Page Checkout Overview</label>
+        <!-- Mage_Checkout -->
+        <remove name="right"/>
+        <remove name="left"/>
+
+        <block type="checkout/onepage_review_info" name="root" output="toHtml" template="onlinebizsoft/facebooktimeline/checkout/info.phtml">
+            <action method="addItemRender"><type>default</type><block>checkout/cart_item_renderer</block><template>checkout/onepage/review/item.phtml</template></action>
+            <action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>checkout/onepage/review/item.phtml</template></action>
+            <action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>checkout/onepage/review/item.phtml</template></action>
+            <block type="checkout/cart_totals" name="checkout.onepage.review.info.totals" as="totals" template="checkout/onepage/review/totals.phtml"/>
+            <block type="core/text_list" name="checkout.onepage.review.info.items.before" as="items_before" translate="label">
+                <label>Items Before</label>
+            </block>
+        </block>
+    </facebookstore_checkout_review>
+
+    <facebookstore_checkout_success translate="label">
+        <label>One Page Checkout Success</label>
+        <reference name="root">
+            <action method="setTemplate"><template>onlinebizsoft/facebooktimeline/page/facebook.phtml</template></action>
+        </reference>
+        <reference name="content">
+            <block type="checkout/onepage_success" name="checkout.success" template="onlinebizsoft/facebooktimeline/checkout/success.phtml"/>
+        </reference>
+    </facebookstore_checkout_success>
+    <facebookstore_checkout_failure translate="label">
+        <label>One Page Checkout Failure</label>
+        <reference name="root">
+            <action method="setTemplate"><template>onlinebizsoft/facebooktimeline/page/facebook.phtml</template></action>
+        </reference>
+        <reference name="content">
+            <block type="checkout/onepage_failure" name="checkout.failure" template="checkout/onepage/failure.phtml"/>
+        </reference>
+    </facebookstore_checkout_failure>
+    <block type="core/list" name="additional.product.info"/>
+	<facebookstore_checkout_getpassword>
+        <!-- Mage_Checkout -->
+        <remove name="right"/>
+        <remove name="left"/>
+		<reference name="root">
+            <action method="setTemplate"><template>onlinebizsoft/facebooktimeline/page/facebook.phtml</template></action>
+        </reference>
+		<reference name="content">
+            <block type="core/template" name="getpassword" template="onlinebizsoft/facebooktimeline/checkout/getpass.phtml"/>
+        </reference>
+    </facebookstore_checkout_getpassword>
+</layout> 

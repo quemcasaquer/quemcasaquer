@@ -1,0 +1,110 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     default_modern
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * Product view template
+ *
+ * @see Mage_Catalog_Block_Product_View
+ */
+?>
+<?php 
+$meigee_blacknwhite_productpage = MAGE::helper('ThemeOptionsBlacknwhite')->getThemeOptionsBlacknwhite('meigee_blacknwhite_productpage');
+$this->_product = Mage::registry('product');
+if ($this->_product->getBlacknwhitePrtabs()):
+  $productpage_additional = $this->_product->getBlacknwhitePrtabs();
+else:
+  $productpage_additional = $meigee_blacknwhite_productpage['additional'];
+  $productpage_additional = $productpage_additional['product_tabs'];
+endif;
+
+$custom_tabs = array();
+$product_custom_tabs = explode(",", $productpage_additional);
+foreach ($product_custom_tabs as $product_custom_tab) {
+  $custom_tabs[] = trim($product_custom_tab);
+};
+
+?>
+<ul class="meigee-tabs">
+    <?php foreach ($this->getTabs() as $_index => $_tab): ?>
+        <?php if($this->getChildHtml($_tab['alias'])): ?>
+            <li id="product_tabs_<?php echo $_tab['alias'] ?>" class="<?php echo !$_index?' active first':''?>"><a href="#"><?php echo $_tab['title']?></a></li>
+        <?php endif; ?>
+    <?php endforeach; ?>
+
+    <?php foreach ($custom_tabs as $key) {
+	 if(!empty($key)):
+    ?>
+    <li id="<?php echo $key; ?>"><div class="tab-left"></div><a href="#"><?php echo Mage::getModel('cms/block')->setStoreId(Mage::app()->getStore()->getId())->load($key)->getTitle(); ?></a><div class="tab-right"></div></li>
+    <?php endif; } ?>
+</ul>
+<?php foreach ($this->getTabs() as $_index => $_tab): ?>
+    <?php if($this->getChildHtml($_tab['alias'])): ?>
+        <div class="meigee-tabs-content" id="product_tabs_<?php echo $_tab['alias'] ?>_contents"><?php echo $this->getChildHtml($_tab['alias']) ?></div>
+    <?php endif; ?>
+<?php endforeach; ?>
+
+<?php foreach ($custom_tabs as $key) {
+if(!empty($key)):
+?>
+<div class="meigee-tabs-content" id="<?php echo $key; ?>_contents"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId(trim($key))->toHtml() ?></div>
+<?php endif; } ?>
+
+<script type="text/javascript">
+//<![CDATA[
+Varien.Tabs = Class.create();
+Varien.Tabs.prototype = {
+  initialize: function(selector) {
+    var self=this;
+    $$(selector+' a').each(this.initTab.bind(this));
+  },
+
+  initTab: function(el) {
+      el.href = 'javascript:void(0)';
+      if ($(el.parentNode).hasClassName('active')) {
+        this.showContent(el);
+      }
+      el.observe('click', this.showContent.bind(this, el));
+  },
+
+  showContent: function(a) {
+    var li = $(a.parentNode), ul = $(li.parentNode);
+    ul.select('li', 'ol').each(function(el){
+      var contents = $(el.id+'_contents');
+      if (el==li) {
+        el.addClassName('active');
+        contents.show();
+      } else {
+        el.removeClassName('active');
+        contents.hide();
+      }
+    });
+  }
+}
+new Varien.Tabs('.meigee-tabs');
+//]]>
+
+$$('.meigee-tabs > li:last')[0].addClassName('last');
+</script>

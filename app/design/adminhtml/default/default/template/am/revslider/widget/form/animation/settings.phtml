@@ -1,0 +1,79 @@
+<?php
+/**
+ * @category    AM
+ * @package     AM_RevSlider
+ * @copyright   Copyright (C) 2008-2013 ArexMage.com. All Rights Reserved.
+ * @license     GNU General Public License version 2 or later
+ * @author      ArexMage.com
+ * @email       support@arexmage.com
+ */
+?>
+<tr>
+    <td colspan="2">
+        <div style="height: 220px" class="anim-slider-wrapper">
+            <div class="anim-wrapper">
+                <div class="anim-slider" id="anim-movex"><input name="anim-movex" type="text" class="anim-value input-text validate-number"/></div>
+            </div>
+            <div class="anim-wrapper">
+                <div class="anim-slider" id="anim-movey"><input name="anim-movey" type="text" class="anim-value input-text validate-number"/></div>
+            </div>
+            <div class="anim-wrapper">
+                <div class="anim-slider" id="anim-movez"><input name="anim-movez" type="text" class="anim-value input-text validate-number"/></div>
+            </div>
+            <div class="anim-wrapper">
+                <div class="anim-slider" id="anim-rotax"><input name="anim-rotax" type="text" class="anim-value input-text validate-number"/></div>
+            </div>
+            <div class="anim-wrapper">
+                <div class="anim-slider" id="anim-rotay"><input name="anim-rotay" type="text" class="anim-value input-text validate-number"/></div>
+            </div>
+            <div class="anim-wrapper">
+                <div class="anim-slider" id="anim-rotaz"><input name="anim-rotaz" type="text" class="anim-value input-text validate-number"/></div>
+            </div>
+            <div class="anim-wrapper">
+                <div class="anim-slider" id="anim-scalex"><input name="anim-scalex" type="text" class="anim-value input-text validate-number"/></div>
+            </div>
+            <div class="anim-wrapper">
+                <div class="anim-slider" id="anim-scaley"><input name="anim-scaley" type="text" class="anim-value input-text validate-number"/></div>
+            </div>
+            <div class="anim-wrapper">
+                <div class="anim-slider" id="anim-skewx"><input name="anim-skewx" type="text" class="anim-value input-text validate-number"/></div>
+            </div>
+            <div class="anim-wrapper">
+                <div class="anim-slider" id="anim-skewy"><input name="anim-skewy" type="text" class="anim-value input-text validate-number"/></div>
+            </div>
+            <div class="anim-wrapper">
+                <div class="anim-slider" id="anim-opacity"><input name="anim-opacity" type="text" class="anim-value input-text validate-number"/></div>
+            </div>
+            <div class="anim-wrapper">
+                <div class="anim-slider" id="anim-perspective"><input name="anim-perspective" type="text" class="anim-value input-text validate-number"/></div>
+            </div>
+            <div class="anim-wrapper">
+                <div class="anim-slider" id="anim-originx"><input name="anim-originx" type="text" class="anim-value input-text validate-number"/></div>
+            </div>
+            <div class="anim-wrapper">
+                <div class="anim-slider" id="anim-originy"><input name="anim-originy" type="text" class="anim-value input-text validate-number"/></div>
+            </div>
+        </div>
+    </td>
+</tr>
+<script type="text/javascript">
+    if (typeof revLayer != 'undefined'){
+        revLayer.initCustomAnimSlider([
+            {id: 'anim-movex', range: [-2000, 2000], label: 'Transition X', color: '#0099CC', value: '<?php echo $this->getValue('movex') ? $this->getValue('movex') : 0 ?>'},
+            {id: 'anim-movey', range: [-2000, 2000], label: 'Transition Y', color: '#0099CC', value: '<?php echo $this->getValue('movey') ? $this->getValue('movey') : 0 ?>'},
+            {id: 'anim-movez', range: [-2000, 2000], label: 'Transition Z', color: '#0099CC', value: '<?php echo $this->getValue('movez') ? $this->getValue('movez') : 0 ?>'},
+            {id: 'anim-rotax', range: [-980, 980], label: 'Rotation X', color: '#9933CC', value: '<?php echo $this->getValue('rotax') ? $this->getValue('rotax') : 0 ?>'},
+            {id: 'anim-rotay', range: [-980, 980], label: 'Rotation Y', color: '#9933CC', value: '<?php echo $this->getValue('rotay') ? $this->getValue('rotay') : 0 ?>'},
+            {id: 'anim-rotaz', range: [-980, 980], label: 'Rotation Z', color: '#9933CC', value: '<?php echo $this->getValue('rotaz') ? $this->getValue('rotaz') : 0 ?>'},
+            {id: 'anim-scalex', range: [0, 800], label: 'Scale X', color: '#669900', value: '<?php echo $this->getValue('scalex') ? $this->getValue('scalex') : 100 ?>'},
+            {id: 'anim-scaley', range: [0, 800], label: 'Scale Y', color: '#669900', value: '<?php echo $this->getValue('scaley') ? $this->getValue('scaley') : 100 ?>'},
+            {id: 'anim-skewx', range: [-180, 180], label: 'Skew X', color: '#FF8800', value: '<?php echo $this->getValue('skewx') ? $this->getValue('skewx') : 0 ?>'},
+            {id: 'anim-skewy', range: [-180, 180], label: 'Skew X', color: '#FF8800', value: '<?php echo $this->getValue('skewy') ? $this->getValue('skewy') : 0 ?>'},
+            {id: 'anim-opacity', range: [0, 100], label: 'Opacity', color: '#008972', value: '<?php echo $this->getValue('opacity') ? $this->getValue('opacity') : 0 ?>'},
+            {id: 'anim-perspective', range: [-3000, 3000], label: 'Perspective', color: '#594C47', value: '<?php echo $this->getValue('perspective') ? $this->getValue('perspective') : 600 ?>'},
+            {id: 'anim-originx', range: [-200, 200], label: 'Origin X', color: '#CC0000', value: '<?php echo $this->getValue('originx') ? $this->getValue('originx') : 50 ?>'},
+            {id: 'anim-originy', range: [-200, 200], label: 'Origin Y', color: '#CC0000', value: '<?php echo $this->getValue('originy') ? $this->getValue('originy') : 50 ?>'}
+        ]);
+        revLayer.runCustomAnimation('<?php echo $this->getAnimType() ?>');
+    }
+</script>

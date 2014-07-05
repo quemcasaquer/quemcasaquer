@@ -1,0 +1,35 @@
+
+<?php 
+
+/**
+ * Export Product data to xml data
+ *
+ * @category   OnlineBiz
+ * @package    OnlineBiz_Facebookstore
+ * @author     Nguyen Viet Tung (http://onlinebizsoft.com)
+ */
+?>
+<div class="nav-category-head">
+		<?php echo $this->__('Category')?> | <a href="" onclick="setLocation('<?php echo $this->getBaseUrl()?>facebookstore'); return false;"><?php echo $this->__('All Products')?></a>
+</div>
+<div class="vertnav-container">
+    <div id="category-list">
+        <ul id="vertnav">
+<?php $store_categories = $this->toLinearArray($this->getStoreCategories()) ?>
+<?php $count = count($store_categories) ?>
+<?php foreach ($store_categories as $i => $_category): ?>
+<?php $class = array() ?>
+<?php if ($count == 1): ?>
+<?php $class[] = 'only' ?>
+<?php elseif (! $i): ?>
+<?php $class[] = 'first' ?>
+<?php elseif ($i == $count-1): ?>
+<?php $class[] = 'last' ?>
+<?php endif; ?>
+<?php if (isset($store_categories[$i+1]) && $this->isCategoryActive($store_categories[$i+1])) $class[] = 'prev'; ?>
+<?php if (isset($store_categories[$i-1]) && $this->isCategoryActive($store_categories[$i-1])) $class[] = 'next'; ?>
+<?php echo $this->drawOpenCategoryItem($_category, 0, $class) ?>
+<?php endforeach ?>
+        </ul>
+    </div>
+</div>

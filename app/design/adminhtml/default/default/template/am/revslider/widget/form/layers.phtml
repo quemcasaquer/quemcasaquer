@@ -1,0 +1,29 @@
+<?php
+/**
+ * @category    AM
+ * @package     AM_RevSlider
+ * @copyright   Copyright (C) 2008-2013 ArexMage.com. All Rights Reserved.
+ * @license     GNU General Public License version 2 or later
+ * @author      ArexMage.com
+ * @email       support@arexmage.com
+ */
+?>
+<tr>
+    <td style="" colspan="2">
+        <div id="divLayers" class="slide_layers" style="<?php echo $this->getDivLayersStyle() ?>"></div>
+        <div class="clearfix">
+            <?php echo $this->getChildHtml('addLayerBtn') ?>
+            <?php echo $this->getChildHtml('addLayerImageBtn') ?>
+            <?php echo $this->getChildHtml('addLayerVideoBtn') ?>
+            <?php echo $this->getChildHtml('dupLayerBtn') ?>
+            <?php //echo $this->getChildHtml('previewLayerBtn') ?>
+            <?php echo $this->getChildHtml('editLayerBtn') ?>
+            <input type="hidden" id="addLayerImageUrl" value="<?php echo $this->getAddLayerImageUrl()?>"/>
+            <input type="hidden" id="addLayerVideoUrl" value="<?php echo $this->getAddLayerVideoUrl()?>"/>
+            <div class="right">
+                <?php echo $this->getChildHtml('deleteLayerBtn') ?>
+                <?php echo $this->getChildHtml('deleteAllLayersBtn') ?>
+            </div>
+        </div>
+    </td>
+</tr>

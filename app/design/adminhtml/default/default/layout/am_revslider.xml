@@ -1,0 +1,141 @@
+<?xml version="1.0"?>
+<!--
+@category    AM
+@package     AM_RevSlider
+@copyright   Copyright (C) 2008-2013 ArexMage.com. All Rights Reserved.
+@license     GNU General Public License version 2 or later
+@author      ArexMage.com
+@email       support@arexmage.com
+-->
+<layout>
+    <revslideradmin_slider_index>
+        <reference name="content">
+            <block type="revslider/adminhtml_slider" name="revslider_slider"/>
+        </reference>
+    </revslideradmin_slider_index>
+
+    <revslideradmin_slider_edit>
+        <reference name="head">
+            <action method="addJs">
+                <file>am/extensions/grid.js</file>
+            </action>
+            <action method="addJs">
+                <file>am/extensions/form.js</file>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="revslider/adminhtml_slider_edit" name="revslider_slider_edit"/>
+        </reference>
+        <reference name="left">
+            <block type="revslider/adminhtml_slider_edit_tabs" name="revslider_slider_edit_tabs">
+                <block type="revslider/adminhtml_slider_edit_tab_main" name="revslider_slider_edit_tab_main"/>
+                <block type="revslider/adminhtml_slider_edit_tab_general" name="revslider_slider_edit_tab_general"/>
+                <block type="revslider/adminhtml_slider_edit_tab_font" name="revslider_slider_edit_tab_font"/>
+                <block type="revslider/adminhtml_slider_edit_tab_position" name="revslider_slider_edit_tab_position"/>
+                <block type="revslider/adminhtml_slider_edit_tab_appearance" name="revslider_slider_edit_tab_appearance"/>
+                <block type="revslider/adminhtml_slider_edit_tab_navigation" name="revslider_slider_edit_tab_navigation"/>
+                <block type="revslider/adminhtml_slider_edit_tab_thumb" name="revslider_slider_edit_tab_thumb"/>
+                <block type="revslider/adminhtml_slider_edit_tab_mobile" name="revslider_slider_edit_tab_mobile"/>
+                <block type="revslider/adminhtml_slider_edit_tab_first" name="revslider_slider_edit_tab_first"/>
+                <block type="revslider/adminhtml_slider_edit_tab_trouble" name="revslider_slider_edit_tab_trouble"/>
+
+                <action method="addTab"><name>info_section</name><block>revslider_slider_edit_tab_main</block></action>
+                <action method="addTab"><name>general_section</name><block>revslider_slider_edit_tab_general</block></action>
+                <action method="addTab"><name>font_section</name><block>revslider_slider_edit_tab_font</block></action>
+                <action method="addTab"><name>position_section</name><block>revslider_slider_edit_tab_position</block></action>
+                <action method="addTab"><name>appearance_section</name><block>revslider_slider_edit_tab_appearance</block></action>
+                <action method="addTab"><name>navigation_section</name><block>revslider_slider_edit_tab_navigation</block></action>
+                <action method="addTab"><name>thumb_section</name><block>revslider_slider_edit_tab_thumb</block></action>
+                <action method="addTab"><name>mobile_section</name><block>revslider_slider_edit_tab_mobile</block></action>
+                <action method="addTab"><name>first_section</name><block>revslider_slider_edit_tab_first</block></action>
+                <action method="addTab"><name>trouble_section</name><block>revslider_slider_edit_tab_trouble</block></action>
+            </block>
+        </reference>
+    </revslideradmin_slider_edit>
+
+    <revslideradmin_slider_slide>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="revslider/adminhtml_slider_edit_tab_slide" name="revslider_slider_edit_tab_slide"/>
+        </block>
+    </revslideradmin_slider_slide>
+
+    <revslideradmin_slider_slidegrid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="revslider/adminhtml_slider_edit_tab_slide" name="revslider_slider_edit_tab_slide"/>
+        </block>
+    </revslideradmin_slider_slidegrid>
+
+    <revslideradmin_slider_addslide>
+        <reference name="head">
+            <action method="addItem">
+                <type>js_css</type>
+                <file>am/revslider/rs-plugin/css/settings.css</file>
+            </action>
+            <action method="addItem">
+                <type>skin_css</type>
+                <file>am/revslider/style.css</file>
+            </action>
+            <action method="addItem">
+                <type>skin_css</type>
+                <file>am/revslider/ie.css</file>
+                <params/>
+                <if>lte IE 9</if>
+            </action>
+            <action method="addJs">
+                <file>am/extensions/jquery/jquery-1.9.1.min.js</file>
+            </action>
+            <action method="addJs">
+                <file>am/extensions/jquery/jquery-ui-1.10.3.min.js</file>
+            </action>
+            <action method="addItem">
+                <type>js_css</type>
+                <file>am/extensions/jquery/css/no-theme/jquery-ui-1.10.3.min.css</file>
+            </action>
+            <action method="addJs">
+                <file>am/revslider/rs-plugin/js/jquery.themepunch.plugins.min.js</file>
+            </action>
+            <action method="addJs">
+                <file>am/revslider/layers.js</file>
+            </action>
+            <action method="addJs">
+                <file>am/extensions/form.js</file>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="revslider/adminhtml_slide_edit" name="revslider_slide_edit"/>
+        </reference>
+        <reference name="left">
+            <block type="revslider/adminhtml_slide_edit_tabs" name="revslider_slide_edit_tabs"/>
+        </reference>
+    </revslideradmin_slider_addslide>
+
+    <revslideradmin_slider_video>
+        <remove name="footer" />
+        <remove name="head" />
+        <reference name="content">
+            <block type="revslider/adminhtml_slide_video" name="revslider_slide_video"/>
+        </reference>
+    </revslideradmin_slider_video>
+
+    <revslideradmin_slider_css>
+        <remove name="footer" />
+        <remove name="head" />
+        <reference name="content">
+            <block type="revslider/adminhtml_slide_css" name="adminhtml_slide_css"/>
+        </reference>
+    </revslideradmin_slider_css>
+
+    <revslideradmin_slider_animation>
+        <remove name="footer" />
+        <remove name="head" />
+        <reference name="content">
+            <block type="revslider/adminhtml_slide_animation" name="adminhtml_slide_animation"/>
+        </reference>
+    </revslideradmin_slider_animation>
+
+    <revslideradmin_slider_import>
+        <reference name="content">
+            <block type="revslider/adminhtml_slider_import" name="revslider_slider_import"/>
+        </reference>
+    </revslideradmin_slider_import>
+</layout>

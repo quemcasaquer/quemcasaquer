@@ -1,0 +1,21 @@
+<div class="block block-layered-nav">
+    <div class="block-title">
+        <strong><span>Navegar Por</span></strong>
+    </div>
+    <div class="block-content">
+        <dl id="narrow-by-list2">
+            <dt>Categoria</dt>
+            <dd>
+                <ol>
+                                                        <li>
+                        <a href="http://quemcasaquer.com/papelaria/lacres-para-convites/sinetes.html">Sinetes</a> (13)
+                    </li>
+                                                                            <li>
+                        <a href="http://quemcasaquer.com/papelaria/lacres-para-convites/lacres-para-convites.html">Ceras</a> (5)
+                    </li>
+                                                    </ol>
+            </dd>
+        </dl>
+        <script type="text/javascript">decorateDataList('narrow-by-list2')</script>
+    </div>
+</div>

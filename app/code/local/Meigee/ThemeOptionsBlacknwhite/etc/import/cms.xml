@@ -1,0 +1,596 @@
+<?xml version="1.0"?>
+<root>
+    <cms>
+        <pages>
+            <item>
+                <title>Home Page</title>
+                <identifier>home</identifier>
+                <content><![CDATA[<div class="home-banners">
+	<div class="grid_3 alpha">
+		<a href="#"><img src="{{media url="wysiwyg/home_banner_2.jpg"}}" data-srcX2="{{media url="wysiwyg/home_banner_2@x2.jpg"}}" alt="" /></a>
+	</div>
+	<div class="grid_6">
+		<a href="#"><img src="{{media url="wysiwyg/home_banner_3.jpg"}}" data-srcX2="{{media url="wysiwyg/home_banner_3@x2.jpg"}}" alt="" /></a>
+	</div>
+	<div class="grid_3 omega">
+		<a href="#"><img src="{{media url="wysiwyg/home_banner_4.jpg"}}" data-srcX2="{{media url="wysiwyg/home_banner_4@x2.jpg"}}" alt="" /></a>
+	</div>
+	<div class="clear"></div>
+</div>
+<hr class="indent-24 white-space" />
+<header class="widget-title"><h2>Accessories</h2></header>
+{{widget type="meigeewidgetsblacknwhite/featuredcategory" featured_category="category/13" template="meigee/meigeewidgetsblacknwhite/slider.phtml" products_amount="10" visible_products="4" widget_id="4969"}}]]></content>
+                <is_active>1</is_active>
+                <sort_order>0</sort_order>
+                <stores>
+                    <item>0</item>
+                </stores>
+                <root_template>one_column</root_template>
+            </item>
+        </pages>
+        <blocks>
+            <item>
+                <title>Blacknwhite Boxed Slide 1</title>
+                <identifier>blacknwhite_boxed_slide_1</identifier>
+                <content><![CDATA[<a href="#"><img src="{{media url="wysiwyg/boxed_slider_img_1.jpg"}}" data-srcX2="{{media url="wysiwyg/boxed_slider_img_1@x2.jpg"}}" alt="" /></a>
+<div class="slide-container slide-skin">
+	<h2>Black<span>&White</span></h2>
+	<h4>Welcome to our shop</h4>
+	<h5>Ready to amazing experience</h5>
+	<h3>Check now!</h3>
+	<p>For details subscribe to our newsletter</p>
+</div>]]></content>
+                <is_active>1</is_active>
+                <stores>
+                    <item>0</item>
+                </stores>
+            </item>
+			<item>
+                <title>Blacknwhite Boxed Slide 2</title>
+                <identifier>blacknwhite_boxed_slide_2</identifier>
+                <content><![CDATA[<a href="#"><img src="{{media url="wysiwyg/boxed_slider_img_2.jpg"}}" data-srcX2="{{media url="wysiwyg/boxed_slider_img_2@x2.jpg"}}" alt="" /></a>
+<div class="slide-container slide-skin-2">
+	<p>new spring 2014</p>
+	<h2>Woman</h2>
+	<h3>Incredible<span>Collection</span></h3>
+	<h4>Only in our store presale</h4>
+</div>]]></content>
+                <is_active>1</is_active>
+                <stores>
+                    <item>0</item>
+                </stores>
+            </item>
+			<item>
+                <title>Blacknwhite Boxed Slide 3</title>
+                <identifier>blacknwhite_boxed_slide_3</identifier>
+                <content><![CDATA[<a href="#"><img src="{{media url="wysiwyg/boxed_slider_img_3.jpg"}}" data-srcX2="{{media url="wysiwyg/boxed_slider_img_3@x2.jpg"}}" alt="" /></a>
+<div class="slide-container slide-skin-3">
+	<h2>Winter</h2>
+	<h3>70%<span>megaSale</span></h3>
+	<h4>three for the price of two</h4>
+</div>]]></content>
+                <is_active>1</is_active>
+                <stores>
+                    <item>0</item>
+                </stores>
+            </item>
+			<item>
+                <title>Blacknwhite Boxed Slider Banner</title>
+                <identifier>blacknwhite_boxed_slider_banner</identifier>
+                <content><![CDATA[<a href="#"><img src="{{media url="wysiwyg/home_banner_1.jpg"}}" data-srcX2="{{media url="wysiwyg/home_banner_1@x2.jpg"}}" alt="" /></a>]]></content>
+                <is_active>1</is_active>
+                <stores>
+                    <item>0</item>
+                </stores>
+            </item>
+			<item>
+                <title>Blacknwhite Footer</title>
+                <identifier>blacknwhite_footer</identifier>
+                <content><![CDATA[<div class="footer-topline">
+	<div class="container_12">
+		<div class="grid_12">
+			<div class="grid_3 alpha">
+				<div class="footer-contact-form">
+					<div class="footer-block-title"><h2>Contact Us</h2></div>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus mi nec lectus tempor, vitae interdum.</p>
+					{{block type="core/template" block_id="contactForm" template="contacts/form_footer.phtml"}}
+				</div>
+			</div>
+			<div class="grid_3">
+				<div class="footer-block-title"><h2>Features</h2></div>
+				<div class="custom-footer-content features">
+					<ul>
+						<li><i class="fa fa-expand"></i><span><h3>Fully responsive layout</h3><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus mi nec.</p></span></li>
+						<li><i class="fa fa-eye"></i><span><h3>Retina ready</h3><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus mi nec.</p></span></li>
+						<li><i class="fa fa-tint"></i><span><h3>Unlimited colors</h3><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus mi nec.</p></span></li>
+						<li><i class="fa fa-cog"></i><span><h3>Powerful UI widgets</h3><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus mi nec.</p></span></li>
+					</ul>
+				</div>
+			</div>
+			<div class="grid_3">
+				<div class="footer-block-title"><h2>Links & Tags</h2></div>
+				<div class="custom-footer-content">
+					<ul class="links">
+						<li><a href="#">Cras dolor est pellentesque eu neque vel</a></li>
+						<li><a href="#">Consectetur auctor ligula.</a></li>
+						<li><a href="#">Donec interdum</a></li>
+						<li><a href="#">Purus non libero faucibus</a></li>
+						<li><a href="#">Egestas elit condimentum</a></li>
+					</ul>
+					<hr class="indent-12 white-space">
+					{{block type="tag/popular" block_id="tags_popular" template="tag/popular.phtml"}}
+				</div>
+			</div>
+			<div class="grid_3 omega">
+				<div class="footer-block-title"><h2>Latest Tweets</h2></div>
+				{{widget type="meigeewidgetsblacknwhite/tweets" template="meigee/meigeewidgetsblacknwhite/tweets.phtml" twitter_username="meigeeteam" twitter_widget_id="349107793481043968" tweet_limit="2"}}
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="clear"></div>
+	</div>
+</div>
+<div class="footer-second-line">
+	<div class="container_12">
+		<div class="grid_12">
+			<div class="grid_4 alpha">
+				<div class="footer-address-block">
+					<a class="footer-logo" href="#"><img src="{{media url="wysiwyg/footer_logo.png"}}" alt="" data-srcx2="{{media url="wysiwyg/footer_logo@x2.png"}}"></a>
+					<p>No. 315, Jersey City, NJ 07305, New York, USA</p>
+					<p>Call Us : (555) 723-649-4920</p>
+					<p>Email : <a href="mailto:blackwhite@info.com">blackwhite@info.com</a></p>
+				</div>
+				<div class="footer-bg">
+					<img src="{{media url="wysiwyg/footer_bg.png"}}" alt="" data-srcx2="{{media url="wysiwyg/footer_bg@x2.png"}}">
+				</div>
+			</div>
+			<div class="grid_2">
+				<div class="footer-block-title"><h2>Help</h2></div>
+				<div class="custom-footer-content">
+					<ul class="links">
+						<li><a href="#">Cras dolor est, pellentesque</a></li>
+						<li><a href="#">Consectetur auctor ligula</a></li>
+						<li><a href="#">Donec interdum</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="grid_2">
+				<div class="footer-block-title"><h2>Services</h2></div>
+				<div class="custom-footer-content">
+					<ul class="links">
+						<li><a href="#">Cras dolor est, pellentesque</a></li>
+						<li><a href="#">Consectetur auctor ligula</a></li>
+						<li><a href="#">Donec interdum</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="grid_2">
+				<div class="footer-block-title"><h2>Help</h2></div>
+				<div class="custom-footer-content">
+					<ul class="links">
+						<li><a href="#">Cras dolor est, pellentesque</a></li>
+						<li><a href="#">Consectetur auctor ligula</a></li>
+						<li><a href="#">Donec interdum</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="grid_2 omega">
+				<div class="footer-block-title"><h2>Services</h2></div>
+				<div class="custom-footer-content">
+					<ul class="links">
+						<li><a href="#">Cras dolor est, pellentesque</a></li>
+						<li><a href="#">Consectetur auctor ligula</a></li>
+						<li><a href="#">Donec interdum</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="clear"></div>
+			<hr class="indent-24 white-space">
+			<div class="footer-links a-center">
+				<ul>
+					<li><a href="{{store direct_url="about-magento-demo-store"}}">About Us</a></li>
+					<li><a href="{{store direct_url="customer-service"}}">Customer Service</a></li>
+					<li class="privacy"><a href="{{store direct_url="privacy-policy-cookie-restriction-mode"}}">Privacy Policy</a></li>
+					<li><a href="{{store direct_url="catalog/seo_sitemap/category"}}">Site Map </a></li>
+					<li><a href="{{store direct_url="catalogsearch/term/popular"}}">Search Terms</a></li>
+					<li><a href="{{store direct_url="catalogsearch/advanced/"}}">Advanced Search</a></li>
+					<li><a href="{{store direct_url="sales/guest/form/"}}">Orders and Returns</a></li>
+					<li class="last"><a href="{{store direct_url="contacts"}}">Contact Us</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+</div>
+<div class="footer-bottom-wrapper">
+	<div class="container_12">
+		<div class="grid_12">
+			<div class="f-left">
+				<hr class="indent-12 white-space">
+				<address>{{config path="design/footer/copyright"}}</address>
+			</div>
+			<div class="f-right">
+				<hr class="indent-9 white-space">
+				{{block type="page/switch" block_id="store_switcher" template="page/switch/stores.phtml"}}
+			</div>
+			<div class="f-right">
+				{{widget type="meigeewidgetsblacknwhite/sociallinks" twitter="http://twitter.com" rss="http://rss.com" facebook="http://facebook.com" googleplus="https://plus.google.com/" linkedin="http://linkedin.com" pinterest="http://pinterest.com/" template="meigee/meigeewidgetsblacknwhite/sociallinks.phtml"}}
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+</div>]]></content>
+                <is_active>1</is_active>
+                <stores>
+                    <item>0</item>
+                </stores>
+            </item>
+			<item>
+                <title>Blacknwhite Footer 2</title>
+                <identifier>blacknwhite_footer_2</identifier>
+                <content><![CDATA[<div class="footer-second-line">
+	<div class="container_12">
+		<div class="grid_3 alpha">
+			<div class="footer-block-title"><h2>Help</h2></div>
+			<div class="custom-footer-content">
+				<ul class="links">
+					<li><a href="#">Cras dolor est, pellentesque</a></li>
+					<li><a href="#">Consectetur auctor ligula</a></li>
+					<li><a href="#">Donec interdum</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="grid_3">
+			<div class="footer-block-title"><h2>Services</h2></div>
+			<div class="custom-footer-content">
+				<ul class="links">
+					<li><a href="#">Cras dolor est, pellentesque</a></li>
+					<li><a href="#">Consectetur auctor ligula</a></li>
+					<li><a href="#">Donec interdum</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="grid_3">
+			<div class="footer-block-title"><h2>Help</h2></div>
+			<div class="custom-footer-content">
+				<ul class="links">
+					<li><a href="#">Cras dolor est, pellentesque</a></li>
+					<li><a href="#">Consectetur auctor ligula</a></li>
+					<li><a href="#">Donec interdum</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="grid_3 omega">
+			<div class="footer-block-title"><h2>Services</h2></div>
+			<div class="custom-footer-content">
+				<ul class="links">
+					<li><a href="#">Cras dolor est, pellentesque</a></li>
+					<li><a href="#">Consectetur auctor ligula</a></li>
+					<li><a href="#">Donec interdum</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="clear"></div>
+		<hr class="indent-28 white-space" />
+		<div class="grid_12">
+			<div class="grid_5 alpha">{{widget type="meigeewidgetsblacknwhite/sociallinks" twitter="#" rss="#" facebook="#" googleplus="#" linkedin="#" pinterest="#" vimeo="#" youtube="#" flickr="#" instagram="#" template="meigee/meigeewidgetsblacknwhite/sociallinks.phtml"}}</div>
+			<div class="grid_6 omega">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus nec enim ac nisi convallis accumsan. Etiam ac enim egestas, aliquet augue eu, mattis massa.</div>
+			<div class="clear"></div>
+			<hr class="indent-12 white-space" />
+		</div>
+		<div class="clear"></div>
+	</div>
+</div>
+<div class="footer-bottom-wrapper">
+	<div class="container_12">
+		<div class="grid_12">
+			<hr class="indent-24 white-space" />
+			<address class="f-left">{{config path="design/footer/copyright"}}</address>
+			<div class="f-right">
+				{{block type="page/switch" block_id="store_switcher" template="page/switch/stores.phtml"}}
+			</div>
+			<div class="footer-links f-right">
+				<ul>
+					<li><a href="{{store direct_url="about-magento-demo-store"}}">About Us</a></li>
+					<li><a href="{{store direct_url="customer-service"}}">Customer Service</a></li>
+					<li class="privacy"><a href="{{store direct_url="privacy-policy-cookie-restriction-mode"}}">Privacy Policy</a></li>
+					<li><a href="{{store direct_url="catalog/seo_sitemap/category"}}">Site Map </a></li>
+					<li><a href="{{store direct_url="catalogsearch/term/popular"}}">Search Terms</a></li>
+					<li><a href="{{store direct_url="catalogsearch/advanced/"}}">Advanced Search</a></li>
+					<li><a href="{{store direct_url="sales/guest/form/"}}">Orders and Returns</a></li>
+					<li class="last"><a href="{{store direct_url="contacts"}}">Contact Us</a></li>
+				</ul>
+			</div>
+			<div class="clear"></div>
+			<hr class="indent-24 white-space">
+		</div>
+		<div class="clear"></div>
+	</div>
+</div>]]></content>
+                <is_active>1</is_active>
+                <stores>
+                    <item>0</item>
+                </stores>
+            </item>
+			<item>
+                <title>Blacknwhite Footer 3</title>
+                <identifier>blacknwhite_footer_3</identifier>
+                <content><![CDATA[<div class="footer-second-line">
+	<div class="container_12">
+		<div class="grid_12">
+			<div class="grid_6 alpha">
+				<div class="footer-block-title"><h2>Custom Links</h2></div>
+				<div class="grid_3 alpha">
+					<div class="custom-footer-content">
+						<ul class="links">
+							<li><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing</a></li>
+							<li><a href="#">Consectetur auctor ligula</a></li>
+							<li><a href="#">Donec interdum</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="grid_3 omega">
+					<div class="custom-footer-content">
+						<ul class="links">
+							<li><a href="#">Cras dolor est, pellentesque</a></li>
+							<li><a href="#">Consectetur auctor ligula</a></li>
+							<li><a href="#">Donec interdum</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="grid_6 omega">
+				<div class="footer-block-title"><h2>Newsletter and Social Icons</h2></div>
+				<div class="custom-footer-content">
+					<hr class="indent-12 white-space" />
+					{{block type="newsletter/subscribe" name="footer.newsletter" template="newsletter/subscribe.phtml"}}
+					<hr class="indent-18 white-space" />
+					{{widget type="meigeewidgetsblacknwhite/sociallinks" twitter="#" rss="#" facebook="#" googleplus="#" linkedin="#" pinterest="#" vimeo="#" youtube="#" flickr="#" instagram="#" template="meigee/meigeewidgetsblacknwhite/sociallinks.phtml"}}
+				</div>
+			</div>
+			<div class="clear"></div><br />
+		</div>
+		<div class="clear"></div>
+	</div>
+</div>
+<div class="footer-bottom-wrapper">
+	<div class="container_12">
+		<div class="grid_12">
+			<hr class="indent-24 white-space" />
+			<address class="f-left">{{config path="design/footer/copyright"}}</address>
+			<div class="f-right">
+				{{block type="page/switch" block_id="store_switcher" template="page/switch/stores.phtml"}}
+			</div>
+			<div class="footer-links f-right">
+				<ul>
+					<li><a href="{{store direct_url="about-magento-demo-store"}}">About Us</a></li>
+					<li><a href="{{store direct_url="customer-service"}}">Customer Service</a></li>
+					<li class="privacy"><a href="{{store direct_url="privacy-policy-cookie-restriction-mode"}}">Privacy Policy</a></li>
+					<li><a href="{{store direct_url="catalog/seo_sitemap/category"}}">Site Map </a></li>
+					<li><a href="{{store direct_url="catalogsearch/term/popular"}}">Search Terms</a></li>
+					<li><a href="{{store direct_url="catalogsearch/advanced/"}}">Advanced Search</a></li>
+					<li><a href="{{store direct_url="sales/guest/form/"}}">Orders and Returns</a></li>
+					<li class="last"><a href="{{store direct_url="contacts"}}">Contact Us</a></li>
+				</ul>
+			</div>
+			<div class="clear"></div>
+			<hr class="indent-18 white-space" />
+		</div>
+		<div class="clear"></div>
+	</div>
+</div>]]></content>
+                <is_active>1</is_active>
+                <stores>
+                    <item>0</item>
+                </stores>
+            </item>
+			<item>
+                <title>Blacknwhite Footer 4</title>
+                <identifier>blacknwhite_footer_4</identifier>
+                <content><![CDATA[<div class="footer-second-line">
+	<div class="container_12">
+		<div class="grid_4 alpha">
+			<div class="footer-block-title"><h2>Contact Us</h2></div>
+			<div class="custom-footer-content">
+				{{block type="core/template" block_id="contactForm" template="contacts/form_footer.phtml"}}
+			</div>
+		</div>
+		<div class="grid_2">
+			<div class="footer-block-title"><h2>Help</h2></div>
+			<div class="custom-footer-content">
+				<ul class="links">
+					<li><a href="#">Cras dolor est, pellentesque</a></li>
+					<li><a href="#">Consectetur auctor ligula</a></li>
+					<li><a href="#">Donec interdum</a></li>
+					<li><a href="#">Morbi eleifend erat erat</a></li>
+					<li><a href="#">Nullam eget nisi ullamcorper</a></li>
+					<li><a href="#">Aenean et metus dolor praesent</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="grid_2">
+			<div class="footer-block-title"><h2>Services</h2></div>
+			<div class="custom-footer-content">
+				<ul class="links">
+					<li><a href="#">Cras dolor est, pellentesque</a></li>
+					<li><a href="#">Consectetur auctor ligula</a></li>
+					<li><a href="#">Donec interdum</a></li>
+					<li><a href="#">Donec massa metus, commodo</a></li>
+					<li><a href="#">Ultricies lacus auctor fusce</a></li>
+					<li><a href="#">Iquet sit amet diam bibend</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="grid_2">
+			<div class="footer-block-title"><h2>Help</h2></div>
+			<div class="custom-footer-content">
+				<ul class="links">
+					<li><a href="#">Cras dolor est, pellentesque</a></li>
+					<li><a href="#">Consectetur auctor ligula</a></li>
+					<li><a href="#">Donec interdum</a></li>
+					<li><a href="#">Asa metus commodo eu lacinia</a></li>
+					<li><a href="#">Nam mauris ante dapibus</a></li>
+					<li><a href="#">Sed a massa sapien curabitur posuere</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="grid_2 omega">
+			<div class="footer-block-title"><h2>Services</h2></div>
+			<div class="custom-footer-content">
+				<ul class="links">
+					<li><a href="#">Cras dolor est, pellentesque</a></li>
+					<li><a href="#">Consectetur auctor ligula</a></li>
+					<li><a href="#">Donec interdum</a></li>
+					<li><a href="#">Nullam eget nisi ullamcorper</a></li>
+					<li><a href="#">Vivamus et turpis et purus</a></li>
+					<li><a href="#">Aliquam eros quam elementum</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="clear"></div>
+		<hr class="indent-24 solid" />
+		<div class="footer-links a-center">
+			<ul>
+				<li><a href="{{store direct_url="about-magento-demo-store"}}">About Us</a></li>
+				<li><a href="{{store direct_url="customer-service"}}">Customer Service</a></li>
+				<li class="privacy"><a href="{{store direct_url="privacy-policy-cookie-restriction-mode"}}">Privacy Policy</a></li>
+				<li><a href="{{store direct_url="catalog/seo_sitemap/category"}}">Site Map </a></li>
+				<li><a href="{{store direct_url="catalogsearch/term/popular"}}">Search Terms</a></li>
+				<li><a href="{{store direct_url="catalogsearch/advanced/"}}">Advanced Search</a></li>
+				<li><a href="{{store direct_url="sales/guest/form/"}}">Orders and Returns</a></li>
+				<li class="last"><a href="{{store direct_url="contacts"}}">Contact Us</a></li>
+			</ul>
+		</div>
+		<div class="clear"></div>
+		<hr class="indent-24 white-space" />
+		<div class="clear"></div>
+	</div>
+</div>
+<div class="footer-bottom-wrapper">
+	<div class="container_12">
+		<div class="grid_12">
+			<div class="f-left">
+				<hr class="indent-12 white-space">
+				<address>{{config path="design/footer/copyright"}}</address>
+			</div>
+			<div class="f-right">
+				<hr class="indent-9 white-space">
+				{{block type="page/switch" block_id="store_switcher" template="page/switch/stores.phtml"}}
+			</div>
+			<div class="f-right">
+				{{widget type="meigeewidgetsblacknwhite/sociallinks" twitter="http://twitter.com" rss="http://rss.com" facebook="http://facebook.com" googleplus="https://plus.google.com/" linkedin="http://linkedin.com" pinterest="http://pinterest.com/" template="meigee/meigeewidgetsblacknwhite/sociallinks.phtml"}}
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+</div>]]></content>
+                <is_active>1</is_active>
+                <stores>
+                    <item>0</item>
+                </stores>
+            </item>
+			<item>
+                <title>Blacknwhite Home Text Blocks</title>
+                <identifier>blacknwhite_home_text_blocks</identifier>
+                <content><![CDATA[<div class="grid_4 alpha">
+	<div class="indent">
+		<h3>Free delivery worldwide</h3>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eget turpis sed</p>
+	</div>
+</div>
+<div class="grid_4">
+	<div class="indent">
+		<h3>Women: up to 20% off cosy layers</h3>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eget turpis sed</p>
+	</div>
+</div>
+<div class="grid_4 omega">
+	<div class="indent">
+		<h3>Students get 20% off, 48 hours only!</h3>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eget turpis sed</p>
+	</div>
+</div>
+]]></content>
+                <is_active>1</is_active>
+                <stores>
+                    <item>0</item>
+                </stores>
+            </item>
+			<item>
+                <title>Blacknwhite Product Banner</title>
+                <identifier>blacknwhite_product_banner</identifier>
+                <content><![CDATA[<a href="#" title="Product Banner"><img src="{{media url="wysiwyg/product_banner.jpg"}}" data-srcx2="{{media url="wysiwyg/product_banner@x2.jpg"}}"></a>]]></content>
+                <is_active>1</is_active>
+                <stores>
+                    <item>0</item>
+                </stores>
+            </item>
+			<item>
+				<title>Blacknwhite Product Custom</title>
+				<identifier>blacknwhite_product_custom</identifier>
+				<content><![CDATA[<div id="fb-root"></div>
+<script>
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>
+<div class="fb-like" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false"></div>
+<a href="https://twitter.com/share" class="twitter-share-button" data-via="meigeeteam">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>]]></content>
+				<is_active>1</is_active>
+				<stores>
+					<item>0</item>
+				</stores>
+			</item>
+			<item>
+                <title>Blacknwhite Slide 1</title>
+                <identifier>blacknwhite_slide_1</identifier>
+                <content><![CDATA[<a href="#"><img src="{{media url="wysiwyg/slider_img_1.jpg"}}" data-srcX2="{{media url="wysiwyg/slider_img_1@x2.jpg"}}" alt="" /></a>
+<div class="slide-container slide-skin">
+	<h2>Black<span>&White</span></h2>
+	<h4>Welcome to our shop</h4>
+	<h5>Ready to amazing experience</h5>
+	<h3>Check now!</h3>
+	<p>For details subscribe to our newsletter</p>
+</div>]]></content>
+                <is_active>1</is_active>
+                <stores>
+                    <item>0</item>
+                </stores>
+            </item>
+			<item>
+                <title>Blacknwhite Slide 2</title>
+                <identifier>blacknwhite_slide_2</identifier>
+                <content><![CDATA[<a href="#"><img src="{{media url="wysiwyg/slider_img_2.jpg"}}" data-srcX2="{{media url="wysiwyg/slider_img_2@x2.jpg"}}" alt="" /></a>
+<div class="slide-container slide-skin-2">
+	<p>new spring 2014</p>
+	<h2>Woman</h2>
+	<h3>Incredible<span>Collection</span></h3>
+	<h4>Only in our store presale</h4>
+</div>]]></content>
+                <is_active>1</is_active>
+                <stores>
+                    <item>0</item>
+                </stores>
+            </item>
+			<item>
+                <title>Blacknwhite Slide 3</title>
+                <identifier>blacknwhite_slide_3</identifier>
+                <content><![CDATA[<a href="#"><img src="{{media url="wysiwyg/slider_img_3.jpg"}}" data-srcX2="{{media url="wysiwyg/slider_img_3@x2.jpg"}}" alt="" /></a>
+<div class="slide-container slide-skin-3">
+	<h2>Winter</h2>
+	<h3>70%<span>megaSale</span></h3>
+	<h4>three for the price of two</h4>
+</div>]]></content>
+                <is_active>1</is_active>
+                <stores>
+                    <item>0</item>
+                </stores>
+            </item>
+        </blocks>
+    </cms>
+</root>

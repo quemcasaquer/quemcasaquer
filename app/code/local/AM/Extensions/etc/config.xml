@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!--
+/**
+* @category    AM
+* @package     AM_Extensions
+* @copyright   Copyright (C) 2008-2013 ArexMage.com. All Rights Reserved.
+* @license     GNU General Public License version 2 or later
+* @author      ArexMage.com
+* @email       support@arexmage.com
+*/
+-->
+<config>
+    <modules>
+        <AM_Extensions>
+            <version>1.0</version>
+        </AM_Extensions>
+    </modules>
+
+    <global>
+        <blocks>
+            <amext>
+                <class>AM_Extensions_Block</class>
+            </amext>
+            <adminhtml>
+                <rewrite>
+                    <cms_wysiwyg_images_content>AM_Extensions_Block_Adminhtml_Cms_Wysiwyg_Images_Content</cms_wysiwyg_images_content>
+                </rewrite>
+            </adminhtml>
+        </blocks>
+        <helpers>
+            <amext>
+                <class>AM_Extensions_Helper</class>
+            </amext>
+            <cms>
+                <rewrite>
+                    <wysiwyg_images>AM_Extensions_Helper_Cms_Wysiwyg_Images</wysiwyg_images>
+                </rewrite>
+            </cms>
+        </helpers>
+    </global>
+
+    <admin>
+        <routers>
+            <amadmin>
+                <use>admin</use>
+                <args>
+                    <module>AM_Extensions</module>
+                    <frontName>amadmin</frontName>
+                </args>
+            </amadmin>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <AM_Extensions before="Mage_Adminhtml">AM_Extensions_Adminhtml</AM_Extensions>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+</config>

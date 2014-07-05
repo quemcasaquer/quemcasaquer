@@ -1,0 +1,11 @@
+.personalizationGallery {
+	width: 75px;
+	margin-bottom: 10px;
+}
+.personalizationGallery img {
+	width: 75px;
+	display: none;
+}
+.personalizationGallery img.first {
+	display: block;
+}

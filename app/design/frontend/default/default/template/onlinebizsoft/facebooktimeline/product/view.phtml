@@ -1,0 +1,129 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     default_modern
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * Product view template
+ *
+ * @see Mage_Catalog_Block_Product_View
+ * @see Mage_Review_Block_Product_View
+ */
+?>
+<?php
+    $_helper = $this->helper('facebookstore/output');
+    $_product = $this->getProduct();
+?>
+<?php
+if(Mage::getSingleton('customer/session')->getMessages(true)){
+	$this->getLayout()->getMessagesBlock()->setMessages(Mage::getSingleton('customer/session')->getMessages(true));
+	echo $this->getMessagesBlock()->getGroupedHtml();
+}
+?>
+
+<script type="text/javascript">
+    var optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
+</script>
+<div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
+<div id="search_result">
+    
+    <form action="<?php echo $this->getUrl('facebookstore/index/add/id/'.$_product->getId(), array('_secure'=>Mage::app()->getStore()->isCurrentlySecure()?true : false))?>" method="post" id="product_addtocart_form"<?php if($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
+	<div id="product-detail">
+        <div class="no-display">
+            <input type="hidden" name="product" value="<?php echo $_product->getId() ?>" />
+            <input type="hidden" name="related_product" id="related-products-field" value="" />
+        </div>
+		 <div id="product-detail-image-gallery">
+            <?php echo $this->getChildHtml('media') ?>
+        </div>
+        <div id="product-detail-information">
+            <div class="product-name">
+                <h1><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
+            </div>
+			<?php 
+				 if (Mage::getStoreConfig(Mage_Catalog_Helper_Product::XML_PATH_PRODUCT_URL_USE_CATEGORY, Mage::app()->getStore()->getStoreId())) {
+					$url = $_product->getProductUrl();
+				} else {
+					$url = Mage::getUrl().$_product->getUrlPath();
+				}
+				if(Mage::getSingleton('customer/session')->getCustomer()->getId())
+					$url .= '?ref='.Mage::getSingleton('customer/session')->getCustomer()->getId();
+			?>
+			<table style="margin:10px 0px">
+				<tr>
+					<td style="vertical-align:top; padding-top:4px">		
+					<div class="fb-like" data-href="<?php echo $url?>" data-send="true" data-width="450" data-show-faces="true"></div>
+					</td>
+				</tr>
+			</table>
+
+            <?php echo $this->getChildHtml('alert_urls') ?>
+            <?php echo $this->getChildHtml('product_type_data') ?>
+            <?php echo $this->getTierPriceHtml() ?>
+            <?php echo $this->getChildHtml('extrahint') ?>
+			<?php if ($_product->getShortDescription()):?>
+                <div class="short-description">
+                    <h2><?php echo $this->__('Quick Overview') ?></h2>
+                    <div class="std"><?php echo $_helper->optimizeUrl($_helper->productAttribute($_product, nl2br($_product->getShortDescription()), 'short_description')) ?></div>
+                </div>
+            <?php endif;?>
+            <?php if (!$this->hasOptions()):?>
+                <div class="add-to-box">
+                    <?php if($_product->isSaleable()): ?>
+                        <?php echo $this->getChildHtml('addtocart') ?>
+                    <?php endif; ?>
+                </div>
+            <?php else:?>
+				<?php if ($_product->isSaleable() && $this->hasOptions()):?>
+					<?php echo $this->getChildChildHtml('container2', '', true, true) ?>
+				<?php endif;?>
+            <?php endif; ?>
+            
+
+            <?php echo $this->getChildHtml('other');?>
+            <?php if ($_product->isSaleable() && $this->hasOptions()):?>
+                <?php echo $this->getChildChildHtml('container1', '', true, true) ?>
+            <?php endif;?>
+
+        </div>
+
+        <div class="clear"></div>		
+		<?php echo $this->getChildHtml('info_tabs') ?>
+	</div>
+    </form>
+    <script type="text/javascript">
+    //<![CDATA[
+            var productAddToCartForm = new VarienForm('product_addtocart_form');
+            productAddToCartForm.submit = function(button) {
+                if (this.validator.validate()) {
+                    this.form.submit();
+                    if (button && button != 'undefined') {
+                        button.disabled = true;
+                    }
+                }
+            }.bind(productAddToCartForm);
+    //]]>
+    </script>
+ 
+</div>

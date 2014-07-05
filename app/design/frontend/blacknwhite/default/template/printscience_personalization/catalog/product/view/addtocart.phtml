@@ -1,0 +1,118 @@
+<?php 
+    $_personalizationHelper = $this->helper('printscience_personalization/output');
+    $_product = $this->getProduct();
+	$window_type = Mage::getStoreConfig('catalog/personalization/window_type');
+	$background_color = Mage::getStoreConfig('catalog/personalization/background_color');
+	$margin_width = Mage::getStoreConfig('catalog/personalization/margin_width');
+	$window_opacity = Mage::getStoreConfig('catalog/personalization/window_opacity');
+?>
+<?php if ($_personalizationHelper->isPersonalizationEnabled($_product)): ?>
+    <?php $buttonTitle = $this->__('Personalize'); ?>
+<?php else: ?>
+    <?php $buttonTitle = $this->__('Add to Cart'); ?>
+<?php endif; ?>
+<?php if($_product->isSaleable()): ?>
+    <div class="add-to-cart">
+        <?php if(!$_product->isGrouped()): ?>
+        <label for="qty"><?php echo $this->__('Qty:') ?></label>
+		<div class="quantity-decrease" onclick="qtyDown()"><?php echo MAGE::helper('ThemeOptionsBlacknwhite')->getIcon('descreaseqty'); ?></div>
+        <input type="text" name="qty" id="qty" maxlength="12" value="<?php echo $this->getProductDefaultQty() * 1 ?>" title="<?php echo $this->__('Qty') ?>" class="input-text qty" />
+		<div class="quantity-increase" onclick="qtyUp()"><?php echo MAGE::helper('ThemeOptionsBlacknwhite')->getIcon('increaseqty'); ?></div>
+        <?php endif; ?>
+		<?php if($window_type=='0'): ?>
+        	<button type="button" title="<?php echo $buttonTitle ?>" class="button btn-cart exclusive personalize_btn"><span><span><?php echo $buttonTitle ?></span></span></button>
+		<?php else: ?>
+			<button type="button" title="<?php echo $buttonTitle ?>" class="button btn-cart exclusive personalize_btn" onclick="productAddToCartForm.submit(this)"><span><span><?php echo $buttonTitle ?></span></span></button>
+		<?php endif; ?>
+        <?php echo $this->getChildHtml('', true, true) ?>
+    </div>
+<?php endif; ?>
+<?php
+if($window_type=='2'):
+?>
+	<a id="openpoup"></a>
+	<a id="close-btn"></a>
+	<style>
+	.modalPopLite-mask {
+		background-color:#<?php echo (isset($background_color)?$background_color:"#000000") ?> !important;
+	}	
+	#popup-wrapper
+	{
+		width:1150px;
+		height:600px;
+		left:0!important;top:0!important;
+		background-color: #<?php echo $background_color; ?> !important;
+	}
+	.modalPopLite-wrapper
+	{
+		border:none!important;	
+	}
+	.modalPopLite-mask {
+		opacity:<?php echo ($window_opacity!=''?$window_opacity:"0.6") ?> !important;
+	}
+	#popup_frame{
+		border:0px;
+	}	
+	</style>
+	<script type="text/javascript">
+	jQuery(function (){
+		var maskWidth = document.body.clientWidth;
+		var maskHeight = jQuery(window).height();
+		var margin =  '<?php if(isset($margin_width) && $margin_width > 0) { echo $margin_width; } else { echo "0"; } ?>';
+		jQuery("#popup-wrapper").css("width",(maskWidth - (2*margin)));
+		jQuery("#popup-wrapper").css("height",(maskHeight - 2*margin));
+		jQuery("#popup_frame").css("width",(maskWidth - 2*margin));
+		jQuery("#popup_frame").css("height",(maskHeight - 2*margin));
+		
+		jQuery("#header").css("z-index","10");
+		jQuery(".anchoreditlink").attr("target","popup_frame");
+		jQuery(".personalize_btn_link").attr("target","popup_frame");
+		jQuery('#popup-wrapper').modalPopLite({ openButton: '#openpoup', closeButton: '#close-btn', isModal: true });
+	});	
+	function closethepopup(){
+		jQuery('#popup_frame').attr("src", "");
+		jQuery('#close-btn').trigger('click');
+	}
+	</script>
+	 <script type="text/javascript">
+
+	var qty_el = document.getElementById('qty'); 
+	var qty = qty_el.value; 
+	if(qty < 2){
+	    jQuery('.quantity_box_button_down').css({
+		'visibility' : 'hidden'
+	    });
+	}
+	function qtyDown(){
+	    var qty_el = document.getElementById('qty'); 
+	    var qty = qty_el.value; 
+	    if( qty == 2) {
+		jQuery('.quantity_box_button_down').css({
+		    'visibility' : 'hidden'
+		});
+	    }
+	    if( !isNaN( qty ) && qty > 0 ){
+		qty_el.value--;
+	    }         
+	    return false;
+	}
+	
+	function qtyUp(){
+	    var qty_el = document.getElementById('qty'); 
+	    var qty = qty_el.value; 
+	    if( !isNaN( qty )) {
+		qty_el.value++;
+	    }
+	    jQuery('.quantity_box_button_down').css({
+		'visibility' : 'visible'
+	    });
+	    return false;
+	}
+    
+    </script>
+	<div id="popup-wrapper"><iframe name="popup_frame" id="popup_frame"></iframe>
+	</div>
+
+<?php
+endif;
+?>

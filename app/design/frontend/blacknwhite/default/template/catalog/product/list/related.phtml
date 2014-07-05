@@ -1,0 +1,133 @@
+<?php
+/**
+ * Magento
+ *
+ * @category    design
+ * @package     meigeetheme_default
+ * @copyright   Copyright (c) 2012 MeigeeTeam. (http://www.meigeeteam.com)
+ */
+?>
+<?php
+    $_product = $this->getProduct();
+    $helpImg = $this->helper('ThemeOptionsBlacknwhite/images');
+	$meigee_blacknwhite_productpage = MAGE::helper('ThemeOptionsBlacknwhite')->getThemeOptionsBlacknwhite('meigee_blacknwhite_productpage');
+
+    if ($_product->getBlacknwhiteRelatedpos() == 0) {
+        $rel_pos = $meigee_blacknwhite_productpage['general']['relatedposition'];
+    }
+    else {
+        switch ($_product->getBlacknwhiteRelatedpos()) {
+            case 2:
+                $rel_pos = 'sidebar';
+                break;
+            case 3:
+                $rel_pos = 'bottom';
+                break;
+            default:
+                $rel_pos = 'sidebar';
+                break;
+        }
+    }
+
+    if ($rel_pos == 'sidebar') {
+
+    $productpage_additional = $meigee_blacknwhite_productpage['additional'];
+
+    if ($_product->getBlacknwhitePrrelatedcontent()):
+        echo $_product->getBlacknwhitePrrelatedcontent();
+    elseif ($productpage_additional['product_related_content']):
+            $product_related_blocks = explode(",", $productpage_additional['product_related_content']);
+            foreach ($product_related_blocks as $product_related_block) {
+                echo '<div class="product-custom-related">' . $this->getLayout()->createBlock('cms/block')->setBlockId(trim($product_related_block))->toHtml() . '</div>';
+            };
+    elseif($this->getItems()->getSize()):
+	if ($_product->getBlacknwhitePrrelated() == 0) {
+    	$productpage_collateral_related = $meigee_blacknwhite_productpage['general']['collateral_related'];
+	    }
+	    else {
+	        switch ($_product->getBlacknwhitePrrelated()) {
+	            case 1:
+	                $productpage_collateral_related = 'related_slider';
+	                break;
+	            case 2:
+	                $productpage_collateral_related = 'related_list';
+	                break;
+	        }
+	    }
+    
+?>
+<div class="block block-related">
+	<div class="block-title">
+		<strong><span><?php echo $this->__('Related Products') ?></span></strong>
+	</div>
+	<div class="block-content">
+		<?php if ($productpage_collateral_related == 'related_slider' && count($this->getItems())>1): ?>
+			<div class = 'next'><i class="fa fa-angle-right"></i></div>
+			<div class = 'prev unselectable'><i class="fa fa-angle-left"></i></div>
+		<?php endif; ?>
+		<div <?php if ($productpage_collateral_related == 'related_slider' && count($this->getItems())>1): ?>id="block-related-slider"<?php else:?> class="no-slider" <?php endif; ?>>
+			<ul class="carousel-ul">
+				<?php $i=0; foreach($this->getItems() as $_item): ?>
+					<li class="item">
+						<div class="product">
+							<div class="grid-indent">
+								<a href="<?php echo $_item->getProductUrl() ?>" title="<?php echo $this->escapeHtml($_item->getName()) ?>" class="product-image"><img <?php echo $helpImg->getImgSources($_item, 'thumbnail', 390, null); ?> alt="<?php echo $this->escapeHtml($_item->getName()) ?>" /></a>
+								<p class="product-name">
+									<a href="<?php echo $_item->getProductUrl() ?>"><?php echo $this->escapeHtml($_item->getName()) ?></a>
+									<?php if(!$_item->isComposite() && $_item->isSaleable()): ?>
+										<?php if (!$_item->getRequiredOptions()): ?>
+											<input type="checkbox" class="checkbox related-checkbox" id="related-checkbox<?php echo $_item->getId() ?>" name="related_products[]" value="<?php echo $_item->getId() ?>" />
+										<?php endif; ?>
+									<?php endif; ?>
+								</p>
+								<div class="product-details">
+									<?php echo $this->getPriceHtml($_item, true, '-related') ?>
+								</div>
+							</div>
+						</div>
+					</li>
+				<?php $i++; endforeach ?>
+			</ul>
+		</div>
+		<p class="block-subtitle"><a href="#" onclick="selectAllRelated(this); return false;"><?php echo $this->__('select all') ?></a></p>
+	</div>
+	<script type="text/javascript">
+	//<![CDATA[
+	$$('.related-checkbox').each(function(elem){
+		Event.observe(elem, 'click', addRelatedToProduct)
+	});
+	var relatedProductsCheckFlag = false;
+	function selectAllRelated(txt){
+		if (relatedProductsCheckFlag == false) {
+			$$('.related-checkbox').each(function(elem){
+				elem.checked = true;
+			});
+			relatedProductsCheckFlag = true;
+			txt.innerHTML="<?php echo $this->__('deselect all') ?>";
+			txt.addClassName('selected');
+		} else {
+			$$('.related-checkbox').each(function(elem){
+				elem.checked = false;
+			});
+			relatedProductsCheckFlag = false;
+			txt.innerHTML="<?php echo $this->__('select all') ?>";
+			txt.removeClassName('selected');
+		}
+		addRelatedToProduct();
+	}
+	function addRelatedToProduct(){
+		var checkboxes = $$('.related-checkbox');
+		var values = [];
+		for(var i=0;i<checkboxes.length;i++){
+			if(checkboxes[i].checked) values.push(checkboxes[i].value);
+		}
+		if($('related-products-field')){
+			$('related-products-field').value = values.join(',');
+		}
+	}
+	//]]>
+	</script>
+</div>
+<?php
+endif;
+}

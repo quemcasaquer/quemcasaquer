@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<Meigee_CategoriesEnhanced>
+			<version>1.1</version>
+			<depends>
+			<!-- no dependencies -->
+			</depends>
+		</Meigee_CategoriesEnhanced>
+	</modules>
+	<global>
+		<models>
+			<Meigee_CategoriesEnhanced><class>Meigee_CategoriesEnhanced_Model</class></Meigee_CategoriesEnhanced>
+		</models>
+		<resources>
+		    <categoriesenhanced_setup>
+		      <setup>
+		        <module>Meigee_CategoriesEnhanced</module>
+		        <class>Meigee_CategoriesEnhanced_Model_Resource_Eav_Mysql4_Setup</class>
+		      </setup>
+		      <connection>
+		        <use>core_setup</use>
+		      </connection>
+		    </categoriesenhanced_setup>
+		    <categoriesenhanced_write>
+		      <connection>
+		        <use>core_write</use>
+		      </connection>
+		    </categoriesenhanced_write>
+		    <categoriesenhanced_read>
+		      <connection>
+		        <use>core_read</use>
+		      </connection>
+		    </categoriesenhanced_read>
+		</resources>
+		<events />
+		<helpers>
+			<Meigee_CategoriesEnhanced><class>Meigee_CategoriesEnhanced_Helper</class></Meigee_CategoriesEnhanced>
+		</helpers>
+		<extraconfig />
+		<blocks>
+			<page>
+				<rewrite>
+					<html_topmenu>Meigee_CategoriesEnhanced_Block_Html_Topmenu</html_topmenu>
+				</rewrite>
+			</page>
+		</blocks>
+	</global>
+	<default>
+		<meigee_categoriesenhanced>
+			<options>
+				<status>1</status>
+			</options>
+		</meigee_categoriesenhanced>
+	</default>
+</config>

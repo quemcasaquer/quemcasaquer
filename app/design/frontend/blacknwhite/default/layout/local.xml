@@ -1,0 +1,485 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * @category    design
+ * @package     meigeetheme_default
+ * @copyright   Copyright (c) 2012 MeigeeTeam. (http://www.meigeeteam.com)
+ */
+
+-->
+<layout version="0.1.0">
+
+<default>
+	<reference name="root">
+        <action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+		<action method="addBodyClass" ifconfig="meigee_blacknwhite_general/retina/status"><classname>retina-ready</classname></action>
+		<action method="addBodyClass" ifconfig="meigee_blacknwhite_general/header/floatingheader"><classname>floating-header</classname></action>
+		<action method="addBodyClass" ifconfig="meigee_blacknwhite_general/header/transparentheader"><classname>transparent-header</classname></action>
+		<action method="addBodyClass" ifconfig="meigee_blacknwhite_headerslider/coin/enabled"><classname>header-slider</classname></action>
+		<action method="addBodyClass" ifconfig="meigee_blacknwhite_headerslider/coin/onlyhome"><classname>onlyhome-slider</classname></action>
+		<action method="addBodyClass" ifconfig="meigee_blacknwhite_general/layout/sitelayout"><classname>boxed-layout</classname></action>
+		<action method="addBodyClass" ifconfig="meigee_blacknwhite_general/rollover/rollover_status"><classname>hover-effect</classname></action>
+		<action method="addBodyClass" ifconfig="meigee_blacknwhite_general/rollover/rollover_type"><classname>hover-scale</classname></action>
+		<action method="addBodyClass" ifconfig="meigee_blacknwhite_general/newsletter/formobile"><classname>popup-mobile</classname></action>
+		<action method="addBodyClass" ifconfig="meigee_blacknwhite_general/newsletter/fortablet"><classname>popup-tablet</classname></action>
+		
+		<action method="addBodyClass">
+            <className helper="ThemeOptionsBlacknwhite/data/getPaternClass" />
+        </action>
+		<action method="addBodyClass">
+            <className helper="ThemeOptionsBlacknwhite/data/getSidebarPos" />
+        </action>
+		<reference name="top.links">
+	    	<action method="removeLinkByUrl"><url helper="customer/getAccountUrl"/></action>
+	    	<remove name="checkout_cart_link"/>
+			<block type="checkout/links" name="checkout_cart_link_custom">
+				<action method="addCheckoutLink"></action>
+			</block>
+	    	<action method="addLink" translate="label title" module="customer">
+	    		<label>My Account</label>
+	    		<url helper="customer/getAccountUrl"/>
+	    		<title>My Account</title>
+	    		<prepare/>
+	    		<urlParams/>
+	    		<position>10</position>
+	    		<liParams/>
+	    		<aParams>class="top-link-account"</aParams>
+	    	</action>
+		</reference>
+		<reference name="before_body_end">
+			<block type="newsletter/subscribe" name="newsletter_popup" as="newsletter_popup">
+				<action method="setTemplate">
+					<template helper="ThemeOptionsBlacknwhite/switchNewsletterLocation" />
+				</action>
+			</block>
+        </reference>
+	</reference>
+	<reference name="head">
+		<block type="core/text" name="viewport.media">
+			<action method="setText" ifconfig="meigee_blacknwhite_general/layout/responsiveness">
+				<text><![CDATA[<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />]]></text>
+			</action>
+		</block>
+		<action method="addJs"><script>meigee/jquery.min.js</script></action>
+        <action method="addItem"><type>skin_js</type><name>js/jquery.easing.js</name><params/></action>
+
+		<!--Removing items set in the page.xml we don't need since we're integrating the HTML 5 boilerplate-->
+		<action method="removeItem"><type>skin_js</type><name>js/ie6.js</name><if>lt IE 7</if></action>
+		<action method="removeItem"><type>js</type><name>lib/ds-sleight.js</name><params/><if>lt IE 7</if></action>
+		<action method="removeItem"><type>css</type><name>css/print.css</name></action>
+		<!--End "Removing items"-->
+
+		<!--Adding js script for lt IE9-->
+		<action method="addItem"><type>skin_js</type><name>js/script_ie.js</name><params/><if>lt IE 10</if></action>  
+		
+		<action method="addItem"><type>skin_js</type><name>js/html5.js</name><params/><if>lt IE 9</if></action>
+		<action method="addItem"><type>skin_js</type><name>js/css3-mediaqueries.js</name><params/><if>lt IE 9</if></action>
+
+		<action method="addItem"><type>skin_js</type><name>js/selectivizr-min.js</name><params/><if>lt IE 9</if></action>
+		<!--<action method="addItem"><type>skin_js</type><name>js/dd_belatedpng.js</name><params/><if>lt IE 7</if></action>-->
+
+        <!--Adding my own jQuery custom script-->
+		<action method="addItem"><type>skin_js</type><name>js/jquery.selectbox-0.2.min.js</name><params/></action>
+        <action method="addItem"><type>skin_js</type><name>js/script.js</name><params/></action>
+		<action method="addItem"><type>skin_js</type><name>js/jquery.iosslider.min.js</name><params/></action>
+		<action method="addItem" ifconfig="meigee_blacknwhite_bgslider/slideroptions/enabled"><type>skin_js</type><name>js/jquery.backstretch.min.js</name><params/></action>
+		
+		<action method="addItem"><type>skin_js</type><name helper="ThemeOptionsBlacknwhite/setCookie" /><params/></action>
+		
+		<!--Adding "To Top" functionality-->
+		<action method="addItem" ifconfig="meigee_blacknwhite_general/otheroptions/totop"><type>skin_js</type><name>js/jquery.ui.totop.js</name><params/></action>
+
+		<!--Grid-->
+		<action method="addCss"><stylesheet helper="ThemeOptionsBlacknwhite/switchGrid" /></action>
+		
+		<!--Font Awesome-->
+        <action method="addCss"><stylesheet>css/font-awesome.min.css</stylesheet><params/></action>
+		
+		<!--Retina Styles-->
+        <action method="addCss" ifconfig="meigee_blacknwhite_general/retina/status"><stylesheet>css/retina.css</stylesheet><params/></action>
+		
+		<!--Skin-->
+        <action method="addCss"><stylesheet>css/skin.css</stylesheet><params/></action>
+		<action method="addItem"><type>skin_css</type><name>css/styles-ie-8.css</name><params/><if>IE 8</if></action>
+        <action method="addCss"><stylesheet>css/custom.css</stylesheet><params/></action>
+
+        <block type="core/template" name="bgslider" template="meigee/bgslider.phtml" />
+		<block type="core/template" name="subheader" template="meigee/subheader.phtml" />
+        <!--End "Adding items" -->
+		
+		<!--Adding "Fancybox-->
+		<action method="addCss"><stylesheet helper="ThemeOptionsBlacknwhite/fancySwitcher" /></action>
+		<action method="addItem"><type>skin_js</type><name helper="ThemeOptionsBlacknwhite/fancySwitcherJS" /></action>
+	</reference>
+	
+	<reference name="header">
+		<block type="page/html" name="header_slider_container" template="meigee/headerslider.phtml">
+			<block type="cms/block" name="header_slider">
+				<action method="setBlockId"><block_id>header_slider</block_id></action>
+			</block>
+        </block>
+		<block type="checkout/cart_sidebar" name="cart_sidebar" template="checkout/cart/topcart.phtml" />
+		<block type="page/switch" name="store_language" as="store_language" template="page/switch/languages.phtml"/>
+		<block type="directory/currency" name="currency" template="directory/currency_header.phtml"/>
+		<block type="cms/block" name="blacknwhite_home_text_blocks">
+			<action method="setBlockId"><block_id>blacknwhite_home_text_blocks</block_id></action>
+		</block>
+    </reference>
+
+        <!-- Removing sidebar blocks from default position and moving into left reference ====================================================================== -->
+		<reference name="right">
+			<action method="unsetChild"><name>right.permanent.callout</name></action>
+			<action method="unsetChild"><name>cart_sidebar</name></action>
+			<action method="unsetChild"><name>catalog.compare.sidebar</name></action>
+			<action method="unsetChild"><name>right.reports.product.compared</name></action>
+			<action method="unsetChild"><name>right.reports.product.viewed</name></action>
+			<action method="unsetChild"><name>wishlist</name></action>
+			<action method="unsetChild"><name>sale.reorder.sidebar</name></action>
+			<action method="unsetChild"><name>right.poll</name></action>
+			<action method="unsetChild"><name>paypal.partner.right.logo</name></action>
+			<action method="unsetChild"><name>customer_form_mini_login</name></action>
+		</reference>
+		<reference name="left">
+			<action method="unsetChild"><name>left.permanent.callout</name></action>
+			<action method="unsetChild"><name>currency</name></action>
+			<action method="unsetChild"><name>tags_popular</name></action>
+			<action method="unsetChild"><name>left.newsletter</name></action>
+			<block type="newsletter/subscribe" name="sidebar.subscribe">
+				<action method="setTemplate" ifconfig="meigee_blacknwhite_general/newsletter/location">
+					<template>newsletter/subscribe.phtml</template> 
+				</action>
+			</block> 
+			
+			<block type="catalog/navigation" name="catalog.categories">
+                <action method="setTemplate" ifconfig="meigee_blacknwhite_sidebar/block_categories/status">
+                    <template>catalog/navigation/left_nav.phtml</template> 
+                </action>
+            </block>
+            <block type="page/html_wrapper" name="sidebar.banner" translate="label">
+	            <label>Sidebar Banner</label>
+	            <action method="setElementClass"><value>block block-banner</value></action>
+	        </block>
+			<block type="catalog/product_compare_sidebar" name="catalog.compare.sidebar" before="catalog.categories">
+                <action method="setTemplate" ifconfig="meigee_blacknwhite_sidebar/block_compare/status">
+                    <template>catalog/product/compare/sidebar.phtml</template> 
+                </action>
+            </block>
+			<block type="poll/activePoll" name="right.poll">
+                <action method="setPollTemplate"><template>poll/active.phtml</template><type>poll</type></action>
+                <action method="setPollTemplate"><template>poll/result.phtml</template><type>results</type></action>
+            </block>
+             <block type="tag/popular" name="tags_popular">
+                <action method="setTemplate" ifconfig="meigee_blacknwhite_sidebar/block_tags/status">
+                    <template>tag/popular.phtml</template> 
+                </action>
+            </block>
+            <block type="wishlist/customer_sidebar" name="wishlist_sidebar" as="wishlist">
+                <action method="setTemplate" ifconfig="meigee_blacknwhite_sidebar/block_wishlist/status">
+                    <template>wishlist/sidebar.phtml</template> 
+                </action>
+            </block>
+            <block type="reports/product_viewed" name="right.reports.product.viewed">
+                <action method="setTemplate" ifconfig="meigee_blacknwhite_sidebar/block_viewed/status">
+                    <template>reports/product_viewed.phtml</template> 
+                </action>
+            </block>
+            <block type="reports/product_compared" name="right.reports.product.compared">
+                <action method="setTemplate" ifconfig="meigee_blacknwhite_sidebar/block_compared/status">
+                    <template>reports/product_compared.phtml</template> 
+                </action>
+            </block>
+            <block type="paypal/logo" name="paypal.partner.right.logo" template="paypal/partner/logo.phtml">
+                <!--action method="setLogoType"><value>wePrefer_150x60</value></action-->
+            </block>
+		</reference>
+	    <!-- ===================================================================================================================== -->
+
+
+
+        <!-- Custom static blocks -->
+        <!--<reference name="header">
+		
+        </reference>-->
+        <reference name="footer">
+        	<!-- Uncomment following code to delete "Advanced Search" and "Orders and Returns" link fro the footer links  -->
+        	<!-- 
+        	<reference name="footer_links">
+				<action method="removeLinkByUrl"><url helper="catalogsearch/getAdvancedSearchUrl"/></action>
+				<remove name="return_link" />
+			</reference> 
+			-->
+			<!-- <action method="unsetChild"><name>footer_links</name></action> -->
+			<block type="page/template_links" name="footer_links" as="footer_links" template="page/template/links.phtml">
+				<action method="addLink" translate="label title" module="catalog" ifconfig="catalog/seo/site_map">
+					<label>Site Map</label>
+					<url helper="catalog/map/getCategoryUrl" />
+					<title>Site Map</title>
+				</action>
+				<action method="addLink" translate="label title" module="catalogsearch" ifconfig="catalog/seo/search_terms">
+					<label>Search Terms</label>
+					<url helper="catalogsearch/getSearchTermUrl" />
+					<title>Search Terms</title>
+				</action>
+				<action method="addLink" translate="label title" module="catalogsearch">
+					<label>Advanced Search</label>
+					<url helper="catalogsearch/getAdvancedSearchUrl" />
+					<title>Advanced Search</title>
+				</action>
+				<action method="addLink" translate="label title" module="rss" ifconfig="rss/config/active">
+					<label>RSS</label>
+					<url>rss</url>
+					<title>RSS</title>
+					<prepare>true</prepare>
+					<urlParams/>
+					<position/>
+					<li/>
+					<a>class="link-rss"</a>
+				</action>
+				<action method="addLink" translate="label title" module="contacts" ifconfig="contacts/contacts/enabled">
+					<label>Contact Us</label>
+					<url>contacts</url>
+					<title>Contact Us</title>
+					<prepare>true</prepare>
+				</action>
+			</block>
+			<block type="core/template" name="contactForm">
+				<action method="setTemplate" ifconfig="contacts/contacts/enabled"><template>contacts/form_footer.phtml</template></action>
+			</block>
+        </reference>
+        <!--End Custom static blocks -->
+		<reference name="wishlist_link"> 
+			<action method="__set">
+				<name>a_params</name><value>class="top-link-wishlist"</value>
+			</action> 
+		</reference>
+</default>
+
+<wishlist_index_index translate="label">
+	<reference name="left">
+		<action method="unsetChild"><name>cart_sidebar</name></action>
+		<action method="unsetChild"><name>reorder</name></action>
+		<action method="unsetChild"><name>catalog.compare.sidebar</name></action>
+	</reference>
+</wishlist_index_index>
+
+<catalog_category_default>
+    <reference name="category.products">
+        <block type="page/html_wrapper" name="cat.container" as="catContainer" translate="label">
+            <label>Under Category Title</label>
+            <action method="setElementClass"><value>cat-container</value></action>
+        </block>
+    </reference>
+	<reference name="head">
+		<action method="addItem"><type>skin_js</type><name>js/jquery.isotope.min.js</name><params/></action>
+	</reference>
+	<reference name="left">
+		<action method="unsetChild"><name>currency</name></action>
+	</reference>
+	<reference name="right">
+		<action method="unsetChild"><name>paypal.partner.right.logo</name></action>
+		<action method="unsetChild"><name>left.reports.product.viewed</name></action>
+	</reference>
+</catalog_category_default>
+
+<catalog_category_layered>
+    <reference name="category.products">
+        <block type="page/html_wrapper" name="cat.container" as="catContainer" translate="label">
+            <label>Under Category Title</label>
+            <action method="setElementClass"><value>cat-container</value></action>
+        </block>
+    </reference>
+	<reference name="head">
+		<action method="addItem"><type>skin_js</type><name>js/jquery.isotope.min.js</name><params/></action>
+	</reference>
+	<reference name="left">
+		<action method="unsetChild"><name>currency</name></action>
+	</reference>
+	<reference name="right">
+		<action method="unsetChild"><name>paypal.partner.right.logo</name></action>
+		<action method="unsetChild"><name>left.reports.product.viewed</name></action>
+	</reference>
+</catalog_category_layered>
+
+<catalogsearch_result_index>
+    <reference name="root">
+        <action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+    </reference>
+	<reference name="head">
+		<action method="addItem"><type>skin_js</type><name>js/jquery.isotope.min.js</name><params/></action>
+	</reference>
+	 <reference name="left">
+		<action method="unsetChild"><name>currency</name></action>
+    </reference>
+</catalogsearch_result_index>
+
+<catalogsearch_advanced_result>
+    <reference name="root">
+        <action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+    </reference>
+	<reference name="head">
+		<action method="addItem"><type>skin_js</type><name>js/jquery.isotope.min.js</name><params/></action>
+	</reference>
+</catalogsearch_advanced_result>
+
+<catalogsearch_advanced_index>
+	<reference name="root">
+        <action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+    </reference>
+	<reference name="left">
+		<action method="unsetChild"><name>right_currency</name></action>
+    </reference>
+</catalogsearch_advanced_index>
+
+<print>
+	<reference name="head">
+		<!--Skin-->
+		<action method="addCss"><stylesheet>css/skin.css</stylesheet><params/></action>
+
+		<!--Adding my own jQuery custom script-->
+		<action method="addItem"><type>skin_js</type><name>js/script.js</name><params/></action>
+	</reference>
+</print>
+<!-- Custom static blocks -->
+
+<catalog_product_view>
+	 <reference name="root">
+        <action method="setTemplate"><template>page/1column.phtml</template></action>
+    </reference>
+	<reference name="head">
+		<!--Cloud Zoom-->
+        <action method="addItem"><type>skin_js</type><name>js/cloud-zoom.1.0.2.min.js</name><params/></action>
+	</reference>
+	<reference name="product.info">
+		<block type="core/text_list" name="product_col" as="product_col" translate="label">
+            <label>Product Col</label>
+        </block>
+        <block type="catalog/product_view_tabs" name="product.info.tabs" as="info_tabs" template="catalog/product/view/tabs.phtml" >
+            <action method="addTab" translate="title" module="catalog"><alias>description</alias><title>Product Description</title><block>catalog/product_view_description</block><template>catalog/product/view/description.phtml</template></action>
+            <action method="addTab" translate="title" module="catalog"><alias>upsell_products</alias><title>We Also Recommend</title><block>catalog/product_list_upsell</block><template>catalog/product/list/upsell.phtml</template></action>
+            <action method="addTab" translate="title" module="catalog"><alias>additional</alias><title>Additional Information</title><block>catalog/product_view_attributes</block><template>catalog/product/view/attributes.phtml</template></action>
+        </block>
+		<block type="catalog/product_view" name="manufacturer.center" template="meigee/manufacturer_center.phtml" />
+        <block type="catalog/product_list_related" name="catalog.product.related.bottom" template="catalog/product/list/related_bottom.phtml"/>
+        <block type="core/template" name="product_review_list.count" template="review/product/view/count.phtml" />
+        <block type="review/product_view_list" name="product.info.review_list" template="review/product/view/list.phtml">
+            <block type="review/form" name="product.review.form" as="review_form">
+                <block type="page/html_wrapper" name="product.review.form.fields.before" as="form_fields_before" translate="label">
+                    <label>Review Form Fields Before</label>
+                    <action method="setMayBeInvisible"><value>1</value></action>
+                </block>
+            </block>
+        </block>
+		<block type="catalog/product_list_upsell" name="product.info.upsell" as="upsell_products" template="catalog/product/list/upsell.phtml" />
+    </reference>
+     <reference name="product.info.tabs">
+        <action method="addTab" translate="title" module="tag"><alias>product.tags</alias><title>Product Tags</title><block>tag/product_list</block><template>tag/list.phtml</template></action>
+    </reference>
+    <reference name="product.tags">
+        <block type="page/html_wrapper" name="product.tag.list.list.before" as="list_before" translate="label">
+            <label>Tags List Before</label>
+            <action method="setMayBeInvisible"><value>1</value></action>
+        </block>
+    </reference>
+	<reference name="product_col">
+		<block type="catalog/product_view" name="manufacturer" template="meigee/manufacturer.phtml" />
+        <block type="catalog/product_list_related" name="catalog.product.related" template="catalog/product/list/related.phtml"/>
+		<block type="catalog/product_view" name="productbanner" template="meigee/productbanner.phtml" />
+	</reference>
+</catalog_product_view>
+<!--End Custom static blocks -->
+
+<customer_account_index>
+    <reference name="left">
+        <action method="unsetChild"><name>catalog.compare.sidebar</name></action>
+		<action method="unsetChild"><name>cart_sidebar</name></action>
+		<action method="unsetChild"><name>reorder</name></action>
+    </reference>
+</customer_account_index>
+
+<customer_logged_in>
+    <reference name="top.links">
+    	<action method="removeLinkByUrl"><url helper="customer/getLogoutUrl"/></action>
+        <action method="addLink" translate="label title" module="customer">
+        	<label>Log Out</label>
+        	<url helper="customer/getLogoutUrl"/>
+        	<title>Log Out</title>
+        	<prepare/>
+        	<urlParams/>
+        	<position>100</position>
+        	<liParams/>
+        	<aParams>class="top-link-logout"</aParams>
+        </action>
+    </reference>
+    <reference name="left">
+        <block type="sales/reorder_sidebar" name="sale.reorder.sidebar" as="reorder" template="sales/reorder/sidebar.phtml"/>
+    </reference>
+</customer_logged_in>
+
+<customer_logged_out>
+    <reference name="top.links">
+    	<action method="removeLinkByUrl"><url helper="customer/getLoginUrl"/></action>
+        <action method="addLink" translate="label title" module="customer">
+        	<label>Log In</label>
+        	<url helper="customer/getLoginUrl"/>
+        	<title>Log In</title>
+        	<prepare/>
+        	<urlParams/>
+        	<position>100</position>
+        	<liParams/>
+        	<aParams>class="top-link-login"</aParams>
+        </action>
+    </reference>
+</customer_logged_out>
+
+<customer_account_edit translate="label">
+	<reference name="left">
+		<action method="unsetChild"><name>cart_sidebar</name></action>
+	</reference>
+</customer_account_edit>
+
+<checkout_cart_index translate="label">
+    <reference name="checkout.cart">
+          <block type="checkout/cart_crosssell" name="checkout.cart.crosssell.big" as="crosssell_big" template="checkout/cart/crosssell_big.phtml"/>
+    </reference>
+</checkout_cart_index>
+
+<checkout_onepage_reorder>
+    <reference name="left">
+        <action method="unsetChild"><name>reorder</name></action>
+    </reference>
+</checkout_onepage_reorder>
+
+<contacts_index_index translate="label">
+    <reference name="root">
+        <action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+    </reference>
+</contacts_index_index>
+
+<sendfriend_product_send translate="label">
+    <reference name="root">
+        <action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+    </reference>
+</sendfriend_product_send>
+
+<print>
+        <reference name="head">
+                <action method="addCss"><stylesheet>css/grid.css</stylesheet></action>
+        </reference>
+</print>
+
+<onepagecheckout_index_success translate="label">
+	<reference name="root">
+		<action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+	</reference>
+</onepagecheckout_index_success>
+
+<checkout_onepage_success translate="label">
+	<label>One Page Checkout Success</label>
+	<reference name="root">
+		<action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+	</reference>
+</checkout_onepage_success>
+
+</layout>

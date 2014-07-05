@@ -1,0 +1,678 @@
+/**
+*
+* This file is generated automaticaly. Please do no edit it directly cause all changes will be lost.
+*
+*/
+/*====== Font Replacement - Titles =======*/ 
+.nav-container li.level-top > a span,
+header#header .top-cart .block-title .title-cart,
+#footer .footer-block-title h2,
+#footer .footer-topline .custom-footer-content li > span h3,
+#footer .footer-address-block p,
+.products-grid .product-name a,
+.price,
+.btn-quick-view span,
+.products-list .product-name a,
+.minimal-price-link .label,
+.page-title h1,
+.page-title h2,
+.page-title h3,
+.page-title h4,
+.page-title h5,
+.page-title h6,
+.widget-title h1,
+.widget-title h2,
+.widget .widget-title h1,
+.widget .widget-title h2,
+aside.sidebar .block.block-layered-nav dl dt h2,
+aside.sidebar .block.block-layered-nav dl dd a,
+aside.sidebar .block.block-layered-nav dl dd li span,
+aside.sidebar .block.block-layered-nav #amount,
+aside.sidebar .block.block-layered-nav #amount-2,
+aside.sidebar .block-title strong span,
+.block-vertical-nav li.level-top a.level-top,
+aside.sidebar .product-name a,
+.block-poll label,
+aside.sidebar .block .block-subtitle,
+.sorter .sort-by label,
+.toolbar .sbSelector > span,
+.label-new,
+.label-sale,
+.pager .pages ol li.current,
+.pager .pages ol li a,
+.product-view .product-shop .product-name h1,
+.meigee-tabs a,
+.rating-subtitle h2,
+.catalog-product-view .box-reviews ul li h6 a,
+.block-related .product-name a,
+.block-related .block-title strong span,
+.block-related .block-content .block-subtitle a,
+.product-collateral h2,
+.product-options-title h2,
+.price-as-configured .price-label,
+header#header .top-cart .product-name a,
+.cart .page-title h1,
+.data-table .product-name a,
+.cart-blocks-title h2,
+section .crosssell .product-details .product-name a,
+#cart-accordion h3.accordion-title,
+#cart-accordion .accordion-content .crosssell li.item .product-name a,
+aside.sidebar .block-account li a,
+aside.sidebar .block-account li strong,
+.dashboard .welcome-msg .hello,
+.dashboard .box-title h2,
+.dashboard .box-title h3,
+.dashboard .box-head h3,
+.dashboard .box-head h2,
+.fieldset .legend,
+.addresses-list .addresses-primary h2,
+.addresses-list .addresses-additional h2,
+.product-review .product-name,
+header#header .top-cart .block-content .subtotal span,
+#login-holder .page-title h1,
+#login-holder form p,
+#login-holder .link-box a,
+.onepagecheckout-index-index .main-container .page-title,
+#onepagecheckout_orderform .col3-set.onepagecheckout_datafields .op_block_title,
+.opc h3,
+.opc .step-title h2,
+.multiple-checkout h2,
+.nav-wide#nav-wide .top-content .top-menu-features li span h3,
+.nav-wide#nav-wide ul.level0 li.level1 span.subtitle,
+.header-slider-container .iosSlider .slider .item h2,
+.header-slider-container .iosSlider .slider .item h3,
+.header-slider-container .iosSlider .slider .item .slide-container.slide-skin-2 p,
+.header-slider-container .iosSlider .slider .item .slide-container.slide-skin-2 h4,
+#login-form h2,
+.quick-view-title h2,
+.block-subscribe .form-subscribe-header label,
+.block-subscribe-popup .indent h3,
+aside.sidebar .block.block-layered-nav .currently .label {font-family: Quattrocento, sans-serif;}
+
+/*====== Site Bg =======*/
+body {background-color:#FFFFFF;}
+
+/*====== Skin Color #1 =======*/
+a:hover,
+#footer .footer-address-block p a:hover,
+#footer address a:hover,
+.products-grid .product-name a:hover,
+.regular-price .price,
+.special-price .price,
+.price-from .price,
+.price-to .price,
+.products-grid .add-to-links li i:hover,
+.products-list .product-name a:hover,
+.minimal-price-link .price,
+.products-list .add-to-links i:hover,
+#categories-accordion li.level-top a.level-top:hover,
+#categories-accordion li.level-top.parent ul.level0 li a:hover,
+#categories-accordion .btn-cat.closed > i,
+.block-compare li.item .btn-remove i:hover,
+.availability.out-of-stock span,
+.availability-only i,
+div.quantity-decrease i:hover,
+div.quantity-increase i:hover,
+.catalog-product-view .box-reviews .form-add h3 span,
+.catalog-product-view .box-reviews ul li small span,
+.block-related .product-name a:hover,
+.block-related .block-content .block-subtitle a:hover,
+.product-options-bottom  i:hover,
+.price-as-configured .price,
+header#header .top-cart .product-name a:hover,
+header#header .top-cart .block-content .mini-products-list .product-details .price,
+.data-table .product-name a:hover,
+.data-table .c_actions a i:hover,
+.data-table .cart-price .price,
+.data-table .remove i:hover,
+.sp-methods .price,
+.cart .totals .checkout-types li a:hover,
+.dashboard .box-title a i:hover,
+.dashboard .box-head a i:hover,
+.my-account .addresses-list li.item a:hover,
+.my-account .data-table a:hover,
+.my-wishlist .data-table .table-buttons a i:hover,
+header#header .top-cart .block-content .subtotal .price,
+#login-holder form .actions > a:hover,
+#login-holder .link-box a:hover,
+.onepagecheckout_loginarea .onepagecheckout_loginlink:hover,
+.onepagecheckout-index-index #onepagecheckout_forgotbox.op_login_area #forgot-password-form .onepagecheckout_loginlink:hover,
+ .onepagecheckout-index-index #onepagecheckout_loginbox.op_login_area #login-form .onepagecheckout_forgotlink:hover,
+.opc .grid_4 a:hover,
+.multiple-checkout .grand-total .price,
+nav.breadcrumbs li a:hover,
+nav.breadcrumbs li a:hover + span,
+.nav-wide#nav-wide .top-content .top-menu-links li a,
+header#header .customer-name .user i,
+.tags-list li a:hover,
+.header-slider-container .iosSlider .slider .item .slide-container.slide-skin-2 h3 span,
+.header-slider-container .iosSlider .slider .item .slide-container.slide-skin-3 h3 span,
+.product-view .product-shop .add-to-links-box i:hover,
+#cart-accordion .accordion-content .crosssell li.item .product-name a:hover {color: #D264A0;}
+
+#footer .block-tags .actions a:hover,
+button.button:hover > span,
+ul.social-links li a i:hover,
+#footer .block-tags .tags-list li a:hover,
+.ui-slider .ui-slider-range,
+.block-compare .actions a:hover,
+.block-compare .actions button span,
+aside.sidebar .block-tags li a:hover,
+aside.sidebar .block-tags .actions a:hover,
+aside.sidebar .block-reorder .actions a:hover,
+.block-reorder .actions button span,
+aside.sidebar .block.block-wishlist .actions a:hover,
+.sorter .view-mode a:hover i,
+.sorter .view-mode strong i,
+.sorter a.desc i:hover,
+.sorter a.asc i:hover,
+div.label-sale,
+.products-grid .availability-only,
+.products-list .availability-only,
+.add-to-cart button.button span,
+.catalog-product-view .box-reviews .full-review,
+.iwdbutton button.button span,
+.cart .btn-proceed-checkout span,
+header#header .top-cart .block-content .actions .button span,
+.cart-table .buttons-row button.btn-continue:hover span,
+.my-wishlist .buttons-set .btn-update:hover span,
+header#header .top-cart .block-content .actions a:hover,
+#checkout-coupon-discount-load .discount-form .buttons-set button.button:hover span span,
+#onepagecheckout_orderform  #checkout-review-submit button span span,
+#onepagecheckout_forgotbox button.button:hover span span,
+#onepagecheckout_loginbox button.button:hover span span,
+nav.breadcrumbs li span:after,
+.header-slider-container .iosSlider .prev:hover i,
+.header-slider-container .iosSlider .next:hover i,
+.cart-remove-box a:hover,
+.add-to-cart-success a:hover,
+#login-holder form .actions button:hover span span,
+table#wishlist-table td .cart-cell button.button:hover span span,
+.block-subscribe-popup .indent button.button:hover span span,
+aside.sidebar .block.block-layered-nav .actions a:hover {background-color: #D264A0;}
+
+.label-type-5 div.label-sale:before,
+.products-grid.label-type-5 .availability-only:before,
+.products-list.label-type-5 .availability-only:before{
+	border-top-color: #ff1341;
+}
+.label-type-5 div.label-sale:after,
+.products-grid.label-type-5 .availability-only:after,
+.products-list.label-type-5 .availability-only:after{
+	border-bottom-color: #ff1341;
+}
+
+#footer .block-tags .actions a:hover,
+button.button:hover span,
+#footer .block-tags .tags-list li a:hover,
+.block-compare .actions a:hover,
+.block-compare .actions button span,
+aside.sidebar .block-tags li a:hover,
+aside.sidebar .block-tags .actions a:hover,
+aside.sidebar .block-reorder .actions a:hover,
+.block-reorder .actions button span,
+aside.sidebar .block.block-wishlist .actions a:hover,
+.add-to-cart button.button span,
+.iwdbutton button.button span,
+.cart .btn-proceed-checkout span,
+header#header .top-cart .block-content .actions .button span,
+.cart-table .buttons-row button.btn-continue:hover span,
+.my-wishlist .buttons-set .btn-update:hover span,
+header#header .top-cart .block-content .actions a:hover,
+#checkout-coupon-discount-load .discount-form .buttons-set button.button:hover span,
+#onepagecheckout_orderform  #checkout-review-submit button > span,
+#onepagecheckout_forgotbox button.button:hover > span,
+#onepagecheckout_loginbox button.button:hover > span,
+.cart-remove-box a:hover,
+.add-to-cart-success a:hover,
+#login-holder form .actions button:hover > span,
+.block-subscribe-popup .indent button.button:hover > span,
+aside.sidebar .block.block-layered-nav .actions a:hover {border-color: #D264A0;}
+
+/*====== Skin Color #2 =======*/
+a,
+.onepagecheckout_loginarea .onepagecheckout_loginlink,
+.nav-wide#nav-wide .top-content .top-menu-links li a:hover,
+.header-slider-container .iosSlider .slider .item h3,
+.header-slider-container .iosSlider .slider .item .slide-container.slide-skin-2 h4,
+.header-slider-container .iosSlider .slider .item .slide-container.slide-skin-3 h4 {color: #6EAACB;}
+
+.products-grid .btn-quick-view > span,
+.products-list .btn-quick-view > span {
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#CC6EAACB,endColorstr=#CC6EAACB);
+	background-color: rgba(110,170,203, 0.8);
+}
+
+.products-grid .btn-quick-view:hover > span,
+.products-list .btn-quick-view:hover > span,
+span.label-new {background-color: #6EAACB;}
+
+.label-type-5 span.label-new:before{
+    border-top-color: #6EAACB;
+}
+.label-type-5 span.label-new:after{
+    border-bottom-color: #6EAACB;
+}
+
+.product-view .product-name div.sku::selection {background-color: #6EAACB;}
+.product-view .product-name div.sku::-moz-selection {background-color: #6EAACB;}
+
+/*====== Menu Color =======*/
+    header#header .topline,
+    body.boxed-layout header#header .topline .container_12 {background-color: #FFFFFF;}
+    .topline .grid_12 {
+    	border-top-color: #F5F5F5;
+    	border-bottom-color: #F5F5F5;
+    	border-top-width: 3px;
+    	border-bottom-width: 3px;
+    }
+    .nav-container li.level-top > a span {color: #222222;}
+    .nav-container li.level-top > a:hover span {color: #FFFFFF;}
+    .nav-container li.level-top > a {background-color: #FFFFFF;}
+    .nav-container li.level-top > a:hover {background-color: #D264A0;}
+    .nav-container li.level-top.active > a {background-color: #D264A0;}
+    .nav-container li.level-top.active > a span {color: #FFFFFF;}
+
+    /**** Dropdown Menu ****/
+    .nav-wide#nav-wide .menu-wrapper {background-color: #EEEEEE;}
+    .nav-wide#nav-wide .top-content .top-menu-links {border-bottom-color: #4C4C4C;}
+    .nav-wide#nav-wide .top-content i {color: #FFFFFF; border-color: #FFFFFF;}
+    .nav-wide#nav-wide .top-content h3 {color: #FFFFFF;}
+    .nav-wide#nav-wide .top-content {color: #333333;}
+    .nav-wide#nav-wide ul.level0 li.level1 span.subtitle {background-color: #CCCCCC; color: #666666;}
+    .nav-wide#nav-wide ul.level1 a {color: #555555;}
+    .nav-wide#nav-wide ul.level1 a:hover {background-color: #6EAACB;}
+    .nav-wide#nav-wide .bottom-content {background-color: #393939; color: #FFFFFF;}
+
+    /**** Cart and Wishlist ****/
+    header#header .top-link-wishlist i,
+    header#header .top-link-wishlist .wishlist-items {color: #AAAAAA;}
+    header#header .top-link-wishlist:hover i,
+    header#header .top-link-wishlist:hover .wishlist-items {color: #AAAAAA;}
+    header#header .top-link-wishlist {background-color: #FFFFFF;} /*  */
+    header#header .top-link-wishlist:hover {background-color: #222222;}
+    header#header .top-cart .block-title {background-color: #FFFFFF;}
+    header#header .top-cart .block-title .title-cart {color: #222222;}
+    header#header .top-cart .block-title:hover .title-cart,
+    header#header .top-cart .block-title.active .title-cart {color: #FFFFFF;}
+    header#header .top-cart .block-title:hover,
+    header#header .top-cart .block-title.active {background-color: #222222;}
+
+    /*====== Category Labels =======*/
+    .nav-wide#nav-wide li.level-top .category-label.label_one { 
+        background-color: #EB4C4C;
+        border-color: #EB4C4C;
+        color: #FFFFFF;
+    }
+    .nav-wide#nav-wide li.level-top.over .category-label.label_one { 
+        background-color: #9EDE42;
+        border-color: #9EDE42;
+        color: #FFFFFF;
+    }
+    .nav-wide#nav-wide li.level-top .category-label.label_two { 
+        background-color: #4D8AB0;
+        border-color: #4D8AB0;
+        color: #FFFFFF;
+    }
+    .nav-wide#nav-wide li.level-top.over .category-label.label_two { 
+        background-color: #4FA9E1;
+        border-color: #4FA9E1;
+        color: #FFFFFF;
+    }
+    .nav-wide#nav-wide li.level-top .category-label.label_three { 
+        background-color: #FF712F;
+        border-color: #FF712F;
+        color: #FFFFFF;
+    }
+    .nav-wide#nav-wide li.level-top.over .category-label.label_three { 
+        background-color: #FF712F;
+        border-color: #FF712F;
+        color: #FFFFFF;
+    }
+
+    /*====== Header =======*/
+    header#header,
+    header#header .welcome-msg {color: #888888;}
+    header#header a {color: #6EAACB;}
+    header#header a:hover {color: #D264A0;}
+    header#header,
+    body.boxed-layout header#header > .container_12 {background-color: #FFFFFF;}
+    header#header .form-search .indent,
+    header#header .sbHolder a,
+    header#header .sbHolder .sbOptions {
+    	background-color: #FFFFFF;
+    	border-color: #DDDDDD;
+    }
+    header#header .form-search input {border-color: #EFEFEF;}
+    header#header .form-search input,
+    header#header a.sbSelector,
+    header#header .form-search button span i,
+    header#header .sbHolder a {color: #AAAAAA;}
+    header#header a.sbSelector span {border-top-color: #AAAAAA;}
+
+    /**** Account ****/
+    header#header .customer-name,
+    header#header .links li a {
+    	color: #222222;
+    	background-color: #FFFFFF;
+    }
+    header#header .customer-name:hover,
+    header#header .links li a:hover {
+    	color: #222222;
+    	background-color: #F5F5F5;
+    }
+    header#header .customer-name + .links {background-color: #FFFFFF;}
+    header#header .customer-name + .links li a {
+    	color: #666666;
+    	background-color: #FFFFFF;
+    }
+    header#header .customer-name + .links li a:hover {
+    	color: #666666;
+    	background-color: #F5F5F5;
+    }
+
+    /*====== Header Slider =======*/
+    .header-slider-container .iosSlider .slider .item h2 {color: #222222;}
+    .header-slider-container .iosSlider .slider .item h2 span,
+    .header-slider-container .iosSlider .slider .item h4,
+    .header-slider-container .iosSlider .slider .item h5,
+    .header-slider-container .iosSlider .slider .item p,
+    .header-slider-container .iosSlider .slider .item .slide-container.slide-skin-2 h2,
+    .header-slider-container .iosSlider .slider .item .slide-container.slide-skin-2 p,
+    .header-slider-container .iosSlider .slider .item .slide-container.slide-skin-2 h3,
+    .header-slider-container .iosSlider .slider .item .slide-container.slide-skin-3 h2,
+    .header-slider-container .iosSlider .slider .item .slide-container.slide-skin-3 h3 {color: #FFFFFF;}
+    .header-slider-container .iosSlider .slider .item h3,
+    .header-slider-container .iosSlider .slider .item .slide-container.slide-skin-2 h4,
+    .header-slider-container .iosSlider .slider .item .slide-container.slide-skin-3 h4 {color: #6EAACB;}
+    .header-slider-container .iosSlider .slider .item .slide-container.slide-skin-2 h3 span,
+    .header-slider-container .iosSlider .slider .item .slide-container.slide-skin-3 h3 span {color: #D264A0;}
+    .header-slider-container .iosSlider .prev i,
+    .header-slider-container .iosSlider .next i {
+    	background-color: #222222;
+    	color: #FFFFFF;
+    }
+    .header-slider-container .iosSlider .prev:hover i,
+    .header-slider-container .iosSlider .next:hover i {
+    	background-color: #6EAACB;
+    	color: #FFFFFF;
+    }
+
+    /*====== Buttons =======*/
+    header#header .top-cart .block-content .actions .button span,
+    button.button:hover span,
+    .block-compare .actions a:hover,
+     aside.sidebar .block-reorder .actions a:hover,
+    .block-compare .actions button span,
+    .block-reorder .actions button span,
+    aside.sidebar .block.block-wishlist .actions a:hover,
+    .add-to-cart button.button span,
+    aside.sidebar .block-tags .actions a:hover,
+    .cart-remove-box a:hover,
+    .add-to-cart-success a:hover,
+    header#header .top-cart .block-content .actions a:hover {border-color: #D264A0;}
+    header#header .top-cart .block-content .actions .button span,
+    button.button:hover > span,
+    .block-compare .actions a:hover,
+    aside.sidebar .block-reorder .actions a:hover,
+    .block-compare .actions button span,
+    .block-reorder .actions button span,
+    .add-to-cart button.button span,
+    aside.sidebar .block.block-wishlist .actions a:hover,
+    aside.sidebar .block-tags .actions a:hover,
+    .cart-remove-box a:hover,
+    .add-to-cart-success a:hover,
+    header#header .top-cart .block-content .actions a:hover {background-color: #D264A0;}
+    header#header .top-cart .block-content .actions .button span span,
+    button.button:hover span span,
+    .block-compare .actions button span,
+    .block-reorder .actions button span,
+    aside.sidebar .block-reorder .actions a:hover,
+    .add-to-cart button.button span,
+    aside.sidebar .block.block-wishlist .actions a:hover,
+    aside.sidebar .actions a:hover,
+    .cart-remove-box a:hover,
+    .add-to-cart-success a:hover,
+    header#header .top-cart .block-content .actions a:hover {color: #FFFFFF;}
+    button.button span,
+    header#header .top-cart .block-content .actions a,
+    aside.sidebar .actions a,
+    .block-reorder .actions button:hover  span span,
+    .block-compare .actions button:hover span span,
+    .add-to-cart button.button:hover span span,
+    .cart-remove-box a,
+    .add-to-cart-success a,
+    header#header .top-cart .block-content .actions .button:hover > span span {background-color: #6EAACB;}
+    button.button span,
+    header#header .top-cart .block-content .actions a,
+    aside.sidebar .actions a,
+    .block-reorder .actions button:hover > span,
+    .block-compare .actions button:hover > span,
+    .add-to-cart button.button:hover > span,
+    .cart-remove-box a,
+    .add-to-cart-success a,
+    header#header .top-cart .block-content .actions .button:hover > span {border-color: #6EAACB;}
+    button.button span span,
+    header#header .top-cart .block-content .actions a,
+    aside.sidebar .actions a,
+    .block-reorder .actions button:hover span span,
+    .block-compare .actions button:hover span span,
+    .add-to-cart button.button:hover span span,
+    .cart-remove-box a,
+    .add-to-cart-success a,
+    header#header .top-cart .block-content .actions .button:hover span span {color: #FFFFFF;}
+
+    button.button span,
+    header#header .top-cart .block-content .actions a,
+    aside.sidebar .actions a,
+    .block-reorder .actions button > span,
+    .block-compare .actions button > span,
+    .add-to-cart button.button > span,
+    .cart-remove-box a,
+    .add-to-cart-success a,
+    .cart .btn-proceed-checkout span {border-width: 4px;}
+
+    /**** Buttons Type 2 ****/
+    #checkout-coupon-discount-load .discount-form .buttons-set button.button span span,
+    #onepagecheckout_orderform #checkout-review-submit button:hover span span,
+    #login-holder form .actions button span span,
+    .cart-table .buttons-row button.btn-continue span,
+    .my-wishlist .buttons-set .btn-update span,
+    .iwdbutton button.button:hover span,
+    .cart .btn-proceed-checkout:hover span {
+    	background-color: #000000;
+    	color: #FFFFFF;
+    	border-color: #222222;
+    }
+    .iwdbutton button.button:hover span span, 
+    .cart .btn-proceed-checkout:hover span span {
+    	color: #FFFFFF;
+    	background-color: #000000;
+    }
+    #onepagecheckout_orderform #checkout-review-submit button:hover > span,
+    #checkout-coupon-discount-load .discount-form .buttons-set button.button span,
+    #login-holder form .actions button > span {border-color: #222222;}
+    #checkout-coupon-discount-load .discount-form .buttons-set button.button:hover span span,
+    #onepagecheckout_orderform #checkout-review-submit button span span,
+    #login-holder form .actions button:hover span span,
+    .cart-table .buttons-row button.btn-continue:hover span,
+    .my-wishlist .buttons-set .btn-update:hover span,
+    .iwdbutton button.button span,
+    .cart .btn-proceed-checkout span {
+    	background-color: #D264A0;
+    	color: #FFFFFF;
+    	border-color: #D264A0;
+    }
+    .iwdbutton button.button span span, 
+    .cart .btn-proceed-checkout span span {
+    	color: #FFFFFF;
+    	background-color: #D264A0;
+    }
+    #onepagecheckout_orderform #checkout-review-submit button > span,
+    #checkout-coupon-discount-load .discount-form .buttons-set button.button:hover span,
+    #login-holder form .actions button:hover > span {border-color: #D264A0;}
+
+    #checkout-coupon-discount-load .discount-form .buttons-set button.button span span,
+    #onepagecheckout_orderform #checkout-review-submit button span span,
+    .cart-table .buttons-row button.btn-continue span,
+    .my-wishlist .buttons-set .btn-update span,
+    #login-holder form .actions button > span,
+    .iwdbutton button.button span,
+    .cart .btn-proceed-checkout span {border-width: 4px;}
+
+    /**** Quick View Button ****/
+    .products-grid button.button.btn-quick-view > span,
+    .products-list button.button.btn-quick-view > span {
+    	background-color: rgba(210,100,160, 0.8);
+    	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#CC,endColorstr=#CC);
+    }
+    .products-grid button.button.btn-quick-view span span,
+    .products-list button.button.btn-quick-view span span {color: #FFFFFF;}
+    .products-grid button.button.btn-quick-view:hover > span,
+    .products-list button.button.btn-quick-view:hover > span {background-color: #6EAACB;}
+    .products-grid button.button.btn-quick-view:hover span span,
+    .products-list button.button.btn-quick-view:hover span span {color: #FFFFFF;}
+
+    /*====== Products ======*/
+    .products-list li.item .product-img-box,
+    .products-grid li.item .product-img-box {
+    	background-color: #FFFFFF;
+    	border-width: 0px;
+    	border-color: #FFFFFF;
+    }
+    .products-grid .product-name a,
+    .products-list .product-name a {color: #222222;}
+    .products-grid .product-name a:hover,
+    .products-list .product-name a:hover {color: #D264A0;}
+    .products-list .desc,
+    .products-grid .desc {color: #888888;}
+    .products-list .desc a,
+    .products-grid .desc a {color: #D264A0;}
+    .products-list .desc a:hover,
+    .products-grid .desc a:hover {color: #6EAACB;}
+    .price-box .price {color: #D264A0;}
+    .old-price .price {color: #AAAAAA;}
+    .special-price .price {color: #D264A0;}
+    .products-grid .price-box {
+    	border-color: #DDDDDD;
+    	border-width: 1px;
+    }
+
+    /**** Product Labels ****/
+    span.label-new {
+    	background-color: #F5F516;
+    	color: #FFFFFF;
+    }
+	.label-type-5 span.label-new:before{
+		border-top-color: #F5F516;
+	}
+	.label-type-5 span.label-new:after{
+		border-bottom-color: #F5F516;
+	}
+	
+    div.label-sale,
+	.products-grid .availability-only,
+	.products-list .availability-only {
+    	color: #FFFFFF;
+    	background-color: #D264A0;
+    }
+	.label-type-5 div.label-sale:before,
+	.products-grid.label-type-5 .availability-only:before,
+	.products-list.label-type-5 .availability-only:before{
+		border-top-color: #D264A0;
+	}
+	.label-type-5 div.label-sale:after,
+	.products-grid.label-type-5 .availability-only:after,
+	.products-list.label-type-5 .availability-only:after{
+		border-bottom-color: #D264A0;
+	}
+
+    /*====== Social Links =======*/
+    ul.social-links li a i {
+    	background-color: #6EAACB;
+    	color: #FFFFFF;
+    	border-color: #6EAACB;
+    	border-width: 0px;
+    }
+    ul.social-links li a i:hover {
+    	color: #FFFFFF;
+    	background-color: #D264A0;
+    	border-color: #D264A0;
+    }
+
+    /*====== Footer =======*/
+    /**** Top Block ****/
+	#footer .footer-topline,
+	body.boxed-layout #footer .footer-topline .container_12 {background-color: #FFFFFF;}
+	#footer .footer-topline .footer-block-title h2 {color: #222222;}
+	#footer .footer-topline .footer-block-title .right-divider {
+		border-color: #EEEEEE;
+		border-width: 4px;
+	}
+	#footer .footer-topline p,
+	#footer .footer-topline .footer-links li:before,
+	#footer .footer-topline .custom-footer-content.features li > span p {color: #666666;}
+	#footer .footer-topline .custom-footer-content.features li > span h3 {color: #222222;}
+	#footer .footer-topline .footer-links ul li a,
+	#footer ul.links li a {color: #666666;}
+	#footer ul.links li a:hover {color: #666666;}
+	#footer .footer-topline .footer-links li a:hover,
+	#footer ul.links li:after {background-color: #F5F5F5;}
+	#footer ul.links li:before {background-color: #FFFFFF;}
+	#footer .footer-topline .custom-footer-content.features i {
+    	background-color: #FFFFFF;
+    	color: #AAAAAA;
+    	border-color: #EEEEEE;
+    }
+    #footer .footer-topline .custom-footer-content.features i:hover {
+    	background-color: #F5F5F5;
+    	color: #AAAAAA;
+    }
+
+    /**** Medium Block ****/
+	#footer .footer-second-line,
+	body.boxed-layout #footer .footer-second-line > .container_12 {background-color: #F5F5F5;}
+	#footer .footer-second-line .footer-block-title h2 {color: #666666;}
+	#footer .footer-second-line .footer-block-title .right-divider {
+		border-color: #FFFFFF;
+		border-width: 0px;
+	}
+	#footer .footer-second-line .contacts-footer-content label,
+	#footer .footer-second-line .footer-address-block p,
+	#footer .footer-second-line .custom-footer-content.features li > span h3,
+	#footer .footer-second-line p,
+	#footer .footer-second-line .footer-address-block p a,
+	#footer .footer-second-line p a {color: #999999;}
+	#footer .footer-second-line ul.links li a,
+	#footer .footer-second-line .custom-footer-content.features li > span p,
+	#footer .footer-second-line .footer-links li a,
+	#footer .footer-second-line .footer-links li:before {color: #999999;}
+	#footer .footer-second-line ul.links li a:hover,
+	#footer .footer-second-line .footer-links li a:hover,
+	#footer .footer-second-line .footer-links li:hover:before {color: #6EAACB;}
+	#footer .footer-second-line ul.links li:before,
+	#footer .footer-second-line .footer-links li a {background-color: #F5F5F5;}
+	#footer .footer-second-line ul.links li:after,
+	#footer .footer-second-line .footer-links li a:hover {background-color: #F5F5F5;}
+
+    /**** Bottom Block ****/
+	#footer .footer-bottom-wrapper,
+	#footer .footer-bottom-wrapper .container_12 {background-color: #DDDDDD;}
+	#footer .footer-bottom-wrapper .custom-footer-content.features li > span h3,
+	#footer .footer-bottom-wrapper .custom-footer-content.features li > span p,
+	#footer .footer-bottom-wrapper,
+	#footer .footer-bottom-wrapper .contacts-footer-content label,
+	#footer .footer-bottom-wrapper address{color: #888888;}
+	#footer .footer-bottom-wrapper li a,
+	#footer .footer-bottom-wrapper li a:hover,
+	#footer .footer-bottom-wrapper ul.links li a,
+	#footer .footer-bottom-wrapper ul.links li a:hover,
+	#footer .footer-bottom-wrapper a {color: #888888;}
+	#footer .footer-bottom-wrapper .footer-block-title .right-divider{border-bottom-color: #aaa;}
+	#footer .footer-bottom-wrapper .sbSelector:hover > span {border-top-color: #888888;}
+    #footer address a:hover,
+    #footer .footer-bottom-wrapper a:hover {color: #666666;}
+    #footer .footer-bottom-wrapper .sbSelector:hover > span {border-top-color: #666666;}
+
+
+    

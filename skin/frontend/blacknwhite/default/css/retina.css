@@ -1,0 +1,46 @@
+/**
+ * Magento
+ *
+ * @category    design
+ * @package     meigeetheme_default
+ * @copyright   Copyright (c) 2012 MeigeeTeam. (http://www.meigeeteam.com)
+ */
+ 
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+   only screen and (min-resolution: 144dpi) {
+
+	/* background pattern */
+	.black-and-white {background: url(../images/paterns/black_and_white@x2.png) center top fixed no-repeat; background-size: 1920px 1600px!important;}
+	
+	header#header h2.logo{position: absolute; opacity: 0;}
+	header#header h2.small-logo{position: absolute;}
+	
+	footer#footer .footer-logo{opacity: 0;}
+	footer#footer .footer-logo img{max-width: none;}
+	
+	header#header.floating .small_logo{width:24%;}
+	
+	#footer .footer-second-line .footer-logo{width: auto;}
+	
+	.rating-box,
+	.rating-box .rating{background-size: 12px 73px!important;}
+	.rating-box {background:url(../images/@x2/bkg_rating@x2.gif) 0 0 repeat-x; width: 60px;}
+	.rating-box .rating{background:url(../images/@x2/bkg_rating@x2.gif) 0 100% repeat-x;}
+	
+	.ratings-table .rating-box,
+	.ratings-table .rating-box .rating{background-size:9px 107px!important;}
+	.ratings-table .rating-box { width:43px; background:url(../images/@x2/bkg_rating_2@x2.gif) 0 0 repeat-x; }
+	.ratings-table .rating-box .rating{ background:url(../images/@x2/bkg_rating_2@x2.gif) 0 100% repeat-x;}
+	
+	.catalog-product-view .box-reviews .data-table thead th span{background-image:url(../images/@x2/review_stars@x2.png); background-size:36px 78px!important;}
+	.catalog-product-view .box-reviews .data-table thead th span.one-star{background-position:center 4px;}
+	.catalog-product-view .box-reviews .data-table thead th span.two-stars{background-position:center -11px;}
+	.catalog-product-view .box-reviews .data-table thead th span.three-stars{background-position:center -27px;}
+	.catalog-product-view .box-reviews .data-table thead th span.four-stars{background-position:center -43px;}
+	.catalog-product-view .box-reviews .data-table thead th span.five-stars{background-position:center -58px;}
+	.block-subscribe-popup {background: url(../images/@x2/popup_newsletter_bg@x2.jpg) no-repeat right; background-size: 828px 401px!important;}
+	.fancybox-close {background-image: url('../images/@x2/tc_remove@x2.png'); background-size: 10px 9px;}
+	.fancybox-close:hover {background-image: url('../images/@x2/tc_remove_h@x2.png'); background-size: 10px 9px;}
+	
+	#footer .footer-bg img {width: 100%;}
+}

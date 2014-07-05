@@ -1,0 +1,66 @@
+<?php
+/**
+ * Sales transaction history template
+ */
+?>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+
+<div class="page-title">
+	<h2><?php echo $this->__('My Programs') ?></h2>
+</div>
+
+<?php if (0 && $this->isShowDefaultProgram()): ?>
+<ul class="message">
+	<li class="notice-msg">
+		<?php echo $this->__('You always joined to our default program. The default program detail:') ?><br />
+		<?php echo $this->getDefaultProgramDetail() ?>
+	</li>
+</ul>
+<div class="clear">&nbsp;</div>
+<?php endif ?>
+
+<form id="affiliateplus_program_list_search" method="get">
+	<div class="affiliateplus-form-search">
+		<div class="input-box left">
+			<div class="label row left">
+				<label for="product_name">Program Name</label>
+			</div>
+			<div class="row left">
+				<input type="text" id="product_name" name="name" class="input-text" value="<?php echo $this->getRequest()->getParam('name') ?>" />
+			</div>
+		</div>
+		<div class="button-set">
+			<button class="form-button button" type="submit" style="margin-left:10px;">
+				<span>
+					<span><?php echo $this->__('Search') ?></span>
+				</span>
+			</button>
+			<button class="form-button button" type="button" onclick="setLocation('<?php echo $this->getUrl('affiliateplusprogram/index/index') ?>')" >
+				<span>
+					<span><?php echo $this->__('Reset') ?></span>
+				</span>
+			</button>
+		</div>
+	</div>
+	<div class="affiliate-clear clear">&nbsp;</div>
+</form>
+
+<?php if (!$this->isEmpty()): ?>
+	<?php echo $this->getPagerHtml() ?>
+	<?php echo $this->getGridHtml() ?>
+	<?php echo $this->getPagerHtml() ?>
+<?php else: ?>
+<div>
+	<p class="note-msg">
+		<?php echo $this->__('There are no programs matching this selection.') ?>
+	</p>
+</div>
+<?php endif ?>
+
+<div class="buttons-set">
+	<button class="button" type="button" onclick='setLocation("<?php echo $this->getAllProgramUrl() ?>")'>
+		<span>
+			<?php echo ($this->getCollection()->getSize()) ? $this->__('Other Programs') : $this->__('List All Programs') ?>
+		</span>
+	</button>
+</div>

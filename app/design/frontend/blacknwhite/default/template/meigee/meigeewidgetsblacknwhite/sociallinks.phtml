@@ -1,0 +1,15 @@
+<?php // Social Links
+$html = $this->getSocialLinks();
+echo '<ul class="social-links">';
+        if (!empty($html['twitter'])) echo '<li><a class="twitter" href="'.$html['twitter'].'"><i class="fa fa-twitter"></i></a></li>';
+        if (!empty($html['rss'])) echo '<li><a class="rss" href="'.$html['rss'].'"><i class="fa fa-rss"></i></a></li>';
+        if (!empty($html['facebook'])) echo '<li><a class="facebook" href="'.$html['facebook'].'"><i class="fa fa-facebook"></i></a></li>';
+        if (!empty($html['googleplus'])) echo '<li><a class="googleplus" href="'.$html['googleplus'].'"><i class="fa fa-google-plus"></i></a></li>';
+        if (!empty($html['linkedin'])) echo '<li><a class="linkedin" href="'.$html['linkedin'].'"><i class="fa fa-linkedin"></i></a></li>';
+		if (!empty($html['pinterest'])) echo '<li><a class="pinterest" href="'.$html['pinterest'].'"><i class="fa fa-pinterest"></i></a></li>';
+		if (!empty($html['vimeo'])) echo '<li><a class="vimeo" href="'.$html['vimeo'].'"><i class="fa fa-vimeo-square"></i></a></li>';
+		if (!empty($html['youtube'])) echo '<li><a class="youtube" href="'.$html['youtube'].'"><i class="fa fa-youtube"></i></a></li>';
+		if (!empty($html['flickr'])) echo '<li><a class="flickr" href="'.$html['flickr'].'"><i class="fa fa-flickr"></i></a></li>';
+		if (!empty($html['instagram'])) echo '<li><a class="instagram" href="'.$html['instagram'].'"><i class="fa fa-instagram"></i></a></li>';
+echo '</ul>';
+?>

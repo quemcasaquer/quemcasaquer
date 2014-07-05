@@ -1,0 +1,8 @@
+<?php
+$_product = $this->getProduct();
+if($this->getLayout()->createBlock('cms/block')->setBlockId('blacknwhite_product_banner_'.$this->getProduct()->getId())->toHtml()){
+	$product_banner_name = 'blacknwhite_product_banner_'.$this->getProduct()->getId();
+}else{
+	$product_banner_name = 'blacknwhite_product_banner';
+}
+echo '<div class="product-sibebar-banner">' . $this->getLayout()->createBlock('cms/block')->setBlockId($product_banner_name)->toHtml() . '</div>';

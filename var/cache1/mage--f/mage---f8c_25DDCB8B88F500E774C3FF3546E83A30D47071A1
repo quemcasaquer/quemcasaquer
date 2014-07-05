@@ -1,0 +1,18 @@
+<div class="block block-layered-nav">
+    <div class="block-title">
+        <strong><span>Navegar Por</span></strong>
+    </div>
+    <div class="block-content">
+        <dl id="narrow-by-list2">
+            <dt>Categoria</dt>
+            <dd>
+                <ol>
+                                                        <li>
+                        <a href="http://quemcasaquer.com/faca-voce-mesma/fitas-e-lacos.html">Fitas e laços</a> (5)
+                    </li>
+                                                    </ol>
+            </dd>
+        </dl>
+        <script type="text/javascript">decorateDataList('narrow-by-list2')</script>
+    </div>
+</div>

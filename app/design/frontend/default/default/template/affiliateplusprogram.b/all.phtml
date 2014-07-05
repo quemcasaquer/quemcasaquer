@@ -1,0 +1,86 @@
+<?php
+/**
+ * Sales transaction history template
+ */
+?>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+
+<div class="page-title">
+	<h2><?php echo $this->__('All Programs') ?></h2>
+</div>
+
+<form id="affiliateplus_program_list_search" method="get">
+	<div class="affiliateplus-form-search">
+		<div class="input-box left">
+			<div class="label row left">
+				<label for="product_name">Program Name</label>
+			</div>
+			<div class="row left">
+				<input type="text" id="product_name" name="name" class="input-text" value="<?php echo $this->getRequest()->getParam('name') ?>" />
+			</div>
+		</div>
+		<div class="button-set">
+			<button class="form-button button" type="submit" style="margin-left:10px;">
+				<span>
+					<span><?php echo $this->__('Search') ?></span>
+				</span>
+			</button>
+			<button class="form-button button" type="button" onclick="setLocation('<?php echo $this->getUrl('affiliateplusprogram/index/all') ?>')" >
+				<span>
+					<span><?php echo $this->__('Reset') ?></span>
+				</span>
+			</button>
+		</div>
+	</div>
+	<div class="affiliate-clear clear">&nbsp;</div>
+</form>
+
+<form action="<?php echo $this->getUrl('affiliateplusprogram/index/joinall') ?>" method="post" id="affiliateplus_program_form">
+	<?php if (!$this->isEmpty()): ?>
+		<?php echo $this->getPagerHtml() ?>
+		<?php echo $this->getGridHtml() ?>
+		<?php echo $this->getPagerHtml() ?>
+	<?php else: ?>
+	<div>
+		<p class="note-msg">
+			<?php echo $this->__('There are no programs matching this selection.') ?>
+		</p>
+	</div>
+	<?php endif ?>
+
+	<div class="buttons-set">
+		<p class="back-link">
+			<a href="javascript:history.go(-1)">
+				<button type="button" class="form-button button" onclick="javascript:history.go(-1)">
+					<span><?php echo $this->__('Back')?></span>
+				</button>
+			</a>
+		</p>
+		<?php if (!$this->isEmpty()): ?>
+			<button class="button" type="button" onclick='submitProgramForm();'>
+				<span>
+					<?php echo $this->__('Join All Selected Programs') ?>
+				</span>
+			</button>
+		<?php endif ?>
+	</div>
+</form>
+<script type="text/javascript">
+	var affiliateplusProgramForm = new VarienForm('affiliateplus_program_form',true);
+	function selectProgram(el){
+		if (el.checked)
+			$$('input[name="program_ids[]"]').each(function(e){e.checked = true});
+		else
+			$$('input[name="program_ids[]"]').each(function(e){e.checked = false});
+	}
+	function submitProgramForm(){
+		var canSubmit = false;
+		$$('input[name="program_ids[]"]').each(function(e){
+			if (e.checked) canSubmit = true;
+		});
+		if (canSubmit)
+			affiliateplusProgramForm.submit();
+		else
+			alert('<?php echo $this->__('Please select a program to join.') ?>');
+	}
+</script>

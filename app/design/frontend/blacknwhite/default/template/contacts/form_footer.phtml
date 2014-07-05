@@ -1,0 +1,109 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<form id="AjaxcontactForm" name="AjaxcontactForm">
+	<div class="contacts-footer-content">
+		<ul class="form-list">
+			<li class="fields">
+				<div class="field">
+					<div class="input-box">
+						<label for="name" class="required"><em>*</em><?php echo Mage::helper('contacts')->__('Name'); ?></label>
+						<input name="name" id="name" title="<?php echo Mage::helper('contacts')->__('Name') ?>" value="<?php echo $this->escapeHtml($this->helper('contacts')->getUserName()) ?>" class="input-text required-entry" type="text" />
+					</div>
+				</div>
+				<div class="field second">
+					<div class="input-box">
+						<label for="telephone"><?php echo Mage::helper('contacts')->__('Telephone'); ?></label>
+						<input name="telephone" id="telephone" title="<?php echo Mage::helper('contacts')->__('Telephone') ?>" value="" class="input-text" type="text" />
+					</div>
+				</div>
+			</li>
+			<li>
+				<div class="input-box">
+					<label for="email" class="required"><em>*</em><?php echo Mage::helper('contacts')->__('Email') ?></label>
+					<input name="email" id="email" title="<?php echo Mage::helper('contacts')->__('Email') ?>" value="<?php echo $this->escapeHtml($this->helper('contacts')->getUserEmail()) ?>" class="input-text required-entry validate-email" type="text" />
+				</div>
+			</li>
+			<li class="wide">
+				<div class="input-box">
+					<label for="comment" class="required"><em>*</em><?php echo Mage::helper('contacts')->__('Comment') ?></label>
+					<!-- <textarea name="comment" id="comment" onblur="if (this.value=='') this.value = '<?php echo Mage::helper('contacts')->__('Comment') ?>'" onfocus="if (this.value=='<?php echo Mage::helper('contacts')->__('Comment') ?>') this.value = ''" title="<?php echo Mage::helper('contacts')->__('Comment') ?>" class="required-entry input-text" cols="5" rows="3"><?php echo Mage::helper('contacts')->__('Comment') ?></textarea> -->
+					<textarea name="comment" id="comment" title="<?php echo Mage::helper('contacts')->__('Comment') ?>" class="required-entry input-text" cols="5" rows="3"></textarea>
+				</div>
+			</li>
+		</ul>
+		<div class="buttons-set">
+			<p class="required"><?php echo Mage::helper('contacts')->__('* Required Fields') ?></p>
+			<input type="text" name="hideit" id="hideit" value="" style="display:none !important;" />
+			<button type="button" onclick="formSubmit()" title="<?php echo Mage::helper('contacts')->__('Submit') ?>" class="button"><span><span><?php echo $this->__('Submit'); ?></span></span></button>
+			<div id="feedback" style="display:none;"><i class="fa fa-check"></i> <?php echo $this->__('Message send'); ?></div>
+			<div id="ajax-loader"><img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt=""></div>
+		</div>
+	</div>
+	<div class="clear"></div>
+	<script type="text/javascript">
+		jQuery('#ajax-loader').hide();
+		function formSubmit(){
+			new Validation('AjaxcontactForm').validate();
+			jQuery('#AjaxcontactForm .input-box input, #AjaxcontactForm .input-box textarea').each(function(){
+				if(jQuery(this).hasClass('validation-failed')){
+					jQuery(this).parent().addClass('failed');
+				}else{
+					jQuery(this).parent().removeClass('failed');
+				}
+			});
+			if (!jQuery('#AjaxcontactForm .validation-failed').length ){
+				jQuery('#ajax-loader').show();
+				var formId = 'AjaxcontactForm';
+				var contactForm = new VarienForm(formId, true);
+				var postUrl = '<?php echo Mage::getUrl(); ?>contacts/index/post/';
+				new Ajax.Updater(
+					{ success:'formSuccess' }, postUrl, {
+						method:'post',
+						asynchronous:true,
+						evalScripts:false,
+						onComplete:function(request, json) {
+							jQuery.ajax({
+								url: '<?php echo $this->getUrl('meigeeactions/contacts/') ?>',
+								cache: false
+							}).done(function(html){
+								jQuery('#AjaxcontactForm').before('<div class="contact-form-holder" />').remove();
+								jQuery('.contact-form-holder').after(html).remove();
+								jQuery('#feedback').fadeIn('medium');
+								setTimeout(function(){
+									jQuery('#feedback').fadeOut('slow', function() {
+										jQuery(this).remove();
+									});
+								}, 5000);
+							});
+						},
+						parameters: $(formId).serialize(true),
+					}
+				);
+			}
+		}
+	</script>
+</form>

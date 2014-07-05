@@ -1,0 +1,43 @@
+<?php
+
+/**
+ * Export Product data to xml data
+ *
+ * @category   OnlineBiz
+ * @package    OnlineBiz_Facebookstore
+ * @author     Nguyen Viet Tung (http://onlinebizsoft.com)
+ */
+?>
+<script type="text/javascript">
+//<![CDATA[
+  productShowImage = function(src, title) {
+		$("swap-image").setAttribute('src', src);
+		$("swap-image").setAttribute('alt', title);
+		$("swap-image").setAttribute('title', title);	
+	};
+//]]>
+</script>
+<?php
+    $_product = $this->getProduct();
+    $_helper = $this->helper('catalog/output');
+?>
+
+<p class="product-image">
+    <?php
+        $_img = '<img id="swap-image" src="'.$this->helper('catalog/image')->init($_product, 'image')->resize(175).'" alt="'.$this->htmlEscape($this->getImageLabel()).'" title="'.$this->htmlEscape($this->getImageLabel()).'" />';
+        echo $_helper->productAttribute($_product, $_img, 'image');
+    ?>
+</p>
+
+<?php if (count($this->getGalleryImages()) > 0): ?>
+<div id="more-view">
+<?php echo $this->__('More Views') ?>
+</div>
+<div class="more-view-gallery">
+<?php foreach ($this->getGalleryImages() as $_image): ?>
+	<div class="item">
+	<img onclick="productShowImage('<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile())->resize(175); ?>','<?php echo $this->htmlEscape($_image->getLabel()) ?>')" src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(50); ?>" width="50" height="50" alt="<?php echo $this->htmlEscape($_image->getLabel()) ?>" />
+	</div>
+<?php endforeach; ?>
+</div>
+<?php endif; ?>

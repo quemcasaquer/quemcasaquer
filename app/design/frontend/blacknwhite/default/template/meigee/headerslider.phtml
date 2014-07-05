@@ -1,0 +1,309 @@
+<?php 
+/*****/
+$meigee_blacknwhite_headerslider = MAGE::helper('ThemeOptionsBlacknwhite')->getThemeOptionsBlacknwhite('meigee_blacknwhite_headerslider');
+$sliderConfig = $meigee_blacknwhite_headerslider['coin'];
+/*****/
+
+$show = 0;
+if ($sliderConfig ['enabled'] && $sliderConfig ['slides']):
+
+  /**/
+  if ($sliderConfig['onlyhome']):
+    if (Mage::getSingleton('cms/page')->getIdentifier() == 'home'  && Mage::app()->getFrontController()->getRequest()->getRouteName() == 'cms'):
+      $show = 1;
+    endif;
+  else:
+    $show = 1;
+  endif; 
+  /**/
+
+if ($show): 
+if($sliderConfig['slidertype'] == 1){
+	$slidesList = explode(",", str_replace(" ", "", $sliderConfig ['slides']));
+} else {
+	$slidesList = explode(",", str_replace(" ", "", $sliderConfig ['slideswide']));
+}
+?>
+<div class="header-slider-wrapper">
+	<?php if($sliderConfig['slidertype'] == 0): ?>
+		<div class="header-slider-holder<?php if($sliderConfig['preloader'] == 1): ?> loading<?php endif; ?>">
+		<?php if($sliderConfig['preloader'] == 1): ?><div class="loader"></div><?php endif; ?>
+	<?php endif; ?>
+	<?php if($sliderConfig['slidertype'] == 1): ?>
+		<div class="container_12">
+			<?php if ($this->getLayout()->createBlock('cms/block')->setBlockId('blacknwhite_boxed_slider_banner')->toHtml()): ?>
+				<div class="grid_8">
+			<?php else: ?>
+				<div class="grid_12">
+			<?php endif; ?>
+				<div class="header-slider-holder <?php if($sliderConfig['preloader'] == 1): ?>loading<?php endif; ?>">
+					<?php if($sliderConfig['preloader'] == 1): ?><div class="loader"></div><?php endif; ?>
+	<?php endif; ?>
+			<div class="header-slider-container<?php if($sliderConfig['slidertype'] == 1){echo ' boxed-slider';}else{echo ' wide-slider';} ?>">
+				<div class="container">
+					<div class="iosSlider">
+						<div class="slider">
+							<?php
+								foreach ($slidesList as $slideID) {
+									$html = '';
+									$html .= '<div class="item" id="item_' . $slideID . '">';
+									$html .= $this->getLayout()->createBlock('cms/block')->setBlockId($slideID)->toHtml();
+									$html .= '</div>';
+									echo $html;
+								}
+							?>
+						</div>
+						<?php if($sliderConfig['slidertype'] == 0): ?>
+						<div class="container_12">
+						<?php endif; ?>
+							<div class = 'next'><i class="fa fa-chevron-right"></i></div>
+							<div class = 'prev unselectable'><i class="fa fa-chevron-left"></i></div>
+						<?php if($sliderConfig['slidertype'] == 0): ?>
+						</div>
+						<?php endif; ?>
+					</div>
+				</div>
+			</div>
+		<?php if($sliderConfig['slidertype'] == 1): ?>
+				</div>
+			</div>
+			<?php if ($this->getLayout()->createBlock('cms/block')->setBlockId('blacknwhite_boxed_slider_banner')->toHtml()): ?>
+				<div class="grid_4 slider-banner">
+					<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('blacknwhite_boxed_slider_banner')->toHtml() ?> 
+				</div>
+			<?php endif; ?>
+			<div class="clear"></div>
+		</div>
+	<?php endif; ?>
+<?php if($sliderConfig['slidertype'] == 0): ?>
+</div>
+<?php endif; ?>
+</div>
+<script type="text/javascript">
+	/* Slider Preloader */
+	var sliderHolder = jQuery('.header-slider-holder');
+	var sliderLoader = sliderHolder.find('.loader');
+	
+	var progress = 0;
+	function animateFunc(){
+		if(progress > 100){
+			return false;
+		}
+		sliderLoader.html(progress+'%');
+		progress+=5;
+		setTimeout(animateFunc, 25);
+	}
+	setTimeout(animateFunc, 25);
+	
+	function loaded(){
+		setTimeout(function(){
+		
+			img =  jQuery('.header-slider-container .iosSlider .slider .item img:first');
+			height = img.height();
+			if(img.parent('a').length){
+				height = img.parent('a').outerHeight();
+			}
+		
+			sliderLoader.html('');
+			sliderLoader.fadeOut(1500, function(){
+				jQuery(this).remove();
+				sliderHolder.removeClass('loading').css('height', 'auto');
+			});
+			
+			sliderHolder.animate({
+			  height: height
+			}, 500, "easeOutExpo");
+			
+		}, 1000);
+	}
+	
+	jQuery(window).load(function(){
+	/* slider_items_length = jQuery('.slider .item').size();
+	if(slider_items_length > 1){
+		var slider_bullets = '<ul class="slideSelectors">';
+		for(i=1; i<=slider_items_length; i++){
+			if(i==1){selected_item = ' selected'}else{selected_item = ''}
+			slider_bullets += '<li class="button-item' + selected_item + '" id="item' + i + '">' + i + '</li>'
+		}
+		slider_bullets += '</ul>';
+		jQuery('.header-slider-container .iosSlider .prev').after(slider_bullets);
+	} */
+  
+	//Slider Container Ratio
+	var slider_container = jQuery('.header-slider-container');
+	var slider_img =  jQuery('.header-slider-container .iosSlider .slider .item img:first');
+	var sliderHeight = slider_img.height();
+	if(slider_img.parent('a')){
+		sliderHeight = slider_img.parent('a').outerHeight();
+	}
+	var ratio = Math.round((sliderHeight/slider_img.width())*100);
+	slider_container.css({
+		'padding-bottom': ratio + '%'
+	});
+	
+  
+    jQuery('.iosSlider').iosSlider({
+      responsiveSlideWidth: true,
+      snapToChildren: true,
+      desktopClickDrag: true,
+      infiniteSlider: true,
+      /* navSlideSelector: '.slideSelectors .button-item', */
+      navNextSelector: '.iosSlider .next',
+      navPrevSelector: '.iosSlider .prev',
+      onSlideComplete: slideComplete,
+	  onSliderLoaded: sliderLoaded,
+	  onSlideChange: slideChange,
+      <?php if(isset($sliderConfig ['autoSlide'])): ?>autoSlide: <?php echo $sliderConfig ['autoSlide']; ?><?php endif; ?>
+      <?php if(isset($sliderConfig ['autoSlideTimer'])): ?>, autoSlideTimer: <?php echo $sliderConfig ['autoSlideTimer']; ?><?php endif; ?>
+	  <?php if(isset($sliderConfig ['autoSlideTransTimer'])): ?>, autoSlideTransTimer: <?php echo $sliderConfig ['autoSlideTransTimer']; endif; ?>
+	  <?php if(isset($sliderConfig ['desktopClickDrag'])): ?>, desktopClickDrag: <?php echo $sliderConfig ['desktopClickDrag']; endif; ?>
+	  <?php if(isset($sliderConfig ['infiniteSlider'])): ?>, infiniteSlider: <?php echo $sliderConfig ['infiniteSlider']; endif; ?>
+    });
+    
+	
+	function slideChange(args) {
+	
+		/* jQuery('.slideSelectors .button-item').removeClass('selected');
+		jQuery('.slideSelectors .button-item:eq(' + (args.currentSlideNumber-1) + ')').addClass('selected'); */
+		
+	}
+	
+	function slideComplete(args) {
+			/* Slides Animation Presets */
+			if(jQuery('.header-slider-container.boxed-slider').length){
+			/* Boxed Slider */
+				var slideTitle = [{left: '0%', opacity: '1'}, 400]; // example: Animation settings: left = 50%, opacity = 100%;  Animation speed: 400ms
+				var slideTitle2 = [{left: '0%', opacity: '1'}, 600];
+				var slideTitle3 = [{left: '0%', opacity: '1'}, 600];
+				var slideTitle4 = [{left: '0%', opacity: '1'}, 600];
+				var slideText = [{left: '0%', opacity: '1'}, 600];
+				var slideList = [{left: '0%', opacity: '1'}, 600];
+				/* slide-skin animation type */
+				if(args.currentSlideObject.find('.slide-skin').length){
+					delete slideTitle[0].left; //delete left animation option
+					slideTitle[0].top = '0px'; //add right animation option
+					delete slideTitle2[0].left;
+					slideTitle2[0].right = '0%';
+					delete slideTitle4[0].left;
+					slideTitle4[0].right = '0%';
+					delete slideText[0].left;
+					slideText[0].top = '0px';
+					delete slideList[0].left;
+					slideList[0].right = '0%';
+				}
+				/* slide-skin-2 animation type */
+				if(args.currentSlideObject.find('.slide-skin-2').length){
+					delete slideTitle2[0].left;
+					slideTitle2[0].right = '0%';
+					delete slideTitle3[0].left;
+					slideTitle3[0].bottom = '0px';
+					delete slideText[0].left;
+					slideText[0].top = '0px';
+				}
+				/* slide-skin-3 animation type */
+				if(args.currentSlideObject.find('.slide-skin-3').length){
+					delete slideTitle[0].left;
+					slideTitle[0].top = '0px';
+					delete slideTitle3[0].left;
+					slideTitle3[0].bottom = '0px';
+					delete slideText[0].left;
+					slideText[0].bottom = '0px';
+				}
+			}else{
+			/* Wide Slider */
+				var slideTitle = [{left: '0%', opacity: '1'}, 400]; // example: Animation settings: left = 50%, opacity = 100%;  Animation speed: 400ms
+				var slideTitle2 = [{left: '0%', opacity: '1'}, 600];
+				var slideTitle3 = [{left: '0%', opacity: '1'}, 600];
+				var slideTitle4 = [{left: '0%', opacity: '1'}, 600];
+				var slideText = [{left: '0%', opacity: '1'}, 600];
+				var slideList = [{left: '0%', opacity: '1'}, 600];
+				/* slide-skin animation type */
+				if(args.currentSlideObject.find('.slide-skin').length){
+					delete slideTitle[0].left; //delete left animation option
+					slideTitle[0].top = '0px'; //add right animation option
+					delete slideTitle2[0].left;
+					slideTitle2[0].right = '0%';
+					delete slideTitle4[0].left;
+					slideTitle4[0].right = '0%';
+					delete slideText[0].left;
+					slideText[0].top = '0px';
+					delete slideList[0].left;
+					slideList[0].right = '0%';
+				}
+				/* slide-skin-2 animation type */
+				if(args.currentSlideObject.find('.slide-skin-2').length){
+					delete slideTitle2[0].left;
+					slideTitle2[0].right = '0%';
+					delete slideTitle3[0].left;
+					slideTitle3[0].bottom = '0px';
+					delete slideText[0].left;
+					slideText[0].top = '0px';
+				}
+				/* slide-skin-3 animation type */
+				if(args.currentSlideObject.find('.slide-skin-3').length){
+					delete slideTitle[0].left;
+					slideTitle[0].top = '0px';
+					delete slideTitle3[0].left;
+					slideTitle3[0].bottom = '0px';
+					delete slideText[0].left;
+					slideText[0].bottom = '0px';
+				}
+			}
+			
+			
+			/* ============================================ */
+			
+			
+			/* Animation Elements */
+			/* ===slide title element=== */
+			jQuery(args.sliderObject).find('h2').attr('style', '');
+			jQuery(args.currentSlideObject).find('h2').animate(slideTitle[0], slideTitle[1], 'easeOutQuint');
+			/* ========================== */
+			
+			/* ===slide title 2 element=== */
+			jQuery(args.sliderObject).find('h3').attr('style', '');
+			jQuery(args.currentSlideObject).find('h3').animate(slideTitle2[0], slideTitle2[1], 'easeOutQuint');
+			/* ========================== */
+			
+			/* ===slide title 3 element=== */
+			jQuery(args.sliderObject).find('h4').attr('style', '');
+			jQuery(args.currentSlideObject).find('h4').animate(slideTitle3[0], slideTitle3[1], 'easeOutQuint');
+			/* ========================== */
+			
+			/* ===slide title 4 element=== */
+			jQuery(args.sliderObject).find('h5').attr('style', '');
+			jQuery(args.currentSlideObject).find('h5').animate(slideTitle4[0], slideTitle4[1], 'easeOutQuint');
+			/* ========================== */
+			
+			/* ===slide text element=== */
+			jQuery(args.sliderObject).find('p').attr('style', '');
+			jQuery(args.currentSlideObject).find('p').animate(slideText[0], slideText[1], 'easeOutQuint');
+			/* ========================== */
+			
+			/* ===slide list element=== */
+			jQuery(args.sliderObject).find('ul').attr('style', '');
+			jQuery(args.currentSlideObject).find('ul').animate(slideList[0], slideList[1], 'easeOutQuint');
+			/* ========================== */
+			
+			
+	  }
+	
+	function sliderLoaded(args) {
+		slideComplete(args);
+		slideChange(args);
+		<?php if($sliderConfig['preloader'] == 1): ?>
+		loaded();
+		<?php endif; ?>
+	}
+    
+	jQuery(window).on('orientationchange', function(e){
+		setTimeout(function(){
+			jQuery('.iosSlider').iosSlider('update');
+		}, 500);
+	});
+	
+  });
+</script>
+    <?php 
+  endif;
+endif;

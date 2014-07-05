@@ -1,0 +1,100 @@
+<?php
+/**
+ * Magento
+ *
+ * @category    design
+ * @package     meigeetheme_default
+ * @copyright   Copyright (c) 2012 MeigeeTeam. (http://www.meigeeteam.com)
+ */
+?>
+<?php 
+
+$meigee_blacknwhite_general = MAGE::helper('ThemeOptionsBlacknwhite')->getThemeOptionsBlacknwhite('meigee_blacknwhite_general');
+$expires = $meigee_blacknwhite_general['newsletter']['cookielifetime'];
+$bg = $meigee_blacknwhite_general['newsletter']['background'];
+$mediaurl = MAGE::helper('ThemeOptionsBlacknwhite')->getThemeOptionsBlacknwhite('mediaurl');
+$wrapper = '';
+if($bg){
+	$wrapper = $mediaurl.$bg;
+}
+$popupWidth = $meigee_blacknwhite_general['newsletter']['popupwidth'];
+$popupHeight = $meigee_blacknwhite_general['newsletter']['popupheight'];
+
+$newsletterCookie = Mage::getModel('core/cookie')->get("blacknwhiteSubscribe");
+if(!$newsletterCookie): ?>
+	<section class="block-subscribe-popup" id="popup-newsletter" style="width:<?php echo $popupWidth; ?>px; height:<?php echo $popupHeight; ?>px; <?php if($bg){echo ' background-image:url('.$wrapper.');';} ?>">
+		<div class="indent">
+			<h3><?php echo $this->__('Newsletter'); ?></h3> 
+			<form action="<?php echo $this->getFormActionUrl() ?>" method="post" id="newsletter-validate-detail">
+				<div class="block-content">
+					<label for="newsletter"><?php echo $this->__('Subscribe to the Black & White mailing list to receive updates on new arrivals, special offers and other discount information.') ?></label>
+					<div class="input-box">
+						<input type="text" name="email" id="newsletter" title="<?php echo $this->__('Sign up for our newsletter') ?>" class="input-text required-entry validate-email" />
+						<button type="submit" title="<?php echo $this->__('Subscribe') ?>" class="button"><span><span><?php echo $this->__('Subscribe') ?></span></span></button>
+						<div class="clear"></div>
+					</div>
+					<label class="subscribe-bottom"><input type="checkbox"><?php echo $this->__('Don’t show this popup again'); ?></label>
+				</div>
+			</form>
+			<script type="text/javascript">
+			//<![CDATA[
+				var newsletterSubscriberFormDetail = new VarienForm('newsletter-validate-detail');
+			//]]>
+			</script>
+		</div>
+		<div class="clear"></div>
+	</section>
+	<script type="text/javascript">
+		function popupNewsletter() {
+			jQuery.fancybox({
+				padding: '0px',
+				autoScale: true,
+				transitionIn: 'fade',
+				transitionOut: 'fade',
+				showCloseButton: false,
+				type: 'inline',
+				href: '#popup-newsletter'
+			});
+			jQuery('#popup-newsletter').trigger('click');
+		}
+		
+		
+		isSuccess = jQuery('ul.messages li.success-msg').length;
+		subscribeFlag = jQuery.cookie('blacknwhiteSubscribeFlag');
+		
+		function subsSetcookie(){
+			jQuery.cookie('blacknwhiteSubscribe', 'true', {
+				expires: <?php echo $expires; ?>,
+				path: '/'
+			});
+		}
+		
+		if(!(subscribeFlag && isSuccess)){
+			popupNewsletter();
+		}else{
+			jQuery.removeCookie('blacknwhiteSubscribeFlag', { path: '/' });
+			subsSetcookie();
+		}
+		
+		jQuery('#popup-newsletter').parents('.fancybox-wrap').addClass('subscribe-fancy').next('.fancybox-overlay').addClass('subscribe-fancy');
+		
+		jQuery('#popup-newsletter .subscribe-bottom input').on('click', function(){
+			if(jQuery(this).parent().find('input:checked').length){
+				subsSetcookie();
+			} else {
+				jQuery.removeCookie('blacknwhiteSubscribe', { path: '/' });
+			}
+		});
+		
+		jQuery('#popup-newsletter .input-box button.button').on('click', function(){
+			var button = jQuery(this);
+			setTimeout(function(){
+				if(!button.parent().find('input#newsletter').hasClass('validation-failed')){
+					jQuery.cookie('blacknwhiteSubscribeFlag', 'true', {
+						path: '/'
+					});
+				}
+			}, 500);
+		});
+	</script> 
+<?php endif;

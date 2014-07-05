@@ -1,0 +1,159 @@
+[08-May-2014 08:02:33 UTC] PHP Fatal error:  Uncaught exception 'Mage_Core_Exception' with message 'Module "Magestore_Affiliatepluswidget" requires module "Magestore_Affiliateplus".' in /home/qcq2012/public_html/v18/magento/app/Mage.php:595
+Stack trace:
+#0 /home/qcq2012/public_html/v18/magento/app/code/core/Mage/Core/Model/Config.php(849): Mage::throwException('Module "Magesto...')
+#1 /home/qcq2012/public_html/v18/magento/app/code/core/Mage/Core/Model/Config.php(812): Mage_Core_Model_Config->_sortModuleDepends(Array)
+#2 /home/qcq2012/public_html/v18/magento/app/code/core/Mage/Core/Model/Config.php(315): Mage_Core_Model_Config->_loadDeclaredModules()
+#3 /home/qcq2012/public_html/v18/magento/app/code/core/Mage/Core/Model/Config.php(259): Mage_Core_Model_Config->loadModules()
+#4 /home/qcq2012/public_html/v18/magento/app/code/core/Mage/Core/Model/App.php(270): Mage_Core_Model_Config->init(Array)
+#5 /home/qcq2012/public_html/v18/magento/app/Mage.php(616): Mage_Core_Model_App->init('admin', 'store', Array)
+#6 /home/qcq2012/public_html/v18/magento/cron.php(42) in /home/qcq2012/public_html/v18/magento/app/Mage.php on line 595
+[08-May-2014 08:09:02 UTC] PHP Fatal error:  Uncaught exception 'Mage_Core_Exception' with message 'Module "Magestore_Affiliatepluswidget" requires module "Magestore_Affiliateplus".' in /home/qcq2012/public_html/v18/magento/app/Mage.php:595
+Stack trace:
+#0 /home/qcq2012/public_html/v18/magento/app/code/core/Mage/Core/Model/Config.php(849): Mage::throwException('Module "Magesto...')
+#1 /home/qcq2012/public_html/v18/magento/app/code/core/Mage/Core/Model/Config.php(812): Mage_Core_Model_Config->_sortModuleDepends(Array)
+#2 /home/qcq2012/public_html/v18/magento/app/code/core/Mage/Core/Model/Config.php(315): Mage_Core_Model_Config->_loadDeclaredModules()
+#3 /home/qcq2012/public_html/v18/magento/app/code/core/Mage/Core/Model/Config.php(259): Mage_Core_Model_Config->loadModules()
+#4 /home/qcq2012/public_html/v18/magento/app/code/core/Mage/Core/Model/App.php(270): Mage_Core_Model_Config->init(Array)
+#5 /home/qcq2012/public_html/v18/magento/app/Mage.php(616): Mage_Core_Model_App->init('admin', 'store', Array)
+#6 /home/qcq2012/public_html/v18/magento/cache.php(7) in /home/qcq2012/public_html/v18/magento/app/Mage.php on line 595
+[08-May-2014 08:09:15 UTC] PHP Fatal error:  Uncaught exception 'Mage_Core_Exception' with message 'Module "Magestore_Affiliatepluswidget" requires module "Magestore_Affiliateplus".' in /home/qcq2012/public_html/v18/magento/app/Mage.php:595
+Stack trace:
+#0 /home/qcq2012/public_html/v18/magento/app/code/core/Mage/Core/Model/Config.php(849): Mage::throwException('Module "Magesto...')
+#1 /home/qcq2012/public_html/v18/magento/app/code/core/Mage/Core/Model/Config.php(812): Mage_Core_Model_Config->_sortModuleDepends(Array)
+#2 /home/qcq2012/public_html/v18/magento/app/code/core/Mage/Core/Model/Config.php(315): Mage_Core_Model_Config->_loadDeclaredModules()
+#3 /home/qcq2012/public_html/v18/magento/app/code/core/Mage/Core/Model/Config.php(259): Mage_Core_Model_Config->loadModules()
+#4 /home/qcq2012/public_html/v18/magento/app/code/core/Mage/Core/Model/App.php(270): Mage_Core_Model_Config->init(Array)
+#5 /home/qcq2012/public_html/v18/magento/app/Mage.php(616): Mage_Core_Model_App->init('admin', 'store', Array)
+#6 /home/qcq2012/public_html/v18/magento/cache.php(7) in /home/qcq2012/public_html/v18/magento/app/Mage.php on line 595
+[08-May-2014 08:10:04 UTC] PHP Fatal error:  Uncaught exception 'Mage_Core_Exception' with message 'Module "Magestore_Affiliatepluswidget" requires module "Magestore_Affiliateplus".' in /home/qcq2012/public_html/v18/magento/app/Mage.php:595
+Stack trace:
+#0 /home/qcq2012/public_html/v18/magento/app/code/core/Mage/Core/Model/Config.php(849): Mage::throwException('Module "Magesto...')
+#1 /home/qcq2012/public_html/v18/magento/app/code/core/Mage/Core/Model/Config.php(812): Mage_Core_Model_Config->_sortModuleDepends(Array)
+#2 /home/qcq2012/public_html/v18/magento/app/code/core/Mage/Core/Model/Config.php(315): Mage_Core_Model_Config->_loadDeclaredModules()
+#3 /home/qcq2012/public_html/v18/magento/app/code/core/Mage/Core/Model/Config.php(259): Mage_Core_Model_Config->loadModules()
+#4 /home/qcq2012/public_html/v18/magento/app/code/core/Mage/Core/Model/App.php(270): Mage_Core_Model_Config->init(Array)
+#5 /home/qcq2012/public_html/v18/magento/app/Mage.php(616): Mage_Core_Model_App->init('admin', 'store', Array)
+#6 /home/qcq2012/public_html/v18/magento/cron.php(42) in /home/qcq2012/public_html/v18/magento/app/Mage.php on line 595
+[08-May-2014 08:10:14 UTC] PHP Fatal error:  Uncaught exception 'Mage_Core_Exception' with message 'Module "Magestore_Affiliatepluswidget" requires module "Magestore_Affiliateplus".' in /home/qcq2012/public_html/v18/magento/app/Mage.php:595
+Stack trace:
+#0 /home/qcq2012/public_html/v18/magento/app/code/core/Mage/Core/Model/Config.php(849): Mage::throwException('Module "Magesto...')
+#1 /home/qcq2012/public_html/v18/magento/app/code/core/Mage/Core/Model/Config.php(812): Mage_Core_Model_Config->_sortModuleDepends(Array)
+#2 /home/qcq2012/public_html/v18/magento/app/code/core/Mage/Core/Model/Config.php(315): Mage_Core_Model_Config->_loadDeclaredModules()
+#3 /home/qcq2012/public_html/v18/magento/app/code/core/Mage/Core/Model/Config.php(259): Mage_Core_Model_Config->loadModules()
+#4 /home/qcq2012/public_html/v18/magento/app/code/core/Mage/Core/Model/App.php(270): Mage_Core_Model_Config->init(Array)
+#5 /home/qcq2012/public_html/v18/magento/app/Mage.php(616): Mage_Core_Model_App->init('admin', 'store', Array)
+#6 /home/qcq2012/public_html/v18/magento/cache.php(7) in /home/qcq2012/public_html/v18/magento/app/Mage.php on line 595
+[08-May-2014 08:18:46 UTC] PHP Fatal error:  Uncaught exception 'Mage_Core_Exception' with message 'Module "Magestore_Affiliatepluswidget" requires module "Magestore_Affiliateplus".' in /home/qcq2012/public_html/v18/magento/app/Mage.php:595
+Stack trace:
+#0 /home/qcq2012/public_html/v18/magento/app/code/core/Mage/Core/Model/Config.php(849): Mage::throwException('Module "Magesto...')
+#1 /home/qcq2012/public_html/v18/magento/app/code/core/Mage/Core/Model/Config.php(812): Mage_Core_Model_Config->_sortModuleDepends(Array)
+#2 /home/qcq2012/public_html/v18/magento/app/code/core/Mage/Core/Model/Config.php(315): Mage_Core_Model_Config->_loadDeclaredModules()
+#3 /home/qcq2012/public_html/v18/magento/app/code/core/Mage/Core/Model/Config.php(259): Mage_Core_Model_Config->loadModules()
+#4 /home/qcq2012/public_html/v18/magento/app/code/core/Mage/Core/Model/App.php(270): Mage_Core_Model_Config->init(Array)
+#5 /home/qcq2012/public_html/v18/magento/app/Mage.php(616): Mage_Core_Model_App->init('admin', 'store', Array)
+#6 /home/qcq2012/public_html/v18/magento/cache.php(7) in /home/qcq2012/public_html/v18/magento/app/Mage.php on line 595
+[09-May-2014 12:44:01 UTC] PHP Fatal error:  Declaration of Zend_Pdf_FileParserDataSource_File::__construct() must be compatible with Zend_Pdf_FileParserDataSource::__construct() in /home/qcq2012/public_html/v18/magento/lib/Zend/Pdf/FileParserDataSource/File.php on line 41
+[09-May-2014 15:35:24 UTC] PHP Fatal error:  Declaration of Zend_Pdf_FileParserDataSource_File::__construct() must be compatible with Zend_Pdf_FileParserDataSource::__construct() in /home/qcq2012/public_html/v18/magento/lib/Zend/Pdf/FileParserDataSource/File.php on line 41
+[09-May-2014 15:46:02 UTC] PHP Fatal error:  Declaration of Zend_Pdf_FileParserDataSource_File::__construct() must be compatible with Zend_Pdf_FileParserDataSource::__construct() in /home/qcq2012/public_html/v18/magento/lib/Zend/Pdf/FileParserDataSource/File.php on line 41
+[09-May-2014 17:46:53 UTC] PHP Fatal error:  Declaration of Zend_Pdf_FileParserDataSource_File::__construct() must be compatible with Zend_Pdf_FileParserDataSource::__construct() in /home/qcq2012/public_html/v18/magento/lib/Zend/Pdf/FileParserDataSource/File.php on line 41
+[09-May-2014 17:47:12 UTC] PHP Fatal error:  Declaration of Zend_Pdf_FileParserDataSource_File::__construct() must be compatible with Zend_Pdf_FileParserDataSource::__construct() in /home/qcq2012/public_html/v18/magento/lib/Zend/Pdf/FileParserDataSource/File.php on line 41
+[09-May-2014 22:03:59 UTC] PHP Fatal error:  require_once(): Failed opening required '/home/qcq2012/public_html/v18/magento/lib/captcha/class.simplecaptcha.php' (include_path='/home/qcq2012/public_html/v18/magento/app/code/local:/home/qcq2012/public_html/v18/magento/app/code/community:/home/qcq2012/public_html/v18/magento/app/code/core:/home/qcq2012/public_html/v18/magento/lib:.:/usr/lib/php:/usr/local/lib/php') in /home/qcq2012/public_html/v18/magento/app/code/local/Magestore/Affiliateplus/controllers/AccountController.php on line 409
+[12-May-2014 12:11:44 UTC] PHP Fatal error:  Declaration of Zend_Pdf_FileParserDataSource_File::__construct() must be compatible with Zend_Pdf_FileParserDataSource::__construct() in /home/qcq2012/public_html/v18/magento/lib/Zend/Pdf/FileParserDataSource/File.php on line 41
+[13-May-2014 12:25:31 UTC] PHP Fatal error:  Declaration of Zend_Pdf_FileParserDataSource_File::__construct() must be compatible with Zend_Pdf_FileParserDataSource::__construct() in /home/qcq2012/public_html/v18/magento/lib/Zend/Pdf/FileParserDataSource/File.php on line 41
+[13-May-2014 12:27:42 UTC] PHP Fatal error:  Declaration of Zend_Pdf_FileParserDataSource_File::__construct() must be compatible with Zend_Pdf_FileParserDataSource::__construct() in /home/qcq2012/public_html/v18/magento/lib/Zend/Pdf/FileParserDataSource/File.php on line 41
+[13-May-2014 12:28:33 UTC] PHP Fatal error:  Declaration of Zend_Pdf_FileParserDataSource_File::__construct() must be compatible with Zend_Pdf_FileParserDataSource::__construct() in /home/qcq2012/public_html/v18/magento/lib/Zend/Pdf/FileParserDataSource/File.php on line 41
+[13-May-2014 12:29:48 UTC] PHP Fatal error:  Declaration of Zend_Pdf_FileParserDataSource_File::__construct() must be compatible with Zend_Pdf_FileParserDataSource::__construct() in /home/qcq2012/public_html/v18/magento/lib/Zend/Pdf/FileParserDataSource/File.php on line 41
+[13-May-2014 18:19:23 UTC] PHP Fatal error:  Declaration of Zend_Pdf_FileParserDataSource_File::__construct() must be compatible with Zend_Pdf_FileParserDataSource::__construct() in /home/qcq2012/public_html/v18/magento/lib/Zend/Pdf/FileParserDataSource/File.php on line 41
+[14-May-2014 14:06:05 UTC] PHP Fatal error:  Uncaught exception 'Mage_Core_Exception' with message 'Invalid dir type requested: ‘skin’' in /home/qcq2012/public_html/v18/magento/app/Mage.php:580
+Stack trace:
+#0 /home/qcq2012/public_html/v18/magento/app/code/core/Mage/Core/Model/Config/Options.php(80): Mage::exception('Mage_Core', 'Invalid dir typ...')
+#1 /home/qcq2012/public_html/v18/magento/app/Mage.php(329): Mage_Core_Model_Config_Options->getDir('???skin???')
+#2 /home/qcq2012/public_html/v18/magento/cache.php(54): Mage::getBaseDir('???skin???')
+#3 {main}
+  thrown in /home/qcq2012/public_html/v18/magento/app/Mage.php on line 580
+[14-May-2014 19:24:53 UTC] PHP Fatal error:  Declaration of Zend_Pdf_FileParserDataSource_File::__construct() must be compatible with Zend_Pdf_FileParserDataSource::__construct() in /home/qcq2012/public_html/v18/magento/lib/Zend/Pdf/FileParserDataSource/File.php on line 41
+[14-May-2014 23:24:59 UTC] PHP Fatal error:  Call to a member function validate() on a non-object in /home/qcq2012/public_html/v18/magento/app/code/core/Mage/Paypal/Model/Standard.php on line 137
+[15-May-2014 13:43:58 UTC] PHP Fatal error:  Declaration of Zend_Pdf_FileParserDataSource_File::__construct() must be compatible with Zend_Pdf_FileParserDataSource::__construct() in /home/qcq2012/public_html/v18/magento/lib/Zend/Pdf/FileParserDataSource/File.php on line 41
+[15-May-2014 13:44:36 UTC] PHP Fatal error:  Declaration of Zend_Pdf_FileParserDataSource_File::__construct() must be compatible with Zend_Pdf_FileParserDataSource::__construct() in /home/qcq2012/public_html/v18/magento/lib/Zend/Pdf/FileParserDataSource/File.php on line 41
+[16-May-2014 11:00:06 UTC] PHP Fatal error:  Declaration of Zend_Pdf_FileParserDataSource_File::__construct() must be compatible with Zend_Pdf_FileParserDataSource::__construct() in /home/qcq2012/public_html/lib/Zend/Pdf/FileParserDataSource/File.php on line 41
+[16-May-2014 11:03:42 UTC] PHP Fatal error:  require_once(): Failed opening required '/home/qcq2012/public_html/lib/captcha/class.simplecaptcha.php' (include_path='/home/qcq2012/public_html/app/code/local:/home/qcq2012/public_html/app/code/community:/home/qcq2012/public_html/app/code/core:/home/qcq2012/public_html/lib:.:/usr/lib/php:/usr/local/lib/php') in /home/qcq2012/public_html/app/code/local/Magestore/Affiliateplus/controllers/AccountController.php on line 409
+[22-May-2014 02:53:47 UTC] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home/qcq2012/public_html/app/code/core/Mage/Backup/Model/Backup.php on line 310
+[26-May-2014 12:50:52 UTC] PHP Fatal error:  Declaration of Zend_Pdf_FileParserDataSource_File::__construct() must be compatible with Zend_Pdf_FileParserDataSource::__construct() in /home/qcq2012/public_html/lib/Zend/Pdf/FileParserDataSource/File.php on line 41
+[28-May-2014 16:25:47 UTC] PHP Fatal error:  Declaration of Zend_Pdf_FileParserDataSource_File::__construct() must be compatible with Zend_Pdf_FileParserDataSource::__construct() in /home/qcq2012/public_html/lib/Zend/Pdf/FileParserDataSource/File.php on line 41
+[28-May-2014 18:30:04 UTC] PHP Fatal error:  Declaration of Zend_Pdf_FileParserDataSource_File::__construct() must be compatible with Zend_Pdf_FileParserDataSource::__construct() in /home/qcq2012/public_html/lib/Zend/Pdf/FileParserDataSource/File.php on line 41
+[30-May-2014 22:40:45 UTC] PHP Fatal error:  Call to a member function setErrorMessage() on a non-object in /home/qcq2012/public_html/app/code/core/Mage/Adminhtml/controllers/System/BackupController.php on line 140
+[30-May-2014 22:56:20 UTC] PHP Fatal error:  Call to a member function setErrorMessage() on a non-object in /home/qcq2012/public_html/app/code/core/Mage/Adminhtml/controllers/System/BackupController.php on line 140
+[01-Jun-2014 23:37:24 UTC] PHP Fatal error:  Call to a member function validate() on a non-object in /home/qcq2012/public_html/app/code/core/Mage/Paypal/Model/Standard.php on line 137
+[03-Jun-2014 02:13:05 UTC] PHP Fatal error:  Class 'Magestore_Affiliateplus_Helper_Data' not found in /home/qcq2012/public_html/app/Mage.php on line 547
+[03-Jun-2014 02:19:40 UTC] PHP Parse error:  syntax error, unexpected '=', expecting ')' in /home/qcq2012/public_html/app/code/local/Magestore/Affiliateplus/Model/Observer.php on line 1006
+[03-Jun-2014 02:23:20 UTC] PHP Fatal error:  Call to a member function getIdFieldName() on a non-object in /home/qcq2012/public_html/app/code/core/Mage/Core/Model/Abstract.php on line 151
+[03-Jun-2014 02:24:21 UTC] PHP Fatal error:  Call to a member function getIdFieldName() on a non-object in /home/qcq2012/public_html/app/code/core/Mage/Core/Model/Abstract.php on line 151
+[03-Jun-2014 02:24:37 UTC] PHP Fatal error:  Call to a member function getIdFieldName() on a non-object in /home/qcq2012/public_html/app/code/core/Mage/Core/Model/Abstract.php on line 151
+[03-Jun-2014 05:38:17 UTC] PHP Fatal error:  Class 'Magestore_Affiliateplus_Block_Adminhtml_Account_Edit_Tab_Payment' not found in /home/qcq2012/public_html/app/code/core/Mage/Core/Model/Layout.php on line 491
+[04-Jun-2014 15:01:00 UTC] PHP Fatal error:  Class 'Magestore_Affiliateplus_Block_Adminhtml_Account_Edit_Tab_Payment' not found in /home/qcq2012/public_html/app/code/core/Mage/Core/Model/Layout.php on line 491
+[04-Jun-2014 20:38:47 UTC] PHP Fatal error:  Class 'Magestore_Affiliateplus_Block_Adminhtml_Account_Edit_Tab_Payment' not found in /home/qcq2012/public_html/app/code/core/Mage/Core/Model/Layout.php on line 491
+[04-Jun-2014 21:16:29 UTC] PHP Fatal error:  Class 'Magestore_Affiliateplus_Block_Adminhtml_Account_Edit_Tab_Payment' not found in /home/qcq2012/public_html/app/code/core/Mage/Core/Model/Layout.php on line 491
+[05-Jun-2014 00:13:50 UTC] PHP Fatal error:  Class 'Magestore_Affiliateplus_Block_Adminhtml_Account_Edit_Tab_Payment' not found in /home/qcq2012/public_html/app/code/core/Mage/Core/Model/Layout.php on line 491
+[08-Jun-2014 23:37:00 UTC] PHP Fatal error:  Call to a member function validate() on a non-object in /home/qcq2012/public_html/app/code/core/Mage/Paypal/Model/Standard.php on line 137
+[10-Jun-2014 18:57:34 UTC] PHP Fatal error:  Class 'Magestore_Affiliateplus_Block_Adminhtml_Account_Edit_Tab_Payment' not found in /home/qcq2012/public_html/app/code/core/Mage/Core/Model/Layout.php on line 491
+[17-Jun-2014 20:35:01 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY000] [2002] No such file or directory' in /home/qcq2012/public_html/lib/Zend/Db/Adapter/Pdo/Abstract.php:129
+Stack trace:
+#0 /home/qcq2012/public_html/lib/Zend/Db/Adapter/Pdo/Abstract.php(129): PDO->__construct('mysql:host=loca...', 'qcq2012_mnovo', 'qcq13788', Array)
+#1 /home/qcq2012/public_html/lib/Zend/Db/Adapter/Pdo/Mysql.php(96): Zend_Db_Adapter_Pdo_Abstract->_connect()
+#2 /home/qcq2012/public_html/lib/Varien/Db/Adapter/Pdo/Mysql.php(320): Zend_Db_Adapter_Pdo_Mysql->_connect()
+#3 /home/qcq2012/public_html/lib/Zend/Db/Adapter/Abstract.php(459): Varien_Db_Adapter_Pdo_Mysql->_connect()
+#4 /home/qcq2012/public_html/lib/Zend/Db/Adapter/Pdo/Abstract.php(238): Zend_Db_Adapter_Abstract->query('SET NAMES utf8', Array)
+#5 /home/qcq2012/public_html/lib/Varien/Db/Adapter/Pdo/Mysql.php(428): Zend_Db_Adapter_Pdo_Abstract->query('SET NAMES utf8', Array)
+#6 /home/qcq2012/public_html/app/code/core/Mage/Core/Model/Resource.php(169): Varien_Db_Adapter_Pdo_Mysql->qu in /home/qcq2012/public_html/lib/Zend/Db/Adapter/Pdo/Abstract.php on line 144
+[17-Jun-2014 20:40:02 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY000] [2002] No such file or directory' in /home/qcq2012/public_html/lib/Zend/Db/Adapter/Pdo/Abstract.php:129
+Stack trace:
+#0 /home/qcq2012/public_html/lib/Zend/Db/Adapter/Pdo/Abstract.php(129): PDO->__construct('mysql:host=loca...', 'qcq2012_mnovo', 'qcq13788', Array)
+#1 /home/qcq2012/public_html/lib/Zend/Db/Adapter/Pdo/Mysql.php(96): Zend_Db_Adapter_Pdo_Abstract->_connect()
+#2 /home/qcq2012/public_html/lib/Varien/Db/Adapter/Pdo/Mysql.php(320): Zend_Db_Adapter_Pdo_Mysql->_connect()
+#3 /home/qcq2012/public_html/lib/Zend/Db/Adapter/Abstract.php(459): Varien_Db_Adapter_Pdo_Mysql->_connect()
+#4 /home/qcq2012/public_html/lib/Zend/Db/Adapter/Pdo/Abstract.php(238): Zend_Db_Adapter_Abstract->query('SET NAMES utf8', Array)
+#5 /home/qcq2012/public_html/lib/Varien/Db/Adapter/Pdo/Mysql.php(428): Zend_Db_Adapter_Pdo_Abstract->query('SET NAMES utf8', Array)
+#6 /home/qcq2012/public_html/app/code/core/Mage/Core/Model/Resource.php(169): Varien_Db_Adapter_Pdo_Mysql->qu in /home/qcq2012/public_html/lib/Zend/Db/Adapter/Pdo/Abstract.php on line 144
+[17-Jun-2014 20:45:01 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY000] [2002] No such file or directory' in /home/qcq2012/public_html/lib/Zend/Db/Adapter/Pdo/Abstract.php:129
+Stack trace:
+#0 /home/qcq2012/public_html/lib/Zend/Db/Adapter/Pdo/Abstract.php(129): PDO->__construct('mysql:host=loca...', 'qcq2012_mnovo', 'qcq13788', Array)
+#1 /home/qcq2012/public_html/lib/Zend/Db/Adapter/Pdo/Mysql.php(96): Zend_Db_Adapter_Pdo_Abstract->_connect()
+#2 /home/qcq2012/public_html/lib/Varien/Db/Adapter/Pdo/Mysql.php(320): Zend_Db_Adapter_Pdo_Mysql->_connect()
+#3 /home/qcq2012/public_html/lib/Zend/Db/Adapter/Abstract.php(459): Varien_Db_Adapter_Pdo_Mysql->_connect()
+#4 /home/qcq2012/public_html/lib/Zend/Db/Adapter/Pdo/Abstract.php(238): Zend_Db_Adapter_Abstract->query('SET NAMES utf8', Array)
+#5 /home/qcq2012/public_html/lib/Varien/Db/Adapter/Pdo/Mysql.php(428): Zend_Db_Adapter_Pdo_Abstract->query('SET NAMES utf8', Array)
+#6 /home/qcq2012/public_html/app/code/core/Mage/Core/Model/Resource.php(169): Varien_Db_Adapter_Pdo_Mysql->qu in /home/qcq2012/public_html/lib/Zend/Db/Adapter/Pdo/Abstract.php on line 144
+[17-Jun-2014 20:50:05 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY000] [2002] No such file or directory' in /home/qcq2012/public_html/lib/Zend/Db/Adapter/Pdo/Abstract.php:129
+Stack trace:
+#0 /home/qcq2012/public_html/lib/Zend/Db/Adapter/Pdo/Abstract.php(129): PDO->__construct('mysql:host=loca...', 'qcq2012_mnovo', 'qcq13788', Array)
+#1 /home/qcq2012/public_html/lib/Zend/Db/Adapter/Pdo/Mysql.php(96): Zend_Db_Adapter_Pdo_Abstract->_connect()
+#2 /home/qcq2012/public_html/lib/Varien/Db/Adapter/Pdo/Mysql.php(320): Zend_Db_Adapter_Pdo_Mysql->_connect()
+#3 /home/qcq2012/public_html/lib/Zend/Db/Adapter/Abstract.php(459): Varien_Db_Adapter_Pdo_Mysql->_connect()
+#4 /home/qcq2012/public_html/lib/Zend/Db/Adapter/Pdo/Abstract.php(238): Zend_Db_Adapter_Abstract->query('SET NAMES utf8', Array)
+#5 /home/qcq2012/public_html/lib/Varien/Db/Adapter/Pdo/Mysql.php(428): Zend_Db_Adapter_Pdo_Abstract->query('SET NAMES utf8', Array)
+#6 /home/qcq2012/public_html/app/code/core/Mage/Core/Model/Resource.php(169): Varien_Db_Adapter_Pdo_Mysql->qu in /home/qcq2012/public_html/lib/Zend/Db/Adapter/Pdo/Abstract.php on line 144
+[17-Jun-2014 20:55:01 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY000] [2002] No such file or directory' in /home/qcq2012/public_html/lib/Zend/Db/Adapter/Pdo/Abstract.php:129
+Stack trace:
+#0 /home/qcq2012/public_html/lib/Zend/Db/Adapter/Pdo/Abstract.php(129): PDO->__construct('mysql:host=loca...', 'qcq2012_mnovo', 'qcq13788', Array)
+#1 /home/qcq2012/public_html/lib/Zend/Db/Adapter/Pdo/Mysql.php(96): Zend_Db_Adapter_Pdo_Abstract->_connect()
+#2 /home/qcq2012/public_html/lib/Varien/Db/Adapter/Pdo/Mysql.php(320): Zend_Db_Adapter_Pdo_Mysql->_connect()
+#3 /home/qcq2012/public_html/lib/Zend/Db/Adapter/Abstract.php(459): Varien_Db_Adapter_Pdo_Mysql->_connect()
+#4 /home/qcq2012/public_html/lib/Zend/Db/Adapter/Pdo/Abstract.php(238): Zend_Db_Adapter_Abstract->query('SET NAMES utf8', Array)
+#5 /home/qcq2012/public_html/lib/Varien/Db/Adapter/Pdo/Mysql.php(428): Zend_Db_Adapter_Pdo_Abstract->query('SET NAMES utf8', Array)
+#6 /home/qcq2012/public_html/app/code/core/Mage/Core/Model/Resource.php(169): Varien_Db_Adapter_Pdo_Mysql->qu in /home/qcq2012/public_html/lib/Zend/Db/Adapter/Pdo/Abstract.php on line 144
+[17-Jun-2014 21:00:01 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY000] [2002] No such file or directory' in /home/qcq2012/public_html/lib/Zend/Db/Adapter/Pdo/Abstract.php:129
+Stack trace:
+#0 /home/qcq2012/public_html/lib/Zend/Db/Adapter/Pdo/Abstract.php(129): PDO->__construct('mysql:host=loca...', 'qcq2012_mnovo', 'qcq13788', Array)
+#1 /home/qcq2012/public_html/lib/Zend/Db/Adapter/Pdo/Mysql.php(96): Zend_Db_Adapter_Pdo_Abstract->_connect()
+#2 /home/qcq2012/public_html/lib/Varien/Db/Adapter/Pdo/Mysql.php(320): Zend_Db_Adapter_Pdo_Mysql->_connect()
+#3 /home/qcq2012/public_html/lib/Zend/Db/Adapter/Abstract.php(459): Varien_Db_Adapter_Pdo_Mysql->_connect()
+#4 /home/qcq2012/public_html/lib/Zend/Db/Adapter/Pdo/Abstract.php(238): Zend_Db_Adapter_Abstract->query('SET NAMES utf8', Array)
+#5 /home/qcq2012/public_html/lib/Varien/Db/Adapter/Pdo/Mysql.php(428): Zend_Db_Adapter_Pdo_Abstract->query('SET NAMES utf8', Array)
+#6 /home/qcq2012/public_html/app/code/core/Mage/Core/Model/Resource.php(169): Varien_Db_Adapter_Pdo_Mysql->qu in /home/qcq2012/public_html/lib/Zend/Db/Adapter/Pdo/Abstract.php on line 144
+[21-Jun-2014 05:32:37 UTC] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home/qcq2012/public_html/lib/Zend/Locale/Data.php on line 323
+[23-Jun-2014 23:47:13 UTC] PHP Fatal error:  Call to a member function validate() on a non-object in /home/qcq2012/public_html/app/code/core/Mage/Paypal/Model/Standard.php on line 137
+[25-Jun-2014 08:53:44 UTC] XML-RPC: xmlrpcmsg::parseResponse: no response received from server.
+[25-Jun-2014 09:00:43 UTC] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home/qcq2012/public_html/lib/Zend/Db/Select.php on line 756
+[29-Jun-2014 23:26:39 UTC] PHP Fatal error:  Call to a member function validate() on a non-object in /home/qcq2012/public_html/app/code/core/Mage/Paypal/Model/Standard.php on line 137
+[30-Jun-2014 05:31:05 UTC] XML-RPC: xmlrpcmsg::parseResponse: no response received from server.
+[03-Jul-2014 23:30:46 UTC] PHP Fatal error:  Call to a member function validate() on a non-object in /home/qcq2012/public_html/app/code/core/Mage/Paypal/Model/Standard.php on line 137

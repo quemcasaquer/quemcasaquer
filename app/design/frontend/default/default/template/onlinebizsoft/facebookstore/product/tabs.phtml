@@ -1,0 +1,71 @@
+<?php
+
+/**
+ * Export Product data to xml data
+ *
+ * @category   OnlineBiz
+ * @package    OnlineBiz_Facebookstore
+ * @author     Nguyen Viet Tung (http://onlinebizsoft.com)
+ */
+?>
+<?php 
+$_helper = $this->helper('facebookstore/output');
+?>
+<div id="more-tabs">
+	<ul class="fb-product-tabs">
+		<?php foreach ($this->getTabs() as $_index => $_tab): ?>
+			<?php if($this->getChildHtml($_tab['alias'])): ?>
+				<li id="product_tabs_<?php echo $_tab['alias'] ?>" class="<?php echo !$_index?' active first':(($_index==count($this->getTabs())-1)?' last':'')?>"><a href="#"><?php echo $_tab['title']?></a></li>
+			<?php endif; ?>
+		<?php endforeach; ?>
+	</ul>
+	<div id="areas">
+
+	<?php foreach ($this->getTabs() as $_index => $_tab): ?>
+		<?php if($this->getChildHtml($_tab['alias'])): ?>
+			<div class="tab-product-area" id="product_tabs_<?php echo $_tab['alias'] ?>_area">
+			<?php if($_tab['alias']=='description'){ 
+				echo $_helper->optimizeUrl($this->getChildHtml($_tab['alias']));
+			}else{ 
+				echo $this->getChildHtml($_tab['alias']);
+			}?>
+			</div>
+			<div class="clear"></div>
+		<?php endif; ?>
+	<?php endforeach; ?>
+	</div>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+Varien.Tabs = Class.create();
+Varien.Tabs.prototype = {
+  initialize: function(selector) {
+    var self=this;
+    $$(selector+' a').each(this.initTab.bind(this));
+  },
+
+  initTab: function(el) {
+      el.href = 'javascript:void(0)';
+      if ($(el.parentNode).hasClassName('active')) {
+        this.showContent(el);
+      }
+      el.observe('click', this.showContent.bind(this, el));
+  },
+
+  showContent: function(a) {
+    var li = $(a.parentNode), ul = $(li.parentNode);
+    ul.select('li', 'ol').each(function(el){
+      var contents = $(el.id+'_area');
+      if (el==li) {
+        el.addClassName('active');
+        contents.show();
+      } else {
+        el.removeClassName('active');
+        contents.hide();
+      }
+    });
+  }
+}
+new Varien.Tabs('.fb-product-tabs');
+//]]>
+</script>

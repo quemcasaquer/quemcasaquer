@@ -1,0 +1,21 @@
+/**
+ * @category    AM
+ * @package     AM_RevSlider
+ * @copyright   Copyright (C) 2008-2013 ArexMage.com. All Rights Reserved.
+ * @license     GNU General Public License version 2 or later
+ * @author      ArexMage.com
+ * @email       support@arexmage.com
+ */
+#layer_time_fieldset .hor-scroll .form-list{
+    width: 100%;
+    overflow: hidden;
+}
+#timeline{
+    width: 99%;
+}
+#listLayers .item .time{
+    margin: 0 3px 3px 0;
+}
+#layers_fieldset .hor-scroll{
+    position: relative;
+}

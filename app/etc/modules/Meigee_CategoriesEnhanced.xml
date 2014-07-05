@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+   <modules>
+	  <Meigee_CategoriesEnhanced>
+		 <active>true</active>
+		 <codePool>local</codePool>
+	  </Meigee_CategoriesEnhanced>
+   </modules>
+</config>

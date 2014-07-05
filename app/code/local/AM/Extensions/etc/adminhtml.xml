@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!--
+/**
+* @category    AM
+* @package     AM_Extensions
+* @copyright   Copyright (C) 2008-2013 ArexMage.com. All Rights Reserved.
+* @license     GNU General Public License version 2 or later
+* @author      ArexMage.com
+* @email       support@arexmage.com
+*/
+-->
+<config>
+    <acl>
+        <resources>
+            <all>
+                <title>Allow Everything</title>
+            </all>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <amext translate="title">
+                                        <title>AM Extensions</title>
+                                    </amext>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

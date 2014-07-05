@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<!--
+@category    AM
+@package     AM_RevSlider
+@copyright   Copyright (C) 2008-2013 ArexMage.com. All Rights Reserved.
+@license     GNU General Public License version 2 or later
+@author      ArexMage.com
+@email       support@arexmage.com
+-->
+<config>
+    <modules>
+        <AM_RevSlider>
+            <version>2.1</version>
+        </AM_RevSlider>
+    </modules>
+
+    <global>
+        <blocks>
+            <revslider>
+                <class>AM_RevSlider_Block</class>
+            </revslider>
+        </blocks>
+        <helpers>
+            <revslider>
+                <class>AM_RevSlider_Helper</class>
+            </revslider>
+        </helpers>
+        <models>
+            <revslider>
+                <class>AM_RevSlider_Model</class>
+                <resourceModel>revslider_mysql4</resourceModel>
+            </revslider>
+            <revslider_mysql4>
+                <class>AM_RevSlider_Model_Mysql4</class>
+                <entities>
+                    <slider>
+                        <table>am_revslider</table>
+                    </slider>
+                    <slide>
+                        <table>am_revslide</table>
+                    </slide>
+                    <animation>
+                        <table>am_animation</table>
+                    </animation>
+                    <css>
+                        <table>am_css</table>
+                    </css>
+                </entities>
+            </revslider_mysql4>
+        </models>
+        <resources>
+            <revslider_setup>
+                <setup>
+                    <module>AM_RevSlider</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </revslider_setup>
+        </resources>
+    </global>
+
+    <frontend>
+        <routers>
+            <revslider>
+                <use>standard</use>
+                <args>
+                    <module>AM_RevSlider</module>
+                    <frontName>revslider</frontName>
+                </args>
+            </revslider>
+        </routers>
+    </frontend>
+
+    <admin>
+        <routers>
+            <revslideradmin>
+                <use>admin</use>
+                <args>
+                    <module>AM_RevSlider</module>
+                    <frontName>revslideradmin</frontName>
+                </args>
+            </revslideradmin>
+        </routers>
+    </admin>
+
+    <adminhtml>
+        <layout>
+            <updates>
+                <revslider>
+                    <file>am_revslider.xml</file>
+                </revslider>
+            </updates>
+        </layout>
+        <cms>
+            <browser>
+                <extensions>
+                    <media_allowed>
+                        <mp4>1</mp4>
+                        <webm>1</webm>
+                        <ogv>1</ogv>
+                    </media_allowed>
+                </extensions>
+            </browser>
+        </cms>
+    </adminhtml>
+</config>

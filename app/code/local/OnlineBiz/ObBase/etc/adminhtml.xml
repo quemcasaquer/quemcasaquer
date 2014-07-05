@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<config>
+    <layout>
+        <updates>
+            <obbase module="obbase">
+                <file>onlinebizsoft/obbase.xml</file>
+            </obbase>
+        </updates>
+    </layout>
+
+    <acl>
+        <resources>
+            <all>
+                <title>Allow Everything</title>
+            </all>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <obbase>
+                                        <title>Extentions Manager</title>
+                                    </obbase>
+									<storeview>
+										<title>OnlineBiz Extensions Store</title>
+									</storeview>
+									<conflict>
+										<title>Extensions Conflict</title>
+									</conflict>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

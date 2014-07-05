@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+@category    AM
+@package     AM_Extensions
+@copyright   Copyright (C) 2008-2013 ArexMage.com. All Rights Reserved.
+@license     GNU General Public License version 2 or later
+@author      ArexMage.com
+@email       support@arexmage.com
+-->
+<config>
+    <modules>
+        <AM_Extensions>
+            <active>true</active>
+            <codePool>local</codePool>
+        </AM_Extensions>
+    </modules>
+</config>

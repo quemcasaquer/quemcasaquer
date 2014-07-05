@@ -1,0 +1,193 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Template for Mage_Page_Block_Html
+ */
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $this->getLang() ?>" lang="<?php echo $this->getLang() ?>">
+<head>
+<link rel="stylesheet" type="text/css" href="<?php echo $this->getSkinUrl('css/facebookstore.css')?>" media="all" />
+<link rel="stylesheet" type="text/css" href="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS)?>calendar/calendar-win2k-1.css" media="all" />
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS)?>prototype/prototype.js"></script>
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS)?>lib/ccard.js"></script>
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS)?>prototype/validation.js"></script>
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS)?>scriptaculous/builder.js"></script>
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS)?>scriptaculous/effects.js"></script>
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS)?>scriptaculous/dragdrop.js"></script>
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS)?>scriptaculous/controls.js"></script>
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS)?>scriptaculous/slider.js"></script>
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS)?>varien/js.js"></script>
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS)?>varien/product.js"></script>
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS)?>varien/form.js"></script>
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS)?>varien/menu.js"></script>
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS)?>mage/translate.js"></script>
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS)?>mage/cookies.js"></script>
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS)?>calendar/calendar.js"></script>
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS)?>calendar/calendar-setup.js"></script>
+<script type="text/javascript">
+    var isInIFrame = (window.location != window.parent.location) ? true : false;
+
+    if(!isInIFrame){
+        window.location = '<?php echo Mage::getBaseUrl()?>';
+    }
+
+</script>
+</head>
+<body class="<?php echo $this->getBodyClass()?$this->getBodyClass():'' ?>">
+
+<div id="fb-root"></div>
+<script src="//connect.facebook.net/en_US/all.js#xfbml=1"></script>
+<script type="text/javascript">
+//<![CDATA[
+window.fbAsyncInit = function() {
+	FB.init({
+		appId  : <?php echo json_encode(Mage::getBlockSingleton('facebookstore/template')->getApiKey()) ?>,
+		status : true, // check login status
+		oauth  : true,
+		cookie : true, // enable cookies to allow the server to access the session
+		xfbml  : true,  // parse XFBML
+		channelUrl : '<?php echo Mage::getBlockSingleton('facebookstore/template')->getChannelUrl() ?>'  // custom channel
+	});
+	FB.Canvas.setAutoResize();
+	Event.fire(window, "facebook:fbAsyncInit");
+};
+
+document.observe('click', function(e){
+	var target = e.findElement('a[rel^=facebook-connect]') || e.findElement('button[rel^=facebook-connect]') || e.findElement('a[rel^=fb_share]');
+	if (target && target.readAttribute('rel')=='facebook-connect') {
+		e.stop();
+		try{
+			FB.login(function(response){
+				if(response.status=='connected'){
+					setLocation('<?php echo Mage::getBlockSingleton('facebookstore/template')->getConnectUrl() ?>');
+				}
+			}, {scope:<?php echo Mage::getBlockSingleton('facebookstore/template')->getRequiredPermissions() ?>});
+		}catch(error){}
+	}
+});
+//]]>
+</script>
+
+<?php //echo $this->getChildHtml('after_body_start') ?>
+<div class="wrapper" style="height:100%">
+	<div id="search-area">
+		<div id="search-box">
+		<form method="get" action="<?php echo $this->getUrl('facebookstore/index/search', array('_secure'=>Mage::app()->getStore()->isCurrentlySecure()?true : false))?>" id="search_mini_form">
+			<div class="form-search">
+				<input onfocus="search_onfocus();" onblur="search_onblur();" value="<?php echo $this->__('Search...')?>" name="q" id="search" style="">
+				<button class="button" title="Search" type="submit"><span><span><?php echo $this->__('Search')?></span></span></button>
+				<span class="authority"><?php echo $this->__('Powered by')?><a href="http://store.onlinebizsoft.com/facebook-store-pro.html" target="_blank"> Facebook Store Pro</a></span>
+			</div>
+		</form>
+		<script type="text/javascript">
+		//<![CDATA[
+
+		function search_onfocus() {
+			if (document.getElementById("search").value == "<?php echo $this->__('Search...')?>") {
+				document.getElementById("search").value = "";
+				document.getElementById("search").style['color'] = "#000000";
+			}
+		}
+
+		function search_onblur() {
+			if (document.getElementById("search").value == "") {
+				document.getElementById("search").value = "<?php echo $this->__('Search...')?>";
+				document.getElementById("search").style['color'] = "";
+			}
+		}
+		//]]>
+		</script>
+
+		</div>
+		<?php
+		  $signed_request = false;
+		  if (isset($_REQUEST['signed_request'])) {
+			  $encoded_sig = null;
+			  $payload = null;
+			  list($encoded_sig, $payload) = explode('.', $_REQUEST['signed_request'], 2);
+			  $sig = base64_decode(strtr($encoded_sig, '-_', '+/'));
+			  $signed_request = json_decode(base64_decode(strtr($payload, '-_', '+/'), true));
+		  }
+		?>
+		<?php if(Mage::getStoreConfig('facebookstore/like_discount/enabled')):?>
+		<div id="like-discount">
+		<?php if($signed_request && $signed_request->page->liked):?>
+		<div class="likedStoreMessage">
+			<div class="couponList">
+				<?php echo Mage::getStoreConfig('facebookstore/like_discount/discount')?>
+			</div>
+		</div>
+		<?php else:?>
+		<div class="notLikedStoreMessage">
+			<div class="makeALater">
+				<span class="notLikedImage"></span>
+				<span class="notLikedMessage"><?php echo $this->__('Like our Facebook Page for special discount pricing!')?></span>
+				<span style="display: block; clear: both;"></span>
+			</div>
+		</div>
+		<?php endif;?>
+		</div>
+		<?php endif;?>
+		<div id="navigation"><?php echo $this->getLayout()->createBlock('facebookstore/navigation')->toHtml() ?></div>
+	</div>
+	
+	<div id="content">
+		<div id="right_column">
+			<div class="link">
+			<?php if(Mage::getStoreConfig('facebookstore/connect/enabled')&& !Mage::getSingleton('customer/session')->isLoggedIn()):?>
+			<a rel="facebook-connect" role="button" class="mls uiButton" title="Facebook Connect" href="#"><span class="uiButtonText"><?php echo $this->__('Login with Facebook Account')?></span></a>
+			<?php endif;?>
+			<?php if(Mage::getStoreConfig('facebookstore/invite_friend/enabled')):?>
+				<?php 
+				$modules = array_keys((array)Mage::getConfig()->getNode('modules')->children());
+				sort($modules);
+				$affInstalled = false;
+				foreach ($modules as $moduleName) {
+					if ($moduleName == 'OnlineBiz_Affiliate') {
+						$affInstalled = true;
+						break;
+					}
+				}
+				$link = Mage::getBaseUrl();
+				if($affInstalled && Mage::getSingleton('customer/session')->isLoggedIn())
+					$link.='?ref='.Mage::getSingleton('customer/session')->getCustomer()->getId();
+				$messageContent = Mage::getStoreConfig('facebookstore/invite_friend/template_message');
+				$messageContent = str_ireplace("{store_link}", $link, $messageContent);
+				?>
+				<a onclick="FB.ui({ method:'apprequests', message:'<?php echo $messageContent?>', data: '', title: 'Invite Friends'});return false;" href="#" role="button"class="mls uiButton"><span class="uiButtonText"><?php echo $this->__('Invite Friends')?></span></a>
+			<?php endif;?>
+			</div>
+			<?php echo $this->getChildHtml('global_messages') ?>
+			<?php echo $this->getChildHtml('content') ?>
+		</div>
+            
+    </div>
+</div>
+</body>
+</html>
