@@ -84,3 +84,8 @@ RELEASE_NOTES.txt
 index.php.sample
 php.ini.sample
 
+
+#--------------------------#
+# quemcasaquer.com  Ignores #
+#--------------------------#
+/quemcasaquerideias.com/
