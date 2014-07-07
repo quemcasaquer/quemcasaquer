@@ -1,0 +1,217 @@
+<?php
+ 
+$myStatus = Mage::getSingleton('customer/session')->isLoggedIn();
+if (Mage::getSingleton('customer/session')->isLoggedIn()) {
+    $customer = Mage::getSingleton('customer/session')->getCustomer();
+    $firstname = $customer->getFirstname();
+    $lastname = $customer->getLastname();
+   	$region_select = $this->escapeHtml($this->getAddress()->getRegion());
+    $taxvat = $customer->getTaxvat();
+    $exibe_email = 0;
+ } else {
+ 	$fullname = "";
+    $firstname = "";
+    $lastname = "";
+   	$region_select = "";
+    $taxvat = "";
+    $exibe_email = 1;
+ }
+ if(Mage::getSingleton('customer/session')->getCustomer()->getDefaultBilling()){
+ 	
+ 	$address_data = Mage::getModel('customer/address')->load(Mage::getSingleton('customer/session')->getCustomer()->getDefaultBilling());
+ 	$firstname = $address_data->getFirstname();
+    $lastname = $address_data->getLastname();
+ }
+ $_dob = $this->getLayout()->createBlock('customer/widget_dob');
+ $_taxvat = $this->getLayout()->createBlock('customer/widget_taxvat');
+ $_gender = $this->getLayout()->createBlock('customer/widget_gender');
+?>
+
+<script type="text/javascript" src="<?php echo $this->getJsUrl('O2TI/onestepcheckout/billing.js') ?>"></script>
+
+		<li class="customer-name field">
+			<label for="billing:firstname" class="required"><em>*</em>Nome</label>
+			<div class="input-box">
+				<input type="text" id="billing:firstname" name="billing[firstname]" value="<?php echo  $firstname; ?>" title="Nome" class="input-text required-entry" autocomplete="off">
+			</div>
+		</li>
+		<li class="field name-lastname">
+			<label for="billing:lastname" class="required"><em>*</em>Sobrenome</label>
+			<div class="input-box">
+				<input type="text" id="billing:lastname" name="billing[lastname]" value="<?php echo  $lastname; ?>" title="Sobrenome" class="input-text required-entry" autocomplete="off">
+			</div>
+		</li>
+		<li class="wide" <?php if($exibe_email == 0) echo 'style="display:none"' ?>>
+			<label for="billing:email" class="required"><em>*</em>Endereço de e-mail</label>
+			<div class="input-box">
+				<input type="text" name="billing[email]" id="billing:email" value="<?php echo $this->htmlEscape( Mage::getSingleton('customer/session')->getCustomer()->getEmail()) ?>" <?php if($myStatus) echo 'readonly="true"';  ?> title="Endereço de e-mail" class="input-text validate-email required-entry" autocomplete="off">
+			</div>
+		</li>
+		<?php if(!$myStatus): ?>
+		<li class="wide" id="register-customer-password" style="display:block;">
+			<div class="field">
+				<label for="billing:customer_password" class="required"><em>*</em>Senha</label>
+				<div class="input-box">
+					<input type="password" name="billing[customer_password]" id="billing:customer_password" title="Senha" class="input-text required-entry validate-password" autocomplete="off">
+				</div>
+			</div>
+			<div class="field">
+				<label for="billing:confirm_password" class="required"><em>*</em>Confirmar senha</label>
+				<div class="input-box">
+					<input type="password" name="billing[confirm_password]" onkeypress="valide_senha(this);" title="Confirmar senha" id="billing:confirm_password" class="input-text required-entry validate-cpassword" autocomplete="off">
+				</div>
+			</div>
+		</li>
+		<li style="display:none">
+			<input type="checkbox" name="register_new_account" checked="checked" value="1" title="register new account" id="register_new_account" class="checkbox"> <label for="register_new_account" style="float:none;">Criar uma conta para uso futuro</label>
+		</li>
+		<li class="wide">A senha é utilizada para você ter acesso futuro e acompanhar o seu pedido.</li>
+		<?php endif; ?>
+		<?php if(Mage::getStoreConfig('onestepcheckout/config/enable_pj')):?>
+
+		<li class="wide pj-pf">
+			<li class="wide"><h3 class="como_comprar_title">Comprar Como:</h3></li>
+		</li>
+		<li class="wide pj-pf">
+			<div class="field">
+				<input type="radio" class="radio_pf_pj" name="billing[tipopessoa]" value="1" onclick="getval(this);" checked>
+				<label class="label_pf_pj">Pessoa Física: </label>
+			</div>
+			<div class="field">
+				<input type="radio" class="radio_pf_pj" name="billing[tipopessoa]" value="2" onclick="getval(this);">
+				<label  class="label_pf_pj">Pessoa Jurídica: </label>
+			</div>
+		</li>
+		<li class="field dados-pj">
+			<label for="billing:nomefantasia" class="required"><em>*</em>Nome Fantasia</label>
+			<div class="input-box">
+				<input type="text" title="Nome Fantasia" class="input-text" name="billing[nomefantasia]" id="nomefantasia" value="<?php echo $this->htmlEscape(Mage::getSingleton('customer/session')->getCustomer()->getNomefantasia()); ?>" autocomplete="off">
+			</div>
+		</li>
+		<li class="field dados-pj">
+			<label for="billing:razaosocial" class="required"><em>*</em>Razão Social</label>
+			<div class="input-box">
+				<input type="text" title="razao_social" class="input-text" name="billing[razaosocial]" id="razaosocial" value="<?php echo $this->htmlEscape(Mage::getSingleton('customer/session')->getCustomer()->getRazaosocial()) ?>" autocomplete="off">
+			</div>
+		</li>
+		<li class="field dados-pj">
+			<label for="billing:cnpj" class="required"><em>*</em>CNPJ</label>
+			<div class="input-box">
+				<input type="text" title="cnpj" class="input-text" name="billing[cnpj]" id="cnpj" value="<?php $this->htmlEscape(Mage::getSingleton('customer/session')->getCustomer()->getCnpj()) ?>"  placeholder="99.999.999/0001-99" onkeypress="return txtBoxFormat(this, '99.999.999/0001-99', event);" maxlength="18" autocomplete="off">
+			</div>
+		</li>
+		<li class="field dados-pj">
+			<label for="billing:insestadual" class="required"><em>*</em>Inscrição Estadual</label>
+			<div class="input-box">
+				<input type="text" title="Inscrição Estadual" class="input-text" name="billing[insestadual]" id="insestadual" value="">
+			</div>
+			<input type="checkbox" name="Isento" value="<?php echo $this->htmlEscape(Mage::getSingleton('customer/session')->getCustomer()->getInsestadual()) ?>" onclick="marcar_isento()" style="width: 15px !important;"><label>Isento</label>
+		</li>
+		<li class="wide"><h3>Dados do Responsável pelo Pedido:</h3></li>
+		<?php endif; ?>
+		<?php if ($_taxvat->isEnabled()): ?>
+		<li class="field">
+			<label for="billing:taxvat" class="required"><em>*</em>CPF </label>
+			<div class="input-box">
+			    <input type="text" id="billing:taxvat" name="billing[taxvat]"value="<?php echo $taxvat;?>"  title="CPF" class="input-text required-entry" onkeypress="return txtBoxFormat(this, '999.999.999-99', event);"  placeholder="123.456.789-10" maxlength="14">
+			</div>
+			<script type="text/javascript">
+			//<![CDATA[
+				$('billing:taxvat').addClassName('validar_cpf');
+				Validation.add('validar_cpf', 'O CPF ou CNPJ informado \xE9 invalido', function(v){return validaCPF(v,0);});
+			//]]>
+			</script>
+		</li>
+		<?php endif; ?>
+   		<li class="field">
+			<label for="billing:telephone" class="required"><em>*</em>Telefone</label>
+			<div class="input-box">
+				<input type="text" name="billing[telephone]" value="<?php echo $this->htmlEscape($this->getAddress()->getTelephone()) ?>"  title="Telefone" class="input-text  required-entry" id="billing:telephone" placeholder="(99)9999-9999" onkeypress="return txtBoxFormat(this, '(99)9999-9999', event);" maxlength="14" autocomplete="off">
+			</div>
+		</li>
+		<div style="clear:both"></div>
+		<?php if ($_dob->isEnabled()): ?>
+		<li class="field">
+			<?php echo $this->getLayout()->createBlock('customer/widget_dob')
+			   ->setDate($this->getCustomer()->getDob())
+			   ->setFieldIdFormat('billing:%s')
+			   ->setFieldNameFormat('billing[%s]')
+			   ->toHtml() ?>
+		</li>
+		<?php endif ?>
+		<?php if ($_gender->isEnabled()): ?>
+			<li class="field">
+			<?php echo $_gender->setGender($this->getQuote()->getCustomerGender())->setFieldIdFormat('billing:%s')->setFieldNameFormat('billing[%s]')->toHtml(); ?>
+			</li>
+		<?php endif ?>
+		<li class="wide"><h2 class="endereco_title">Endereço</h2></li>
+		<li class="wide">
+			<li class="field">
+				<label for="billing:postcode" class="required"><em>*</em>CEP</label>
+				<div class="input-box">
+					<input type="text" title="CEP" name="billing[postcode]" id="billing:postcode" value="<?php echo $this->htmlEscape($this->getAddress()->getPostcode()) ?>"  class="input-text validate-zip-international  required-entry o2tizip" placeholder="99999-999" onchange="javascript: buscarEndereco('billing');" onkeypress="return txtBoxFormat(this, '99999-999', event);" maxlength="9" autocomplete="off" style="width: 100px;">
+				</div>
+			</li>
+			<li class="field">
+				<div class="input-box" style="margin-top: 20px;margin-bottom: 8px;">
+				<a id="correio" href="#inlinecorreio" title="">Não sabe o CEP?</a>
+				</div>
+			</li>
+		</li>
+		<li class="wide">
+			<label for="billing:street1" class="required"><em>*</em>Endereço</label>
+			<div class="input-box">
+				<input type="text" title="Endereço da rua" name="billing[street][0]" id="billing:street1" value="<?php echo $this->htmlEscape($this->getAddress()->getStreet(1)) ?>" class="input-text  required-entry" autocomplete="off">
+			</div>
+		</li>
+		<li class="field">
+			<label for="billing:street2" class="required"><em>*</em>Número</label>
+			<div class="input-box">
+				<input type="text" title="Street Address 2" name="billing[street][1]" id="billing:street2" value="<?php echo $this->htmlEscape($this->getAddress()->getStreet(2)) ?>" class="input-text  required-entry" autocomplete="off">
+			</div>
+		</li>
+		<li class="field">
+			<label for="billing:street3" class="required">Complemento</label>
+			<div class="input-box">
+				<input type="text" title="Complemento" name="billing[street][2]" id="billing:street3" value="<?php echo $this->htmlEscape($this->getAddress()->getStreet(3)) ?>" class="input-text" autocomplete="off">
+			</div>
+		</li>
+		<li class="field">
+			<label for="billing:street4" class="required"><em>*</em>Bairro</label>
+			<div class="input-box">
+				<input type="text" title="Bairro" name="billing[street][3]" id="billing:street4" value="<?php echo $this->htmlEscape($this->getAddress()->getStreet(4)) ?>" class="input-text required-entry" autocomplete="off">
+			</div>
+		</li>
+		<li class="field">
+			<label for="billing:city" class="required"><em>*</em>Cidade</label>
+			<div class="input-box">
+				<input type="text" title="Cidade" name="billing[city]" value="<?php echo $this->htmlEscape($this->getAddress()->getCity()) ?>"class="input-text  required-entry" id="billing:city" autocomplete="off">
+			</div>
+		</li>
+		<li class="field">
+			<label for="billing:region_id" class=""><em style="display: none;">*</em>Estado</label>
+			<div class="input-box">
+				<select id="billing:region_id" name="billing[region_id]" title="Estado" style="display: none;" defaultvalue="" class="validate-select">
+					<option value="">Por favor, selecione o estado</option>
+				</select>
+				<script type="text/javascript">//<![CDATA[
+				$("billing:region_id").setAttribute("defaultValue",  "");
+				//]]></script>
+				<input type="text" maxlength="2" id="billing:region" name="billing[region]"  value="<?php echo $this->escapeHtml($region_select) ?>"  title="Estado" class="input-text" style="" autocomplete="off">
+			</div>
+		</li>
+		<li class="wide" style="display: none;">
+			<label for="billing:country_id" class="required"><em></em>País</label>
+			<div class="input-box">
+				 <?php echo $this->getCountryHtmlSelect('billing') ?>
+			</div>
+		</li>
+		<div style="clear:both"></div>
+<script type="text/javascript">
+//<![CDATA[
+	jQuery(function(){jQuery("#billing-new-address-form").show();});
+	var billing = new Billing("co-billing-form","<?php echo $this->getUrl('checkout/onepage/getAddress/address/') ?>", "<?php echo $this->getUrl('checkout/onepage/saveBilling/') ?>");
+ 	var billingForm = new VarienForm("co-billing-form");
+	var billingRegionUpdater = new RegionUpdater("billing:country_id", "billing:region", "billing:region_id", countryRegions, undefined, "billing:postcode");
+//]]>
+</script>

@@ -1,0 +1,368 @@
+<?php 
+/* Mage::getModel("sales/order")->getCollection()->getLastItem()->getIncrementId(); */
+
+if(Mage::app()->getRequest()->getModuleName() != "onestepcheckout" && Mage::app()->getRequest()->getModuleName() != "checkout"){
+$css_email = "display: block;float: left;clear: both !important;border-radius: 10px;color: #fff;font-size: 16pt;font-weight: bold;text-align: center;text-transform: uppercase;
+background: -moz-linear-gradient(top, #ff9900 0%, #ff6600 100%);background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ff9900), color-stop(100%,#ff6600));
+background: -webkit-linear-gradient(top, #ff9900 0%,#ff6600 100%);background: -o-linear-gradient(top, #ff9900 0%,#ff6600 100%);background: -ms-linear-gradient(top, #ff9900 0%,#ff6600 100%);background: linear-gradient(to bottom, #ff9900 0%,#ff6600 100%);filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff9900', endColorstr='#ff6600',GradientType=0 );line-height: 20px;position: relative;";
+$css_boleto = "padding: 15px 20px 15px 20px;border: 0;";
+$css_trans = "padding: 20px 20px 20px 20px";
+$css_email_img = "position: absolute !important;left: -70px !important;top: -20px !important;min-height: 100px;width: 115px;"; 
+?>
+<?php $info = $this->_prepareInfo(); ?>
+	<?php if($info['result_meio'] == "Cartão de Crédito"): ?>
+	<div class="cartao" style="width:100%">
+		<h4>Pago em <?php echo $info['creditcard_parc']; ?> parcelas via:</h4>
+	</div>
+	<div class="cartao" style="width:100%">
+		<div class="image" style="width:30%; float:left;">
+			<?php $imagem = $info['image']; ?>
+			<div class="image" style="padding:5px"><img src="<?php echo $imagem; ?>"></div>
+		</div>
+		<div class="dados" style="width:70%; float:left">
+			<label>6 Primeiros dígitos do cartão</label>
+			<div class="input-text"><strong><?php echo $info['first6'] ?></strong></div>
+			<label>4 Últimos dígitos do cartão</label>
+			<div class="input-text"><strong><?php echo $info['last4'] ?></strong></div>
+		</div>
+	</div>
+	<?php endif ?>
+
+	
+	<?php if($info['result_meio'] == "Boleto Bancário"): ?>
+	<div class="metodo title"><h3><?php echo $info['result_meio'] ?></h3></div>
+		<div style="clear:both; width:100%;">
+			<button  style="<?php echo $css_email.$css_boleto ?>" onclick="window.location='<?php echo  $info['url']  ?>'" >Visualize o boleto aqui</span></button>
+		</div></br>
+		<div class="boleto_line_title"><h4>Ou Cópie o endereço:</h4></div>
+		<div class="boleto_line"><input type="text" class="input-text" value="<?php echo $info['url'] ?>" readonly="true" style="width:350px"></div>
+	<?php endif ?>
+
+	
+
+	<?php if($info['result_meio'] == "Transferência Bancária"): ?>
+	<div class="metodo title"><h3><?php echo $info['result_meio'] ?></h3></div>
+	<div class="trans" style="width:100%">
+		<div style="clear:both;width:100%"><button type="button" title="Finalizar compra" style="<?php echo $css_email.$css_trans ?>" onclick="window.location='<?php echo  $info['url']  ?>'">Ir ao Banco</button></div>
+		<div class="boleto_line_title" style="clear:both;width:100%"><h4>Ou Cole a Url na Barra do Navegador:</h4></div>
+		<div class="boleto_line" style="clear:both;width:100%"><input type="text" class="input-text" value="<?php echo $info['url'] ?>" readonly="true" style="width:350px"></div>
+	</div>
+	<?php endif ?>
+
+
+<?php } if(Mage::app()->getRequest()->getModuleName() == "onestepcheckout" || Mage::app()->getRequest()->getModuleName() == "checkout" ) { ?>
+
+<?php echo "Pagamento via MoIP" ?>
+
+<?php } if(Mage::app()->getRequest()->getModuleName() == "sales"): ?>
+			<?php
+				$order = Mage::getModel('sales/order')->load($info['realorder_id'], 'increment_id');
+				$states = $order->getStatus();
+				if($states == "pending" || $order->isCanceled()){
+				$api = $this->getMoip();
+				$resposta_moip =  $info['token'];
+				if (Mage::getSingleton('moip/standard')->getConfigData('ambiente') == "teste") { 
+				    $url = "https://desenvolvedor.moip.com.br/sandbox/Instrucao.do?token=";
+				    $urljs = "https://desenvolvedor.moip.com.br/sandbox/";
+				   }
+				   else {
+				    $url = "https://www.moip.com.br/Instrucao.do?token=";
+				    $urljs = "https://www.moip.com.br/";
+				}
+			?>
+<script type="text/javascript" charset="ISO-8859-1" src="<?php echo $urljs ?>/transparente/MoipWidget-v2.js" onerror="erro_mail('erro caiu o moip widget')" ></script>
+<div id="MoipWidget" data-token="<?php echo $info['token'] ?>" callback-method-error="erroValidacao" callback-method-success="sucesso"></div>
+<div class="refaz_pg" style="clear:both;width:100%">
+	<div>
+		<button type="button" title="Finalizar compra"  style="background:none repeat scroll 0 0 #337baa;margin:10px;border-radius:3px;padding:10px 5px;width:250px;float:left;text-align:center;color:#ffffff;font-weight:normal;font-size:13px;display:block;text-decoration:none;font-family:Arial,Helvetica,sans-serif;border: none;margin-top: 10px !important;" onclick="jQuery('#showXml').modal('toggle')">
+			Escolher outra forma de pagamento
+		</button>
+	</div>
+</div>			
+<div class="modal" id="showXml" style="display:none; width:38%; left:52%; min-width:250px;">
+	<div class="modal-header">
+		<button class="close" data-dismiss="modal">x</button><h3>Escolha a nova forma de pagamento.</h3>
+	</div>
+	<div class="modal-body">
+			<h4>Você poderá escolher uma nova forma de pagamento, selecionando os meios disponíveis a baixo:</h4>
+			<div style="display: none;" id="loading-mask">
+				    <p id="loading_mask_loader" class="loader"><img alt="Loading..." src="<?php echo $this->getSkinUrl('O2TI/onestepcheckout/images/ajax-loader-tr.gif')?>"><br>Realizando pagamento, por favor aguarde...</p>
+			</div>
+			<div class="retorno_moip">
+			</div>
+			<form method="POST" action='<?php echo Mage::getBaseUrl('web', true); ?>moip/index/Novaforma/' id="refaz_pg_forma">
+				<input type="hidden"  name="forma_de_pagamento" id="forma_de_pagamento" value="" >
+				<input type="hidden"  name="moip_id" value="<?php echo $info['token'] ?>">
+				<input type="hidden"  name="order_id" value="<?php echo $info['realorder_id'] ?>">
+				
+
+				<div class= "seleciona_meio" style="border-bottom:2px solid #eeeee0;">
+					<ul class="inline input-switcher moip-payment-methods" style="display: inline-flex;">
+						<li data-target="CartaoCredito" class='moip-payment-method-line' style="padding: 10px 15px;background: #EEE;border-radius: 5px 5px 0 0;margin-right: 10px;cursor:pointer;">
+							Cartão de Crédito
+						</li>
+						<li data-target="BoletoBancario" class='moip-payment-method-line' style="padding: 10px 15px;background: #EEE;border-radius: 5px 5px 0 0;margin-right: 10px;cursor:pointer;">
+							Boleto Bancário
+						</li>
+						<li data-target="DebitoBancario" class='moip-payment-method-line' style="padding: 10px 15px;background: #EEE;border-radius: 5px 5px 0 0;margin-right: 10px;cursor:pointer;">
+							Débito Bancário
+						</li>
+					</ul>
+				</div>
+				
+				
+				<div class="moip-payment-method-content row-fluid" id="DebitoBancario" style="display:none">
+					<h2>Transferência Bancária</h2>
+					<div style="width:100%">É obrigatório ter token do banco para realizar esse processo.</div>
+					<div><h4>Selecione o Banco.</h4></div>
+					<div>
+						<ul>
+							<li><label><input type="radio" name="instituicao"  id="instituicao" value="BancodoBrasil" onclick="jQuery('.pagar_trans').show()"> Banco do Brasil</label></li>
+							<li><label><input type="radio" name="instituicao"  id="instituicao" value="Bradesco" onclick="jQuery('.pagar_trans').show()"> Bradesco</label></li>
+							<li><label><input type="radio" name="instituicao" id="instituicao" value="Itau" onclick="jQuery('.pagar_trans').show()"> Itaú</label></li>
+							<li><label><input type="radio" name="instituicao" id="instituicao" value="Banrisul" onclick="jQuery('.pagar_trans').show()"> Banrisul</label></li>
+						</ul>
+
+					</div>
+					<div class="pagar_trans" style="display:none;">
+						<button id="sendToMoip2" style="margin-top: 10px;" class="btn-moip buttonmoip" onclick="jQuery('#loading-mask').show();jQuery('#refaz_pg_form').hide('slow');">Pagar Agora</button>
+					</div>
+				</div>
+
+				<div  class="moip-payment-method-content row-fluid" id="BoletoBancario" style="display:none">
+					<h2>Boleto Bancário</h2>
+					<div>Pagável até a data do vencimento em qualquer Casa lotérica, via internet-bank ou caixa eletrônico do seu banco.</div>
+					<button id="sendToMoip2" style="margin-top: 10px;" class="btn-moip buttonmoip" onclick="jQuery('#loading-mask').show();jQuery('#refaz_pg_form').hide('slow');">Pagar Agora</button>
+				</div>
+
+				<div class="moip-payment-method-content row-fluid" id="CartaoCredito" style="display:none">
+						<div class="well">
+							<ul class="repay-form">
+								<div class="cartao_dados">
+									<li>
+										<h3>Dados do Cartão</h3>
+									</li>
+									<li>
+										<label>Parcelas:</label>
+										<?php $pgtoArray = $this->getOrder_dados(Mage::registry('client_array')); ?>
+										<?php $order = Mage::getModel('sales/order')->loadByIncrementId($info['realorder_id']);  ?>
+										<?php $parcelamento = $api->getParcelamento($order->getGrand_total());
+										?>
+										<select id="Parcelas" name="parcelas">
+											<<option value="" select>Selecione as parcelas</option>
+												<?php $parcela_decode = json_decode($parcelamento,true);
+												foreach ($parcela_decode as $key => $value) {
+													
+													if ($key <= Mage::getSingleton('moip/standard')->getConfigData('nummaxparcelamax')) {
+
+															$juros = $parcela_decode[$key]['juros'];
+															$parcelas_result = $parcela_decode[$key]['parcela'];
+															$total_parcelado = $parcela_decode[$key]['total_parcelado'];
+															if($juros > 0)
+																$asterisco = '*';
+															else 
+																$asterisco = '';
+															$parcelas[]= '<option value="'.$key.'">'.$key.'x de '.$parcelas_result.' no total de '.$total_parcelado.' '.$asterisco.'</option>';
+														
+														}
+													}
+													 foreach ( $parcelas as $key => $value) { ?>
+													               		<?php echo $parcelas[$key]; ?>
+													               <?php } ?>
+										</select>
+									</li>
+									<li>
+										<label>Institui&ccedil;&atilde;o:</label>
+										<select id="bandeira" name="bandeira">
+										  <option value="VISA">Visa</option>
+										  <option value="MASTERCARD">Mastercard</option>
+										  <option value="AMERICANEXPRESS">AmericanExpress</option>
+										  <option value="HIPERCARD">Hipercard</option>
+										  <option value="DINERS">Diners</option>
+										</select>
+									</li>
+									<li>
+										<div>
+											<label>Numero do Cart&atilde;o:</label>
+											<input type="text" id="Numero" name="Numero"  class="input-text" >
+										</div>
+										<div>
+											<label>CVV:</label>
+											<input type="text" id="CodigoSeguranca" class="input-text" name="CodigoSeguranca"  size="4">
+										</div>
+									</li>
+									<li>
+										<label>Expira&ccedil;&atilde;o:</label>
+										<input type="text" id="Expiracao" name="Expiracao_mes" onkeypress="return txtBoxFormat(this, '99', event);" maxlength="2" placeholder="Ex. 10/15"  size="2" class="input-text" >
+										<input type="text" id="Expiracao" name="Expiracao_ano"   onkeypress="return txtBoxFormat(this, '99', event);" maxlength="2" placeholder="Ex. 10/15"  size="2" class="input-text" >
+									</li>
+									<li>
+										<button type="button" id="sendToMoip2" class="btn-moip buttonmoip" style="margin-top: 10px !important;" onclick="jQuery('.cartao_dados').hide();jQuery('.pagador_dados_pessoais').show('slow');">Prosseguir</button>
+									</li>
+								</div>
+								<div class="pagador_dados_pessoais" style="display:none">
+								<li> 
+									<h3>Dados do Títular do Cartão</h3>
+								</li>
+								<li>
+									<label>Portador:</label>
+									<input type="text" id="Portador" name="Portador" class="input-text" >
+								</li>
+								<li>
+									<label>CPF:</label>
+									<input type="text" id="CPF" name="CPF"  class="input-text" onkeypress="return txtBoxFormat(this, '99999999999', event);" maxlength="11">
+								</li>
+								<li>
+									<label>Data Nascimento:</label>
+									<input type="text" id="DataNascimento" name="DataNascimento" onkeypress="return txtBoxFormat(this, '99/99/9999', event);" maxlength="10" placeholder="Ex. 10/10/1985" class="input-text" ><br>
+								</li>
+								<li>
+									<label>Telefone:</label>
+									<input type="text" id="Telefone" name="Telefone" onkeypress="return txtBoxFormat(this, '(99)9999-9999', event);" placeholder="Ex. (11)9999-9999" maxlength="14" class="input-text"  ><br>
+								</li>
+								<li>
+										<a href="#" style="margin-top: 10px !important; float:left" onclick="jQuery('.cartao_dados').show('slow');jQuery('.pagador_dados_pessoais').hide();">&larr; Voltar</a>
+										<button id="sendToMoip2" class="btn-moip buttonmoip" style="margin-top: -30px !important; float:left"  onclick="jQuery('#loading-mask').show();jQuery('#refaz_pg_form').hide('slow');">Pagar Agora</button>
+								</li>
+								</div>
+							</ul>
+						</div>
+				</div>
+			</form>
+			<div class="resposta_recebida"></div>
+	</div>	
+</div>
+<script type="text/javascript">
+//<![CDATA[
+jQuery(document).ready(function() {
+	jQuery('.input-switcher > li').bind({
+		click: function() {
+			jQuery(this).parent().children('li').fadeTo(300, 0.4);
+			jQuery('#checkout-payment-bandeira').hide();
+			jQuery('#checkout-payment-banco').hide();
+			jQuery(this).fadeTo(0, 1);
+			jQuery(this).find('input[type="radio"]').attr('checked', true);
+		}
+	});
+	jQuery('.moip-payment-methods > li').bind({
+		click: function() {
+			jQuery('.moip-payment-method-content').not('#' + jQuery(this).attr('data-target')).slideUp();
+			jQuery('#' + jQuery(this).attr('data-target')).slideDown();
+			jQuery('#forma_de_pagamento').val(jQuery(this).attr('data-target'));
+		}
+	});
+});
+
+				var sucesso = function(data){
+					var data = JSON.stringify(data);
+					jQuery("#loading_mask_loader").hide();
+					if(jQuery("#forma_de_pagamento").val() == "BoletoBancario"){
+						jQuery(".retorno_moip").html("<a href='<?php echo $info['url'] ?>'>Cique Aqui para visualizar o boleto</a>");
+					};
+					if(jQuery("#forma_de_pagamento").val() == "DebitoBancario"){
+						jQuery(".retorno_moip").html("<a href='<?php echo $info['url'] ?>'>Cique Aqui para ir ao banco</a>");
+					};
+					if(jQuery("#forma_de_pagamento").val() == "CartaoCredito"){
+						if (data.Status == "Cancelado"){
+							jQuery(".retorno_moip").append("<h3>Pagamento Cancelado</h3>");
+							jQuery(".retorno_moip").append("Transação não aprovada.");
+							if(data.hasOwnProperty(data.Classificacao)){
+								var motivo = JSON.stringify(data.Classificacao.Descricao);
+							} else{
+								var motivo = "semretorno";
+							}
+							if(motivo == '"Desconhecido"'){
+								jQuery(".erros_moip").html("Seus dados estão incorretos ou não podemos envia-los a operadora de crédito.");
+							}
+							if(motivo == '"Transação não processada"'){
+								jQuery(".erros_moip").html("O pagamento não pode ser processado.</br>Por favor, tente novamente.</br>Caso o erro persista, entre em contato com o nosso atendimento.");
+							}
+							if(motivo == '"Política de segurança do Moip"'){
+								jQuery(".erros_moip").html("Pagamento não autorizado.</br>Entre em contato com o seu banco antes de uma nova tentativa.");
+							}
+							if(motivo == '"Política de segurança do Banco Emissor"'){
+								jQuery(".erros_moip").html("O pagamento não foi autorizado pelo Banco Emissor do seu Cartão.</br>Entre em contato com o Banco para entender o motivo e refazer o pagamento..");
+							}
+							if(motivo == '"Cartão vencido"'){
+								jQuery(".erros_moip").html("A validade do seu Cartão expirou.</br>Escolha outra forma de pagamento para concluir o pagamento.");
+							}
+							if(motivo == '"Dados inválidos"'){
+								jQuery(".erros_moip").html("Dados informados inválidos.</br>Você digitou algo errado durante o preenchimento dos dados do seu Cartão.</br>Certifique-se de que está usando o Cartão correto e faça uma nova tentativa.");
+							}
+							if(motivo =='semretorno' ){
+								jQuery(".erros_moip").html("Verifique os dados e tente pagar novamente.");
+							}
+						}
+						if (data.Status == "EmAnalise"){
+							jQuery(".retorno_moip").append("<h3>Pagamento Aguardando Aprovação</h3>");
+							jQuery(".retorno_moip").append("Por favor, aguarde a em análise da transação. Assim que for alterado o status você será informado via e-mail.");
+							
+						}
+						if (data.Status == "Autorizado"){
+							jQuery(".retorno_moip").append("<h3>Pagamento Aprovado</h3>");
+							jQuery(".retorno_moip").append("Por favor, aguarde o processo de envio.");
+							
+						}
+
+					};
+				}
+				var erroValidacao = function(data) {
+					jQuery(".retorno_moip").html("Pagamento não pode ser refeito, confira os dados e tente novamente.");
+					jQuery("#refaz_pg_forma").show();
+    			}
+				jQuery("#refaz_pg_forma").submit(function(e){
+					    var postData = jQuery(this).serializeArray();
+					    var formURL = jQuery(this).attr("action");
+					    jQuery("#refaz_pg_forma").hide();
+					    jQuery("#loading_mask_loader").show();
+					    jQuery.ajax(
+					    {
+					        url : formURL,
+					        type: "POST",
+					        data : postData,
+					        success:function(data, textStatus, jqXHR) 
+					        {  								
+								if(jQuery("#forma_de_pagamento").val() == "BoletoBancario"){
+									var settings = {
+										"Forma" : "BoletoBancario"
+									};
+								};
+								if(jQuery("#forma_de_pagamento").val() == "DebitoBancario"){
+									var settings = {
+										"Forma" : "DebitoBancario",
+										"Instituicao": "BancoDoBrasil"
+									};
+								};
+								if(jQuery("#forma_de_pagamento").val() == "CartaoCredito")
+								{
+									var settings =  
+									{
+											"Forma": "CartaoCredito",
+											"Instituicao": jQuery("#bandeira").val(),
+											"Parcelas": jQuery("#Parcelas").val(),
+											"CartaoCredito": 
+												{
+													"Numero": jQuery("input[name=Numero]").val(),
+													"Expiracao": jQuery("input[name=Expiracao_mes]").val()+'/'+jQuery("input[name=Expiracao_ano]").val(),
+													"CodigoSeguranca": jQuery("input[name=CodigoSeguranca]").val(),
+													"Portador": {
+														"Nome"	: jQuery("input[name=Portador]").val(),
+														"DataNascimento": jQuery("input[name=DataNascimento]").val(),
+														"Telefone": jQuery("input[name=Telefone]").val(),
+														"Identidade": jQuery("input[name=CPF]").val()
+													}
+												}
+									}
+								};
+								MoipWidget(settings);
+					        },
+					        
+					    });
+					    e.preventDefault(); 
+					});
+//]]>
+				
+</script>
+<?php
+}
+ endif; ?>

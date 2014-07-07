@@ -1,0 +1,96 @@
+		<div class="col1-set" style="width:<?php echo Mage::getStoreConfig('onestepcheckout/termcondition/boxwidth')-10?>px;height:<?php echo Mage::getStoreConfig('onestepcheckout/termcondition/boxheight')?>px;overflow: hidden;">
+			<?php echo $this->getChildHtml('login_before')?>
+			<div >
+				
+				<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+				<div class="o2ti-osc-title-login">
+
+							<h1>Acesse sua conta!</h1>
+
+						</div>
+				<form id="login-form" method="post">
+				<fieldset>
+					<div >
+						<h3><?php echo $this->__('Por favor, informe os dados abaixo.') ?></h3>
+						<ul class="form-list" style="width:<?php echo Mage::getStoreConfig('onestepcheckout/termcondition/boxwidth')-20?>px;">
+							<li>
+								<label for="login-email" class="required" >E-mail<em>*</em></label>
+								<div class="input-box" style="float:left;">
+									<input type="text" class="input-text required-entry validate-email" id="login-email" name="login[username]" value="<?php echo $this->htmlEscape($this->getUsername()) ?>" />
+								</div>
+							</li>
+							<li>
+								<label for="login-password" class="required" >Senha<em style="position:static;float:none;color:#EB340A;font-style:normal;right:-8px;top:0;">*</em></label>
+								<div class="input-box" style="float:left;">
+									<input type="password"  class="input-text required-entry" id="login-password" name="login[password]" />
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div id="dados_incorretos" style="display:none; height:90px;position: relative">
+						<ul class="messages"> <li class="error-msg">Dados incorretos, por favor tente novamente.<li><ul>
+					</div>
+					
+						<div class="buttons-set">
+			
+							<a id="forgotpassword" href="#inline3" class="f-left link-recuperar-senha"><?php echo $this->__('Forgot your password?') ?></a>
+							<button type="button" class="button" onclick="onepageLogin(this)"><span ><span ><?php echo $this->__('Login') ?></span></span></button>
+						    
+						
+						</div>
+					
+				</fieldset>
+				</form>
+			</div>
+		</div>
+<script type="text/javascript">
+//<![CDATA[
+    var loginForm = new VarienForm('login-form', true);
+    $('login-email').observe('keypress', bindLoginPost);
+    $('login-password').observe('keypress', bindLoginPost);
+    function bindLoginPost(evt){
+        if (evt.keyCode == Event.KEY_RETURN) {
+		   return false;
+        }
+    }
+    function onepageLogin(button)
+    {
+        if(loginForm.validator && loginForm.validator.validate()){
+		   updateLogin(jQuery('#login-email').val(),jQuery('#login-password').val());
+        }
+		jQuery('#errorlogin').css('display','none');
+		return false;
+    }
+//]]>
+</script>
+<script type="text/javascript">
+//<![CDATA[
+function updateLogin(email,password)
+{
+
+jQuery('.buttons-set .button').css('display','none');
+	jQuery.ajax({
+	type: "POST",
+	url: "<?php echo Mage::getUrl('onestepcheckout/index/updatelogin')?>",
+	data: "email="+email+"&"+"password="+password,
+	success: function(msg){
+		//alert(msg);
+		if(msg==0){
+			jQuery('.buttons-set .button').css('display','block');
+			jQuery('#login-please-wait').css('display','none');
+			jQuery('#dados_incorretos').css('display','block');
+			jQuery("#inline1").css("height","<?php echo Mage::getStoreConfig('onestepcheckout/termcondition/boxheight')+65?>px");
+			jQuery(".col1-set").css("height","<?php echo Mage::getStoreConfig('onestepcheckout/termcondition/boxheight')+45?>px");
+			jQuery('#errorlogin').css('display','block');
+			jQuery('#login-email').addClass('validation-failed');
+			jQuery('#login-password').addClass('validation-failed');
+			}
+		else{
+			var url="<?php echo Mage::getUrl('checkout/onepage'); ?>";    
+			jQuery(location).attr('href',url);
+			}
+		}
+	});
+}
+//]]>
+</script>

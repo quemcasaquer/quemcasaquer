@@ -32,7 +32,7 @@ class Magestore_Affiliateplus_Model_Total_Address_Tax extends Mage_Tax_Model_Sal
      * @param type $rate
      * @return Magestore_Customerreward_Model_Total_Quote_Tax
      */
-    protected function _calcUnitTaxAmount(Mage_Sales_Model_Quote_Item_Abstract $item, $rate, &$taxGroups = null, $taxId = null, $recalculateRowTotalInclTax = false) {
+    protected function _calcUnitTaxAmount($item, $rate, &$taxGroups = null, $taxId = null, $recalculateRowTotalInclTax = false) {
         $discount       = $item->getDiscountAmount();
         $baseDiscount   = $item->getBaseDiscountAmount();
         /* hainh add this for calculating discount base on incl or excl tax price 22-04-2014 */

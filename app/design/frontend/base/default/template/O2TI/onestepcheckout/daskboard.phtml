@@ -1,0 +1,696 @@
+<?php if(Mage::getStoreConfig('onestepcheckout/config/enabled')):?>
+<?php 	$standad = Mage::getSingleton('moip/standard');
+$api = Mage::getSingleton('moip/api');
+$api->setContaMoip($standad->getConfigData('conta_moip'));
+$api->setAmbiente($standad->getConfigData('ambiente'));
+$data = $standad->getQuote()->getShippingAddress();
+$valuegetGrandTotal = $data->getGrandTotal();
+?>
+<script type="text/javascript">
+//<![CDATA[
+var message_payment = "<?php echo Mage::helper('onestepcheckout')->__('Please select a payment method for your order!');?>";
+var message_ship = "<?php echo Mage::helper('onestepcheckout')->__('Please select a shipping method for your order!');?>";
+var updatepaymenttypeurl = "<?php echo Mage::getUrl('onestepcheckout/index/updatepaymenttype')?>";
+var updatepaymentmethodurl = "<?php echo Mage::getUrl('onestepcheckout/index/updatepaymentmethod')?>";
+var updatecouponurl = "<?php echo Mage::getUrl('onestepcheckout/index/updatecoupon')?>";
+var updateqtyurl = "<?php echo Mage::getUrl('onestepcheckout/index/updateqty')?>";
+var removeproducturl = "<?php echo Mage::getUrl('onestepcheckout/index/removeproduct')?>";
+var updateshippingmethodurl = "<?php echo Mage::getUrl('onestepcheckout/index/updateshippingmethod') ?>";
+var urls = "<?php echo Mage::getUrl('onestepcheckout/index/updateshippingmethod') ?>";
+function update_paymentmethods(){return 1;}
+function update_shippingmethods(){return 1;}
+function zip_load(){return 1;}
+function region_load(){return 0;}
+function country_load(){return 1;}
+function payment_load(){return 1;}
+function shipping_load(){return 1;}
+function has_default_billing()
+{
+	<?php if (Mage::getSingleton('customer/session')->getCustomer()->getDefaultBilling()): ?>
+	return 1;
+	<?php else: ?>
+	return 0;
+	<?php endif ?>
+}
+function getval(sel) {
+	if (sel.value == 1){
+		jQuery('.dados-pj').slideUp();
+		jQuery('.dados-pj input:not([type=checkbox])').removeClass('required-entry');
+	}else{
+		jQuery('.dados-pj').slideDown();
+		jQuery('.dados-pj input:not([type=checkbox])').addClass('required-entry');
+	}
+}
+function marcar_isento() {
+	jQuery("#insestadual").val("Isento");
+}
+function buscarEndereco(whatform) {
+	if (whatform == "billing") {
+		var campos = {
+			postcode: document.getElementById('billing:postcode'),
+			street_1: document.getElementById('billing:street1'),
+			street_4: document.getElementById('billing:street4'),
+			city: document.getElementById('billing:city'),
+			region: document.getElementById('billing:region_id')
+		};
+		if (campos.postcode != "" && campos.postcode != ".") {
+			updateShippingType(campos.postcode);
+		}
+	}
+	if (whatform == "shipping") {
+		var campos = {
+			postcode: document.getElementById('shipping:postcode'),
+			street_1: document.getElementById('shipping:street1'),
+			street_4: document.getElementById('shipping:street4'),
+			city: document.getElementById('shipping:city'),
+			region: document.getElementById('shipping:region_id'),
+		};
+		if (campos.postcode != "" && campos.postcode != ".") {
+			updateShippingType(campos.postcode);
+		}
+	}
+	if (whatform == "register") {
+		var campos = {
+			postcode: document.getElementById('postcode'),
+			street_1: document.getElementById('street_1'),
+			street_4: document.getElementById('street_4'),
+			city: document.getElementById('city'),
+			region: document.getElementById('region_id')
+		};
+	}
+	<?php $urldosite = Mage::getBaseUrl('web', true);?>
+	jQuery.ajax({
+		type:'GET',
+		url: '<?php echo $urldosite?>index.php/Moip/Standard/buscaCep?meio=cep&cep=' + campos.postcode.value.replace(/\+/g, ''),
+
+		beforeSend: function(data){
+			jQuery(campos.street_1).val("Buscando Endereço");
+			jQuery(campos.street_4).val("Buscando Endereço");
+			jQuery(campos.city).val("Buscando Endereço");
+		},
+
+		success: function(data){
+			jQuery('#loading-mask').fadeOut();
+			var addressData = jQuery.parseJSON(data);
+			jQuery(campos.street_1).val(addressData.logradouro);
+			jQuery(campos.street_4).val(addressData.bairro);
+			jQuery(campos.city).val(addressData.cidade);
+			jQuery(campos.region).val(addressData.ufid);
+		},
+		error: function(){
+			jQuery(campos.street_1).val("");
+			jQuery(campos.street_4).val("");
+			jQuery(campos.city).val("");
+			jQuery(campos.region).val("");
+		},
+	});
+};
+function updateShippingMethod() {
+	if(document.getElementById('shipping:postcode') != "" && document.getElementById('shipping:postcode') != "." ){
+	jQuery.ajax({
+		url: urls,
+		type: "POST",
+		data: "shipping_method=" + jQuery('input[name=shipping_method]:checked').val(),
+	})
+	.done(function(msg) {
+		msg = msg.replace("[]", "");
+		jQuery('#checkout-review-load').html(msg);
+		jQuery('#checkout-payment-method-load').html('<div class="update_payment">Calculando valor do pagamento.<img class="Loading" alt="Loading..." src="<?php echo $this->getSkinUrl("O2TI/onestepcheckout/images/ajax-loader-tr.gif")?>"></div>');
+		updatePaymentAssociated();
+	})
+	.fail(function() {
+		updateShippingMethod();
+	})
+	.always(function() {
+
+	});
+	}
+};
+function updateShippingType(str_value){
+	jQuery('#message-box').html('');
+	jQuery('#checkout-shipping-method-load').html('<div class="update_shipping">Calculando Frete.<img class="Loading" alt="Loading..." src="<?php echo $this->getSkinUrl("O2TI/onestepcheckout/images/ajax-loader-tr.gif")?>"></div>');
+	
+	<?php if(!Mage::helper('onestepcheckout')->onlyProductDownloadable()):?>
+		 if(update_shippingmethods()){
+			jQuery.ajax({
+			type: "POST",
+			url: "<?php echo Mage::getUrl('onestepcheckout/index/updateshippingtype')?>",
+			data:jQuery("#onestep_form").serialize(),
+			success: function(msg){
+					jQuery('#checkout-shipping-method-load').html(msg);
+					
+				}
+			});
+		 }else{
+			 updatePaymentAssociated();
+		 }
+	<?php else:?>
+	 updatePaymentAssociated();
+	<?php endif?>
+}
+function updatePaymentAssociated() {
+
+	if (!update_paymentmethods()) {
+
+		if (jQuery('input[name=payment\\[method\\]]:checked').val() && payment_load()) {
+			updatePaymentMethod(jQuery('input[name=payment\\[method\\]]:checked').val());
+		} else {
+			
+		}
+	} else {
+		jQuery.ajax({
+			type: "POST",
+			url: "<?php echo Mage::getUrl('onestepcheckout/index/updatepaymenttype')?>",
+			data: jQuery("#onestep_form").serialize(),
+			success: function(msg) {
+				jQuery('#checkout-payment-method-load').html(msg);
+				if (jQuery('input[name=payment\\[method\\]]:checked').val() && payment_load()) {
+					updatePaymentMethod(jQuery('input[name=payment\\[method\\]]:checked').val());
+				} else {
+					
+				}
+			}
+		});
+	}
+}
+function updatePaymentMethod(value) {
+	jQuery.ajax({
+		url: updatepaymentmethodurl,
+		type: "POST",
+		data: "payment%5Bmethod%5D=" + value,
+	})
+	.done(function(msg) {
+		jQuery('#checkout-review-load').html(msg);
+	})
+	.fail(function() {
+		updatePaymentMethod(value);
+	})
+	.always(function() {
+	});
+};
+function updateCoupon(code, isremove) {
+	jQuery.ajax({
+		url: updatecouponurl,
+		type: "POST",
+		data: "coupon_code=" + code + "&remove=" + isremove,
+	})
+		.done(function(msg) {
+			jQuery.ajax({
+				url: updatepaymenttypeurl,
+				type: "POST",
+				data: jQuery("#onestep_form").serialize(),
+			});
+			jQuery('#checkout-payment-method-load').html();
+			str = jQuery.parseJSON(msg);
+			jQuery('#tab-coupon').html(str.coupon);
+			jQuery('#checkout-review-load').html(str.view);
+		})
+		.fail(function() {
+			updateCoupon(code, isremove);
+		})
+		.always(function() {
+			updateShippingType(document.getElementById('billing:postcode'));
+		});
+};
+function removeProduct(id) {
+	hasgift = (typeof(jQuery('#allow-gift-message-container')) != 'undefined') ? 1 : 0;
+	jQuery('#message-box').html('');
+	jQuery.ajax({
+		type: "POST",
+		url: removeproducturl,
+		data: "id=" + id + '&hasgiftbox=' + hasgift,
+		success: function(msg) {
+			jQuery.ajax({
+				type: "POST",
+				url: updatepaymenttypeurl,
+				data: jQuery("#onestep_form").serialize(),
+				success: function(msg) {
+					jQuery('#checkout-payment-method-load').html(msg);
+				}
+			});
+			str = jQuery.parseJSON(msg);
+			if (str.view.search("<script") != 0) {
+				if (str.giftbox) {
+					jQuery('#checkout-review-load').html(str.view);
+					jQuery('#onepage-checkout-shipping-method-additional-load').html(str.giftbox);
+				} else {
+					jQuery('#checkout-review-load').html(str.view);
+				}
+			} else {
+				jQuery('#checkout-review-load').append(str.view);
+			}
+		}
+	});
+	updateShippingType(document.getElementById('billing:postcode'));
+}
+function logined()
+{
+	<?php	if(Mage::getSingleton('customer/session')->isLoggedIn()):?>
+	return 1;
+	<?php else: ?>
+	return 0;
+	<?php endif ?>
+}
+function hasaddress(){
+	<?php if(count(Mage::getSingleton('customer/session')->getCustomer()->getAddresses())): ?>
+	return 1;
+	<?php else:?>
+	return 0;
+	<?php endif; ?>
+}
+function reDrawOnepage(versao)
+{
+	if(versao == 2){
+	jQuery("#shipping_collum").css({'width':'100%','margin-bottom':'10px'});
+	jQuery("#payment_collum").css({'width':'100%', 'float':'left','margin-left': '0'});
+	};
+	if(versao == 4){
+	jQuery('body').addClass('o2ti-opc-2columns');
+	jQuery('.o2ti-opc-2columns .o2ti-osc-checkoutcontainer .o2ti-osc-column-2 .shipping-payment').removeClass('row-fluid');
+	jQuery('.o2ti-opc-2columns .o2ti-osc-checkoutcontainer .o2ti-osc-column-2 .shipping-payment').removeClass('grid12-12');
+	jQuery('.o2ti-opc-2columns .o2ti-osc-checkoutcontainer .o2ti-osc-column-2 .review').removeClass('row-fluid');
+	jQuery('.o2ti-opc-2columns .o2ti-osc-checkoutcontainer .o2ti-osc-column-2 .review').removeClass('grid12-12');
+	jQuery('.o2ti-opc-2columns .o2ti-osc-checkoutcontainer .o2ti-osc-column-2 .shipping-payment .o2ti-osc-column').removeClass('grid12-6');
+	jQuery('.o2ti-opc-2columns .o2ti-osc-checkoutcontainer .o2ti-osc-column-2 .shipping-payment .o2ti-osc-column').removeClass('span6');
+	jQuery('.o2ti-opc-2columns .o2ti-osc-checkoutcontainer .o2ti-osc-column-2 .shipping-payment').addClass('grid12-6');
+	jQuery('.o2ti-opc-2columns .o2ti-osc-checkoutcontainer .o2ti-osc-column-2 .shipping-payment').addClass('span6');
+	jQuery('.o2ti-opc-2columns .o2ti-osc-checkoutcontainer .o2ti-osc-column-2 .shipping-payment .o2ti-osc-column').addClass('span12');
+	jQuery('.o2ti-opc-2columns .o2ti-osc-checkoutcontainer .o2ti-osc-column-2 .shipping-payment .o2ti-osc-column').addClass('grid12-12');
+	jQuery('.o2ti-opc-2columns .o2ti-osc-checkoutcontainer .o2ti-osc-column-2 .review').addClass('span6');
+	jQuery('.o2ti-opc-2columns .o2ti-osc-checkoutcontainer .o2ti-osc-column-2 .review').addClass('grid12-6');
+	};
+}
+	jQuery(function(){
+	jQuery(".customer-dob").css('width','100px');
+	jQuery(".o2tizip").css('width','100px');
+	jQuery(".cart .discount").css({'border':'none','background':'none'});
+	jQuery('[id="billing:postcode"]').addClass('required-entry');
+	jQuery('[id="shipping:postcode"]').addClass('required-entry');
+	jQuery('[id="billing:region_id"]').addClass('validate-select');
+	jQuery('[id="shipping:region_id"]').addClass('validate-select');
+	<?php
+		$color ="#000";
+		if(Mage::getStoreConfig('onestepcheckout/layout/style_cor')!= ""){
+			$color = "#".Mage::getStoreConfig('onestepcheckout/layout/style_cor');
+		}
+	?>
+	<?php
+	if(Mage::getStoreConfig('onestepcheckout/layout/page_layout')==2 || Mage::helper('onestepcheckout')->onlyProductDownloadable() || Mage::getStoreConfig('onestepcheckout/layout/page_layout')==4):?>
+		reDrawOnepage("<?php echo Mage::getStoreConfig('onestepcheckout/layout/page_layout'); ?>");
+	<?php endif?>
+		if (logined()) {
+			if (!has_default_billing()) {
+				jQuery('#billing-new-address-form').clearForm();
+				jQuery('#shipping-new-address-form').clearForm();
+			}
+		} else {
+			jQuery('#billing-new-address-form').clearForm();
+			jQuery('#shipping-new-address-form').clearForm();
+		}
+		jQuery("#correio").fancybox({
+			'titlePosition': 'inside',
+			'openEffect': 'elastic',
+			'openSpeed': '150',
+			'closeEffect': 'elastic',
+			'closeSpeed': '150',
+			'width': '<?php echo Mage::getStoreConfig("onestepcheckout/termcondition/boxwidth");?>px',
+			'height': '<?php echo Mage::getStoreConfig("onestepcheckout/termcondition/boxheight"); ?>px',
+		});
+		jQuery("#loginbox").fancybox({
+			'titlePosition': 'inside',
+			'openEffect': 'elastic',
+			'openSpeed': '150',
+			'closeEffect': 'elastic',
+			'closeSpeed': '150',
+			'width': '<?php echo Mage::getStoreConfig("onestepcheckout/termcondition/boxwidth");?>px',
+			'height': '<?php echo Mage::getStoreConfig("onestepcheckout/termcondition/boxheight"); ?>px',
+		});
+		jQuery("#onestepcheckout-toc-link").fancybox({
+			'titlePosition': 'inside',
+			'openEffect': 'elastic',
+			'openSpeed': '150',
+			'closeEffect': 'elastic',
+			'closeSpeed': '150',
+		});
+		jQuery("#forgotpassword").fancybox({
+			'titlePosition': 'inside',
+			'openEffect': 'elastic',
+			'openSpeed': '150',
+			'closeEffect': 'elastic',
+			'closeSpeed': '150',
+			'width': '<?php echo Mage::getStoreConfig("onestepcheckout/termcondition/boxwidth");?>px',
+			'height': '<?php echo Mage::getStoreConfig("onestepcheckout/termcondition/boxheight")+50; ?>px',
+		});
+		jQuery("#backlogin").fancybox({
+			'titlePosition': 'inside',
+			'openEffect': 'elastic',
+			'openSpeed': '150',
+			'closeEffect': 'elastic',
+			'closeSpeed': '150',
+		});
+		jQuery("#store_secure").fancybox({
+			'titlePosition': 'inside',
+			'openEffect': 'elastic',
+			'openSpeed': '150',
+			'closeEffect': 'elastic',
+			'closeSpeed': '150',
+			'width': '<?php echo Mage::getStoreConfig("onestepcheckout/termcondition/boxwidth");?>px',
+			'height': '<?php echo Mage::getStoreConfig("onestepcheckout/termcondition/boxheight")+50; ?>px',
+		});
+	<?php
+		$islogin=0;
+		if(Mage::getSingleton('customer/session')->isLoggedIn()){
+			$islogin=1;
+		}
+	?>
+	<?php if($islogin){ 
+$Email_customer = Mage::getSingleton('customer/session')->getCustomer()->getEmail();
+$first_name = Mage::getSingleton('customer/session')->getCustomer()->getFirstname();
+$Last_name = Mage::getSingleton('customer/session')->getCustomer()->getLastname();
+$taxvat =  Mage::getSingleton('customer/session')->getCustomer()->getTaxvat();
+
+	?>
+	jQuery("#billing\\:email").val("<?php echo $Email_customer; ?>");
+	jQuery("#billing\\:firstname").val("<?php echo $first_name; ?>");
+	jQuery("#billing\\:lastname").val("<?php echo $Last_name; ?>");
+	jQuery("#billing\\:taxvat").val("<?php echo $taxvat; ?>");
+	<?php } ?>
+	var completeajax=1;
+	if (jQuery('input[name=shipping_method]:checked').val() && shipping_load()) {
+		
+		jQuery.ajax({
+			type: "POST",
+			url: updateshippingmethodurl,
+			data: "shipping_method=" + jQuery('input[name=shipping_method]:checked').val(),
+			success: function(msg) {
+				msg = msg.replace("[]", "");
+				jQuery('#checkout-review-load').html(msg);
+			}
+		});
+	}
+	if (jQuery('input[name=payment\\[method\\]]:checked').val() && payment_load()) {
+		
+		value = jQuery('input[name=payment\\[method\\]]:checked').val();
+		jQuery.ajax({
+			type: "POST",
+			url: updatepaymentmethodurl,
+			data: "payment%5Bmethod%5D=" + value,
+			success: function(msg) {
+				if (msg.search("<script") != 0) {
+					jQuery('#checkout-review-load').html(msg);
+				} else jQuery('#checkout-review-load').append(msg);
+			}
+		});
+	}
+	
+	jQuery('.btn-checkout').bind("click",function(e){
+
+			var logic= true;
+
+			jQuery('#co-payment-form').show();
+			var form = new VarienForm('onestep_form');
+			
+			<?php if(Mage::helper('onestepcheckout')->onlyProductDownloadable()):?>
+					var notshipmethod=1;
+			<?php else:?>
+					var notshipmethod=jQuery("input[name=shipping_method]:checked").val();
+			<?php endif?>
+			if(!jQuery('input[name=payment\\[method\\]]:checked').val() || !notshipmethod){
+				logic=false;
+			}
+			if(!jQuery('input[name=payment\\[method\\]]:checked').val()){
+				if(!jQuery('#advice-required-entry_payment').length){
+					jQuery('#checkout-payment-method-load').append('<dt><div class="validation-advice" id="advice-required-entry_payment" style="position:relative;">'+message_payment+'</div></dt>');
+					jQuery(document).scrollTop(jQuery('#checkout-payment-method-load').offset().top );
+				}
+			}else{
+				jQuery('#advice-required-entry_payment').remove();
+			}
+			if(!notshipmethod){
+				if(!jQuery('#advice-required-entry_shipping').length){
+					jQuery('#checkout-shipping-method-loadding').append('<dt><div class="validation-advice" id="advice-required-entry_shipping" style="position:relative;">'+message_ship+'</div></dt>');
+					jQuery(document).scrollTop(jQuery('#checkout-shipping-method-loadding').offset().top );
+				}
+			}else{
+				jQuery('#advice-required-entry_shipping').remove();
+			}
+
+			if(!form.validator.validate())	{
+				if(logined()!=1){
+					val=jQuery('#billing\\:email').val();
+					emailvalidated=Validation.get('IsEmpty').test(val) || /^([a-z0-9,!\#\$%&'\*\+\/=\?\^_`\{\|\}~-]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z0-9,!\#\$%&'\*\+\/=\?\^_`\{\|\}~-]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*@([a-z0-9-]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z0-9-]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*\.(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]){2,})$/i.test(val);
+					if(val!="" && emailvalidated){
+						updateEmailmsg(val);
+					}
+				}
+			}else{
+				if(logined()!=1){
+					var msgerror=1;
+					val=jQuery('#billing\\:email').val();
+					emailvalidated=Validation.get('IsEmpty').test(val) || /^([a-z0-9,!\#\$%&'\*\+\/=\?\^_`\{\|\}~-]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z0-9,!\#\$%&'\*\+\/=\?\^_`\{\|\}~-]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*@([a-z0-9-]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z0-9-]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*\.(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]){2,})$/i.test(val);
+					if(val!="" && emailvalidated){
+						msgerror=updateEmailmsg(val);
+					}
+					if(msgerror==0){
+						return false;
+					}
+				}
+			
+				if(logic){
+					jQuery('#onestep_form').submit();
+					jQuery('#loading-mask').show();
+					
+				}else {
+					return false;
+				}
+			}
+			return false;
+		});
+		jQuery('.validation-advice').delay(1000).fadeOut();
+		jQuery('.validation-advice').delay(5000).fadeOut("slow");
+});
+//]]>
+</script>
+
+<script type="text/javascript">
+//<![CDATA[
+function removeProductId(product_id){
+	if(confirm('<?php echo $this->__('Tem certeza que deseja remover o produto?')?>')){
+		removeProduct(product_id);
+	}
+}
+function updateEmailmsg(val){
+	jQuery('#message-box').html('');
+	var asyncdata;
+	jQuery.ajax({
+			async:false,
+			type: "POST",
+			url: "<?php echo Mage::getUrl('onestepcheckout/index/updateemailmsg')?>",
+			data:"email="+val,
+			success: function(msg){
+				var error="<div id=\"message-box\"><div  class=\"validation-advice\" style=\"position:relative;\">Email já cadastrado, por favor <a  href=\"#inline1\" id=\"loginbox\">Clique aqui e faça o login</a></div></div>";
+				if(msg==0){
+					jQuery('#billing\\:email').after(error);
+					jQuery('#message-box').html(error);
+					
+					asyncdata='0';
+				}else{
+					if(logined()!=1){
+						jQuery('#message-box').html('');
+					}
+					jQuery('#billing\\:email').removeClass('validation-failed');
+					asyncdata= '1';
+				}
+			}
+		});
+	return asyncdata;
+}
+//]]>
+</script>
+
+<?php if(Mage::getStoreConfig('onestepcheckout/layout/style_cor')!= ""):
+	$color = "#".Mage::getStoreConfig('onestepcheckout/layout/style_cor');
+	$botao_color = "#".Mage::getStoreConfig('onestepcheckout/layout/botao_cor');
+?>
+	<style type="text/css">
+	#loginbox{background:<?php echo $botao_color;?>;padding: 10px;color:#fff;text-decoration: none;border-radius: 5px;}
+	div.o2ti-osc-block-title{border-bottom:4px solid <?php echo $color;?>;}
+	.onestepcheckout-numbers{background:<?php echo $color;?>;}
+	p.o2ti-osc-block-title{color:<?php echo $color;?>;}
+	.o2ti-osc-threecolumns button.button span, .o2ti-osc-threecolumns button.button span span, button.button.btn-checkout, .cart .buttons-set .button{background:<?php echo $botao_color?>; border: 1px solid <?php echo $botao_color;?>;}
+	.onestepcheckout-numbers { border-radius: 6px 6px 0 0;background-repeat:no-repeat;float: left;height: 35px;margin-right: 4px;width: 40px;background-position: 14px 6px;font-weight:normal;  padding-left:10px; padding-top:3px;}
+	.onestepcheckout-numbers-1{background-image:url("<?php echo $this->getSkinUrl('O2TI/onestepcheckout/images/01.png') ?>");}
+	.onestepcheckout-numbers-2{background-image:url("<?php echo $this->getSkinUrl('O2TI/onestepcheckout/images/02.png') ?>");}
+	.onestepcheckout-numbers-3{background-image:url("<?php echo $this->getSkinUrl('O2TI/onestepcheckout/images/03.png') ?>");}
+	.onestepcheckout-numbers-4{background-image:url("<?php echo $this->getSkinUrl('O2TI/onestepcheckout/images/04.png') ?>");}
+	.onestepcheckout-numbers-5{background-image:url("<?php echo $this->getSkinUrl('O2TI/onestepcheckout/images/05.png') ?>");}
+	.onestepcheckout-numbers-6{background-image:url("<?php echo $this->getSkinUrl('O2TI/onestepcheckout/images/bkg-step-review.png') ?>");}
+	.cart .discount h2{color: <?php echo $color;?>;}
+	.o2ti-osc-title-login{background: <?php echo $color;?>;}
+	div#fancybox-wrap .col2-set .col-2 #login-form fieldset .col-2 .buttons-set button span,
+	div#fancybox-wrap #form-validate div.buttons-set #btforgotpass span{background:<?php echo $color;?>; border: 1px solid <?php echo $color;?>;}
+	.o2ti-osc-fancybox-wrap button.button span, .o2ti-osc-fancybox-wrap button.button span span{background:<?php echo $color;?>; border: 1px solid <?php echo $color;?>;}
+	</style>
+<?php endif;?>
+	<h1 class="o2ti-osc-page-tittle"><?php echo $this->__(Mage::getStoreConfig('onestepcheckout/layout/page_titulo'))?></h1>
+	<p class="o2ti-osc-page-content"><?php echo $this->__(Mage::getStoreConfig('onestepcheckout/layout/page_conteudo'))?></p>
+	<div class="o2ti-osc-threecolumns o2ti-osc-checkoutcontainer o2ti-osc-skin-generic row-fluid grid12-12">
+		<form id="onestep_form" action="<?php echo $this->getUrl('onestepcheckout/index/updateordermethod') ?>" method="POST">
+			<div class="o2ti-osc-column">
+				<div class="o2ti-osc-column-left span4  grid12-4 o2ti-osc-block">
+					<div class="o2ti-osc-block-title">
+						<div class="onestepcheckout-numbers onestepcheckout-numbers-1"></div>
+						<h3><?php echo $this->__('Billing address');?></h3>
+					</div>
+					<div class="o2ti-osc-block-content">
+						<div>
+							<?php if(!$islogin):?>
+								<?php if(Mage::getStoreConfig('onestepcheckout/layout/enable_quicklogin')):?>
+								<a id="loginbox" href="#inline1" title=""><?php echo $this->__('Already registered? Click here to login.');?></a>
+								<?php endif?>
+							<?php endif?>
+							<?php echo $this->getChildHtml('billing');?>
+						</div>
+					</div>
+					<?php if(!Mage::helper('onestepcheckout')->onlyProductDownloadable()):	?>
+						<?php if(Mage::getStoreConfig('onestepcheckout/config/allowshippingotheraddress')):?>
+						<div style="display:none;" id="shipping_show">
+							<div class="o2ti-osc-block-title">
+								<div class="onestepcheckout-numbers onestepcheckout-numbers-2" ></div>
+								<h3><?php echo $this->__('Shipping address');?></h3>
+							</div>
+							<div class="o2ti-osc-block-content">
+								<div>
+									<?php echo $this->getChildHtml('shipping');?>
+								</div>
+							</div>
+						</div>
+						<?php endif;?>
+					<?php endif;?>
+				</div>
+			</div>
+			<div class="o2ti-osc-column-2 span8 grid12-8">
+				<div id="o2ti-osc-column-container row-fluid grid12-12">
+					<div class="row-fluid grid12-12 shipping-payment">
+						<?php if(!Mage::helper('onestepcheckout')->onlyProductDownloadable()):?>
+							<div class="o2ti-osc-column o2ti-osc-column-middle span6 grid12-6" id="shipping_collum">
+								<div class="o2ti-osc-block" >
+									<div class="o2ti-osc-block-title">
+										<div class="onestepcheckout-numbers onestepcheckout-numbers-2" id="o2ti-osc-p2"></div>
+										<h3> <?php echo $this->__('Shipping method');?> </h3>
+									</div>
+									<?php echo $this->getChildHtml('shipping_method');?>
+								</div>
+							</div>
+						<?php endif?>
+						<div class="o2ti-osc-column  o2ti-osc-column-right span6 grid12-6" id="payment_collum">
+							<div class="o2ti-osc-block">
+								<div class="o2ti-osc-block-title">
+									<div <?php
+												if(Mage::helper('onestepcheckout')->onlyProductDownloadable()){
+													echo "class='onestepcheckout-numbers onestepcheckout-numbers-2' id='o2ti-osc-p2'";
+												}else{
+										          	if(Mage::getStoreConfig("onestepcheckout/deliverydate/allow_options")){
+										          		echo "class='onestepcheckout-numbers onestepcheckout-numbers-4' id='o2ti-osc-p4'";
+										          	}else{
+										          		echo "class='onestepcheckout-numbers onestepcheckout-numbers-3' id='o2ti-osc-p3'";
+										          	}
+												}
+									          ?>>
+									</div>
+									<h3><?php echo $this->__('Payment method');?></h3>
+								</div>
+								<div class="o2ti-osc-block-content">
+									<?php echo $this->getChildHtml('payment');?>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="review row-fluid grid12-12" id="review_collum">
+						<div class="o2ti-osc-block span12">
+							<div class="o2ti-osc-block-title">
+								<div class="onestepcheckout-numbers onestepcheckout-numbers-6"></div>
+								<h3><?php echo $this->__('Review your order');?></h3>
+							</div>
+							<?php echo $this->getChildHtml('review');?>
+						</div>
+					</div>
+					<div id="message-box">
+						<?php echo $this->getMessagesBlock()->getGroupedHtml()?>
+					</div>
+				</div>
+			</div>
+
+		</form>
+		
+				<div style="display: none;">
+	                <div id="inlinecorreio" style="width:<?php echo Mage::getStoreConfig('onestepcheckout/termcondition/boxwidth')?>px;height:<?php echo Mage::getStoreConfig('onestepcheckout/termcondition/boxheight')?>px;overflow:auto;">
+						<div class="o2ti-osc-title-login">
+							<h1>Busque seu CEP</h1>
+						</div>
+	               		<?php $urldosite = Mage::getBaseUrl('web', true);?>
+		                <form action="<?php echo $urldosite?>/Moip/Standard/buscaCep" id="searchForm" style="text-align:left;padding:10px">
+		                	<p style="text-align:left;padding:10px">Digite o endereço a baixo para pesquisar o seu Cep.</p>
+		                	<input type="text" name="s"  placeholder="Digite o endereço..." />
+		                 	<input type="submit" value="Buscar" style="background:<?php echo $color;?>;border: 1px solid #337BAA;color: white;border-radius: 2px;height: 19px;padding: 0 8px;cursor:pointer" />
+		                </form>
+		                <div style="left: 0px;height:100%; display: none; top:0px;" id="loading-mask2">
+		    					<p id="loading_mask_loader" class="loader"><img alt="Loading..." src="<?php echo $this->getSkinUrl('O2TI/onestepcheckout/images/ajax-loader-tr.gif')?>"><br>Obtendo dados, por favor aguarde...</p>
+						</div>
+						<div id="resultado"></div>
+					<script type="text/javascript">
+					//<![CDATA[
+					jQuery("#searchForm").submit(function(event) {
+						jQuery('#loading-mask2').show();
+						event.preventDefault();
+						var $form = jQuery(this),
+							term = $form.find('input[name="s"]').val(),
+							url = $form.attr('action');
+						jQuery.get(url, {
+							s: term,
+							meio: 'buscaend'
+						}, function(data) {
+							var content = data;
+							jQuery('#loading-mask2').hide();
+							jQuery("#inlinecorreio").css("height", "400px");
+							jQuery("#resultado").empty().append(content);
+						});
+					});
+					//]]>
+					</script>
+					</div>
+					<div id="inline1" style="width:<?php echo Mage::getStoreConfig('onestepcheckout/termcondition/boxwidth')?>px;height:<?php echo Mage::getStoreConfig('onestepcheckout/termcondition/boxheight')?>px;overflow:auto;">
+						<div class="o2ti-osc-ct-term" style="height: <?php echo (Mage::getStoreConfig('onestepcheckout/termcondition/boxheight')-30).'px';?>">
+						<?php echo $this->getChildHtml('login');?>
+						</div>
+					</div>
+					<div id="inline3" style="width:<?php echo Mage::getStoreConfig('onestepcheckout/termcondition/boxwidth')?>px;height:<?php echo Mage::getStoreConfig('onestepcheckout/termcondition/boxheight')+40?>px;overflow:auto;">
+						<div class="o2ti-osc-ct-term" style="height: <?php echo (Mage::getStoreConfig('onestepcheckout/termcondition/boxheight')+40).'px';?>">
+						<?php echo $this->getChildHtml('forgotpassword');?>
+						</div>
+					</div>
+					<div id="inline2" style="width:<?php echo Mage::getStoreConfig('onestepcheckout/termcondition/boxwidth')?>px;height:<?php echo Mage::getStoreConfig('onestepcheckout/termcondition/boxheight')?>px;overflow:auto;">
+						<div class="o2ti-osc-title-login">
+							<h1><?php echo $this->__('Terms and Conditions');?> </h1>
+						</div>
+						<div class="o2ti-osc-ct-term" style="height: <?php echo (Mage::getStoreConfig('onestepcheckout/termcondition/boxheight')-90).'px';?>">
+							<?php echo $this->__(Mage::getStoreConfig('onestepcheckout/termcondition/content_options'));?>
+						</div>
+					</div>
+					<div id="store_secure_content" style="width:<?php echo Mage::getStoreConfig('onestepcheckout/termcondition/boxwidth')?>px;height:<?php echo Mage::getStoreConfig('onestepcheckout/termcondition/boxheight')?>px;overflow:auto;">
+						<div class="o2ti-osc-title-login">
+							<h1><?php echo $this->__('Loja Segura');?> </h1>
+						</div>
+						<div class="o2ti-osc-ct-term" style="height: <?php echo (Mage::getStoreConfig('onestepcheckout/termcondition/boxheight')-90).'px';?>">
+							<?php echo $this->__(Mage::getStoreConfig('onestepcheckout/layout/secure'));?>
+						</div>
+					</div>
+				</div>
+		
+		</div>
+	<div class="clear_both">&nbsp;</div>
+<div style="left: 0px; min-height: 710px; display: none; top:0px;" id="loading-mask">
+    <p id="loading_mask_loader" class="loader"><img alt="Loading..." src="<?php echo $this->getSkinUrl('O2TI/onestepcheckout/images/ajax-loader-tr.gif')?>"><br>Atualizando dados, por favor aguarde...</p>
+</div>
+<?php endif?>

@@ -1,0 +1,66 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+
+
+<form id="discount-coupon-form" action="<?php echo $this->getUrl('checkout/cart/couponPost') ?>" method="post">
+ */?>
+ <div class="cart">
+	 <div id="discount-coupon-form">
+		<div class="discount">
+		   <?php /* <h2><?php echo $this->__('Discount Codes') ?></h2>*/?>
+			<div class="discount-form">
+				<h2 style="margin-top:3px"> <?php echo $this->__('Discount Codes') ?></h2>
+			  <span class="cupom_tem" style="cursor:pointer"><?php echo $this->__('Você tem um cupom de desconto? Clique aqui para utiliza-lo.') ?></span>
+        <div class="cupom_tem_codigo" style="display:none;">
+				<input type="hidden" name="remove" id="remove-coupone" value="0" />
+				<div class="input-box">
+					<input class="input-text" id="coupon_code" name="coupon_code" value="<?php echo $this->htmlEscape($this->getCouponCode()) ?>" style="max-width: 180px;" />
+				</div>
+				
+				<div class="buttons-set">
+					<button type="button" title="<?php echo $this->__('Apply Coupon') ?>" class="button" onclick="if(!$('coupon_code').value){alert('Please enter coupon code.')}else{updateCoupon($('coupon_code').value,0);}" value="<?php echo $this->__('Apply Coupon') ?>"><span><span><?php echo $this->__('Apply Coupon') ?></span></span></button>			
+					<?php if(strlen($this->getCouponCode())): ?>
+						&nbsp; <button type="button" title="<?php echo $this->__('Cancel Coupon') ?>" class="button" onclick="updateCoupon($('coupon_code').value,1)" value="<?php echo $this->__('Cancel Coupon') ?>"><span><span><?php echo $this->__('Cancel Coupon') ?></span></span></button>
+					<?php endif;?>
+				</div>
+				<div style="clear:both;"></div>
+			</div>
+		</div>
+		<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>	
+		</div>
+	</div>
+</div>
+<div style="clear:both;"></div>
+<script type="text/javascript">
+//<![CDATA[
+ jQuery(document).ready(function(){
+    jQuery('.cupom_tem').bind({
+        click: function(){
+            jQuery('.cupom_tem_codigo').slideToggle();
+        }
+    });
+});
+ //]]>
+</script>

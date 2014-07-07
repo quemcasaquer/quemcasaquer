@@ -1,0 +1,1207 @@
+<?xml version="1.0"?>
+<config>
+  <sections>
+    <payment translate="label" module="payment"><!-- payment tab -->
+      <groups>
+        <o2ti_moip_standard translate="label"><!-- fieldset -->
+          <label><![CDATA[MoIP Transparente - O2ti]]></label>
+ <comment>
+ <![CDATA[
+﻿<script type="text/javascript" src="//assets.zendesk.com/external/zenbox/v2.5/zenbox.js"></script>
+<style type="text/css" media="screen, projection">
+  @import url(//assets.zendesk.com/external/zenbox/v2.5/zenbox.css);
+</style>
+<script type="text/javascript">
+  if (typeof(Zenbox) !== "undefined") {
+    Zenbox.init({
+      dropboxID:   "20116862",
+      url:         "https://o2ti.zendesk.com",
+      tabID:       "Suporte | Especialistas Magento",
+      tabColor:    "#2c3996",
+      tabPosition: "Right"
+    });
+  }
+</script>
+]]></comment>
+          <sort_order>420</sort_order><!-- position between other payment methods -->
+          <show_in_default>1</show_in_default><!-- do not show this configuration options in store scope -->
+          <show_in_website>1</show_in_website>
+          <show_in_store>1</show_in_store>
+          <fields>
+            <active translate="label"><!-- is this payment method active for the website? -->
+              <label>Enabled</label><!-- label for the field -->
+              <frontend_type>select</frontend_type><!-- input type for configuration value -->
+              <source_model>adminhtml/system_config_source_yesno</source_model><!-- model to take the option values from -->
+              <sort_order>1</sort_order><!-- field position -->
+              <show_in_default>1</show_in_default><!-- do not show this field in store scope -->
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </active>
+            <title translate="label">
+              <label>Título</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>2</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </title>
+	    <validopara_moip translate="label">
+            <label>Aplicar apartir do pedido</label>
+		<comment>
+                <![CDATA[<br /><div class="custom-options"><div class="box" style="width:243px;">
+                    <p>Informe o número do útimo pedido será apartir dele que aplicaremos as novas regras.</p>
+                </div></div>]]>
+              </comment>
+            <frontend_type>text</frontend_type>
+            <sort_order>4</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            </validopara_moip>
+            <order_status translate="label">
+              <label>Status dos novos pedidos</label>
+              <frontend_type>select</frontend_type>
+              <source_model>adminhtml/system_config_source_order_status_new</source_model>
+              <sort_order>3</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </order_status>
+            <conta_moip translate="label">
+              <label>Login MoIP</label>
+              <comment>
+                <![CDATA[<br /><div class="custom-options"><div class="box" style="width:243px;">
+                    <p>Não utilize o email e sim o login.</p>
+                </div></div>]]>
+              </comment>
+              <frontend_type>text</frontend_type>
+              <sort_order>4</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </conta_moip>
+             <ambiente translate="label">
+              <label>Ambiente</label>
+              <comment>
+                <![CDATA[<br /><div class="custom-options"><div class="box" style="width:243px;">
+                    <p>Ambiente de teste só pode ser usado pela O2TI.</p>
+                </div></div>]]>
+              </comment>
+              <frontend_type>select</frontend_type>
+              <source_model>O2TI_Moip_Model_Source_Ambiente</source_model>
+              <sort_order>5</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </ambiente>
+            <validador_retorno>
+              <label>Chave de validacao para o retorno do Status</label>
+              <comment>Informe um código que será analisado no retorno</comment>
+              <frontend_type>text</frontend_type>
+              <sort_order>6</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </validador_retorno>
+            <apelido translate="label">
+              <label>Nome Fantasia da Loja</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>7</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </apelido>
+            <tipoderecebimento translate="label">
+              <label>Receber o valor do parcelamento à vista?</label>
+              <comment><![CDATA[<br /><div class="custom-options"><div class="box" style="width:243px;">
+                    <p>Deixe marcado como sim para o recebimento convencional no moip, não altere se não possuir autorização para recebimento parcelado.</p>
+                </div></div>]]>
+              </comment>
+              <frontend_type>select</frontend_type>
+              <source_model>adminhtml/system_config_source_yesno</source_model>
+              <sort_order>8</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </tipoderecebimento>
+           
+            <formas_pagamento translate="label">
+              <label>Formas de Pagamento</label>
+              <frontend_type>multiselect</frontend_type>
+              <source_model>O2TI_Moip_Model_Source_FormasPagamento</source_model>
+              <sort_order>09</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </formas_pagamento>
+
+            <nummaxparcelamax translate="label">
+              <label>Número Máximo de Parcelas Permitido</label>
+              <comment><![CDATA[<br /><div class="custom-options"><div class="box" style="width:243px;">
+                    <p>Por default são 12 parcelas.</p>
+                </div></div>]]>
+              </comment>
+              <frontend_type>text</frontend_type>
+              <sort_order>10</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </nummaxparcelamax>
+            <valorminimoparcela translate="label">
+              <label>Valor Mínimo das Parcelas</label>
+              <comment><![CDATA[<br /><div class="custom-options"><div class="box" style="width:243px;">
+                    <p>Não pode ser menor que 5 reais.</p>
+                </div></div>]]>
+              </comment>
+              <frontend_type>text</frontend_type>
+              <sort_order>11</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </valorminimoparcela>
+
+
+            <jurostipo translate="label">
+              <label>Usar juros composto?</label>
+              <frontend_type>select</frontend_type>
+              <source_model>adminhtml/system_config_source_yesno</source_model>
+              <sort_order>12</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </jurostipo>
+            <parcelamento_c_de1 translate="label">
+              <label>1° - Parcelas de:</label>
+              <depends>
+                <jurostipo>1</jurostipo>
+              </depends>
+              <frontend_type>text</frontend_type>
+              <sort_order>13</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </parcelamento_c_de1>
+            <parcelamento_c_ate1 translate="label">
+              <label>1° - Parcelas até:</label>
+              <depends>
+                <jurostipo>1</jurostipo>
+              </depends>
+              <frontend_type>text</frontend_type>
+              <sort_order>14</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </parcelamento_c_ate1>
+            <parcelamento_c_juros1 translate="label">
+              <label>1° - Juros de (%):</label>
+              <comment><![CDATA[<br /><div class="custom-options"><div class="box" style="width:243px;">
+                    <p>Faixas de parcelamento com cartão de crédito. (somente para Transparente)</p>
+                </div></div>]]>
+              </comment>
+              <depends>
+                <jurostipo>1</jurostipo>
+              </depends>
+              <frontend_type>text</frontend_type>
+              <sort_order>15</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </parcelamento_c_juros1>
+            
+
+
+
+
+
+
+             <parcelamento_s_juros2 translate="label">
+              <label>2° - Juros de (%):</label>
+              <comment><![CDATA[<br /><div class="custom-options"><div class="box" style="width:243px;">
+                    <p>Faixas de parcelamento com cartão de crédito. (somente para Transparente)</p>
+                </div></div>]]>
+              </comment>
+              <depends>
+                <jurostipo>0</jurostipo>
+              </depends>
+              <frontend_type>text</frontend_type>
+              <sort_order>31</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </parcelamento_s_juros2>
+
+           
+            <parcelamento_s_juros3 translate="label">
+              <label>3° - Juros de (%):</label>
+              <comment><![CDATA[<br /><div class="custom-options"><div class="box" style="width:243px;">
+                    <p>Faixas de parcelamento com cartão de crédito. (somente para Transparente)</p>
+                </div></div>]]>
+              </comment>
+              <depends>
+                <jurostipo>0</jurostipo>
+              </depends>
+              <frontend_type>text</frontend_type>
+              <sort_order>32</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </parcelamento_s_juros3>
+
+
+           
+            <parcelamento_s_juros4 translate="label">
+              <label>4° - Juros de (%):</label>
+              <comment><![CDATA[<br /><div class="custom-options"><div class="box" style="width:243px;">
+                    <p>Faixas de parcelamento com cartão de crédito. (somente para Transparente)</p>
+                </div></div>]]>
+              </comment>
+              <depends>
+                <jurostipo>0</jurostipo>
+              </depends>
+              <frontend_type>text</frontend_type>
+              <sort_order>35</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </parcelamento_s_juros4>
+
+
+
+          
+            <parcelamento_s_juros5 translate="label">
+              <label>5° - Juros de (%):</label>
+              <comment><![CDATA[<br /><div class="custom-options"><div class="box" style="width:243px;">
+                    <p>Faixas de parcelamento com cartão de crédito. (somente para Transparente)</p>
+                </div></div>]]>
+              </comment>
+              <depends>
+                <jurostipo>0</jurostipo>
+              </depends>
+              <frontend_type>text</frontend_type>
+              <sort_order>38</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </parcelamento_s_juros5>
+
+
+            <parcelamento_s_juros6 translate="label">
+              <label>6° - Juros de (%):</label>
+              <comment><![CDATA[<br /><div class="custom-options"><div class="box" style="width:243px;">
+                    <p>Faixas de parcelamento com cartão de crédito. (somente para Transparente)</p>
+                </div></div>]]>
+              </comment>
+              <depends>
+                <jurostipo>0</jurostipo>
+              </depends>
+              <frontend_type>text</frontend_type>
+              <sort_order>41</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </parcelamento_s_juros6>
+
+
+           
+            <parcelamento_s_juros7 translate="label">
+              <label>7° - Juros de (%):</label>
+              <comment><![CDATA[<br /><div class="custom-options"><div class="box" style="width:243px;">
+                    <p>Faixas de parcelamento com cartão de crédito. (somente para Transparente)</p>
+                </div></div>]]>
+              </comment>
+              <depends>
+                <jurostipo>0</jurostipo>
+              </depends>
+              <frontend_type>text</frontend_type>
+              <sort_order>44</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </parcelamento_s_juros7>
+
+
+
+           
+            <parcelamento_s_juros8 translate="label">
+              <label>8° - Juros de (%):</label>
+              <comment><![CDATA[<br /><div class="custom-options"><div class="box" style="width:243px;">
+                    <p>Faixas de parcelamento com cartão de crédito. (somente para Transparente)</p>
+                </div></div>]]>
+              </comment>
+              <depends>
+                <jurostipo>0</jurostipo>
+              </depends>
+              <frontend_type>text</frontend_type>
+              <sort_order>47</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </parcelamento_s_juros8>
+
+
+
+          
+            <parcelamento_s_juros9 translate="label">
+              <label>9° - Juros de (%):</label>
+              <comment><![CDATA[<br /><div class="custom-options"><div class="box" style="width:243px;">
+                    <p>Faixas de parcelamento com cartão de crédito. (somente para Transparente)</p>
+                </div></div>]]>
+              </comment>
+              <depends>
+                <jurostipo>0</jurostipo>
+              </depends>
+              <frontend_type>text</frontend_type>
+              <sort_order>50</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </parcelamento_s_juros9>
+
+
+            <parcelamento_s_juros10 translate="label">
+              <label>10° - Juros de (%):</label>
+              <comment><![CDATA[<br /><div class="custom-options"><div class="box" style="width:243px;">
+                    <p>Faixas de parcelamento com cartão de crédito. (somente para Transparente)</p>
+                </div></div>]]>
+              </comment>
+              <depends>
+                <jurostipo>0</jurostipo>
+              </depends>
+              <frontend_type>text</frontend_type>
+              <sort_order>53</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </parcelamento_s_juros10>
+
+
+
+      
+            <parcelamento_s_juros11 translate="label">
+              <label>11° - Juros de (%):</label>
+              <comment><![CDATA[<br /><div class="custom-options"><div class="box" style="width:243px;">
+                    <p>Faixas de parcelamento com cartão de crédito. (somente para Transparente)</p>
+                </div></div>]]>
+              </comment>
+              <depends>
+                <jurostipo>0</jurostipo>
+              </depends>
+              <frontend_type>text</frontend_type>
+              <sort_order>56</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </parcelamento_s_juros11>
+
+
+           
+            <parcelamento_s_juros12 translate="label">
+              <label>12° - Juros de (%):</label>
+              <comment><![CDATA[<br /><div class="custom-options"><div class="box" style="width:243px;">
+                    <p>Faixas de parcelamento com cartão de crédito. (somente para Transparente)</p>
+                </div></div>]]>
+              </comment>
+              <depends>
+                <jurostipo>0</jurostipo>
+              </depends>
+              <frontend_type>text</frontend_type>
+              <sort_order>59</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </parcelamento_s_juros12>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <vcmentoboleto translate="label">
+              <label>Dias de Vencimento para o Boleto:</label>
+		<comment><![CDATA[<br /><div class="custom-options"><div class="box" style="width:243px;">
+                    <p>Aqui você informar os dias de vencimento do boleto.</p>
+                </div></div>]]>
+              </comment>
+              <frontend_type>text</frontend_type>
+              <sort_order>80</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </vcmentoboleto>
+            <estoqueboleto translate="label">
+              <label>Permitir compra por boleto apenas e estoque for maior ou igual a:</label>
+			<comment><![CDATA[<br /><div class="custom-options	"><div class="box" style="width:243px;">
+                    <p>Informe a quantidade mínima em estoque que permite ao cliente pagar por boleto.</br>
+			Para não limitar a geração do boleto informe um valor negativo ex: -99.</p>
+                </div></div>]]>
+              </comment>
+              <frontend_type>text</frontend_type>
+              <sort_order>81</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </estoqueboleto>
+           
+            <allowspecific translate="label">
+              <label>Pagamento a partir de países aplicáveis</label>
+              <frontend_type>allowspecific</frontend_type>
+              <sort_order>82</sort_order>
+              <source_model>adminhtml/system_config_source_payment_allspecificcountries</source_model>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </allowspecific>
+            <specificcountry translate="label">
+              <label>Pagamento a partir de determinados países</label>
+              <frontend_type>multiselect</frontend_type>
+              <sort_order>83</sort_order>
+              <source_model>adminhtml/system_config_source_country</source_model>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </specificcountry>
+           
+          </fields>
+        </o2ti_moip_standard>
+      </groups>
+    </payment>
+    <o2tiall translate="label" module="o2tiall">
+        <label><![CDATA[ <div style="height: 33px; "><img src="//imagem.o2ti.com/moip_o2ti.png" style="float:left; "/><div style="padding-top:8px;color:#2f3850">MoIP Avançado!<sup style="float: right;">v2.0.0</sup></div></div>]]></label>
+        <tab>o2ti</tab>
+        <frontend_type>text</frontend_type>
+        <sort_order>200</sort_order>
+        <show_in_default>1</show_in_default>
+        <show_in_website>1</show_in_website>
+        <show_in_store>1</show_in_store>
+        <groups>
+            <config translate="label">
+            <comment>
+ <![CDATA[
+﻿<script type="text/javascript" src="//assets.zendesk.com/external/zenbox/v2.5/zenbox.js"></script>
+<style type="text/css" media="screen, projection">
+  @import url(//assets.zendesk.com/external/zenbox/v2.5/zenbox.css);
+</style>
+<script type="text/javascript">
+  if (typeof(Zenbox) !== "undefined") {
+    Zenbox.init({
+      dropboxID:   "20116862",
+      url:         "https://o2ti.zendesk.com",
+      tabID:       "Suporte | Especialistas Magento",
+      tabColor:    "#2c3996",
+      tabPosition: "Right"
+    });
+  }
+</script>
+<div>
+<a style="float: left;text-decoration:none;width:100%" href="//www.o2ti.com/magento.php" target="_blank" style="float: left;"><img src="//imagem.o2ti.com/moip_o2ti.png" style="float:left;"/><h1 style="float:left;">MoIP Recursos Avançados!</h1><sup>v2.0.0</sup>
+</a>
+<div style="float: left; color:#2f3850">
+<label style="font-size: 34px">Vers&atilde;o: <strong>Gratuita!</strong></label>
+</div>
+
+<br style="clear: both;"/>
+
+<p>Essa versão tem o download gratuito desde que mantidos os créditos a O2TI.</p>
+<p>Criado por: <a href=//www.o2ti.com" target="_blank">O2ti Soluções em Web LTDA</a></p>
+
+<hr>
+</div>
+]]></comment>
+                <label>Designer</label>
+                <frontend_type>text</frontend_type>
+                <sort_order>1</sort_order>
+                <show_in_default>1</show_in_default>
+                <show_in_website>1</show_in_website>
+                <show_in_store>1</show_in_store>
+                <fields>
+
+               	<moip_layout translate="label">
+                        <label>Qual o Layout escolhido?</label>
+                        <frontend_type>select</frontend_type>
+                        <source_model>O2TI_Moip_Model_Source_Layout</source_model>
+                        <sort_order>0</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                </moip_layout>
+               	<trocar_icone translate="label">
+                        <label>Trocar Ícones Meios Aceitos</label>
+                        <frontend_type>select</frontend_type>
+                        <source_model>adminhtml/system_config_source_yesno</source_model>
+                        <sort_order>1</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                </trocar_icone>
+		<icone_cartao translate="label comment">
+		    <depends>
+                            <trocar_icone>1</trocar_icone>
+                        </depends>
+                        <label>Icone Cartão: </label>
+                        <comment>Icone para a aba dos cartões</comment>
+                        <frontend_type>image</frontend_type>
+                        <backend_model>adminhtml/system_config_backend_image</backend_model>
+                        <upload_dir config="system/filesystem/media" scope_info="1">o2ti/allmoip</upload_dir>
+                        <base_url type="media" scope_info="1">o2ti/allmoip</base_url>
+                        <sort_order>1</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                    </icone_cartao>
+                    <icone_boleto translate="label comment">
+		    <depends>
+                            <trocar_icone>1</trocar_icone>
+                        </depends>
+                        <label>Icone Boleto: </label>
+                        <comment>Icone para a aba dos Boleto</comment>
+                        <frontend_type>image</frontend_type>
+                        <backend_model>adminhtml/system_config_backend_image</backend_model>
+                        <upload_dir config="system/filesystem/media" scope_info="1">o2ti/allmoip</upload_dir>
+                        <base_url type="media" scope_info="1">o2ti/allmoip</base_url>
+                        <sort_order>2</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                    </icone_boleto>
+                    <icone_transf translate="label comment">
+		    <depends>
+                            <trocar_icone>1</trocar_icone>
+                        </depends>
+                        <label>Icone Transferência: </label>
+                        <comment>Icone para a aba dos Transferência</comment>
+                        <frontend_type>image</frontend_type>
+                        <backend_model>adminhtml/system_config_backend_image</backend_model>
+                        <upload_dir config="system/filesystem/media" scope_info="1">o2ti/allmoip</upload_dir>
+                        <base_url type="media" scope_info="1">o2ti/allmoip</base_url>
+                        <sort_order>3</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                    </icone_transf>
+                    <trocar_bandeira_cartao translate="label">
+                        <label>Trocar Ícones das Bandeira dos Cartões</label>
+                        <frontend_type>select</frontend_type>
+                        <source_model>adminhtml/system_config_source_yesno</source_model>
+                        <sort_order>4</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                    </trocar_bandeira_cartao>
+                    <cartao_visa translate="label">
+                        <depends>
+                            <trocar_bandeira_cartao>1</trocar_bandeira_cartao>
+                        </depends>
+                        <label>Visa</label>
+                        <frontend_type>image</frontend_type>
+                        <backend_model>adminhtml/system_config_backend_image</backend_model>
+                        <upload_dir config="system/filesystem/media" scope_info="1">o2ti/allmoip</upload_dir>
+                        <base_url type="media" scope_info="1">o2ti/allmoip</base_url>
+                        <sort_order>5</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                    </cartao_visa>
+		<cartao_master translate="label">
+                        <depends>
+                            <trocar_bandeira_cartao>1</trocar_bandeira_cartao>
+                        </depends>
+                        <label>MasterCard</label>
+                        <frontend_type>image</frontend_type>
+                        <backend_model>adminhtml/system_config_backend_image</backend_model>
+                        <upload_dir config="system/filesystem/media" scope_info="1">o2ti/allmoip</upload_dir>
+                        <base_url type="media" scope_info="1">o2ti/allmoip</base_url>
+                        <sort_order>6</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                    </cartao_master>
+                    <cartao_diners translate="label">
+                        <depends>
+                            <trocar_bandeira_cartao>1</trocar_bandeira_cartao>
+                        </depends>
+                        <label>Diners</label>
+                        <frontend_type>image</frontend_type>
+                        <backend_model>adminhtml/system_config_backend_image</backend_model>
+                        <upload_dir config="system/filesystem/media" scope_info="1">o2ti/allmoip</upload_dir>
+                        <base_url type="media" scope_info="1">o2ti/allmoip</base_url>
+                        <sort_order>7</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                    </cartao_diners>
+                    <cartao_american translate="label">
+                        <depends>
+                            <trocar_bandeira_cartao>1</trocar_bandeira_cartao>
+                        </depends>
+                        <label>American Express</label>
+                        <frontend_type>image</frontend_type>
+                        <backend_model>adminhtml/system_config_backend_image</backend_model>
+                        <upload_dir config="system/filesystem/media" scope_info="1">o2ti/allmoip</upload_dir>
+                        <base_url type="media" scope_info="1">o2ti/allmoip</base_url>
+                        <sort_order>8</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                    </cartao_american>
+                    <cartao_hipercard translate="label">
+                        <depends>
+                            <trocar_bandeira_cartao>1</trocar_bandeira_cartao>
+                        </depends>
+                        <label>Hipercard</label>
+                        <frontend_type>image</frontend_type>
+                        <backend_model>adminhtml/system_config_backend_image</backend_model>
+                        <upload_dir config="system/filesystem/media" scope_info="1">o2ti/allmoip</upload_dir>
+                        <base_url type="media" scope_info="1">o2ti/allmoip</base_url>
+                        <sort_order>9</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                    </cartao_hipercard>
+                    <trocar_bandeira_banco translate="label">
+                        <label>Trocar Ícones das Bandeira dos Bancos</label>
+                        <frontend_type>select</frontend_type>
+                        <source_model>adminhtml/system_config_source_yesno</source_model>
+                        <sort_order>10</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                    </trocar_bandeira_banco>
+                    <cartao_bb translate="label">
+                        <depends>
+                            <trocar_bandeira_banco>1</trocar_bandeira_banco>
+                        </depends>
+                        <label>Banco do Brasil</label>
+                        <frontend_type>image</frontend_type>
+                        <backend_model>adminhtml/system_config_backend_image</backend_model>
+                        <upload_dir config="system/filesystem/media" scope_info="1">o2ti/allmoip</upload_dir>
+                        <base_url type="media" scope_info="1">o2ti/allmoip</base_url>
+                        <sort_order>11</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                    </cartao_bb>
+		<cartao_bradesco translate="label">
+                        <depends>
+                            <trocar_bandeira_banco>1</trocar_bandeira_banco>
+                        </depends>
+                        <label>Bradesco</label>
+                        <frontend_type>image</frontend_type>
+                        <backend_model>adminhtml/system_config_backend_image</backend_model>
+                        <upload_dir config="system/filesystem/media" scope_info="1">o2ti/allmoip</upload_dir>
+                        <base_url type="media" scope_info="1">o2ti/allmoip</base_url>
+                        <sort_order>12</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                    </cartao_bradesco>
+                    <cartao_itau translate="label">
+                        <depends>
+                            <trocar_bandeira_banco>1</trocar_bandeira_banco>
+                        </depends>
+                        <label>Itaú</label>
+                        <frontend_type>image</frontend_type>
+                        <backend_model>adminhtml/system_config_backend_image</backend_model>
+                        <upload_dir config="system/filesystem/media" scope_info="1">o2ti/allmoip</upload_dir>
+                        <base_url type="media" scope_info="1">o2ti/allmoip</base_url>
+                        <sort_order>13</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                    </cartao_itau>
+                    <cartao_banrisul translate="label">
+                        <depends>
+                            <trocar_bandeira_banco>1</trocar_bandeira_banco>
+                        </depends>
+                        <label>Banrisul</label>
+                        <frontend_type>image</frontend_type>
+                        <backend_model>adminhtml/system_config_backend_image</backend_model>
+                        <upload_dir config="system/filesystem/media" scope_info="1">o2ti/allmoip</upload_dir>
+                        <base_url type="media" scope_info="1">o2ti/allmoip</base_url>
+                        <sort_order>14</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                    </cartao_banrisul>
+                    <trocar_bandeira_boleto translate="label">
+                        <label>Trocar Ícones do boleto</label>
+                        <frontend_type>select</frontend_type>
+                        <source_model>adminhtml/system_config_source_yesno</source_model>
+                        <sort_order>15</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                    </trocar_bandeira_boleto>
+                    <boleto translate="label">
+                        <depends>
+                            <trocar_bandeira_boleto>1</trocar_bandeira_boleto>
+                        </depends>
+                        <label>Icone Interno do Boleto</label>
+                        <comment>Icone de dentro da aba do boleto. Lembre-se o banco emissor é o Bradesco</comment>
+                        <frontend_type>image</frontend_type>
+                        <backend_model>adminhtml/system_config_backend_image</backend_model>
+                        <upload_dir config="system/filesystem/media" scope_info="1">o2ti/allmoip</upload_dir>
+                        <base_url type="media" scope_info="1">o2ti/allmoip</base_url>
+                        <sort_order>16</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                    </boleto>
+                    <icones_na_entrega translate="label">
+                        <label>Mostrar icones da entrega?</label>
+                        <frontend_type>select</frontend_type>
+                        <source_model>adminhtml/system_config_source_yesno</source_model>
+                        <sort_order>17</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                    </icones_na_entrega>
+                    <trocar_icones_na_entrega translate="label">
+                        <label>Trocar icones da entrega?</label>
+                        <depends>
+                            <icones_na_entrega>1</icones_na_entrega>
+                        </depends>
+                        <frontend_type>select</frontend_type>
+                        <source_model>adminhtml/system_config_source_yesno</source_model>
+                        <sort_order>18</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                    </trocar_icones_na_entrega>
+                    <icone_sedex translate="label comment">
+		    <depends>
+                            <trocar_icones_na_entrega>1</trocar_icones_na_entrega>
+                        </depends>
+                        <label>Icone Sedex: </label>
+                        <frontend_type>image</frontend_type>
+                        <backend_model>adminhtml/system_config_backend_image</backend_model>
+                        <upload_dir config="system/filesystem/media" scope_info="1">o2ti/allmoip</upload_dir>
+                        <base_url type="media" scope_info="1">o2ti/allmoip</base_url>
+                        <sort_order>19</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                    </icone_sedex>
+                    <icone_pac translate="label comment">
+		    <depends>
+                            <trocar_icones_na_entrega>1</trocar_icones_na_entrega>
+                        </depends>
+                        <label>Icone Pac: </label>
+                        <frontend_type>image</frontend_type>
+                        <backend_model>adminhtml/system_config_backend_image</backend_model>
+                        <upload_dir config="system/filesystem/media" scope_info="1">o2ti/allmoip</upload_dir>
+                        <base_url type="media" scope_info="1">o2ti/allmoip</base_url>
+                        <sort_order>20</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                    </icone_pac>
+                    <icone_sedex_a translate="label comment">
+		    <depends>
+                            <trocar_icones_na_entrega>1</trocar_icones_na_entrega>
+                        </depends>
+                        <label>Sedex a Cobrar: </label>
+
+                        <frontend_type>image</frontend_type>
+                        <backend_model>adminhtml/system_config_backend_image</backend_model>
+                        <upload_dir config="system/filesystem/media" scope_info="1">o2ti/allmoip</upload_dir>
+                        <base_url type="media" scope_info="1">o2ti/allmoip</base_url>
+                        <sort_order>21</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                    </icone_sedex_a>
+                    <icone_sedex_hoje translate="label comment">
+		    <depends>
+                            <trocar_icones_na_entrega>1</trocar_icones_na_entrega>
+                        </depends>
+                        <label>Sedex Hoje: </label>
+                        <frontend_type>image</frontend_type>
+                        <backend_model>adminhtml/system_config_backend_image</backend_model>
+                        <upload_dir config="system/filesystem/media" scope_info="1">o2ti/allmoip</upload_dir>
+                        <base_url type="media" scope_info="1">o2ti/allmoip</base_url>
+                        <sort_order>22</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                    </icone_sedex_hoje>
+                    <icone_sedex_10 translate="label comment">
+		    <depends>
+                            <trocar_icones_na_entrega>1</trocar_icones_na_entrega>
+                        </depends>
+                        <label>Sedex 10: </label>
+                        <frontend_type>image</frontend_type>
+                        <backend_model>adminhtml/system_config_backend_image</backend_model>
+                        <upload_dir config="system/filesystem/media" scope_info="1">o2ti/allmoip</upload_dir>
+                        <base_url type="media" scope_info="1">o2ti/allmoip</base_url>
+                        <sort_order>23</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                    </icone_sedex_10>
+                    <icone_sedex_c translate="label comment">
+		    <depends>
+                            <trocar_icones_na_entrega>1</trocar_icones_na_entrega>
+                        </depends>
+                        <label>Sedex Com Contrato:</label>
+                        <frontend_type>image</frontend_type>
+                        <backend_model>adminhtml/system_config_backend_image</backend_model>
+                        <upload_dir config="system/filesystem/media" scope_info="1">o2ti/allmoip</upload_dir>
+                        <base_url type="media" scope_info="1">o2ti/allmoip</base_url>
+                        <sort_order>24</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                    </icone_sedex_c>
+                    <icone_sedex_e translate="label comment">
+		    <depends>
+                            <trocar_icones_na_entrega>1</trocar_icones_na_entrega>
+                        </depends>
+                        <label>E-Sedex Com Contrato:</label>
+                        <frontend_type>image</frontend_type>
+                        <backend_model>adminhtml/system_config_backend_image</backend_model>
+                        <upload_dir config="system/filesystem/media" scope_info="1">o2ti/allmoip</upload_dir>
+                        <base_url type="media" scope_info="1">o2ti/allmoip</base_url>
+                        <sort_order>25</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                    </icone_sedex_e>
+                    <icone_pac_c translate="label comment">
+		    <depends>
+                            <trocar_icones_na_entrega>1</trocar_icones_na_entrega>
+                        </depends>
+                        <label>PAC Com Contrato:</label>
+                        <frontend_type>image</frontend_type>
+                        <backend_model>adminhtml/system_config_backend_image</backend_model>
+                        <upload_dir config="system/filesystem/media" scope_info="1">o2ti/allmoip</upload_dir>
+                        <base_url type="media" scope_info="1">o2ti/allmoip</base_url>
+                        <sort_order>26</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                    </icone_pac_c>
+                    <icone_gratis translate="label comment">
+		    <depends>
+                            <trocar_icones_na_entrega>1</trocar_icones_na_entrega>
+                        </depends>
+                        <label>Frete Grátis: </label>
+                        <frontend_type>image</frontend_type>
+                        <backend_model>adminhtml/system_config_backend_image</backend_model>
+                        <upload_dir config="system/filesystem/media" scope_info="1">o2ti/allmoip</upload_dir>
+                        <base_url type="media" scope_info="1">o2ti/allmoip</base_url>
+                        <sort_order>27</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                    </icone_gratis>
+                    <icone_fixo translate="label comment">
+		    <depends>
+                            <trocar_icones_na_entrega>1</trocar_icones_na_entrega>
+                        </depends>
+                        <label>Frete Fixo: </label>
+                        <frontend_type>image</frontend_type>
+                        <backend_model>adminhtml/system_config_backend_image</backend_model>
+                        <upload_dir config="system/filesystem/media" scope_info="1">o2ti/allmoip</upload_dir>
+                        <base_url type="media" scope_info="1">o2ti/allmoip</base_url>
+                        <sort_order>28</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                    </icone_fixo>
+                </fields>
+            </config>
+
+            <pagamento_avancado translate="label">
+                <label>Configurações de Pagamento Avançadas</label>
+                <frontend_type>text</frontend_type>
+                <sort_order>2</sort_order>
+                <show_in_default>1</show_in_default>
+                <show_in_website>1</show_in_website>
+                <show_in_store>1</show_in_store>
+                <fields>
+                	<pagamento_boleto translate="label">
+                        <label>Desconto Para Boleto</label>
+                        <frontend_type>select</frontend_type>
+                        <source_model>adminhtml/system_config_source_yesno</source_model>
+                        <sort_order>1</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                    </pagamento_boleto>
+                    <boleto_desc translate="label comment">
+		    <depends>
+                            <pagamento_boleto>1</pagamento_boleto>
+                        </depends>
+                        <label>1º Valor de desconto: </label>
+                        <frontend_type>text</frontend_type>
+                        <comment>Em Percentual use somente o número sem o "%"</comment>
+                        <frontend_type>text</frontend_type>
+                        <sort_order>3</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                    </boleto_desc>
+                    <boleto_valor translate="label comment">
+		    <depends>
+                            <pagamento_boleto>1</pagamento_boleto>
+                        </depends>
+                        <label>Para nos pedidos acima de: </label>
+                        <frontend_type>text</frontend_type>
+                        <comment>A primeira faixa de desconto será válida para pagamentos acima de qual valor? Você pode usar valor 0 para aplicar a qualquer pedido</comment>
+                        <frontend_type>text</frontend_type>
+                        <sort_order>2</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                    </boleto_valor>
+                    <boleto_desc2 translate="label comment">
+		    <depends>
+                            <pagamento_boleto>1</pagamento_boleto>
+                        </depends>
+                        <label>2º Valor de desconto: </label>
+                        <frontend_type>text</frontend_type>
+                        <comment>Em Percentual use somente o número sem o "%"</comment>
+                        <frontend_type>text</frontend_type>
+                        <sort_order>5</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                    </boleto_desc2>
+                    <boleto_valor2 translate="label comment">
+		    <depends>
+                            <pagamento_boleto>1</pagamento_boleto>
+                        </depends>
+                        <label>Para nos pedidos acima de: </label>
+                        <frontend_type>text</frontend_type>
+                        <comment>A Segunda faixa de desconto será válida para pagamentos acima de qual valor? Obrigatoriamente deverá ser maior que a primeira.</comment>
+                        <frontend_type>text</frontend_type>
+                        <sort_order>4</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                    </boleto_valor2>
+                   	<boleto_desc3 translate="label comment">
+		    <depends>
+                            <pagamento_boleto>1</pagamento_boleto>
+                        </depends>
+                        <label>3º Valor de desconto: </label>
+                        <frontend_type>text</frontend_type>
+                        <comment>Em Percentual use somente o número sem o "%"</comment>
+                        <frontend_type>text</frontend_type>
+                        <sort_order>7</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                    </boleto_desc3>
+                    <boleto_valor3 translate="label comment">
+		    <depends>
+                            <pagamento_boleto>1</pagamento_boleto>
+                        </depends>
+                        <label>Para nos pedidos acima de: </label>
+                        <frontend_type>text</frontend_type>
+                        <comment>A Terceira faixa de desconto será válida para pagamentos acima da segunda faixa.</comment>
+                        <frontend_type>text</frontend_type>
+                        <sort_order>6</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                    </boleto_valor3>
+                    <transf_desc translate="label comment">
+		    <depends>
+                            <pagamento_boleto>1</pagamento_boleto>
+                        </depends>
+                        <label>Aplicar mesmas regras ao pagamento por transferência?</label>
+                        <frontend_type>select</frontend_type>
+                        <source_model>adminhtml/system_config_source_yesno</source_model>
+                        <comment>Caso marque sim o pagamento por transferência estará sujeito as mesmas regras do boleto</comment>
+                        <sort_order>8</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                    </transf_desc>
+
+
+                </fields>
+            </pagamento_avancado>
+	<mktplace translate="label">
+                <label>MarketPlace - A melhor maneira de comissionar suas multilojas</label>
+                <frontend_type>text</frontend_type>
+                <sort_order>2</sort_order>
+                <show_in_default>1</show_in_default>
+                <show_in_website>1</show_in_website>
+                <show_in_store>1</show_in_store>
+                <fields>
+
+            <comissionamento translate="label">
+              <label>Ativar Comissionamento para MktPlace?</label>
+              <comment><![CDATA[<br /><div class="custom-options"><div class="box" style="width:243px;">
+                    <p>Esta opção deverá ser utilizada por quem realiza pagamento de comissões a outros logins MoIP.</p>
+                </div></div>]]>
+              </comment>
+              <frontend_type>select</frontend_type>
+              <source_model>adminhtml/system_config_source_yesno</source_model>
+              <sort_order>22</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </comissionamento>
+            <logincomissionamento translate="label">
+              <label>Login de Comissionamento</label>
+		<depends>
+			<comissionamento>1</comissionamento>
+		</depends>
+              <frontend_type>text</frontend_type>
+              <sort_order>23</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </logincomissionamento>
+            <pagadordataxa translate="label">
+              <label>É o comissionado deverá pagar a taxa MoIP</label>
+              <comment><![CDATA[<br /><div class="custom-options"><div class="box" style="width:243px;">
+                    <p>Marque sim para a taxa MoIP da transação ser descontada do valor pago ao comissionado.</p>
+                </div></div>]]>
+              </comment>
+		<depends>
+			<comissionamento>1</comissionamento>
+		</depends>
+              <frontend_type>select</frontend_type>
+              <source_model>adminhtml/system_config_source_yesno</source_model>
+              <sort_order>25</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </pagadordataxa>
+	    <porc_comissionamento translate="label">
+              <label>Porcentagem de Comissionamento</label>
+		<depends>
+			<comissionamento>1</comissionamento>
+			<pagadordataxa>0</pagadordataxa>
+		</depends>
+              <frontend_type>text</frontend_type>
+              <sort_order>26</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </porc_comissionamento>
+	<porc_comissionamento_cartao translate="label">
+              <label>Porcentagem para Cartão</label>
+		<depends>
+			<comissionamento>1</comissionamento>
+			<pagadordataxa>1</pagadordataxa>
+		</depends>
+              <frontend_type>text</frontend_type>
+              <sort_order>27</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+        </porc_comissionamento_cartao>
+	<porc_comissionamento_boleto translate="label">
+              <label>Porcentagem para Boleto</label>
+		<depends>
+			<comissionamento>1</comissionamento>
+			<pagadordataxa>1</pagadordataxa>
+		</depends>
+              <frontend_type>text</frontend_type>
+              <sort_order>28</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </porc_comissionamento_boleto>
+	<porc_comissionamento_transf translate="label">
+              <label>Porcentagem para Transferência</label>
+		<depends>
+			<comissionamento>1</comissionamento>
+			<pagadordataxa>1</pagadordataxa>
+		</depends>
+              <frontend_type>text</frontend_type>
+              <sort_order>29</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </porc_comissionamento_transf>
+</fields>
+            </mktplace>
+	<google translate="label">
+                <label>Google e outras analises - Análise de funil e tag de conversão</label>
+                <frontend_type>text</frontend_type>
+                <sort_order>4</sort_order>
+                <show_in_default>1</show_in_default>
+                <show_in_website>1</show_in_website>
+                <show_in_store>1</show_in_store>
+                <fields>
+
+            <idgoogle translate="label">
+              <label>ID da conta Google</label>
+              <comment><![CDATA[<br /><div class="custom-options"><div class="box" style="width:243px;">
+                    <p>Insira o seu código como por exemplo </br> UA-33860171-1.</p>
+                </div></div>]]>
+              </comment>
+              <frontend_type>text</frontend_type>
+              <sort_order>1</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </idgoogle>
+            <outros_funil translate="label">
+              <label>Outras tags de conversão</label>
+              <comment><![CDATA[<br /><div class="custom-options"><div class="box" style="width:243px;">
+                    <p>Você pode colar outros scripts de acompanhamento por aqui.</p>
+                </div></div>]]>
+              </comment>
+              <frontend_type>textarea</frontend_type>
+              <sort_order>2</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </outros_funil>
+
+
+</fields>
+            </google>
+		</groups>
+    </o2tiall>
+  </sections>
+</config>

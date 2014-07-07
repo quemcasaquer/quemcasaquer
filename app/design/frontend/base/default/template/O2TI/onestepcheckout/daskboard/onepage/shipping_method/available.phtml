@@ -1,0 +1,88 @@
+<?php if (!($_shippingRateGroups = $this->getShippingRates())): ?>
+
+<?php else: ?>
+<dl id="checkout-shipping-method-loadding" class="sp-methods">
+    <?php $_sole = count($this->getShippingRates()) == 1; foreach ($this->getShippingRates() as $code => $_rates): ?>
+        <dt><?php echo $this->getCarrierName($code); ?></dt>
+        <dd>
+            <ul>
+            <?php $_sole = $_sole && count($_rates) == "nada"; foreach ($_rates as $_rate): ?>
+                <li>
+                   <?php if ($_rate->getErrorMessage()): ?>
+                   
+                   <?php else: ?>
+                        <?php if ($_sole) : ?>
+
+                        <span class="no-display"><input name="shipping_method" type="radio" value="<?php echo $_rate->getCode() ?>" id="s_method_<?php echo $_rate->getCode() ?>" checked="checked" /></span>
+                        <?php else: ?>
+                        <input name="shipping_method" type="radio" value="<?php echo $_rate->getCode() ?>" id="s_method_<?php echo $_rate->getCode() ?>"<?php if($_rate->getCode()===$this->getAddressShippingMethod()) echo ' checked="checked"' ?> class="radio shipping_method_handle" onclick="updateShippingMethod();"/>
+                        <?php endif; ?>
+                        <label for="s_method_<?php echo $_rate->getCode() ?>" onclick="updateShippingMethod();" id="s_method_<?php echo $_rate->getCode() ?>" value="<?php echo $_rate->getPrice() ?>">
+
+
+                       <?php if(Mage::getStoreConfig('o2tiall/config/icones_na_entrega')): ?>
+                       <?php if(Mage::getStoreConfig('o2tiall/config/trocar_icones_na_entrega')):
+		                if ($code == "pedroteixeira_correios" || $code == "flatrate" || $code == "freeshipping"):
+		                $parametro = $_rate->getCode();
+
+		                switch ($parametro){
+		                case "pedroteixeira_correios_40045":
+		                $imagem = Mage::getBaseUrl('media') . "o2ti/allmoip/". Mage::getStoreConfig('o2tiall/config/icone_sedex_a');
+		                break;
+		                case "freeshipping_freeshipping":
+		                $imagem = Mage::getBaseUrl('media') . "o2ti/allmoip/". Mage::getStoreConfig('o2tiall/config/icone_gratis');
+		                break;
+		                case "pedroteixeira_correios_41106":
+		                $imagem = Mage::getBaseUrl('media') . "o2ti/allmoip/". Mage::getStoreConfig('o2tiall/config/icone_pac');
+		                break;
+		                case "pedroteixeira_correios_40010":
+		                $imagem = Mage::getBaseUrl('media') . "o2ti/allmoip/". Mage::getStoreConfig('o2tiall/config/icone_sedex');
+		                break;
+		                case "pedroteixeira_correios_40215":
+		                $imagem = Mage::getBaseUrl('media') . "o2ti/allmoip/". Mage::getStoreConfig('o2tiall/config/icone_sedex_10');
+		                break;
+		                case "pedroteixeira_correios_40290":
+		                $imagem = Mage::getBaseUrl('media') . "o2ti/allmoip/". Mage::getStoreConfig('o2tiall/config/icone_sedex_hoje');
+		                break;
+		                case "flatrate_flatrate":
+		                $imagem = Mage::getBaseUrl('media') . "o2ti/allmoip/". Mage::getStoreConfig('o2tiall/config/icone_fixo');//pac
+		                break;
+		                }
+		               	?>
+				<img src="<?php echo $imagem?>">  <br />
+			       	<?php endif; ?>
+			       	<?php else: ?>
+                       <?php  if ($code == "pedroteixeira_correios" || $code == "flatrate" || $code == "freeshipping"):
+				$pedroteixeira_correios_40045 = $this->getSkinUrl('O2TI/moip/imagem/pedroteixeira_correios_40045.png'); //sedex_acobrar
+				$pedroteixeira_correios_41106 = $this->getSkinUrl('O2TI/moip/imagem/pedroteixeira_correios_41106.png'); //pac
+				$pedroteixeira_correios_40010 = $this->getSkinUrl('O2TI/moip/imagem/pedroteixeira_correios_40010.png'); //sedex
+				$pedroteixeira_correios_40215  = $this->getSkinUrl('O2TI/moip/imagem/pedroteixeira_correios_40215.png'); //sedex10
+				$pedroteixeira_correios_40290  = $this->getSkinUrl('O2TI/moip/imagem/pedroteixeira_correios_40290.png'); //sedexhoje
+				$freeshipping_freeshipping = $this->getSkinUrl('O2TI/moip/imagem/freeshipping_freeshipping.png'); //frete gratis
+				$flatrate_flatrate = $this->getSkinUrl('O2TI/moip/imagem/flatrate_flatrate.png'); //frete fixo
+			?>
+
+			<img src="<?php echo $this->getSkinUrl('O2TI/moip/imagem/'); echo $_rate->getCode()?>.gif"  id="o2ti<?php echo $_rate->getCode() ?>.png" alt="<?php echo $_rate->getMethodTitle() ?>"> <br />
+			<?php endif; ?>
+			<?php endif; ?>
+			<?php endif; ?>
+
+
+                       <?php echo $_rate->getMethodTitle() ?>
+                        <?php $_excl = $this->getShippingPrice($_rate->getPrice(), $this->helper('tax')->displayShippingPriceIncludingTax()); ?>
+                        <?php $_incl = $this->getShippingPrice($_rate->getPrice(), true); ?>
+                        <?php echo $_excl; ?>
+                        <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
+                            (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
+                        <?php endif; ?>
+                        </label>
+                   <?php endif ?>
+                </li>
+            <?php endforeach; ?>
+            </ul>
+        </dd>
+    <?php endforeach; ?>
+</dl>
+
+<?php endif; ?>
+

@@ -1,0 +1,82 @@
+<?php $session = Mage::getSingleton('checkout/session'); ?>
+<?php $result_decode = $session->getResult_decode(); ?>
+<?php $client_array = $session->getClient_array(); ?>
+<?php $pgtoArraya = $session->getPgtoarry(); ?>
+<?php $pgtoArray = $this->getOrder_dados($client_array); 
+$customerData = "";
+if(Mage::getSingleton('customer/session')->isLoggedIn()) {
+     $customerData = Mage::getSingleton('customer/session')->getCustomer();
+ }
+if (Mage::getSingleton('moip/standard')->getConfigData('ambiente') == "teste") { 
+    $url = "https://desenvolvedor.moip.com.br/sandbox/Instrucao.do?token=";
+    $urljs = "https://desenvolvedor.moip.com.br/sandbox/";
+   }
+   else {
+    $url = "https://www.moip.com.br/Instrucao.do?token=";
+    $urljs = "https://www.moip.com.br/";
+}
+?>
+<?php $order = Mage::getModel('sales/order')->loadByIncrementId($pgtoArray['id_transacao']); ?>
+<?php $this->getSaveDate($pgtoArray['id_transacao'], $result_decode, $customerData, $pgtoArraya, $client_array); ?>
+<?php if (!Mage::helper('core/cookie')->isUserNotAllowSaveCookie()): ?>
+<?php $accountId = 'UA-33860171-1' ?>
+<script type="text/javascript">
+//<![CDATA[
+    var _gaq = _gaq || [];
+  	_gaq.push(['_setAccount', '<?php echo  Mage::getStoreConfig("o2tiall/google/idgoogle") ?>']);
+    <?php echo $this->getTrackingMoip($client_array);  ?>
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+//]]>
+</script>
+<?php endif; ?>
+<script type="text/javascript" charset="ISO-8859-1" src="<?php echo $urljs ?>transparente/MoipWidget-v2.js" onerror="erro_mail('erro caiu o moip widget')" ></script>
+<div id="MoipWidget" data-token="<?php echo $result_decode['token'] ?>" callback-method-error="erroValidacao" callback-method-success="sucesso"></div>
+<meta http-equiv='Refresh' content='10;URL=<?php echo $url. $result_decode['token'] ?>'>
+<div class="row grid-full">
+	<div class="section clearer grid12-12 ">
+		<h3>Seu pedido foi enviado com sucesso, <strong><?php echo $client_array['pagador_nome'] ?></strong>!</h3>
+
+		<div class="corpo_moip grid12-5 alpha">
+
+			<div class="method-type bank-title">
+				<h3>Transferência Bancária</h3>
+				<h4>Você será redirecionado para o seu banco em 10 segundos, caso isto não ocorra, por favor clique no link abaixo para ser redirecionado ao seu banco.</h4>
+			</div>
+			</br>
+			<button type="button" title="Finalizar compra" class="btn-moip btn-bank" onclick="window.location='<?php echo $url. $result_decode['token'] ?>'"><img src="<?php echo $this->getSkinUrl('O2TI/moip/imagem/bank-icon.png') ?>" alt="" />Ir ao Banco</button>
+		</div>
+
+		<div class="col-md-6 grid12-6 omega">
+			<div class="order-id-wrapper">
+				<p>O número do seu pedido é:</p>
+				<span class="order-id">#<?php echo $pgtoArray['id_transacao'] ?></span>
+				<h4>Seu pedido será enviado por <?php  echo $order->getShippingDescription(); ?></h4>
+			</div>
+			<div class="warning-block">
+				<strong>Atenção:</strong> Você receberá um e-mail com a confirmação do seu pedido.
+			</div>
+			<div class="row">
+				<a href="<?php echo Mage::helper('core/url')->getHomeUrl(); ?>" class="back-to-store">Voltar para a home</a>
+			</div>
+		</div>
+	</div>
+</div>
+<?php echo  Mage::getStoreConfig("o2tiall/google/outros_funil"); ?>
+<script type="text/javascript">
+//<![CDATA[
+				jQuery(document).ready(function(){
+					jQuery("#token").val("<?php echo $result_decode['token'] ?>");
+					var settings = 
+						<?php echo $this->getJson($pgtoArraya); ?>
+					;
+					MoipWidget(settings);
+					
+				});
+				var sucesso = function(data){
+				}
+//]]>
+</script>

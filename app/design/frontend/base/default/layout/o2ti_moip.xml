@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+	<sales>
+		<block type="Moip/Standard_Info" name="moip.info" template="O2TI/moip/info.phtml"></block>
+	</sales>
+	<onepagecheckout_index_index>
+		<reference name="head">
+				<action method="addJs"><script>O2TI/jquery.js</script></action>
+	   	 		<action method="addJs"><script>O2TI/jquery_noconflict.js</script></action>
+	   	 		<action method="addJs"><script>O2TI/novamascara.js</script></action>
+	   	 		<action method="addJs"><script>O2TI/validacao.js</script></action>
+	   	 		<action method="addJs"><script>O2TI/moip/checkout.js</script></action>
+		</reference>
+	</onepagecheckout_index_index>
+	 <checkout_onepage_index>
+		<reference name="head">
+				<action method="addJs"><script>O2TI/jquery.js</script></action>
+	   	 		<action method="addJs"><script>O2TI/jquery_noconflict.js</script></action>
+	   	 		<action method="addJs"><script>O2TI/novamascara.js</script></action>
+	   	 		<action method="addJs"><script>O2TI/validacao.js</script></action>
+	   	 		<action method="addJs"><script>O2TI/moip/checkout.js</script></action>
+		</reference>
+	</checkout_onepage_index>
+	<moip_standard_redirect translate="label">
+		
+		<reference name="head">
+			<action method="setTitle"><params><![CDATA[Pagamento via MoIP S/A]]></params></action> 
+			<action method="removeItem"><type>skin_js</type><name>js/lib/jquery-1.10.2.min.js</name></action>
+			<action method="addJs"><script>O2TI/jquery.js</script></action>
+   	 		<action method="addJs"><script>O2TI/jquery_noconflict.js</script></action>
+   	 		<action method="addJs"><script>O2TI/moip/bootstrap.min.js</script></action>
+   	 		<action method="addJs"><script>O2TI/moip/bootstrap-modal.js</script></action>
+			<action method="addJs"><script>O2TI/novamascara.js</script></action>
+   	 		<action method="addJs"><script>O2TI/validacao.js</script></action>
+			<action method="addCss"><stylesheet>O2TI/moip/css/bootstrap.css</stylesheet></action>
+			
+		</reference>
+		<reference name="root">
+
+			<action method="setTemplate"><template>page/1column.phtml</template></action>
+		</reference>
+		<reference name="left">
+			
+			<block type="O2TI_Moip_Block_Standard_Redirect" name="moip.comum" template="O2TI/moip/redirect.phtml">
+            </block>
+			<block type="O2TI_Moip_Block_Standard_Redirect" name="moip.transferencia" template="O2TI/moip/transferencia.phtml">
+            </block>
+            <block type="O2TI_Moip_Block_Standard_Redirect" name="moip.boleto" template="O2TI/moip/boleto.phtml">
+					<block type="O2TI_Moip_Block_Standard_Redirect" name="cartao_form" template="O2TI/moip/layout_boleto.phtml">
+            			<action method="setBlockId"><block_id>cartao_form</block_id></action>
+					</block>
+            </block>
+             <block type="O2TI_Moip_Block_Standard_Redirect" name="moip.cartao" template="O2TI/moip/cartao.phtml">
+             	<block type="O2TI_Moip_Block_Standard_Redirect" name="cartao_form" template="O2TI/moip/refaz.phtml">
+            		<action method="setBlockId"><block_id>cartao_form</block_id></action>
+            	</block>
+            </block>
+		</reference>
+		
+	</moip_standard_redirect>
+
+	<moip_index_index>
+		<reference name="root">
+			<action method="setTemplate"><template>O2TI/moip/emptyupdate.phtml</template></action>
+		</reference>
+	</moip_index_index>
+
+	<moip_index_novaforma>
+		<reference name="root">
+			<action method="setTemplate"><template>page/1column.phtml</template></action>
+		</reference>
+	</moip_index_novaforma>
+	
+	<sales_order_view>
+		<reference name="head">
+				<action method="addJs"><script>O2TI/jquery.js</script></action>
+	   	 		<action method="addJs"><script>O2TI/jquery_noconflict.js</script></action>
+	   	 		<action method="addJs"><script>O2TI/moip/bootstrap.min.js</script></action>
+	   	 		<action method="addJs"><script>O2TI/moip/bootstrap-modal.js</script></action>
+	   	 		<action method="addJs"><script>O2TI/novamascara.js</script></action>
+   	 			<action method="addJs"><script>O2TI/validacao.js</script></action>
+				<action method="addCss"><stylesheet>O2TI/moip/css/bootstrap.css</stylesheet></action>
+		</reference>
+	</sales_order_view>
+
+	<moip_info>
+		<reference name="content">
+				<action method="setTemplate"><template>O2TI/moip/info.phtml</template></action>
+				<block type="O2TI_Moip_Block_Info" name="moip_info"  template="O2TI/moip/info.phtml">
+					<block type="O2TI_Moip_Block_Info" name="moip.info" template="O2TI/moip/form.phtml">
+	            		<action method="setBlockId"><block_id>refaz_forma</block_id></action>
+	            	</block>
+				</block>
+		</reference>
+	</moip_info>
+</layout>

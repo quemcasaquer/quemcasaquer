@@ -1,0 +1,266 @@
+<?php
+	$nome = "";
+	$cpf = "";
+	$telefone = "";
+	$selector = "";
+	$dn = "";
+?>
+
+<script type="text/javascript">
+
+
+jQuery(document).ready(function() {
+	jQuery('.input-switcher > li').not('.moip-payment-method-content').bind({
+		click: function() {
+			jQuery(this).parent().children('li').not('.moip-payment-method-content').fadeTo(300, 1);
+			jQuery(this).fadeTo(0, 1);
+			jQuery(this).find('input[type="radio"]').attr('checked', true);
+		}
+	});
+	jQuery('.moip-payment-methods > li').not('.moip-payment-method-content').bind({
+		click: function() {
+			jQuery('.moip-payment-method-content').not('#' + jQuery(this).attr('data-target')).slideUp();
+			jQuery('#' + jQuery(this).attr('data-target')).slideDown();
+		}
+	});
+	if(jQuery("input[name=payment\\[method\\]]:checked").val() == "o2ti_moip_standard" && jQuery("input[name=payment\\[forma_pagamento\\]]:checked").val() != ""){
+			jQuery("#cartao_radio").trigger("click");
+			jQuery("#moip-cartao").css({'display':'block'})
+	} else {
+			jQuery("input[name=payment\\[forma_pagamento\\]]:checked").val();
+			jQuery("#moip-cartao").css({'display':'none'});
+	}
+});
+</script>
+
+<link rel="stylesheet" type="text/css" href="<?php echo $this->getSkinUrl('O2TI/moip/css/formulario_horizontal.css'); ?>"media="all">
+<div id="checkouto2ti">
+	<div id="payment_form_<?php echo $this->getMethodCode() ?>"  style="display:none">
+		<ul class="inline input-switcher moip-payment-methods">
+			<?php if($this->mostraCartao()): ?>
+			<li data-target="moip-cartao" class='moip-payment-method-line'>
+				<input id="cartao_radio" type="radio" name="payment[forma_pagamento]" title="Cartão de Crédito" value="CartaoCredito" class="forma_pg">
+				<img alt="Cartão de Crédito" src="<?php echo $this->getCartaoIcon(); ?>">
+				<div class="middle-method">
+					<div class="chamada">Cartão de Crédito</div>
+					<div class="resume"><?php echo $this->getParcelamento('preview_parcelas') ?></div>
+				</div>
+				<div class="method-price">
+					<div class="method-price-title">Valor</div>
+					<p class="method-price-title"><span class="price"><?php echo $this->getParcelamento('preview'); ?></span></p>
+				</div>
+			</li>
+			<li class="moip-payment-method-content row-fluid" id="moip-cartao" style="display:none">
+				<h3>Cartão de Crédito</h3>
+				<label class="required" for="credito_bandeira" >Selecione a Bandeira:<em>*</em></label>
+				<input type="hidden" name="moip_cc_type" id="moip_cc_type" value=""/>
+				<label class="required" for="credito_bandeira" >Selecione a Bandeira<em>*</em></label>
+				<ul class="inline banderias-cartao input-switcher input-switcher-5">
+					<li>
+						<img src="<?php echo $this->getVisaImage(); ?>" alt="Visa" border="0" onclick="setCcType('VI');">
+						<input type="radio" name="payment[credito_instituicao]" value="Visa" onclick="setCcType('VI');" class="validate-one-required-by-name" >
+					</li>
+					<li>
+						<img src="<?php echo $this->getMastercardImage(); ?>" alt="Mastercard" border="0" onclick="setCcType('MC');">
+						<input id="bandeiramoip" type="radio"  name="payment[credito_instituicao]"  value="Mastercard" onclick="setCcType('MC');" class="validate-one-required-by-name" >
+					</li>
+					<li>
+						<img src="<?php echo $this->getAmericanExpressImage(); ?>" alt="AmericanExpress" border="0" onclick="setCcType('AE');">
+						<input id="bandeiramoip" type="radio"  name="payment[credito_instituicao]" value="AmericanExpress" onclick="setCcType('AE');" class="validate-one-required-by-name" >
+					</li>
+					<li>
+						<img onclick="" src="<?php echo $this->getDinersImage(); ?>" alt="Diners" border="0" onclick="setCcType('DI');">
+						<input id="bandeiramoip" type="radio"  name="payment[credito_instituicao]"  value="Diners" onclick="setCcType('DI');" class="validate-one-required-by-name" >
+					</li>
+					<li>
+						<img onclick="" src="<?php echo $this->getHipercardImage(); ?>" alt="Hipercard" border="0"  onclick="setCcType('HI');">
+						<input id="bandeiramoip" type="radio"  name="payment[credito_instituicao]"  value="Hipercard" onclick="setCcType('HI');" class="validate-one-required-by-name" >
+					</li>
+				</ul>
+				
+				<div id="checkout-payment-bandeira"  class="validation-advice" style="display:none;position:relative;" ></div>
+				<ul class="form-list">
+					<li class="wide cc-cvv">
+						<div class="cc">
+							<label class="required" for="credito_numero">Número:<em>*</em></label>
+							<div class="input-box">
+								<input type="text" name="payment[credito_numero]" id="credito_numero" class="input-text required-entry validate-cc-number  validate-cc-type">
+							</div>
+						</div>
+						<div class="cvv tooltip-moip-handler">
+							<label class="required" for="cvv">CVV:&nbsp;<i class="icon-question-sign"></i><em>*</em></label>
+							<div class="input-box">
+								<input type="text" name="payment[credito_codigo_seguranca]" onkeyup="countChar(this)" class="input-text required-entry ccv validate-cc-cvn" minlength="3" maxlength="4" id="credito_codigo_seguranca">
+								<span class="tooltip-moip">
+									<span class="custom help" style=" width:260px;"><em>Código de segurança:</em></br>Veja no verso do seu cartão.<img src="<?php echo $this->getSkinUrl('O2TI/moip/imagem/codigo-seguranca.png'); ?>" id="imageseguramoip" border="0"></span>
+								</span>
+							</div>
+						</div>
+					</li>
+					<li class="wide cc-validade">
+						<label class="required" for="Validade">Validade:<em>*</em></label>
+						<div class="input-box">
+							<select name="payment[credito_expiracao_mes]" id="credito_expiracao_mes" class="input-text required-entry" >
+								<option value="">Mês</option>
+								<option value="01">01</option>
+								<option value="02">02</option>
+								<option value="03">03</option>
+								<option value="04">04</option>
+								<option value="05">05</option>
+								<option value="06">06</option>
+								<option value="07">07</option>
+								<option value="08">08</option>
+								<option value="09">09</option>
+								<option value="10">10</option>
+								<option value="11">11</option>
+								<option value="12">12</option>
+							</select>
+							<select name="payment[credito_expiracao_ano]" id="credito_expiracao_ano" class="input-text required-entry" >
+								<option value="">Ano</option>
+								<option value="13">13</option>
+								<option value="14">14</option>
+								<option value="15">15</option>
+								<option value="16">16</option>
+								<option value="17">17</option>
+								<option value="18">18</option>
+								<option value="19">19</option>
+								<option value="20">20</option>
+								<option value="21">21</option>
+								<option value="22">22</option>
+								<option value="23">23</option>
+								<option value="24">24</option>
+								<option value="25">25</option>
+							</select>
+						</div>
+					</li>
+					<li class="wide">
+					<label class="required" for="credito_parcela">Opções de pagamento<em>*</em></label>
+					<div class="input-box">
+						
+										              
+						<select name="payment[credito_parcelamento]" id="credito_parcelamento" class="input-text required-entry" >
+							<option value="" select>Selecione as parcelas</option>
+								<?php $parcelas = $this->getParcelamento('parcelas'); ?>
+				               <?php foreach ( $parcelas as $key => $value) { ?>
+				               		<?php echo $parcelas[$key]; ?>
+				               <?php } ?>
+				        </select>
+				        <?php echo $this->getTextoParcelas() ?>
+					</div>
+				</li>
+				</ul>
+				
+				<div id="formcli" style="display:none;">
+			<ul class="form-list dados-titular">
+			<h3>Dados do Titular</h3>
+				<li class="wide tooltip-moip-handler">
+					<label class="required" for="credito_parcela"><em>*</em>Nome no Cartão</label>
+					<div class="input-box">
+						<input type="text" name="payment[credito_portador_nome]" value="<?php echo $nome; ?>" class="input-text required-entry" id="credito_portador_nome" >
+						<span class="tooltip-moip">
+							<span class="custom help"><em>Nome do titular</em><br>deverá ser exatamente como está no cartão.</span>
+						</span>
+					</div>
+				</li>
+				<li class="wide">
+					<label class="required" for="credito_parcela"><em>*</em>CPF</label>
+					<div class="input-box">
+						<input type="text" name="payment[credito_portador_cpf]" class="input-text required-entry validar_cpf" placeholder="Ex. 111.111.111-11" onkeypress="return txtBoxFormat(this, '999.999.999-99', event);" maxlength="14" id="credito_portador_cpf" value="<?php echo $cpf; ?>" >
+					</div>
+				</li>
+				<li class="wide tooltip-moip-handler">
+					<label class="required" for="credito_parcela"><em>*</em>Telefone</label>
+					<div class="input-box">
+						<input type="text" name="payment[credito_portador_telefone]" id="credito_portador_telefone" onkeypress="return txtBoxFormat(this, '(99)9999-9999', event);" maxlength="14" value="<?php echo $telefone; ?>" placeholder="Ex. (19)9999-9999" class="input-text required-entry">
+						<span class="tooltip-moip">
+							<span class="custom help"><em>Telefone de contato</em><br>Muitas vezes é necessária a confirmação manual de seus dados por nossa equipe de crédito, por favor informe um telefone em que seja fácil te localizar.</span>
+						</span>
+					</div>
+				</li>
+				<li class="wide">
+					<label class="required" for="credito_parcela"><em>*</em>Data nascimento</label>
+					<div class="input-box">
+						<input type="text" name="payment[credito_portador_nascimento]" id="credito_portador_nascimento" onkeypress="return txtBoxFormat(this, '99/99/9999', event);" maxlength="10" value="<?php if ($dn !='') { echo $dn; } ?>" placeholder="Ex. 10/10/1985" class="input-text required-entry" >
+					</div>
+				</li>
+			</ul>
+			</div>
+			<div class="clearer"></div>
+				
+			</li>
+			<?php endif; ?>
+			<?php if($this->mostraBoleto()): ?>
+			<li data-target="moip-boleto" class='moip-payment-method-line'>
+				<input type="radio" name="payment[forma_pagamento]" title="Boleto" <?php if(!$this->boletoDisponivel('valid')): ?>value="BoletoBancario" <?php endif; ?>class="forma_pg<?php if(!$this->boletoDisponivel('valid')): ?> invalid-boleto<?php endif; ?>">
+				<img alt="Boleto Bancário" src="<?php echo $this->getBoletoIcon(); ?>">
+				<div class="middle-method">
+					<div class="chamada">Boleto</div>
+				<div class="resume"><?php if(!$this->boletoDisponivel('valid')){echo $this->getTextoBoleto('preview');} ?></div>	
+				</div>
+				<div class="method-price">
+					<?php if(!$this->boletoDisponivel('valid')): ?>
+					<div class="method-price-title">Valor</div>
+					<?php endif; ?>
+					<p class="method-price-title"><?php if(!$this->boletoDisponivel('valid')){echo $this->getBoletoPrice();}else{echo "Indisponível";} ?></p>
+				</div>
+			</li>
+				
+			<li class="moip-payment-method-content row-fluid" id="moip-boleto" style="display:none">
+				<div class="span3 method-image">
+					<img alt="Boleto Bancário" id="imageboleto" src="<?php echo $this->getBoletoImage(); ?>">
+				</div>
+				<div class="span9">
+					<h3>Boleto</h3>
+					<p class="desc"><?php echo $this->getTextoBoleto("texto") ?></p>
+					<?php if(!$this->boletoDisponivel('valid')): ?>
+					<div class="method-price">Valor</div>
+					<?php endif; ?>
+					<p class="method-price"><?php if(!$this->boletoDisponivel('valid')){echo $this->getBoletoPrice();}else{echo $this->boletoDisponivel('text');} ?></p>
+
+				</div>
+			</li>
+			<?php endif; ?>
+			<?php if($this->mostraTransferencia()): ?>
+			<li data-target="moip-transferencia" class='moip-payment-method-line'>
+				<input type="radio" class="forma_pg" name="payment[forma_pagamento]" value="DebitoBancario" >
+				<img alt="Transferência Bancária" id="imageboleto" src="<?php echo $this->getTransferenciaIcon(); ?>">
+				<div class="middle-method">
+					<div class="chamada">Transferência</div>
+					<div class="resume"><?php echo $this->getTextoTranferencia('preview') ?></div>
+				</div>
+				<div class="method-price">
+					<div class="method-price-title">Valor</div>
+					<p class="method-price-title"><?php echo $this->getTransferenciaPrice(); ?></p>
+				</div>
+			</li>
+			<li class="moip-payment-method-content row-fluid" id="moip-transferencia" style="display:none">
+				<h3>Transferência Online</h3>
+				<div id="pagdebito">
+					Após finalizar o pedido você será redirecionado ao site do seu banco...</br>
+					<?php echo $this->getTextoTranferencia("texto"); ?>
+					<div class="method-price">Valor</div>
+					<p class="method-price"><?php echo $this->getTransferenciaPrice(); ?></p>
+				</div>
+				<ul class="inline input-switcher input-switcher-4">
+					<li>
+						<img  src="<?php echo $this->getBBImage(); ?>"  alt="Banco do Brasil" id="debbb" >
+						<input type="radio" id="debito_instituicao" name="payment[debito_instituicao]" value="BancoDoBrasil" class="validate-one-required-by-name">
+					</li>
+					<li>
+						<img  src="<?php echo $this->getBradescoImage(); ?>" id="debbradesco" alt="Bradesco">
+						<input type="radio" id="debito_instituicao" name="payment[debito_instituicao]" value="Bradesco" class="validate-one-required-by-name">
+					</li>
+					<li>
+						<img src="<?php echo $this->getItauImage(); ?>" id="debitau" alt="Itaú"  >
+						<input type="radio" id="debito_instituicao" name="payment[debito_instituicao]" value="Itau" class="validate-one-required-by-name">
+					</li>
+					<li>
+						<img src="<?php echo $this->getBanrisulImage(); ?>" id="Banrisul" alt="Banrisul"  >
+						<input type="radio" id="debito_instituicao" name="payment[debito_instituicao]" value="Banrisul" class="validate-one-required-by-name">
+					</li>
+				</ul>
+			</li>
+			<?php endif; ?>
+		</ul>
+	</div>
+</div>

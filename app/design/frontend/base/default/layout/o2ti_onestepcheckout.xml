@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default></default>
+   
+    <checkout_onepage_index>
+		<reference name="head">
+				<action method="removeItem"><type>skin_js</type><name>js/lib/jquery-1.10.2.min.js</name></action>
+	   	 		<action method="addJs"><script>O2TI/jquery.js</script></action>
+	   	 		<action method="addJs"><script>O2TI/jquery_noconflict.js</script></action>
+	   	 		<action method="addJs"><script>O2TI/onestepcheckout/jquery.fancybox-1.3.1.js</script></action>
+	   	 		<action method="addJs"><script>O2TI/onestepcheckout/change-events.js</script></action>
+	   	 		<action method="addJs"><script>O2TI/novamascara.js</script></action>
+	   	 		<action method="addJs"><script>O2TI/validacao.js</script></action>
+	   	 		<action method="addCss"><stylesheet>O2TI/onestepcheckout/css/onestepcheckout.css</stylesheet></action>
+	   	 		<action method="addCss"><stylesheet>O2TI/onestepcheckout/css/jquery.fancybox-1.3.1.css</stylesheet></action>
+
+
+<!-- estes são exemplos de como remover outros js do site
+use o <type>skin_js</type> se o js estiver na pasta skin
+<action method="removeItem"><type>skin_js</type><name>js/jquery.js</name></action>
+ou use <type>js</type> caso o js da pasta pasta_da_loja/js
+<action method="removeItem"><type>js</type><name>plugins/jquery.flexslider-min.js</name></action>
+-->
+		</reference>
+		<reference name="root">
+			<action method="setTemplate"><template>page/1column.phtml</template></action>
+		</reference>
+		<reference name="checkout.onepage">
+		    	<action method="setTemplate">
+         		 	<template>O2TI/onestepcheckout/onepage.phtml</template>
+      			</action>
+		</reference>
+		<reference name="content">
+			<block type="core/template" name="onestepcheckout.daskboard" as="daskboard" template="O2TI/onestepcheckout/daskboard.phtml">
+				<block type="checkout/onepage_login" name="checkout.onepage.login" as="login" template="O2TI/onestepcheckout/daskboard/onepage/login.phtml"/>
+				<block type="customer/account_forgotpassword" name="checkout.onepage.forgotpassword" as="forgotpassword" template="O2TI/onestepcheckout/daskboard/onepage/forgotpassword.phtml"/>
+
+				<block type="onestepcheckout/checkout_onepage_billing" name="checkout.onepage.billing" as="billing" template="O2TI/onestepcheckout/daskboard/onepage/billing.phtml">
+					<block type="onestepcheckout/checkout_onepage_billing" name="checkout.onepage.billing.billingform" as="billing_form" template="O2TI/onestepcheckout/daskboard/onepage/billing/billing_form.phtml"/>
+				</block>
+				<block type="onestepcheckout/checkout_onepage_shipping" name="checkout.onepage.shipping" as="shipping" template="O2TI/onestepcheckout/daskboard/onepage/shipping.phtml">
+					<block type="onestepcheckout/checkout_onepage_shipping" name="checkout.onepage.shipping.shippingform" as="shipping_form" template="O2TI/onestepcheckout/daskboard/onepage/shipping/shipping_form.phtml"/>
+				</block>
+				<block type="checkout/onepage_shipping_method" name="onestepcheckout.onepage.shipping_method" as="shipping_method" template="O2TI/onestepcheckout/daskboard/onepage/shipping_method.phtml">
+					<block type="checkout/onepage_shipping_method_available" name="onestepcheckout.onepage.shipping_method.available" as="available" template="O2TI/onestepcheckout/daskboard/onepage/shipping_method/available.phtml"/>
+				</block>
+				<block type="checkout/onepage_payment" name="onestepcheckout.onepage.payment" as="payment" template="O2TI/onestepcheckout/daskboard/onepage/payment.phtml">
+					<block type="checkout/onepage_payment_methods" name="onestepcheckout.onepage.payment.methods" as="methods" template="O2TI/onestepcheckout/daskboard/onepage/payment/methods.phtml"/>
+				</block>
+				<block type="checkout/onepage_review" name="checkout.onepage.review" as="review" template="O2TI/onestepcheckout/daskboard/onepage/review.phtml">
+						<block type="checkout/onepage_review_info" name="info"  template="O2TI/onestepcheckout/daskboard/onepage/review/info.phtml">
+							<action method="addItemRender"><type>default</type><block>checkout/cart_item_renderer</block><template>O2TI/onestepcheckout/daskboard/onepage/review/item.phtml</template></action>
+							<action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>O2TI/onestepcheckout/daskboard/onepage/review/item.phtml</template></action>
+							<action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>O2TI/onestepcheckout/daskboard/onepage/review/item.phtml</template></action>
+							<action method="addItemRender"><type>bundle</type><block>bundle/checkout_cart_item_renderer</block><template>O2TI/onestepcheckout/daskboard/onepage/review/item.phtml</template></action>
+							<block type="checkout/cart_totals" name="checkout.onepage.review.info.totals" as="totals" template="O2TI/onestepcheckout/daskboard/onepage/review/totals.phtml"/>
+							<block type="core/text_list" name="checkout.onepage.review.info.items.before" as="items_before"/>
+						</block>
+						<block type="onestepcheckout/checkout_onepage_review_options" name="checkout.onepage.review.options" as="options" template="O2TI/onestepcheckout/daskboard/onepage/review/options.phtml">
+							<block type="checkout/onepage_shipping_method_additional" name="onestepcheckout.onepage.shipping_method.additional" as="additional" template="O2TI/onestepcheckout/daskboard/onepage/review/options/additional.phtml"/>
+							<block type="checkout/cart_coupon" name="checkout.onepage.coupon" as="coupon" template="O2TI/onestepcheckout/daskboard/onepage/coupon.phtml"/>
+						</block>
+						<block type="checkout/agreements" name="checkout.onepage.agreements" as="agreements" template="O2TI/onestepcheckout/daskboard/onepage/agreements.phtml"/>
+                </block>
+			</block>
+        </reference>
+    </checkout_onepage_index>
+
+	<onestepcheckout_index_updateshippingmethod>
+		<reference name="root">
+			<action method="setTemplate"><template>O2TI/onestepcheckout/emptyupdate.phtml</template></action>
+		</reference>
+		<reference name="content">
+			<block type="checkout/onepage_review_info" name="info"  template="O2TI/onestepcheckout/daskboard/onepage/review/info.phtml">
+				<action method="addItemRender"><type>default</type><block>checkout/cart_item_renderer</block><template>O2TI/onestepcheckout/daskboard/onepage/review/item.phtml</template></action>
+				<action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>O2TI/onestepcheckout/daskboard/onepage/review/item.phtml</template></action>
+				<action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>O2TI/onestepcheckout/daskboard/onepage/review/item.phtml</template></action>
+				<action method="addItemRender"><type>bundle</type><block>bundle/checkout_cart_item_renderer</block><template>O2TI/onestepcheckout/daskboard/onepage/review/item.phtml</template></action>
+				<block type="checkout/cart_totals" name="checkout.onepage.review.info.totals" as="totals" template="O2TI/onestepcheckout/daskboard/onepage/review/totals.phtml"/>
+				<block type="core/text_list" name="checkout.onepage.review.info.items.before" as="items_before"/>
+			</block>
+		</reference>
+	</onestepcheckout_index_updateshippingmethod>
+	<onestepcheckout_index_updatepaymentmethod>
+		<reference name="root">
+			<action method="setTemplate"><template>O2TI/onestepcheckout/emptyupdate.phtml</template></action>
+		</reference>
+		<reference name="content">
+			<block type="checkout/onepage_review_info" name="info"  template="O2TI/onestepcheckout/daskboard/onepage/review/info.phtml">
+				<action method="addItemRender"><type>default</type><block>checkout/cart_item_renderer</block><template>O2TI/onestepcheckout/daskboard/onepage/review/item.phtml</template></action>
+				<action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>O2TI/onestepcheckout/daskboard/onepage/review/item.phtml</template></action>
+				<action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>O2TI/onestepcheckout/daskboard/onepage/review/item.phtml</template></action>
+				<action method="addItemRender"><type>bundle</type><block>bundle/checkout_cart_item_renderer</block><template>O2TI/onestepcheckout/daskboard/onepage/review/item.phtml</template></action>
+				<block type="checkout/cart_totals" name="checkout.onepage.review.info.totals" as="totals" template="O2TI/onestepcheckout/daskboard/onepage/review/totals.phtml"/>
+				<block type="core/text_list" name="checkout.onepage.review.info.items.before" as="items_before"/>
+			</block>
+		</reference>
+	</onestepcheckout_index_updatepaymentmethod>
+
+	<onestepcheckout_index_updateshippingtype>
+		<reference name="root">
+			<action method="setTemplate"><template>O2TI/onestepcheckout/emptyupdate.phtml</template></action>
+		</reference>
+		<reference name="content">
+				<block type="checkout/onepage_shipping_method_available" name="root" template="O2TI/onestepcheckout/daskboard/onepage/shipping_method/available.phtml"/>
+		</reference>
+	</onestepcheckout_index_updateshippingtype>
+	<onestepcheckout_index_updatepaymenttype>
+		<reference name="root">
+			<action method="setTemplate"><template>O2TI/onestepcheckout/emptyupdate.phtml</template></action>
+		</reference>
+		<reference name="content">
+				<block type="checkout/onepage_payment_methods" name="root" template="O2TI/onestepcheckout/daskboard/onepage/payment/methods.phtml"/>
+		</reference>
+	</onestepcheckout_index_updatepaymenttype>
+
+	<onestepcheckout_index_updatebillingform>		
+		<reference name="root">
+			<action method="setTemplate"><template>O2TI/onestepcheckout/emptyupdate.phtml</template></action>
+		</reference>
+		<reference name="content">
+			<block type="onestepcheckout/checkout_onepage_billing_sortbilling" name="checkout.onepage.billing.disablesortbilling" as="disablesortbilling" template="O2TI/onestepcheckout/daskboard/onepage/billing/billing_form.phtml"/>		
+		</reference>		
+	</onestepcheckout_index_updatebillingform>
+	<sales_order_view>
+		<reference name="sales.order.info">
+			<action method="setTemplate"><template>O2TI/onestepcheckout/sales/order/info.phtml</template></action>
+			<block type="onestepcheckout/sales_info_customermessages" name="customer_messages" as="customer_messages" template="O2TI/onestepcheckout/sales/order/info/customermessages.phtml"></block>
+		</reference>
+	</sales_order_view>
+	<onestepcheckout_index_updateshippingform>
+		<reference name="root">
+			<action method="setTemplate"><template>O2TI/onestepcheckout/emptyupdate.phtml</template></action>
+		</reference>
+		<reference name="content">
+				<block type="onestepcheckout/checkout_onepage_shipping" name="checkout.onepage.shipping.shippingform" as="shipping_form" template="O2TI/onestepcheckout/daskboard/onepage/shipping/shipping_form.phtml"/>
+		</reference>
+	</onestepcheckout_index_updateshippingform>
+	
+</layout>

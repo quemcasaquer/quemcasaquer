@@ -1,0 +1,5 @@
+<?php if (!$this->getQuote()->isVirtual()): ?>
+	<div class="o2ti-osc-ct-giftmessage">
+		<?php echo $this->helper('giftmessage/message')->getInline('onepage_checkout', $this->getQuote(), $this->getDontDisplayContainer()) ?>
+	</div>
+<?php endif; ?>

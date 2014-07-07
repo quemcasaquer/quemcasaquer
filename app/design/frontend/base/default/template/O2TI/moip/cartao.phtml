@@ -1,0 +1,209 @@
+<?php $session = Mage::getSingleton('checkout/session'); ?>
+<?php $result_decode = $session->getResult_decode(); ?>
+<?php $client_array = $session->getClient_array(); ?>
+<?php $pgtoArraya = $session->getPgtoarry(); ?>
+<?php $pgtoArray = $this->getOrder_dados($client_array); 
+$customerData = "";
+if(Mage::getSingleton('customer/session')->isLoggedIn()) {
+     $customerData = Mage::getSingleton('customer/session')->getCustomer();
+ }
+if (Mage::getSingleton('moip/standard')->getConfigData('ambiente') == "teste") { 
+    $url = "https://desenvolvedor.moip.com.br/sandbox/Instrucao.do?token=";
+    $urljs = "https://desenvolvedor.moip.com.br/sandbox/";
+   }
+   else {
+    $url = "https://www.moip.com.br/Instrucao.do?token=";
+    $urljs = "https://www.moip.com.br/";
+}
+?>
+<?php if (!Mage::helper('core/cookie')->isUserNotAllowSaveCookie()): ?>
+<?php $accountId = 'UA-33860171-1' ?>
+<script type="text/javascript">
+//<![CDATA[
+    var _gaq = _gaq || [];
+  	_gaq.push(['_setAccount', '<?php echo  Mage::getStoreConfig("o2tiall/google/idgoogle") ?>']);
+    <?php echo $this->getTrackingMoip($client_array);  ?>
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+//]]>
+</script>
+<?php endif; ?>
+<?php $order = Mage::getModel('sales/order')->loadByIncrementId($pgtoArray['id_transacao']); ?>
+<?php $this->getSaveDate($pgtoArray['id_transacao'], $result_decode, $customerData, $pgtoArraya, $client_array); ?>
+
+<script type="text/javascript" charset="ISO-8859-1" src="<?php echo $urljs ?>transparente/MoipWidget-v2.js" onerror="erro_mail('erro caiu o moip widget')" ></script>
+<div id="MoipWidget" data-token="<?php echo $result_decode['token'] ?>" callback-method-error="erroValidacao" callback-method-success="sucesso"></div>
+<div class="row grid-full">
+	<div class="section clearer grid12-12 ">
+		<h3>Seu pedido foi enviado com sucesso, <strong><?php echo $client_array['pagador_nome'] ?></strong>!</h3>
+
+		<div class="corpo_moip grid12-5 ">
+			<div class="pgcartao">
+						
+						<div class="method-type cc-title">
+							<h3>Cartão de Crédito</h3>
+							<div class="loader"/>Por favor, aguarde!</br><img src="<?php echo $this->getSkinUrl('O2TI/moip/imagem/ajax-loader.gif'); ?>" border="0"></div>
+						</div>
+						<div id="pgcartao">
+							<div id="statusmoip"></div>
+							<div id="statusmoipadd"></div>
+						</div>
+
+						<div class="warning-block" style="display:none">
+								<h3>O Pagamento não pode ser realizado</h3>
+								<strong>Erros Apresentados:</strong>
+								<div class="error-msg"><ul class="erros_moip"></ul></div>
+						</div>
+						<div style="display: none;" id="loading-mask">
+						    <p id="loading_mask_loader" class="loader"><img alt="Loading..." src="<?php echo $this->getSkinUrl('O2TI/onestepcheckout/images/ajax-loader-tr.gif')?>"><br>Realizando pagamento, por favor aguarde...</p>
+						</div>
+						<div class="repeat_cartao" style="display:none;clear:both;">
+							<div class="title_refaz"><h3>Você poderá refazer o pagamento usando o formulário abaixo</h3></div>
+							<?php  echo $this->getChildHtml('cartao_form'); ?>
+						</div>
+
+			</div>
+		</div>
+
+		<div class="col-md-6 grid12-6 omega">
+			<div class="order-id-wrapper">
+				<p>O número do seu pedido é:</p>
+				<span class="order-id">#<?php echo $pgtoArray['id_transacao'] ?></span>
+				<h4>Seu pedido será enviado por <?php  echo $order->getShippingDescription(); ?></h4>
+			</div>
+			<div class="warning-block">
+				<strong>Atenção:</strong> Você receberá um e-mail com a confirmação do seu pedido.
+			</div>
+			<div class="row">
+				<a href="<?php echo Mage::helper('core/url')->getHomeUrl(); ?>" class="back-to-store">Voltar para a home</a>
+			</div>
+		</div>
+	</div>
+</div>
+<?php echo  Mage::getStoreConfig("o2tiall/google/outros_funil"); ?>
+<script type="text/javascript">
+//<![CDATA[
+					var sucesso = function(data){
+						if (data.Status == "Cancelado"){
+							jQuery(".repeat_cartao").show();
+							jQuery(".warning-block").css({display:"block"});
+							jQuery(".loader").css({display:"none"});
+							jQuery("#statusmoip").html("<h3>Pagamento Cancelado</h3>");
+							jQuery("#statusmoipadd").html("Transação não aprovada.");
+							if(data.hasOwnProperty(data.Classificacao)){
+								var motivo = JSON.stringify(data.Classificacao.Descricao);
+							} else{
+								var motivo = "semretorno";
+							}
+							if(motivo == '"Desconhecido"'){
+								jQuery(".erros_moip").html("Seus dados estão incorretos ou não podemos envia-los a operadora de crédito.");
+							}
+							if(motivo == '"Transação não processada"'){
+								jQuery(".erros_moip").html("O pagamento não pode ser processado.</br>Por favor, tente novamente.</br>Caso o erro persista, entre em contato com o nosso atendimento.");
+							}
+							if(motivo == '"Política de segurança do Moip"'){
+								jQuery(".erros_moip").html("Pagamento não autorizado.</br>Entre em contato com o seu banco antes de uma nova tentativa.");
+							}
+							if(motivo == '"Política de segurança do Banco Emissor"'){
+								jQuery(".erros_moip").html("O pagamento não foi autorizado pelo Banco Emissor do seu Cartão.</br>Entre em contato com o Banco para entender o motivo e refazer o pagamento..");
+							}
+							if(motivo == '"Cartão vencido"'){
+								jQuery(".erros_moip").html("A validade do seu Cartão expirou.</br>Escolha outra forma de pagamento para concluir o pagamento.");
+							}
+							if(motivo == '"Dados inválidos"'){
+								jQuery(".erros_moip").html("Dados informados inválidos.</br>Você digitou algo errado durante o preenchimento dos dados do seu Cartão.</br>Certifique-se de que está usando o Cartão correto e faça uma nova tentativa.");
+							}
+							if(motivo =='semretorno' ){
+								jQuery(".erros_moip").html("Verifique os dados e tente pagar novamente.");
+							}
+						}
+					if (data.Status == "EmAnalise"){
+						jQuery(".loader").css({display:"none"});
+						jQuery("#statusmoip").html("<h3>Pagamento Aguardando Aprovação</h3>");
+						jQuery("#statusmoipadd").html("Por favor, aguarde a em análise da transação. Assim que for alterado o status você será informado via e-mail.");
+						
+					}
+					if (data.Status == "Autorizado"){
+						jQuery(".loader").css({display:"none"});
+						jQuery("#statusmoip").html("<h3>Pagamento Aprovado</h3>");
+						jQuery("#statusmoipadd").html("Por favor, aguarde o processo de envio.");
+						
+					}
+				}
+				var erroValidacao = function(data) {
+					jQuery(".repeat_cartao").show();
+					jQuery(".loading-mask").hide();
+					jQuery(".loader").css({display:"none"});
+					jQuery(".warning-block").show();					
+					var infosMoip ="";
+			            for (i=0; i<data.length; i++) {
+			                Moip = data[i];
+			                for(j in Moip)
+			                {
+			                    atributo = j;
+			                    if(atributo == "Mensagem")
+			                    {
+			                        valor = Moip[j];
+			                        infosMoip = '<li class="erro" style="list-style: none;margin-left: 29px;font-weight: bold;">'+valor+'</li>';
+			                    }
+			                }
+			                jQuery(".erros_moip").html("");
+			                jQuery(".erros_moip").append(infosMoip); 
+            			}
+    			}
+			jQuery(document).ready(function(){
+					var settings = <?php echo $this->getJson($pgtoArraya); ?>;
+					MoipWidget(settings);
+			});
+					
+			jQuery("#refazercartao").submit(function(e){
+					jQuery(".warning-block").hide();
+				    jQuery(".title_refaz").hide();
+				    jQuery("#pgcartao").hide();
+				    jQuery(".loading-mask").show();				    
+				    var postData = jQuery(this).serializeArray();
+				    var formURL = jQuery(this).attr("action");
+				    jQuery.ajax(
+				    {
+				        url : formURL,
+				        type: "POST",
+				        data : postData,
+				        success:function(data, textStatus, jqXHR) 
+				        {  
+							jQuery("#loading-mask").hide();
+							var settings =  
+									{
+											"Forma": "CartaoCredito",
+											"Instituicao": jQuery("#bandeira").val(),
+											"Parcelas": jQuery("#Parcelas").val(),
+											"CartaoCredito": 
+												{
+													"Numero": jQuery("input[name=Numero]").val(),
+													"Expiracao": jQuery("input[name=Expiracao_mes]").val()+'/'+jQuery("input[name=Expiracao_ano]").val(),
+													"CodigoSeguranca": jQuery("input[name=CodigoSeguranca]").val(),
+													"Portador": {
+														"Nome"	: jQuery("input[name=Portador]").val(),
+														"DataNascimento": jQuery("input[name=DataNascimento]").val(),
+														"Telefone": jQuery("input[name=Telefone]").val(),
+														"Identidade": jQuery("input[name=CPF]").val()
+													}
+												}
+									}
+							sendToCreditCard2(settings);
+
+				        },
+				        
+				    });
+				    e.preventDefault(); 
+				});
+
+			function sendToCreditCard2(valores){
+				 var settings = valores
+					MoipWidget(settings);
+				jQuery(".loading-mask").hide();
+			}
+//]]>
+</script>

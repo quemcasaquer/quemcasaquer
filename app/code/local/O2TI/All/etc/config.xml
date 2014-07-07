@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <O2TI_All>
+            <version>0.1.0</version>
+        </O2TI_All>
+    </modules>
+    <admin>
+        <routers>
+			<o2tiall>
+				<use>admin</use>
+				<args>
+					<module>O2TI_All</module>
+					<frontName>o2tiall</frontName>
+				</args>
+			</o2tiall>
+        </routers>
+    </admin>
+    <adminhtml>
+		<acl>
+			<resources>
+				<all>
+					<title>Allow Everything</title>
+				</all>
+				<admin>
+					<children>
+						<O2TI_All>
+							<title>O2TI All Module</title>
+							<sort_order>10</sort_order>
+						</O2TI_All>
+
+					    <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <o2tiall translate="title" module="o2tiall">
+                                            <title>O2TI All Module</title>
+                                        </o2tiall>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+					</children>
+				</admin>
+			</resources>
+		</acl>
+    </adminhtml>
+    <global>
+        <helpers>
+            <o2tiall>
+                <class>O2TI_All_Helper</class>
+            </o2tiall>
+        </helpers>
+    </global>
+	<default>
+		<o2tiall>
+			<config>
+				<enabled>1</enabled>
+				<column_count>5</column_count>
+				<size>10</size>
+			</config>
+		</o2tiall>
+	</default>
+</config>

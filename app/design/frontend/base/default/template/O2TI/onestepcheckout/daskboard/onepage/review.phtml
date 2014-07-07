@@ -1,0 +1,65 @@
+		<div id="checkout-review-load">
+			<?php echo $this->getChildHtml('info') ?>			
+		</div>
+		<div class="coluna_1_checkout span4 grid12-4">
+			<div id="checkout-review-options">
+				<?php echo $this->getChildHtml('options') ?>
+			</div>
+			<div id="checkout-review-submit">
+				<div class="news_subscribe">
+					<?php if(Mage::getStoreConfig('onestepcheckout/layout/allowsubscribenewsletter')==1):?>	
+										<?php if(Mage::helper('onestepcheckout')->issubscribed()):?>
+										<ul class="form-list">
+											<li  class="control">
+												<input type="checkbox" name="subscribe_newsletter" value="0" title="<?php echo $this->__('Receber novidades') ?>" id="subscribe_newsletter" class="checkbox"> <label for="subscribe_newsletter"><?php echo $this->__('Receber novidades') ?></label>
+											</li>
+										</ul>
+										<?php endif?>
+					<?php endif ?>
+					<?php if(Mage::getStoreConfig('onestepcheckout/layout/allowsubscribenewsletter')==2):?>	
+										<?php if(Mage::helper('onestepcheckout')->issubscribed()):?>
+										
+										<ul class="form-list">
+											<li  class="control">
+												<input type="checkbox" name="subscribe_newsletter"  value="1" checked="checked" title="<?php echo $this->__('Receber novidades') ?>" id="subscribe_newsletter" class="checkbox"> <label for="subscribe_newsletter" style="float:none;"><?php echo $this->__('Receber novidades') ?></label>
+											</li>
+										</ul>
+										
+										<?php endif?>
+					<?php endif?>
+				</div>
+			</div>
+		</div>
+		
+		<div class="coluna_2_checkout span8 grid12-8">
+			<div id="checkout-review-terms">
+				<?php if(Mage::getStoreConfig('onestepcheckout/termcondition/allow_options')):?>
+					<div class="onestepcheckout-enable-terms" style="postion:relative;">
+						<ul class="form-list">
+							<li  class="control">
+								 <input class="required-entry checkbox" type="checkbox" id="id_accept_terms" name="accept_terms" value="1" checked="checked" s /> 
+								<label for="termos"><?php echo $this->__('Eu aceito o');?> <a id="onestepcheckout-toc-link" target="_blank" href="#inline2"><?php echo $this->__('Contrato de compra e os Termos de uso do site.');?></a></label>
+							</li>
+						</ul>
+					</div>
+				<?php endif ?>
+			</div>
+			
+				<div style="float: right;" id="onestepcheckout_place_order_button">
+					<button type="button" title="<?php echo $this->__('Place Order') ?>" class="button btn-checkout" >
+						<span><span><?php echo $this->__('Place Order') ?></span></span></button>
+				</div>
+				<?php if(Mage::getStoreConfig('onestepcheckout/layout/use_secure')){ ?>
+				<div>
+					<a id="store_secure" target="_blank" href="#store_secure_content">
+						<span class="secure_store"><img src="<?php echo $this->getSkinUrl('O2TI/onestepcheckout/images/loja_segura.jpg') ?>" alt="<?php echo $this->__('Loja Segura, Saiba mais') ?>" title="<?php echo $this->__('Loja Segura, Saiba mais...') ?>" class="v-middle" /> </span>
+					</a>
+				</div>
+				<?php } ?>
+			</div>
+		</div>
+		
+				<span class="please-wait" id="review-please-wait" style="display:none;">
+					<img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="<?php echo $this->__('Submitting order information...') ?>" title="<?php echo $this->__('Submitting order information...') ?>" class="v-middle" /> <?php echo $this->__('Submitting order information...') ?>
+				</span>
+		

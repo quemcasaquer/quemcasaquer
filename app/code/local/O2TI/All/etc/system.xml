@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+	<tabs>
+        <o2ti translate="label" module="o2tiall">
+            <label>O2TI.COM</label>
+            <sort_order>100</sort_order>
+        </o2ti>
+    </tabs>
+</config>
