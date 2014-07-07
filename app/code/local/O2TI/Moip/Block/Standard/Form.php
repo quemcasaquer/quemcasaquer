@@ -309,7 +309,7 @@ class O2TI_Moip_Block_Standard_Form extends Mage_Payment_Block_Form {
 
 		}
 		if ($dataToReturn == 'parcelas'){
-			return $parcelas;
+			return is_array($parcelas) ? $parcelas : array($parcelas);
 		}
 	}
 	public function getTextoParcelas() {
