@@ -11,7 +11,6 @@
  $footer_static = $meigee_blacknwhite_general['footer']['footer_static'];
 ?>
 <footer id="footer"<?php if ($footer_status == 0): ?> class="default-footer"<?php endif; ?>>
-	ASDF
         <?php if ($footer_status == 1): ?>
 		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId($footer_static)->toHtml() ?>
 	<?php else: ?>
