@@ -148,10 +148,10 @@
 				<tipoderecebimento>1</tipoderecebimento>
 				<pagamento_direto>1</pagamento_direto>
 				<parcelamento>1</parcelamento>
+				<jurostipo>1</jurostipo>
 				<parcelamento_c_de1>1</parcelamento_c_de1>
 				<parcelamento_c_ate1>12</parcelamento_c_ate1>
 				<parcelamento_c_juros1>1.99</parcelamento_c_juros1>
-				<jurostipo>1</jurostipo>				
 				<parcelamento_s_juros2>1.25</parcelamento_s_juros2>
 				<parcelamento_s_juros3>2.49</parcelamento_s_juros3>
 				<parcelamento_s_juros4>3.74</parcelamento_s_juros4>
@@ -170,7 +170,6 @@
 				<estoqueboleto>-99</estoqueboleto>
 				<ambiente>teste</ambiente>
 				<allowspecific>0</allowspecific>
-                <sort_order>200</sort_order>
 			</o2ti_moip_standard>
 		</payment>
 	</default>

@@ -40,6 +40,8 @@ class O2TI_Moip_StandardController extends Mage_Core_Controller_Front_Action {
 			curl_setopt($ch, CURLOPT_TIMEOUT, 500);
 			curl_setopt($ch, CURLOPT_POST, true);
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
+			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 1);
+			curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
 			curl_setopt($ch, CURLOPT_HTTPHEADER, array($header, $documento));
 			$res = curl_exec($ch);
 			if($res === false)
@@ -136,10 +138,10 @@ class O2TI_Moip_StandardController extends Mage_Core_Controller_Front_Action {
 					catch (Exception $ex) {  };
 				}
 				if($states_atual == 'processing'){
-								$naexecuta = 1;
+					$naexecuta = 1;
 				}
 				if($states_atual == 'canceled' && $data['status_pagamento']==5){
-								$naexecuta = 1;
+					$naexecuta = 1;
 				}
 				Mage::log("Nasp acionou para o pedido ".$order_magento. " - Status - " .$data['status_pagamento'], null, 'O2TI_Moip.log', true);
 				if ($order->isCanceled() && $data['status_pagamento'] != "5") {
@@ -315,40 +317,41 @@ class O2TI_Moip_StandardController extends Mage_Core_Controller_Front_Action {
 		}
 	}
 
-	public function buscaCepAction() {
-
-		if ($_GET['meio'] == "buscaend") {
-			function simple_curl($url, $post=array(), $get=array()) {
+			
+public function post_correio($url, $get) {
 				$url = explode('?', $url, 2);
-				if (count($url)===2) {
-					$temp_get = array();
-					parse_str($url[1], $temp_get);
-					$get = array_merge($get, $temp_get);
-				}
+				
 				$ch = curl_init($url[0]."?".http_build_query($get));
-				curl_setopt($ch, CURLOPT_POST, 1);
-				curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));
 				curl_setopt($ch, CURLOPT_FOLLOWLOCATION, false);
 				curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				
 				return curl_exec($ch);
 			}
-			$cep = $_GET['s'];
-			$vSomeSpecialChars = array("á", "é", "í", "ó", "ú", "Á", "É", "Í", "Ó", "Ú", "ç", "Ç", "ã", "Ã", "õ", "Õ");
-			$vReplacementChars = array("a", "e", "i", "o", "u", "A", "E", "I", "O", "U", "c", "C", "a", "A", "o", "O");
-			$cep = str_replace($vSomeSpecialChars, $vReplacementChars, $cep);
-			$cep = preg_replace('/[^\p{L}\p{N}]/u', '+', $cep);
-			$html = simple_curl('http://m.correios.com.br/movel/buscaCepConfirma.do', array(
-					'cepEntrada'=>''.utf8_encode($cep).'',
-					'metodo'=>'buscarCep'
-				));
-			$topo = "<style>#divTelaAguarde, .secao, .divopcoes, .mopcoes, .botoes, .rodape  { display:none;}.caixacampobranco {padding: 8px 8px 8px 8px;margin-top: 5px;background-color: #E0E2EE;-moz-border-radius: 3px;-moz-border-radius-bottomright: 10px;-webkit-border-radius: 3px;-webkit-border-bottom-right-radius: 10px;}.caixacampoazul {padding: 8px 8px 8px 8px;margin-top: 5px;background-color: #DADCEB;-moz-border-radius: 3px;-webkit-border-radius: 3px;-moz-border-radius-bottomright: 10px;-webkit-border-bottom-right-radius: 10px;}.conteudo {max-width: 372px;text-align: left;padding: 10px;}</style>";
-			echo $topo;
-			$html = $html;
-			echo $html;
+	public function buscaCepAction() {
+		$data = $this->getRequest()->getParams();
+		if ($data['meio'] == "buscaend") {
+			
+			$rua = $data['busca_end'];
+			$vSomeSpecialChars = array("á", "á","é","é", "í","í", "ó", "ú", "Á","À","É","È", "Í", "Ì","Ó", "Ú", "ç", "Ç", "ã", "Ã", "õ", "Õ");
+			$vReplacementChars = array("a", "a", "e","e", "i","i", "o", "u", "A", "A","E","E", "I", "I","O", "U", "c", "C", "a", "A", "o", "O");
+			$rua = str_replace($vSomeSpecialChars, $vReplacementChars, $rua);
+			$rua = preg_replace('/[^\p{L}\p{N}]/u', '+', $rua);
+			$uf = $data['busca_uf'];
+			$url_end = "http://endereco.ecorreios.com.br/getAddress.php?";
+			$get = array(
+				'cep' =>'',
+				'busca_end' =>$rua,
+				'busca_uf' =>$uf,
+				);
+			$config = array('adapter' => 'Zend_Http_Client_Adapter_Socket');
+			$resposta = $this->post_correio($url_end, $get);
+			
+			
+			$this->getResponse()->setBody($resposta);
 		}
 
-		if ($_GET['meio'] == "cep") {
+		if ($data['meio'] == "cep") {
 			function simple_curl($url, $post=array(), $get=array()) {
 				$url = explode('?', $url, 2);
 				if (count($url)===2) {
@@ -366,8 +369,7 @@ class O2TI_Moip_StandardController extends Mage_Core_Controller_Front_Action {
 				Mage::log(curl_exec($ch));
 				return curl_exec($ch);
 			}
-			$cep = $_GET['cep'];
-			$cep = $_GET['cep'];
+			$cep = $data['cep'];
 			$cep = substr(preg_replace("/[^0-9]/", "", $cep) . '00000000', 0, 8);
 			$url_end = "http://endereco.ecorreios.com.br/getAddress.php?cep={$cep}";
 			$config = array('adapter' => 'Zend_Http_Client_Adapter_Socket');

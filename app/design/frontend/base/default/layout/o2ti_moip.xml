@@ -10,6 +10,7 @@
 	   	 		<action method="addJs"><script>O2TI/novamascara.js</script></action>
 	   	 		<action method="addJs"><script>O2TI/validacao.js</script></action>
 	   	 		<action method="addJs"><script>O2TI/moip/checkout.js</script></action>
+
 		</reference>
 	</onepagecheckout_index_index>
 	 <checkout_onepage_index>
@@ -21,11 +22,9 @@
 	   	 		<action method="addJs"><script>O2TI/moip/checkout.js</script></action>
 		</reference>
 	</checkout_onepage_index>
-	<moip_standard_redirect translate="label">
-		
+	<moip_standard_redirect>
+
 		<reference name="head">
-			<action method="setTitle"><params><![CDATA[Pagamento via MoIP S/A]]></params></action> 
-			<action method="removeItem"><type>skin_js</type><name>js/lib/jquery-1.10.2.min.js</name></action>
 			<action method="addJs"><script>O2TI/jquery.js</script></action>
    	 		<action method="addJs"><script>O2TI/jquery_noconflict.js</script></action>
    	 		<action method="addJs"><script>O2TI/moip/bootstrap.min.js</script></action>
@@ -33,10 +32,9 @@
 			<action method="addJs"><script>O2TI/novamascara.js</script></action>
    	 		<action method="addJs"><script>O2TI/validacao.js</script></action>
 			<action method="addCss"><stylesheet>O2TI/moip/css/bootstrap.css</stylesheet></action>
-			
+	
 		</reference>
 		<reference name="root">
-
 			<action method="setTemplate"><template>page/1column.phtml</template></action>
 		</reference>
 		<reference name="left">
@@ -77,8 +75,8 @@
 	   	 		<action method="addJs"><script>O2TI/jquery_noconflict.js</script></action>
 	   	 		<action method="addJs"><script>O2TI/moip/bootstrap.min.js</script></action>
 	   	 		<action method="addJs"><script>O2TI/moip/bootstrap-modal.js</script></action>
-	   	 		<action method="addJs"><script>O2TI/novamascara.js</script></action>
-   	 			<action method="addJs"><script>O2TI/validacao.js</script></action>
+	   	 		<action method="addJs"><script>O2TI/onestepcheckout/novamascara.js</script></action>
+   	 			<action method="addJs"><script>O2TI/onestepcheckout/validacao.js</script></action>
 				<action method="addCss"><stylesheet>O2TI/moip/css/bootstrap.css</stylesheet></action>
 		</reference>
 	</sales_order_view>

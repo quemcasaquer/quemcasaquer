@@ -14,7 +14,6 @@
 	   	 		<action method="addCss"><stylesheet>O2TI/onestepcheckout/css/onestepcheckout.css</stylesheet></action>
 	   	 		<action method="addCss"><stylesheet>O2TI/onestepcheckout/css/jquery.fancybox-1.3.1.css</stylesheet></action>
 
-
 <!-- estes são exemplos de como remover outros js do site
 use o <type>skin_js</type> se o js estiver na pasta skin
 <action method="removeItem"><type>skin_js</type><name>js/jquery.js</name></action>
@@ -37,6 +36,14 @@ ou use <type>js</type> caso o js da pasta pasta_da_loja/js
 
 				<block type="onestepcheckout/checkout_onepage_billing" name="checkout.onepage.billing" as="billing" template="O2TI/onestepcheckout/daskboard/onepage/billing.phtml">
 					<block type="onestepcheckout/checkout_onepage_billing" name="checkout.onepage.billing.billingform" as="billing_form" template="O2TI/onestepcheckout/daskboard/onepage/billing/billing_form.phtml"/>
+
+				</block>
+
+				<block type="checkout/cart_coupon" name="checkout.onepage.coupon" as="coupon" template="O2TI/onestepcheckout/daskboard/onepage/coupon.phtml"/>
+				<block type="checkout/onepage_shipping_method_additional" name="onestepcheckout.onepage.shipping_method.additional" as="additional" template="O2TI/onestepcheckout/daskboard/onepage/review/options/additional.phtml"/>
+
+				<block type="onestepcheckout/checkout_onepage_review_options" name="checkout.onepage.review.options" as="options" template="O2TI/onestepcheckout/daskboard/onepage/review/options.phtml">
+							
 				</block>
 				<block type="onestepcheckout/checkout_onepage_shipping" name="checkout.onepage.shipping" as="shipping" template="O2TI/onestepcheckout/daskboard/onepage/shipping.phtml">
 					<block type="onestepcheckout/checkout_onepage_shipping" name="checkout.onepage.shipping.shippingform" as="shipping_form" template="O2TI/onestepcheckout/daskboard/onepage/shipping/shipping_form.phtml"/>
@@ -47,6 +54,7 @@ ou use <type>js</type> caso o js da pasta pasta_da_loja/js
 				<block type="checkout/onepage_payment" name="onestepcheckout.onepage.payment" as="payment" template="O2TI/onestepcheckout/daskboard/onepage/payment.phtml">
 					<block type="checkout/onepage_payment_methods" name="onestepcheckout.onepage.payment.methods" as="methods" template="O2TI/onestepcheckout/daskboard/onepage/payment/methods.phtml"/>
 				</block>
+
 				<block type="checkout/onepage_review" name="checkout.onepage.review" as="review" template="O2TI/onestepcheckout/daskboard/onepage/review.phtml">
 						<block type="checkout/onepage_review_info" name="info"  template="O2TI/onestepcheckout/daskboard/onepage/review/info.phtml">
 							<action method="addItemRender"><type>default</type><block>checkout/cart_item_renderer</block><template>O2TI/onestepcheckout/daskboard/onepage/review/item.phtml</template></action>
@@ -54,13 +62,12 @@ ou use <type>js</type> caso o js da pasta pasta_da_loja/js
 							<action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>O2TI/onestepcheckout/daskboard/onepage/review/item.phtml</template></action>
 							<action method="addItemRender"><type>bundle</type><block>bundle/checkout_cart_item_renderer</block><template>O2TI/onestepcheckout/daskboard/onepage/review/item.phtml</template></action>
 							<block type="checkout/cart_totals" name="checkout.onepage.review.info.totals" as="totals" template="O2TI/onestepcheckout/daskboard/onepage/review/totals.phtml"/>
+							
 							<block type="core/text_list" name="checkout.onepage.review.info.items.before" as="items_before"/>
+							
 						</block>
-						<block type="onestepcheckout/checkout_onepage_review_options" name="checkout.onepage.review.options" as="options" template="O2TI/onestepcheckout/daskboard/onepage/review/options.phtml">
-							<block type="checkout/onepage_shipping_method_additional" name="onestepcheckout.onepage.shipping_method.additional" as="additional" template="O2TI/onestepcheckout/daskboard/onepage/review/options/additional.phtml"/>
-							<block type="checkout/cart_coupon" name="checkout.onepage.coupon" as="coupon" template="O2TI/onestepcheckout/daskboard/onepage/coupon.phtml"/>
-						</block>
-						<block type="checkout/agreements" name="checkout.onepage.agreements" as="agreements" template="O2TI/onestepcheckout/daskboard/onepage/agreements.phtml"/>
+						
+						
                 </block>
 			</block>
         </reference>

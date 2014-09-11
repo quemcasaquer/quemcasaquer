@@ -1,37 +1,8 @@
 		<div id="checkout-review-load">
 			<?php echo $this->getChildHtml('info') ?>			
 		</div>
-		<div class="coluna_1_checkout span4 grid12-4">
-			<div id="checkout-review-options">
-				<?php echo $this->getChildHtml('options') ?>
-			</div>
-			<div id="checkout-review-submit">
-				<div class="news_subscribe">
-					<?php if(Mage::getStoreConfig('onestepcheckout/layout/allowsubscribenewsletter')==1):?>	
-										<?php if(Mage::helper('onestepcheckout')->issubscribed()):?>
-										<ul class="form-list">
-											<li  class="control">
-												<input type="checkbox" name="subscribe_newsletter" value="0" title="<?php echo $this->__('Receber novidades') ?>" id="subscribe_newsletter" class="checkbox"> <label for="subscribe_newsletter"><?php echo $this->__('Receber novidades') ?></label>
-											</li>
-										</ul>
-										<?php endif?>
-					<?php endif ?>
-					<?php if(Mage::getStoreConfig('onestepcheckout/layout/allowsubscribenewsletter')==2):?>	
-										<?php if(Mage::helper('onestepcheckout')->issubscribed()):?>
-										
-										<ul class="form-list">
-											<li  class="control">
-												<input type="checkbox" name="subscribe_newsletter"  value="1" checked="checked" title="<?php echo $this->__('Receber novidades') ?>" id="subscribe_newsletter" class="checkbox"> <label for="subscribe_newsletter" style="float:none;"><?php echo $this->__('Receber novidades') ?></label>
-											</li>
-										</ul>
-										
-										<?php endif?>
-					<?php endif?>
-				</div>
-			</div>
-		</div>
 		
-		<div class="coluna_2_checkout span8 grid12-8">
+		<div class="coluna_2_checkout span12 grid12-12">
 			<div id="checkout-review-terms">
 				<?php if(Mage::getStoreConfig('onestepcheckout/termcondition/allow_options')):?>
 					<div class="onestepcheckout-enable-terms" style="postion:relative;">
@@ -50,12 +21,36 @@
 						<span><span><?php echo $this->__('Place Order') ?></span></span></button>
 				</div>
 				<?php if(Mage::getStoreConfig('onestepcheckout/layout/use_secure')){ ?>
-				<div>
+				<div class="float:left">
 					<a id="store_secure" target="_blank" href="#store_secure_content">
 						<span class="secure_store"><img src="<?php echo $this->getSkinUrl('O2TI/onestepcheckout/images/loja_segura.jpg') ?>" alt="<?php echo $this->__('Loja Segura, Saiba mais') ?>" title="<?php echo $this->__('Loja Segura, Saiba mais...') ?>" class="v-middle" /> </span>
 					</a>
 				</div>
 				<?php } ?>
+				<?php if(Mage::getStoreConfig('onestepcheckout/layout/allowsubscribenewsletter')==1):?>	
+										<?php if(Mage::helper('onestepcheckout')->issubscribed()):?>
+										<ul class="form-list">
+											<li  class="control">
+												<input type="checkbox" name="subscribe_newsletter" value="0" title="<?php echo $this->__('Receber novidades') ?>" id="subscribe_newsletter" class="checkbox"> <label for="subscribe_newsletter"><?php echo $this->__('Receber novidades') ?></label>
+											</li>
+										</ul>
+										<?php endif?>
+					<?php endif ?>
+					<?php if(Mage::getStoreConfig('onestepcheckout/layout/allowsubscribenewsletter')==2):?>	
+										<?php if(Mage::helper('onestepcheckout')->issubscribed()):?>
+										<ul class="form-list">
+											<li  class="control">
+												<input type="checkbox" name="subscribe_newsletter"  value="1" checked="checked" title="<?php echo $this->__('Receber novidades') ?>" id="subscribe_newsletter" class="checkbox"> <label for="subscribe_newsletter" style="float:none;"><?php echo $this->__('Receber novidades') ?></label>
+											</li>
+										</ul>
+										<?php endif?>
+					<?php endif?>
+					<?php if(Mage::helper('onestepcheckout')->showComment()):?>	
+					<div class="onestepcheckout-comments">
+							<label for="id_comments"><?php echo $this->__('Comments');?></label><br/>
+							<textarea id="id_comments" name="onestepcheckout_comments" cols="40" rows="4"></textarea>
+					</div>
+					<?php endif;?>
 			</div>
 		</div>
 		

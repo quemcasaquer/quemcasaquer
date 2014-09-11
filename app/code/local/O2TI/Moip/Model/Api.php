@@ -204,6 +204,17 @@ class O2TI_Moip_Model_Api {
         $juros = array();
         $primeiro = 1;
         $max_div = $valor/(int)Mage::getSingleton('moip/standard')->getConfigData('valorminimoparcela');
+        $valor_juros= Mage::getSingleton('moip/standard')->getConfigData('parcelamento_c_juros1');
+        
+        if($valor <= Mage::getSingleton('moip/standard')->getConfigData('valorminimoparcela')){
+            $json_parcelas[1] = array(
+                                        'parcela' => Mage::helper('core')->currency($valor, true, false),
+                                        'total_parcelado' => Mage::helper('core')->currency($valor, true, false),
+                                        'juros' => 0
+                                        );
+            $json_parcelas = Mage::helper('core')->jsonEncode((object)$json_parcelas);
+            return $json_parcelas;
+        }
 
         if($parcelamento['c_ate1'] < $max_div){
             $max_div = $parcelamento['c_ate1'];
@@ -211,9 +222,9 @@ class O2TI_Moip_Model_Api {
 
             for ($i=1; $i <= $max_div; $i++) {
                 if($i > 1){
-                    $total_parcelado[$i] = $this->getJurosComposto($valor, $parcelamento['c_juros1'], $i)*$i;
-                    $parcelas[$i] = $this->getJurosComposto($valor, $parcelamento['c_juros1'], $i);
-                    $juros[$i] = $parcelamento['c_juros1'];
+                    $total_parcelado[$i] = $this->getJurosComposto($valor, $valor_juros, $i)*$i;
+                    $parcelas[$i] = $this->getJurosComposto($valor, $valor_juros, $i);
+                    $juros[$i] =  $valor_juros;
                 }
                 else {
                     $total_parcelado[$i] =  $valor;
@@ -232,14 +243,14 @@ class O2TI_Moip_Model_Api {
              if($primeiro < 12 && $primeiro < ($valor/(int)Mage::getSingleton('moip/standard')->getConfigData('valorminimoparcela')) )
              {
                  while ($primeiro <= 12) {
-                    $total_parcelado[$primeiro] = number_format($this->getJurosComposto($valor, '1.99', $i)*$primeiro, 2, '.', '');
-                    $parcelas[$primeiro] = $this->getJurosComposto($valor, '1.99', $primeiro);
+                    $total_parcelado[$primeiro] = number_format($this->getJurosComposto($valor, '2.99', $i)*$primeiro, 2, '.', '');
+                    $parcelas[$primeiro] = $this->getJurosComposto($valor, '2.99', $primeiro);
                     $juros[$primeiro] = '1.99';
                     
                     $json_parcelas[$primeiro] = array( 
                                                 'parcela' => Mage::helper('core')->currency($parcelas[$primeiro], true, false),
                                                 'total_parcelado' =>  Mage::helper('core')->currency($total_parcelado[$primeiro], true, false), 
-                                                'juros' => '1.99'
+                                                'juros' => '2.99'
                                             );
                     $primeiro++;
                  }
@@ -257,6 +268,15 @@ class O2TI_Moip_Model_Api {
         $primeiro = 1;
         $max_div = (int)($valor/Mage::getSingleton('moip/standard')->getConfigData('valorminimoparcela'));
         
+        if($valor <= Mage::getSingleton('moip/standard')->getConfigData('valorminimoparcela')){
+            $json_parcelas[1] = array(
+                                        'parcela' => Mage::helper('core')->currency($valor, true, false),
+                                        'total_parcelado' => Mage::helper('core')->currency($valor, true, false),
+                                        'juros' => 0
+                                        );
+            $json_parcelas = Mage::helper('core')->jsonEncode((object)$json_parcelas);
+            return $json_parcelas;
+        }
         if(Mage::getSingleton('moip/standard')->getConfigData('nummaxparcelamax') > $max_div){
             $max_div = $max_div;
         } else {
@@ -311,10 +331,13 @@ class O2TI_Moip_Model_Api {
     }
 
     public function getJurosComposto($valor, $juros, $parcela) {
-
         $principal = $valor;
-        $taxa =  $juros/100; 
-        $valParcela = ($principal * $taxa)/(1 - (pow(1/(1+$taxa), $parcela)));
+        if($juros != 0){
+            $taxa =  $juros/100; 
+            $valParcela = ($principal * $taxa)/(1 - (pow(1/(1+$taxa), $parcela)));
+        } else {
+            $valParcela = $principal/$parcela;
+        }
         
         return $valParcela;
     }

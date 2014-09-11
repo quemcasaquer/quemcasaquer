@@ -6,12 +6,5 @@ class O2TI_Onestepcheckout_Block_Checkout_Onepage_Review_Options extends Mage_Co
 		return parent::_prepareLayout();
     }
     
-     public function getModuletest()     
-     { 
-        if (!$this->hasData('onestepcheckout')) {
-            $this->setData('onestepcheckout', Mage::registry('onestepcheckout'));
-        }
-        return $this->getData('onestepcheckout');
-        
-    }
+     
 }

@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -49,27 +49,43 @@ NOTE: Regarding styles - if we leave it this way, we'll move it to boxes.css
  * @see Mage_Customer_Block_Widget_Dob
  */
 ?>
+<script type="text/javascript">
+<!--
+//Pula de uma Campo a Outro Automatico
+function ProxCamp(fields) {
+	fields.value=soNumeros(fields.value)
+	if (fields.value.length == fields.maxLength) {
+			for (var i = 0; i < fields.form.length; i++) {
+				if (fields.form[i] == fields && fields.form[(i + 1)] && fields.form[(i + 1)].type != "hidden") {
+					fields.form[(i + 1)].focus();
+				break;
+			}
+		}
+	}
+}
+function soNumeros(v){
+    return v.replace(/\D/g,"")
+}
+//-->
+</script>
 <label for="<?php echo $this->getFieldId('month')?>"<?php if ($this->isRequired()) echo ' class="required"' ?>><?php if ($this->isRequired()) echo '<em>*</em>' ?><?php echo $this->__('Date of Birth') ?></label>
 <div class="input-box customer-dob">
 <?php
     $this->setDateInput('d',
-        '<div class="dob-day">
-             <input type="text" id="' . $this->getFieldId('day') . '" name="' . $this->getFieldName('day') . '" value="' . $this->getDay() . '" title="' . $this->__('Day') . '" class="input-text validate-custom" ' . $this->getFieldParams() . ' />
-             <label for="' . $this->getFieldId('day') . '">' . $this->__('DD') . '</label>
+        '<div class="dob-day" style="max-width:40px;float:left; ">
+             <input onkeyup="ProxCamp(this);" id="' . $this->getFieldId('day') . '" name="' . $this->getFieldName('day') . '" value="' . $this->getDay() . '" title="' . $this->__('Day') . '" style="max-width:20px" placeholder="' . $this->__('DD') . '" maxlength="2" class="input-text validate-custom" ' . $this->getFieldParams() . '/>
          </div>'
     );
 
     $this->setDateInput('m',
-        '<div class="dob-month">
-             <input type="text" id="' . $this->getFieldId('month') . '" name="' . $this->getFieldName('month') . '" value="' . $this->getMonth()  . '" title="' . $this->__('Month')  . '" class="input-text validate-custom" ' . $this->getFieldParams()  . ' />
-             <label for="' . $this->getFieldId('month') . '">' . $this->__('MM')  . '</label>
+        '<div class="dob-month" style="max-width:40px;  margin-left:5px;float:left;">
+             <input onkeyup="ProxCamp(this);"  id="' . $this->getFieldId('month') . '" name="' . $this->getFieldName('month') . '" value="' . $this->getMonth()  . '" title="' . $this->__('Month')  . '"  style="max-width:20px"  placeholder="' . $this->__('MM') . '" maxlength="2"  class="input-text validate-custom" ' . $this->getFieldParams()  . ' />
          </div>'
     );
 
     $this->setDateInput('y',
-        '<div class="dob-year">
-             <input type="text" id="' . $this->getFieldId('year') . '" name="' . $this->getFieldName('year') . '" value="' . $this->getYear()  . '" title="' . $this->__('Year')  . '" class="input-text validate-custom" ' . $this->getFieldParams()  . ' />
-             <label for="' . $this->getFieldId('year') . '">' . $this->__('YYYY')  . '</label>
+        '<div class="dob-year" style="max-width:40px; margin-left:5px;float:left;" >
+             <input onkeyup="ProxCamp(this);" id="' . $this->getFieldId('year') . '" name="' . $this->getFieldName('year') . '" value="' . $this->getYear()  . '" title="' . $this->__('Year')  . '"  style="max-width:40px" placeholder="' . $this->__('YYYY') . '" maxlength="4" class="input-text validate-custom" ' . $this->getFieldParams()  . ' />
          </div>'
     );
 ?>

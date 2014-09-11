@@ -64,10 +64,7 @@ class O2TI_Onestepcheckout_IndexController extends Mage_Checkout_OnepageControll
 			}catch(Exception $e) {
 			}
 		}
-		$defaultshippingmethod=$this->initshippingmethod();
-		if ($defaultshippingmethod) {
-			Mage::getSingleton('checkout/session')->getQuote()->getShippingAddress()->setShippingMethod($defaultshippingmethod);
-		}
+		
 		$applyrule=$this->getQuote()->getAppliedRuleIds();
 		$applyaction=Mage::getModel('salesrule/rule')->load($applyrule)->getSimpleAction();
 
@@ -372,47 +369,7 @@ class O2TI_Onestepcheckout_IndexController extends Mage_Checkout_OnepageControll
 			}
 		}
 	}
-	public function updateqtyAction() {
-		try {
-			$cartData = $this->getRequest()->getParam('cart');
-			if (is_array($cartData)) {
-				$filter = new Zend_Filter_LocalizedToNormalized(
-					array('locale' => Mage::app()->getLocale()->getLocaleCode())
-				);
-				foreach ($cartData as $index => $data) {
-					if (isset($data['qty'])) {
-						$cartData[$index]['qty'] = $filter->filter($data['qty']);
-					}
-				}
-				$cart = Mage::getSingleton('checkout/cart');
-				if (! $cart->getCustomerSession()->getCustomer()->getId() && $cart->getQuote()->getCustomerId()) {
-					$cart->getQuote()->setCustomerId(null);
-				}
-				$cart->updateItems($cartData)
-				->save();
-			}
-			Mage::getSingleton('checkout/session')->setCartWasUpdated(true);
-		}
-		catch (Mage_Core_Exception $e) {
-			$success=0;
-			echo '{"r":"'.$success.'","error":"'.$e->getMessage().'","view":' .json_encode($this->renderReview()).'}';die;
-			return ;
-		}
-		catch (Exception $e) {
-			$success=0;
-			echo '{"r":"'.$success.'","error":"'.Mage::helper('onestepcheckout')->__('Cannot update shopping cart.').'","view":' .json_encode($this->renderReview()).'}';die;
-			return ;
-		}
-		$success=1;
-		if (!$this->_getQuote()->getItemsCount()) {
-			echo '{"r":"'.$success.'","view":"<script type=\"text/javascript\">window.location=\"'.Mage::getUrl('checkout/onepage').'\"</script>"}';die;
-			return;
-		}
-		else {
-			echo '{"r":"'.$success.'","view":' .json_encode($this->renderReview()).'}';die;
-			return ;
-		}
-	}
+	
 	public function updatecouponAction() {
 		$this->_initLayoutMessages('checkout/session');
 		if (!$this->_getQuote()->getItemsCount()) {
@@ -508,9 +465,7 @@ class O2TI_Onestepcheckout_IndexController extends Mage_Checkout_OnepageControll
 			}
 			$postData=$this->getRequest()->getPost($isbilling, array());
 			$customerAddressId = $this->getRequest()->getPost($isbilling.'_address_id', false);
-			if ($this->getRequest()->getPost($isbilling.'_address_id') != "") {
-				$customerAddressId  = "";
-			}
+			
 			if (($postData['country_id']!='')  or $customerAddressId) {
 				$postData = $this->filterdata($postData);
 				$postData['use_for_shipping']='1';
@@ -533,9 +488,7 @@ class O2TI_Onestepcheckout_IndexController extends Mage_Checkout_OnepageControll
 			->setPostcode($postData['postcode'])
 			->setCollectShippingRates(true);
 			$this->_getQuote()->save();
-			
-
-		$this->loadLayout()->renderLayout();
+			$this->loadLayout()->renderLayout();
 	}
 	
 	public function _getSession() {
@@ -603,13 +556,7 @@ class O2TI_Onestepcheckout_IndexController extends Mage_Checkout_OnepageControll
 	}
 	public function updateordermethodAction() {
 		if (!$this->isCustomerLoggedIn()) {
-			$isguest=$this->getRequest()->getPost('register_new_account');
-			if ($isguest=='1' or Mage::helper('onestepcheckout')->haveProductDownloadable()) {
-				$result_save_method = $this->getOnepage()->saveCheckoutMethod('register');
-			}
-			else {
-				$result_save_method = $this->getOnepage()->saveCheckoutMethod('guest');
-			}
+			$result_save_method = $this->getOnepage()->saveCheckoutMethod('register');
 		}
 		if ($this->getRequest()->isPost()) {
 			if ($this->isCustomerLoggedIn()) {
@@ -742,16 +689,10 @@ class O2TI_Onestepcheckout_IndexController extends Mage_Checkout_OnepageControll
 		$data_customercomment ="";
 		if ($this->getrequest()->ispost()) {
 			$data_customercomment = $this->getrequest()->getpost('onestepcheckout_comments');
-			$Deliverystatus= $this->getrequest()->getpost('deliverydate');
-			$Deliverydate = $this->getrequest()->getpost('onestepcheckout_date');
-			$Deliverytime= $this->getrequest()->getpost('onestepcheckout_time');
 			$order=Mage::getModel('onestepcheckout/onestepcheckout');
 			$order->setSalesOrderId($lastOrderId);
 			$order->setO2tiCustomercommentInfo($data_customercomment);
-			if ($Deliverystatus=="late") {
-				$order->setO2tiDeliverydateDate($Deliverydate);
-				$order->setO2tiDeliverydateTime($Deliverytime);
-			}
+			
 			$order->save();
 		}
 		$redirectUrl = $this->getOnepage()->getCheckout()->getRedirectUrl();

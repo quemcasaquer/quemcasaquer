@@ -5,24 +5,6 @@
       <groups>
         <o2ti_moip_standard translate="label"><!-- fieldset -->
           <label><![CDATA[MoIP Transparente - O2ti]]></label>
- <comment>
- <![CDATA[
-﻿<script type="text/javascript" src="//assets.zendesk.com/external/zenbox/v2.5/zenbox.js"></script>
-<style type="text/css" media="screen, projection">
-  @import url(//assets.zendesk.com/external/zenbox/v2.5/zenbox.css);
-</style>
-<script type="text/javascript">
-  if (typeof(Zenbox) !== "undefined") {
-    Zenbox.init({
-      dropboxID:   "20116862",
-      url:         "https://o2ti.zendesk.com",
-      tabID:       "Suporte | Especialistas Magento",
-      tabColor:    "#2c3996",
-      tabPosition: "Right"
-    });
-  }
-</script>
-]]></comment>
           <sort_order>420</sort_order><!-- position between other payment methods -->
           <show_in_default>1</show_in_default><!-- do not show this configuration options in store scope -->
           <show_in_website>1</show_in_website>
@@ -135,41 +117,7 @@
               <show_in_store>1</show_in_store>
             </formas_pagamento>
 
-            <nummaxparcelamax translate="label">
-              <label>Número Máximo de Parcelas Permitido</label>
-              <comment><![CDATA[<br /><div class="custom-options"><div class="box" style="width:243px;">
-                    <p>Por default são 12 parcelas.</p>
-                </div></div>]]>
-              </comment>
-              <frontend_type>text</frontend_type>
-              <sort_order>10</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </nummaxparcelamax>
-            <valorminimoparcela translate="label">
-              <label>Valor Mínimo das Parcelas</label>
-              <comment><![CDATA[<br /><div class="custom-options"><div class="box" style="width:243px;">
-                    <p>Não pode ser menor que 5 reais.</p>
-                </div></div>]]>
-              </comment>
-              <frontend_type>text</frontend_type>
-              <sort_order>11</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </valorminimoparcela>
 
-
-            <jurostipo translate="label">
-              <label>Usar juros composto?</label>
-              <frontend_type>select</frontend_type>
-              <source_model>adminhtml/system_config_source_yesno</source_model>
-              <sort_order>12</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </jurostipo>
             <parcelamento_c_de1 translate="label">
               <label>1° - Parcelas de:</label>
               <depends>
@@ -181,6 +129,7 @@
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
             </parcelamento_c_de1>
+
             <parcelamento_c_ate1 translate="label">
               <label>1° - Parcelas até:</label>
               <depends>
@@ -192,6 +141,7 @@
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
             </parcelamento_c_ate1>
+            
             <parcelamento_c_juros1 translate="label">
               <label>1° - Juros de (%):</label>
               <comment><![CDATA[<br /><div class="custom-options"><div class="box" style="width:243px;">
@@ -207,12 +157,23 @@
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
             </parcelamento_c_juros1>
-            
 
 
-
-
-
+             <parcelamento_s_juros1 translate="label">
+              <label>2° - Juros de (%):</label>
+              <comment><![CDATA[<br /><div class="custom-options"><div class="box" style="width:243px;">
+                    <p>Faixas de parcelamento com cartão de crédito. (somente para Transparente)</p>
+                </div></div>]]>
+              </comment>
+              <depends>
+                <jurostipo>0</jurostipo>
+              </depends>
+              <frontend_type>text</frontend_type>
+              <sort_order>31</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </parcelamento_s_juros1>
 
              <parcelamento_s_juros2 translate="label">
               <label>2° - Juros de (%):</label>
@@ -412,43 +373,42 @@
             </parcelamento_s_juros12>
 
 
+            <nummaxparcelamax translate="label">
+              <label>Número Máximo de Parcelas Permitido</label>
+              <comment><![CDATA[<br /><div class="custom-options"><div class="box" style="width:243px;">
+                    <p>Por default são 12 parcelas.</p>
+                </div></div>]]>
+              </comment>
+              <frontend_type>text</frontend_type>
+              <sort_order>10</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </nummaxparcelamax>
+            <valorminimoparcela translate="label">
+              <label>Valor Mínimo das Parcelas</label>
+              <comment><![CDATA[<br /><div class="custom-options"><div class="box" style="width:243px;">
+                    <p>Não pode ser menor que 5 reais.</p>
+                </div></div>]]>
+              </comment>
+              <frontend_type>text</frontend_type>
+              <sort_order>11</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </valorminimoparcela>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            <jurostipo translate="label">
+              <label>Usar juros composto?</label>
+              <frontend_type>select</frontend_type>
+              <source_model>adminhtml/system_config_source_yesno</source_model>
+              <sort_order>12</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </jurostipo>
+            
 
 
 
@@ -517,38 +477,6 @@
         <show_in_store>1</show_in_store>
         <groups>
             <config translate="label">
-            <comment>
- <![CDATA[
-﻿<script type="text/javascript" src="//assets.zendesk.com/external/zenbox/v2.5/zenbox.js"></script>
-<style type="text/css" media="screen, projection">
-  @import url(//assets.zendesk.com/external/zenbox/v2.5/zenbox.css);
-</style>
-<script type="text/javascript">
-  if (typeof(Zenbox) !== "undefined") {
-    Zenbox.init({
-      dropboxID:   "20116862",
-      url:         "https://o2ti.zendesk.com",
-      tabID:       "Suporte | Especialistas Magento",
-      tabColor:    "#2c3996",
-      tabPosition: "Right"
-    });
-  }
-</script>
-<div>
-<a style="float: left;text-decoration:none;width:100%" href="//www.o2ti.com/magento.php" target="_blank" style="float: left;"><img src="//imagem.o2ti.com/moip_o2ti.png" style="float:left;"/><h1 style="float:left;">MoIP Recursos Avançados!</h1><sup>v2.0.0</sup>
-</a>
-<div style="float: left; color:#2f3850">
-<label style="font-size: 34px">Vers&atilde;o: <strong>Gratuita!</strong></label>
-</div>
-
-<br style="clear: both;"/>
-
-<p>Essa versão tem o download gratuito desde que mantidos os créditos a O2TI.</p>
-<p>Criado por: <a href=//www.o2ti.com" target="_blank">O2ti Soluções em Web LTDA</a></p>
-
-<hr>
-</div>
-]]></comment>
                 <label>Designer</label>
                 <frontend_type>text</frontend_type>
                 <sort_order>1</sort_order>
@@ -575,8 +503,8 @@
                         <show_in_website>1</show_in_website>
                         <show_in_store>1</show_in_store>
                 </trocar_icone>
-		<icone_cartao translate="label comment">
-		    <depends>
+            		<icone_cartao translate="label comment">
+            		    <depends>
                             <trocar_icone>1</trocar_icone>
                         </depends>
                         <label>Icone Cartão: </label>
@@ -591,7 +519,7 @@
                         <show_in_store>1</show_in_store>
                     </icone_cartao>
                     <icone_boleto translate="label comment">
-		    <depends>
+		                    <depends>
                             <trocar_icone>1</trocar_icone>
                         </depends>
                         <label>Icone Boleto: </label>
@@ -606,7 +534,7 @@
                         <show_in_store>1</show_in_store>
                     </icone_boleto>
                     <icone_transf translate="label comment">
-		    <depends>
+		                    <depends>
                             <trocar_icone>1</trocar_icone>
                         </depends>
                         <label>Icone Transferência: </label>
@@ -643,7 +571,7 @@
                         <show_in_website>1</show_in_website>
                         <show_in_store>1</show_in_store>
                     </cartao_visa>
-		<cartao_master translate="label">
+		                <cartao_master translate="label">
                         <depends>
                             <trocar_bandeira_cartao>1</trocar_bandeira_cartao>
                         </depends>
@@ -722,7 +650,7 @@
                         <show_in_website>1</show_in_website>
                         <show_in_store>1</show_in_store>
                     </cartao_bb>
-		<cartao_bradesco translate="label">
+		                <cartao_bradesco translate="label">
                         <depends>
                             <trocar_bandeira_banco>1</trocar_bandeira_banco>
                         </depends>
@@ -810,7 +738,7 @@
                         <show_in_store>1</show_in_store>
                     </trocar_icones_na_entrega>
                     <icone_sedex translate="label comment">
-		    <depends>
+		                    <depends>
                             <trocar_icones_na_entrega>1</trocar_icones_na_entrega>
                         </depends>
                         <label>Icone Sedex: </label>
@@ -824,7 +752,7 @@
                         <show_in_store>1</show_in_store>
                     </icone_sedex>
                     <icone_pac translate="label comment">
-		    <depends>
+		                    <depends>
                             <trocar_icones_na_entrega>1</trocar_icones_na_entrega>
                         </depends>
                         <label>Icone Pac: </label>
@@ -838,7 +766,7 @@
                         <show_in_store>1</show_in_store>
                     </icone_pac>
                     <icone_sedex_a translate="label comment">
-		    <depends>
+		                    <depends>
                             <trocar_icones_na_entrega>1</trocar_icones_na_entrega>
                         </depends>
                         <label>Sedex a Cobrar: </label>
@@ -853,7 +781,7 @@
                         <show_in_store>1</show_in_store>
                     </icone_sedex_a>
                     <icone_sedex_hoje translate="label comment">
-		    <depends>
+		                    <depends>
                             <trocar_icones_na_entrega>1</trocar_icones_na_entrega>
                         </depends>
                         <label>Sedex Hoje: </label>
@@ -867,7 +795,7 @@
                         <show_in_store>1</show_in_store>
                     </icone_sedex_hoje>
                     <icone_sedex_10 translate="label comment">
-		    <depends>
+		                    <depends>
                             <trocar_icones_na_entrega>1</trocar_icones_na_entrega>
                         </depends>
                         <label>Sedex 10: </label>
@@ -881,7 +809,7 @@
                         <show_in_store>1</show_in_store>
                     </icone_sedex_10>
                     <icone_sedex_c translate="label comment">
-		    <depends>
+		                    <depends>
                             <trocar_icones_na_entrega>1</trocar_icones_na_entrega>
                         </depends>
                         <label>Sedex Com Contrato:</label>
@@ -895,7 +823,7 @@
                         <show_in_store>1</show_in_store>
                     </icone_sedex_c>
                     <icone_sedex_e translate="label comment">
-		    <depends>
+		                    <depends>
                             <trocar_icones_na_entrega>1</trocar_icones_na_entrega>
                         </depends>
                         <label>E-Sedex Com Contrato:</label>
@@ -909,7 +837,7 @@
                         <show_in_store>1</show_in_store>
                     </icone_sedex_e>
                     <icone_pac_c translate="label comment">
-		    <depends>
+		                    <depends>
                             <trocar_icones_na_entrega>1</trocar_icones_na_entrega>
                         </depends>
                         <label>PAC Com Contrato:</label>
@@ -923,7 +851,7 @@
                         <show_in_store>1</show_in_store>
                     </icone_pac_c>
                     <icone_gratis translate="label comment">
-		    <depends>
+		                    <depends>
                             <trocar_icones_na_entrega>1</trocar_icones_na_entrega>
                         </depends>
                         <label>Frete Grátis: </label>
@@ -937,7 +865,7 @@
                         <show_in_store>1</show_in_store>
                     </icone_gratis>
                     <icone_fixo translate="label comment">
-		    <depends>
+		                    <depends>
                             <trocar_icones_na_entrega>1</trocar_icones_na_entrega>
                         </depends>
                         <label>Frete Fixo: </label>
@@ -971,7 +899,7 @@
                         <show_in_store>1</show_in_store>
                     </pagamento_boleto>
                     <boleto_desc translate="label comment">
-		    <depends>
+		                    <depends>
                             <pagamento_boleto>1</pagamento_boleto>
                         </depends>
                         <label>1º Valor de desconto: </label>
@@ -984,7 +912,7 @@
                         <show_in_store>1</show_in_store>
                     </boleto_desc>
                     <boleto_valor translate="label comment">
-		    <depends>
+		                    <depends>
                             <pagamento_boleto>1</pagamento_boleto>
                         </depends>
                         <label>Para nos pedidos acima de: </label>
@@ -997,7 +925,7 @@
                         <show_in_store>1</show_in_store>
                     </boleto_valor>
                     <boleto_desc2 translate="label comment">
-		    <depends>
+		                    <depends>
                             <pagamento_boleto>1</pagamento_boleto>
                         </depends>
                         <label>2º Valor de desconto: </label>
@@ -1010,7 +938,7 @@
                         <show_in_store>1</show_in_store>
                     </boleto_desc2>
                     <boleto_valor2 translate="label comment">
-		    <depends>
+		                    <depends>
                             <pagamento_boleto>1</pagamento_boleto>
                         </depends>
                         <label>Para nos pedidos acima de: </label>
@@ -1023,7 +951,7 @@
                         <show_in_store>1</show_in_store>
                     </boleto_valor2>
                    	<boleto_desc3 translate="label comment">
-		    <depends>
+		                    <depends>
                             <pagamento_boleto>1</pagamento_boleto>
                         </depends>
                         <label>3º Valor de desconto: </label>
@@ -1036,7 +964,7 @@
                         <show_in_store>1</show_in_store>
                     </boleto_desc3>
                     <boleto_valor3 translate="label comment">
-		    <depends>
+		                    <depends>
                             <pagamento_boleto>1</pagamento_boleto>
                         </depends>
                         <label>Para nos pedidos acima de: </label>
@@ -1049,7 +977,7 @@
                         <show_in_store>1</show_in_store>
                     </boleto_valor3>
                     <transf_desc translate="label comment">
-		    <depends>
+		                    <depends>
                             <pagamento_boleto>1</pagamento_boleto>
                         </depends>
                         <label>Aplicar mesmas regras ao pagamento por transferência?</label>
@@ -1065,7 +993,7 @@
 
                 </fields>
             </pagamento_avancado>
-	<mktplace translate="label">
+	 <mktplace translate="label">
                 <label>MarketPlace - A melhor maneira de comissionar suas multilojas</label>
                 <frontend_type>text</frontend_type>
                 <sort_order>2</sort_order>

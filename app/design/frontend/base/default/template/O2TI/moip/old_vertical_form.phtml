@@ -7,7 +7,7 @@
 	$dn = "";
 ?>
 <script type="text/javascript">
-//<![CDATA[
+
 jQuery(document).ready(function() {
 	jQuery('.input-switcher > li').bind({
 		click: function() {
@@ -24,22 +24,6 @@ jQuery(document).ready(function() {
 			jQuery('#' + jQuery(this).attr('data-target')).slideDown();
 		}
 	});
-
-	jQuery("input.radio.payment_method_handle:checked").live({
-		click: function() {
-			if (jQuery(this).val() == 'o2ti_moip_standard') {
-				showBlocks();
-			} else {
-				hideBlocks();
-			}
-		}
-	});
-
-	if(jQuery("input.radio.payment_method_handle:checked").val() == "o2ti_moip_standard"){
-		setTimeout(function(){showBlocks()}, 100);
-	} else {
-		hideBlocks();
-	}
 	if(jQuery("input[name=payment\\[method\\]]:checked").val() == "o2ti_moip_standard" && jQuery("input[name=payment\\[forma_pagamento\\]]:checked").val() != ""){
 			jQuery("#cartao_radio").trigger("click");
 			jQuery("#moip-cartao").css({'display':'block'})
@@ -48,22 +32,9 @@ jQuery(document).ready(function() {
 			jQuery("#moip-cartao").css({'display':'none'});
 	}
 });
-
-function showBlocks(){
-	jQuery('ul.moip-payment-methods li').first().click();
-	jQuery('ul.moip-payment-methods').css({'display':'block'});
-	jQuery('#moip-cartao, #moip-boleto, #moip-transferencia').children().show();
-}
-
-function hideBlocks(){
-	jQuery('.moip-payment-method-content').css({'display':'none'});
-	jQuery('ul.moip-payment-methods').css({'display':'none'});
-	jQuery('#moip-cartao, #moip-boleto, #moip-transferencia').children().hide();
-}
-//]]>
 </script>
 
-<link rel="stylesheet" type="text/css" href="<?php echo $this->getSkinUrl('O2TI/moip/css/formulario.css'); ?>"media="all">
+<link rel="stylesheet" type="text/css" href="<?php echo $this->getSkinUrl('O2TI/moip/css/new_formulario.css'); ?>"media="all">
 <div id="checkouto2ti">
 	<div id="payment_form_<?php echo $this->getMethodCode() ?>" style="display:none">
 		<ul class="inline moip-payment-methods input-switcher">
@@ -94,7 +65,7 @@ function hideBlocks(){
 			<ul class="inline banderias-cartao input-switcher input-switcher-5">
 				<li>
 					<img src="<?php echo $this->getVisaImage(); ?>" alt="Visa" border="0" onclick="setCcType('VI');">
-					<input type="radio" id="bandeiramoip" name="payment[credito_instituicao]" value="Visa" onclick="setCcType('VI');" class="validate-one-required-by-name" >
+					<input type="radio" name="payment[credito_instituicao]" value="Visa" onclick="setCcType('VI');" class="validate-one-required-by-name" >
 				</li>
 				<li>
 					<img src="<?php echo $this->getMastercardImage(); ?>" alt="Mastercard" border="0" onclick="setCcType('MC');">
@@ -119,13 +90,13 @@ function hideBlocks(){
 					<div class="cc">
 						<label class="required" for="credito_numero">Número<em>*</em></label>
 						<div class="input-box">
-							<input type="text" name="payment[credito_numero]" id="credito_numero" onkeypress="return txtBoxFormat(this, '9', event);"  class="input-text required-entry validate-cc-number  validate-cc-type">
+							<input type="text" name="payment[credito_numero]" id="credito_numero" class="input-text required-entry validate-cc-number  validate-cc-type">
 						</div>
 					</div>
 					<div class="cvv tooltip-moip-handler">
 						<label class="required" for="cvv">CVV&nbsp;<i class="icon-question-sign"></i><em>*</em></label>
 						<div class="input-box">
-							<input type="text" name="payment[credito_codigo_seguranca]" onkeyup="countChar(this)" onkeypress="return txtBoxFormat(this, '9', event);" class="input-text required-entry ccv validate-cc-cvn" minlength="3" maxlength="4" id="credito_codigo_seguranca" >
+							<input type="text" name="payment[credito_codigo_seguranca]" onkeyup="countChar(this)" class="input-text required-entry ccv validate-cc-cvn" minlength="3" maxlength="4" id="credito_codigo_seguranca" >
 							<span class="tooltip-moip">
 								<span class="custom help" style=" width:260px;"><em>Código de segurança:</em></br>Veja no verso do seu cartão.<img src="<?php echo $this->getSkinUrl('O2TI/moip/imagem/codigo-seguranca.png'); ?>" id="imageseguramoip" border="0"></span>
 							</span>

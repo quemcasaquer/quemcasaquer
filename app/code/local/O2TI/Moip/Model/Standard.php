@@ -163,14 +163,14 @@ class O2TI_Moip_Model_Standard extends Mage_Payment_Model_Method_Abstract {
     public function getInfoParcelamento() {
         $config = array();
         $max = 12;
-        $config['c_de1'] = (int) $this->getConfigData('parcelamento_c_de1');
+        $config['c_de1'] = (int)$this->getConfigData('parcelamento_c_de1');
         $config['c_ate1'] = (int) $this->getConfigData('parcelamento_c_ate1');
         $config['c_juros1'] = $this->getConfigData('parcelamento_c_juros1');
-        $config['c_de2'] =  $this->getConfigData('parcelamento_c_de2');
-        $config['c_ate2'] = (int) $this->getConfigData('parcelamento_c_ate2');
+        $config['c_de2'] =  (int)$this->getConfigData('parcelamento_c_de2');
+        $config['c_ate2'] = (int)$this->getConfigData('parcelamento_c_ate2');
         $config['c_juros2'] = $this->getConfigData('parcelamento_c_juros2');
-        $config['c_de3'] = (int) $this->getConfigData('parcelamento_c_de3');
-        $config['c_ate3'] = (int) $this->getConfigData('parcelamento_c_ate3');
+        $config['c_de3'] = (int)$this->getConfigData('parcelamento_c_de3');
+        $config['c_ate3'] = (int)$this->getConfigData('parcelamento_c_ate3');
         $config['c_juros3'] = $this->getConfigData('parcelamento_c_juros3');
         
 

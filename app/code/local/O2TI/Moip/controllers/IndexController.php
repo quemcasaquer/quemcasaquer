@@ -6,6 +6,41 @@ class O2TI_Moip_IndexController extends Mage_Core_Controller_Front_Action
         $this->renderLayout();
         return true;
 	}
+	public function ParcelamentoAction() {
+		$api = Mage::getModel('moip/api');
+		if($this->getRequest()->getParams()){
+			$data = $this->getRequest()->getPost();
+
+			
+			
+			if($data['itens_total'] > 1){
+				$item_count = $data['itens_total']." itens";
+			}
+			else {
+				$item_count = $data['itens_total']." item";	
+			}
+			echo ' <div class="total_itens">
+				        Você compra: 
+				        <span class="soma_related_itens">'.$item_count.'</span>
+				    </div>';
+			
+			$parcelamento = $api->getParcelamento($data['valor']);
+			$parcela_decode = json_decode($parcelamento,true);
+                            foreach ($parcela_decode as $key => $value):
+                                    if ($key <= Mage::getSingleton('moip/standard')->getConfigData('nummaxparcelamax')):
+                                        $juros = $parcela_decode[$key]['juros'];
+                                        $parcelas_result = $parcela_decode[$key]['parcela'];
+                                        $total_parcelado = $parcela_decode[$key]['total_parcelado'];
+                                        if($juros > 0)
+                                            $asterisco = '';
+                                        else 
+                                            $asterisco = ' sem juros';
+                                        $parcelas[]= '<div class="parcela_add_prod_related">em <span class="parcelas_em">'.$key.'x de '.$parcelas_result.'</span>'.$asterisco.'</div><div>ou <span class="parcelas_em_total">'.Mage::helper('core')->currency($data['valor'], true, false).' à vista</span> com desconto</div>';
+                                    endif;
+                                endforeach;
+            echo end($parcelas);
+		}
+	}
 	public function NovaformaAction() {
 		if($this->getRequest()->getParams()){
 			$model = Mage::getModel('moip/write');

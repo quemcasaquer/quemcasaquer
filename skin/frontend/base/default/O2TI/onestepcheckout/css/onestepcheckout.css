@@ -1,6 +1,6 @@
 /* page blocks */
 .o2ti-osc-checkoutcontainer { display: block; clear: both; width: 100%; }
-.o2ti-osc-checkoutcontainer .o2ti-osc-column-left { display: block; width: 33%; float: left; }
+.o2ti-osc-checkoutcontainer .o2ti-osc-column-left { display: block; float: left; }
 .o2ti-osc-checkoutcontainer .o2ti-osc-column-2 { display: block; width: 65%; margin-left: 2%; float: left; }
 .o2ti-osc-checkoutcontainer .o2ti-osc-column-2 .o2ti-osc-column-middle { display: block; width: 47%; float: left; min-width: 290px !important; }
 .o2ti-osc-checkoutcontainer .o2ti-osc-column-2 .o2ti-osc-column-right { display: block; width: 48%; float: left; margin-left: 2%; min-width: 283px !important; }
@@ -59,3 +59,89 @@ float: none;
 }
 h2{line-height: 1.50;}
 .onestepcheckout-numbers{background-position: 14px 6px !important;}
+
+.dados-pj, .dados-titular {
+display: none;
+}
+.erro_frete, .erro_frete_sem_cep {
+	display: none;
+}
+#shipping_show {
+margin-top: 20px;
+}
+
+
+
+
+.o2ti-osc-page-tittle {
+margin-top: 43px;
+line-height: 10px;
+}
+
+
+
+
+.o2ti-osc-column-2.span8.grid12-8 {
+width: 64.67%;
+margin: 0;
+margin-left: 1%;
+}
+
+
+.erro_cep{
+	padding: 0 10px;
+font-weight: bold;
+}
+.com_cep {
+color: red;
+padding: 10px;
+}
+
+#advice-validate-one-required-by-name-debito_instituicao {
+position: relative;
+min-width: 191px;
+}
+
+#inlinecorreio {
+text-align: left;
+}
+button#correios_end {
+float: right;
+}
+div#resultado {
+float: left;
+clear: both;
+width: 100%;
+}
+.dados_result_end {
+	float: left;
+	width: 80%;
+	padding-left: 4%;
+	border-bottom: 2px solid #F0F0F0;
+}
+.seletec_result_end {
+	float: left;
+	width: 4%;
+	padding: 6%;
+	background: #F0F0F0;
+	border-bottom: 2px solid #F0F0F0;
+}
+span.rua, span.cidade, span.cep {
+width: 100%;
+float: left;
+}
+
+#buscar_nos_correios {
+	float: left;
+	bottom: 0;
+	display: none;
+}
+
+.o2ti-osc-column-left.o2ti-osc-block {
+width: 33%;
+}
+
+span.radio {
+float: left;
+clear: both;
+}
