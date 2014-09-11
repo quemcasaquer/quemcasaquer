@@ -90,3 +90,4 @@ php.ini.sample
 # quemcasaquer.com  Ignores #
 #--------------------------#
 /quemcasaquerideias.com/
+/var/cache1/

@@ -1,0 +1,34 @@
+<dl class="sp-methods" id="checkout-payment-method-load">
+<?php foreach ($this->getMethods() as $_method): $_code = $_method->getCode() ?>
+    <dt>
+
+    <?php if( sizeof($this->getMethods()) > 1 ): ?>
+        <input id="p_method_<?php echo $_code ?>" value="<?php echo $_code ?>" type="radio" name="payment[method]" title="<?php echo $this->htmlEscape($_method->getTitle()) ?>" onclick="payment.switchMethod('<?php echo $_code ?>');updatePaymentMethod(this.value);"<?php if($this->getSelectedMethodCode()==$_code): ?> checked="checked"<?php endif; ?> class="radio payment_method_handle" />
+    <?php else: ?>
+        <span class="no-display"><input id="p_method_<?php echo $_code ?>" value="<?php echo $_code ?>" type="radio" name="payment[method]" checked="checked" class="radio payment_method_handle" /></span>
+    <?php endif; ?>
+
+        <label for="p_method_<?php echo $_code ?>"><?php echo $_method->getTitle() ?> <?php echo $this->getMethodLabelAfterHtml($_method) ?></label>
+    </dt>
+	<?php if(version_compare(Mage::getVersion(),'1.4.0.1','>=')):?>
+		<?php if ($html = $this->getPaymentMethodFormHtml($_method)): ?>
+			<dd>
+				<?php echo $html; ?>
+			</dd>
+		<?php endif; ?>
+	<?php else:?>
+		<?php if($html = $this->getChildHtml('payment.method.'.$_code)): //mage1.3?>	
+			<dd>
+				<?php echo $html; ?>
+			</dd>
+		<?php endif; ?>
+	<?php endif;?>
+	<div style="clear:both !important"></div>
+<?php endforeach; ?>
+</dl>
+<script type="text/javascript">
+//<![CDATA[
+<?php echo $this->getChildChildHtml('scripts'); ?>
+payment.init();
+//]]>
+</script>

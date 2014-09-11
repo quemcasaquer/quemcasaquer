@@ -1,0 +1,11 @@
+<div id="co-shipping-method-form" >
+    <div id="checkout-shipping-method-load" class="o2ti-osc-block-content"> 
+        <?php echo $this->getChildHtml('available') ?>
+    </div>	
+    <script type="text/javascript">
+    //<![CDATA[
+        var shippingMethod = new ShippingMethod('co-shipping-method-form', "<?php echo $this->getUrl('checkout/onepage/saveShippingMethod') ?>");
+    //]]>
+    </script>
+</div>
+

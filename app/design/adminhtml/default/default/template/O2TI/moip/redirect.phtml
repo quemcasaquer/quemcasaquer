@@ -1,0 +1,587 @@
+<?php
+$token = "";
+$moipToken = "";
+$tokenpagamento = "";
+$refazerpagamento = "";
+$data = $this->getRequest()->getParams();
+$standard = Mage::getModel('moip/standard');
+$form = new Varien_Data_Form();
+$api = Mage::getModel('moip/api');
+$api->setAmbiente($standard->getConfigData('ambiente'));
+$idgoogle = Mage::getStoreConfig('o2tiall/google/idgoogle');
+$meio = $api->generatemeip(Mage::registry('formapgto'));
+$opcaopg = $api->generatemeiopago(Mage::registry('formapg'));
+$parcelamento = $standard->getInfoParcelamento();
+$enviapara = $standard->getConfigData('ambiente');
+$urldosite = $urldosite = Mage::getBaseUrl('web', true);
+if (Mage::registry('erro') !=""){
+	echo Mage::registry('erro');
+	Mage::log(Mage::registry('erro'), null, 'O2TI_Moip.log', true);
+	Mage::log(Mage::registry('xml'), null, 'O2TI_Moip.log', true);
+}
+if ($enviapara == "teste") {
+	Mage::log(Mage::registry('erro'), null, 'O2TI_Moip.log', true);
+	Mage::log(Mage::registry('xml'), null, 'O2TI_Moip.log', true);
+	Mage::log(Mage::registry('token'), null, 'O2TI_Moip.log', true);
+	$urldomoip = "https://desenvolvedor.moip.com.br/sandbox";
+}
+else {
+	$urldomoip = "https://www.moip.com.br/";
+}
+if ($opcaopg['forma_pagamento'] == "DebitoBancario") {
+	$bandeira = $opcaopg['debito_instituicao'];
+	$vencpedido = date('c', strtotime("+2 days"));
+}
+if ($opcaopg['forma_pagamento'] == "CartaoCredito" || $opcaopg['forma_pagamento'] == "Cofre") {
+	$bandeira = $opcaopg['credito_instituicao'];
+	$vencpedido = date('c', strtotime("+2 days"));
+}
+if ($opcaopg['forma_pagamento'] == "BoletoBancario") {
+	$bandeira = "Bradesco";
+	$vencpedido = $opcaopg['timevencimentoboleto'];
+}
+
+if (!$data['token']) {
+
+	//primeira compra grava os dados.
+
+	if (!$moipToken) {
+		$moipToken = Mage::registry('token');
+		$url = $moipToken;
+		$xmlgerado = Mage::registry('xml');
+		$xml_sent = (string)$xmlgerado;
+		$standard = Mage::getSingleton('moip/standard');
+		$sale_id =  Mage::getSingleton('checkout/session')->getLastRealOrderId();
+		$realorder_id =  Mage::getSingleton('checkout/session')->getLastOrderId();
+		$incrementId = $realorder_id;
+		$order = Mage::getModel('sales/order')->load($incrementId);
+		$session = Mage::getSingleton('customer/session');
+		$customer = $session->getCustomer();
+		$oque = $order->getIsVirtual();
+		if ($oque) {
+			$shippingId = $order->getBillingAddress()->getId();
+		}
+		else {
+			$shippingId = $order->getShippingAddress()->getId();
+		}
+		$customer_id = $order->getCustomerId();
+		$status = "Sucesso";
+		$connR = Mage::getSingleton('core/resource')->getConnection('core_read');
+		$sql = "SELECT *
+	          FROM moip
+	          WHERE sale_id IN (".$sale_id.") AND status ='Sucesso'";
+		$_venda = $connR->fetchAll($sql);
+		foreach ($_venda as $venda) {
+			$tokenpagamento = $venda['xml_return'];
+		}
+		if ($tokenpagamento == "") {
+			$conn = Mage::getSingleton('core/resource')->getConnection('core_write');
+			$results = $conn->query("INSERT INTO `moip` (`transaction_id` ,`realorder_id` ,`sale_id` ,`xml_sent` ,`xml_return` ,`status` ,`formapg` ,`bandeira` ,`digito` ,`vencimento` ,`datetime`) VALUES (NULL , '".$realorder_id."', '".$sale_id."', '".$xml_sent."', '".$moipToken."', '".$status."', '".$opcaopg['forma_pagamento']."', '".$bandeira."', '', '".$vencpedido."', '".date('Y-m-d H:i:s')."');");
+			$tokenpagamento = $moipToken;
+			$url = $moipToken;
+		}
+	}
+	else {
+		//usado para o reload da pagina pelos infelizes clientes que navegam com ie.
+		$tokenpagamento = $moipToken;
+		$url = $tokenpagamento;
+		$status = "Sucesso";
+	}
+}
+
+//refaz o pedido vindo do my account.
+else {
+
+	$LastRealOrderId = $data['realorder'];
+	$conn = Mage::getSingleton('core/resource')->getConnection('core_read');
+	$sql = "SELECT * FROM moip WHERE sale_id IN ({$LastRealOrderId})";
+	$_venda = $conn->fetchAll($sql);
+	foreach ($_venda as $venda) {
+		$tokenpagamento = $venda['xml_return'];
+		$url = $venda['xml_return'];
+		$incrementId = $venda['realorder_id'];
+		$order = $data['realorder'];
+		$opcaopg['forma_pagamento'] = $venda['formapg'];
+		$bandeira = $venda['bandeira'];
+		$connRW = Mage::getSingleton('core/resource')->getConnection('core_write');
+		$results = $connRW->query("UPDATE `moip` SET vencimento='".$vencpedido."' WHERE sale_id IN (".$LastRealOrderId.");");
+	}
+	$refazerpagamento = 1;
+	$url = $venda['xml_return'];
+	$order = Mage::getModel('sales/order')->load($incrementId);
+	$session = Mage::getSingleton('customer/session');
+	
+	$oque = $order->getIsVirtual();
+	if ($oque) {
+		$shippingId = $order->getBillingAddress()->getId();
+		}
+	else {
+		$shippingId = $order->getShippingAddress()->getId();
+		}
+}
+
+
+
+
+$address = Mage::getModel('sales/order_address')->load($shippingId);
+$urldosite = Mage::getBaseUrl('web', true);
+$totalparaparcelado = $order->getGrandTotal();
+?>
+	<!-- entrou no pagamento -->
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', '<?php echo $idgoogle ?>']);
+		_gaq.push(['_setDomainName', '<?php echo $urldosite ?>']);
+		_gaq.push(['_addIgnoreRef', '<?php echo $urldosite ?>']);//dominio para evitar duplicidade
+		_gaq.push(['_trackPageview']);
+		_gaq.push(['_addTrans',
+			'<?php echo $sale_id ?>',
+			'<?php echo Mage::app()->getStore() ?>',
+			'<?php echo ($totalparaparcelado - $order->getShippingAmount()) ?>',
+			'0',
+			'<?php echo $order->getShippingAmount() ?>',
+			'<?php echo $address->getCity() ?>',
+			'<?php echo $address->getRegion() ?>',
+			'<?php echo $address->getCountry_id() ?>'
+		]);
+		<?php $orderItems = $order -> getItemsCollection();
+		foreach ($orderItems as $item) {
+			$product_sku = $item -> sku;
+			$product_name = $item -> getName();
+			$_product = Mage::getModel('catalog/product') -> load($item->getProductId());
+			$cats = $_product -> getCategoryIds();
+			$category_name = Mage::getModel('catalog/category') -> load($cats[0]) -> getName();
+			$price = $item->getPrice();
+			$qty = $item -> getQtyOrdered();
+			echo "
+			_gaq.push(['_addItem',
+			'$incrementId',
+			'$product_sku',
+			'$product_name',
+			'$category_name',
+			'$price',
+			'$qty'
+			]);
+			";
+		}
+?>
+		_gaq.push(['_trackTrans']);
+		(function() {
+			var ga = document.createElement('script');
+			ga.type = 'text/javascript';
+			ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0];
+			s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+
+		<!-- Corpo comum ao pagamento -->
+	<div id="moip_corpo">
+
+		<script type="text/javascript" charset="ISO-8859-1" src="<?php echo $urldomoip ?>/transparente/MoipWidget-v2.js"  
+        onerror="erro_mail('erro caiu o moip widget')" ></script>
+		<div id="MoipWidget" data-token="<?php echo $url ?>" callback-method-error="erroValidacao" callback-method-success="sucesso"  ></div>
+			<h2>Pedido realizado via Moip S/A</h2>
+			<div class="row-fluid">
+				<div class="span3">
+					<div id="icone_pg" >
+						<img src="<?php echo $this->getSkinUrl('O2TI/moip/imagem/logomoip.png'); ?>" border="0" >
+						<img src="<?php echo $this->getSkinUrl('O2TI/moip/imagem/'.$bandeira.'.png'); ?>" border="0" >
+					</div>
+				</div>
+				<div class="span9">
+
+				</div>
+			</div>
+	<div id="Descr_pg">
+		<?php if($opcaopg['forma_pagamento'] == "DebitoBancario"):?>
+			<meta http-equiv='Refresh' content='5;URL=<?php echo $urldomoip ?>/Instrucao.do?token=<?php echo $url ?>'>
+			<h3>Transferência Bancária</h3>
+			<p>Você será redirecionado para o seu banco em 5 segundos, caso isto não ocorra, por favor clique no link abaixo para ser redirecionado ao seu banco.</p>
+			</br>
+			<button type="button" title="Finalizar compra" class="button btn-proceed-checkout btn-checkout" onclick="window.location='<?php echo $urldomoip ?>/Instrucao.do?token=<?php echo $url ?>'"><span><span>Ir ao Banco</span></span></button>
+		<?php endif; ?>
+		<?php if($opcaopg['forma_pagamento']== "BoletoBancario"):?>
+			
+			<script type="text/javascript"> jQuery(document).ready(function(){
+  jQuery('#showXml').modal('toggle');
+});
+
+function abre_boleto()
+{
+  jQuery('#showXml').modal('toggle');
+};</script>
+			<h3>Boleto Bancário</h3>
+			<h3>Clique no botão abaixo para imprimir o seu boleto.</h3>
+			<button class="btn btn-primary btn buttonmoip" onclick="abre_boleto()")" >Imprimir Boleto</button>
+	     </div>
+	      <div class="modal" id="showXml" >
+	        <div class="modal-header">
+	          <button class="close" data-dismiss="modal">x</button>
+	          <h3>Boleto Bancário - Bradesco</h3>
+	        </div>
+	      <div class="modal-body"></div>
+		</div>
+	<?php endif; ?>
+	<?php
+	$tipoderecebimento = $standard->getConfigData('tipoderecebimento');
+	if($tipoderecebimento == "0"){
+		$tipoderecebimento = "Parcelado";
+	}else{
+		$tipoderecebimento = "AVista";
+	}
+	if($opcaopg['forma_pagamento'] == "CartaoCredito" || $opcaopg['forma_pagamento'] == "Cofre" ): ?>
+	<h3>Cartão de Crédito</h3>
+	<div class="loader"/>Por favor, aguarde!</br><img src="<?php echo $this->getSkinUrl('O2TI/moip/imagem/ajax-loader.gif'); ?>" border="0"></div>
+	<div id="Errocartao"></div>
+	<script type="text/javascript">
+	jQuery(document).ready(function() {
+	jQuery("#token").val(jQuery("#MoipWidget").attr("data-token"));
+	jQuery("#sendToMoip2").click(function() {
+		sendToCreditCard2();
+		jQuery(".loader").css({
+			display: "block"
+		});
+		jQuery("#Errocartao").css({
+			display: "none"
+		});
+		jQuery("#statusmoip").css({
+			display: "none"
+		});
+		jQuery("#moiperro").css({
+			display: "none"
+		});
+		jQuery("#statusmoipadd").css({
+			display: "none"
+		});
+		jQuery("#idmoip").css({
+			display: "none"
+		});
+	});
+});
+sendToCreditCard2 = function() {
+	var settings = {
+		"Forma": "CartaoCredito",
+		"Instituicao": jQuery("#instituicao").val(),
+		"Parcelas": jQuery("#Parcelas").val(),
+		"Recebimento": "<?php echo $tipoderecebimento ?>",
+		"CartaoCredito": {
+			"Numero": jQuery("input[name=Numero]").val(),
+			"Expiracao": jQuery("input[name=Expiracao]").val(),
+			"CodigoSeguranca": jQuery("input[name=CodigoSeguranca]").val(),
+			"Portador": {
+				"Nome": jQuery("input[name=Portador]").val(),
+				"DataNascimento": jQuery("input[name=DataNascimento]").val(),
+				"Telefone": jQuery("input[name=Telefone]").val(),
+				"Identidade": jQuery("input[name=CPF]").val()
+			}
+		}
+	}
+	MoipWidget(settings);
+};
+	</script>
+	<div id="refazercartao" style="display:none;width:87%;">
+	
+		<div class="well">
+			<h3>Não foi possível concluir o pagamento, por favor reveja os dados e tente novamente.</h3>
+			<ul class="repay-form">
+				<li>
+					<h3>Dados do Cartão</h3>
+				</li>
+				<li>
+					<label>Parcelas:</label>
+					<select id="Parcelas" >
+					<?php
+						$valor = $totalparaparcelado;
+						$parcelamento = $api->getParcelamento(number_format($valor, 2, ".", "."));
+					?>
+					<?php foreach ($parcelamento as $k => $v):?>
+					<option value="<?php echo $k ?>"><?php echo $k . "x R$ "  . $v['valor'] . " | Total: R$ " .$v['total']."" ?></option>
+					<?php endforeach; ?>
+					</select>
+				</li>
+				<li>
+					<label>Institui&ccedil;&atilde;o:</label>
+					<select id="instituicao">
+					  <option value="Visa">Visa</option>
+					  <option value="Mastercard">Mastercard</option>
+					  <option value="AmericanExpress">AmericanExpress</option>
+					  <option value="Hipercard">Hipercard</option>
+					  <option value="Diners">Diners</option>
+					</select>
+				</li>
+				<li>
+					<div>
+						<label>Numero do Cart&atilde;o:</label>
+						<input type="text" id="Numero" name="Numero" value="">
+					</div>
+					<div>
+						<label>CVV:</label>
+						<input type="text" id="CodigoSeguranca" name="CodigoSeguranca" value="" size="4">
+					</div>
+				</li>
+				<li>
+					<label>Expira&ccedil;&atilde;o:</label>
+					<input type="text" id="Expiracao" name="Expiracao" value=""  onkeypress="return txtBoxFormat(this, '99/99', event);" maxlength="5" placeholder="Ex. 10/15"  size="5">
+				</li>
+				<li>
+					<h3>Dados do Títular do Cartão</h3>
+				</li>
+				<li>
+					<label>Portador:</label>
+					<input type="text" id="Portador" name="Portador" value="">
+				</li>
+				<li>
+					<label>CPF:</label>
+					<input type="text" id="CPF" name="CPF" value="">
+				</li>
+				<li>
+					<label>Data Nascimento:</label>
+					<input type="text" id="DataNascimento" name="DataNascimento" onkeypress="return txtBoxFormat(this, '99/99/9999', event);" maxlength="10" placeholder="Ex. 10/10/1985"  value=""><br>
+				</li>
+				<li>
+					<label>Telefone:</label>
+					<input type="text" id="Telefone" name="Telefone" value="" onkeypress="return txtBoxFormat(this, '(99)9999-9999', event);" placeholder="Ex. (11)9999-9999" maxlength="14" ><br>
+				</li>
+				<li>
+					<button id="sendToMoip2" class="btn buttonmoip">Pagar Agora</button>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div  id="pgcartao">
+	<div id="statusmoip"></div>
+	<div id="statusmoipadd"></div>
+	<div id="moiperro"></div>
+	<div id="idmoip"></div>
+	</div>
+</div>
+	<?php endif; ?>
+
+	</div>
+
+	<div id="Descr_pedido" >
+		<h3>Detalhes de seu pedido</h3>
+		<div id="Descr_corpo">
+			<h4>O Número do seu pedido é:</h4>
+				#<?php echo $sale_id ?>
+			<h4>Seu pedido será enviado por:</h4>
+				<?php echo $order->getShippingDescription(); ?>
+		</div>
+		<div id="Descr_produto" >
+			<h4>Descrição do seu pedido</h4>
+			<table class="data-table" id="my-order-table" summary="<?php echo $this->__('Items Ordered') ?>">
+				    <col />
+				    <col width="1" />
+				    <col width="1" />
+				    <col width="1" />
+				    <col width="1" />
+				    <col width="1" />
+				    <col width="1" />
+				    <thead>
+				        <tr>
+				        	<th></th>
+				            <th class="a-left"><?php echo $this->__('Product Name') ?></th>
+				            <th class="a-center"><?php echo $this->__('Price') ?></th>
+				            <th></th>
+				            <th class="a-center"><?php echo $this->__('Qty') ?></th>
+				            <th></th>
+				            <th class="a-right"><?php echo $this->__('Subtotal') ?></th>
+				        </tr>
+				    </thead>
+				    <tfoot>
+				        <?php foreach ($this->getTotals() as $_code => $_total): ?>
+						    <?php if ($_total->getBlockName()): ?>
+						        <?php echo $this->getChildHtml($_total->getBlockName(), false); ?>
+						    <?php else:?>
+						    <tr class="<?php echo $_code?>">
+						        <td class="a-right" <?php echo $this->getLabelProperties()?> colspan="6">
+						            <?php if ($_total->getStrong()):?>
+							            <strong><?php echo $this->escapeHtml($_total->getLabel());?></strong>
+						            <?php else:?>
+						            	<?php if($_total->getLabel() == "Frete"): ?>
+							            	<?php echo $order->getShippingDescription() ?>
+							            <?php else: ?>
+							            	<?php echo $this->escapeHtml($_total->getLabel());?>
+							            <?php endif; ?>
+						            <?php endif; ?>
+						        </td>
+						        <td class="a-right" <?php echo $this->getValueProperties()?>>
+						            <?php if ($_total->getStrong()):?>
+							            <strong><?php echo $this->formatValue($_total) ?></strong>
+						            <?php else:?>
+							            <?php echo $this->formatValue($_total) ?>
+						            <?php endif; ?>
+						        </td>
+						    </tr>
+						    <?php endif?>
+						<?php endforeach?>
+				    </tfoot>
+				        <?php $_items = $order->getItemsCollection(); ?>
+				        <?php $_index = 0; ?>
+			            <?php $_count = $_items->count(); ?>
+				        <tbody>
+				        <?php foreach ($_items as $_item): ?>
+				        	<tr>
+				        		<td class="a-left product-image"><img src="<?php echo Mage::helper('catalog/image')->init(Mage::getModel('catalog/product')->load($_item->getProductId()), 'thumbnail')->resize(75, 75) ?>" alt="" /></td>
+				        		<td class="a-left product-name"><?php echo $_item->getName() ?></td>
+				        		<td class="a-right product-price"><?php echo Mage::helper('core')->currency($_item->getPrice(),true,false) ?></td>
+				        		<td class="a-center">x</td>
+				        		<td class="a-center product-qty"><?php echo number_format($_item->getQtyOrdered(), 0) ?></td>
+				        		<td class="a-center">=</td>
+				        		<td class="a-right product-total-price"><?php echo Mage::helper('core')->currency($_item->getQtyOrdered()*$_item->getPrice(),true,false) ?></td>
+				        	</tr>
+				        <?php endforeach; ?>
+				            <?php if($this->helper('giftmessage/message')->getIsMessagesAvailable('order_item', $_item) && $_item->getGiftMessageId()): ?>
+				            <tr class="border<?php echo ($_index++ > $_count ?' last':'') ?>" id="order-item-gift-message-<?php echo $_item->getId() ?>" style="display:none;">
+				                <?php $_giftMessage=$this->helper('giftmessage/message')->getGiftMessageForEntity($_item); ?>
+				                <td class="gift-message-row" colspan="7">
+				                    <a href="#" title="<?php echo $this->__('Close') ?>" onclick="return giftMessageToogle('<?php echo $_item->getId() ?>');" class="btn-close"><?php echo $this->__('Close') ?></a>
+				                    <dl class="gift-message">
+				                        <dt><strong><?php echo $this->__('From:') ?></strong> <?php echo $this->htmlEscape($_giftMessage->getRecipient()) ?></dt>
+				                        <dt><strong><?php echo $this->__('To:') ?></strong> <?php echo $this->htmlEscape($_giftMessage->getSender()) ?></dt>
+				                        <dd><?php echo $this->helper('giftmessage/message')->getEscapedGiftMessage($_item) ?></dd>
+				                    </dl>
+				                </td>
+				            </tr>
+				            <?php endif ?>
+				        </tbody>
+				</table>
+				<script type="text/javascript">decorateTable('my-order-table', {'tbody' : ['odd', 'even'], 'tbody tr' : ['first', 'last']})</script>
+	</div>
+</div>
+<script type="text/javascript">
+				jQuery(document).ready(function(){
+					jQuery("#resultado").hide();
+					jQuery("#token").val("<?php echo $url; ?>");
+					var settings = {
+						<?php if($refazerpagamento != "1") {   echo $meio; }  ?>
+						<?php if($refazerpagamento == "1" && $opcaopg['forma_pagamento'] == "BoletoBancario" ) { echo ('"Forma": "BoletoBancario"');} ?>
+						<?php if($refazerpagamento == "1" && $opcaopg['forma_pagamento'] == "DebitoBancario" ) { echo ('"Forma": "DebitoBancario","Instituicao":"'.$bandeira.'"');} ?>
+					};
+					MoipWidget(settings);
+					<?php
+						if($refazerpagamento == "1" && $opcaopg['forma_pagamento'] == "CartaoCredito" ) { echo ('jQuery("#refazercartao").css({display:"block"});');
+							echo('jQuery("#Errocartao").css({display:"none"});');
+						}
+					?>
+				});
+	
+				var sucesso = function(data){
+					meio = data.TaxaMoIP;
+					jQuery("#statusmoip").html("");
+					jQuery("#statusmoipadd").html("");
+					jQuery("#idmoip").html("");
+					jQuery("#moiperro").html("");
+					jQuery("#Errocartao").css({display:"block"});
+					jQuery("#statusmoip").css({display:"block"});
+					jQuery("#moiperro").css({display:"block"});
+					jQuery("#statusmoipadd").css({display:"block"});
+					jQuery("#idmoip").css({display:"block"});
+
+					if (meio == undefined){
+					jQuery(".loader").css({display:"none"});
+					jQuery("#pgboletoedeb").removeAttr('disabled');
+					<?php if($opcaopg['forma_pagamento'] == "BoletoBancario"): ?>
+					jQuery(".modal-body").append("<iframe hspace=\"0\" vspace=\"0\" width=\"650\" height=\"900\"  scrolling= \"no\" frameBorder=\"0\" allowtransparency=\"true\" src=\"<?php echo $urldomoip ?>/Instrucao.do?token=<?php echo $url ?>\"> </iframe>");
+					<?php endif; ?>
+				}else{
+					jQuery("#pgcartao").removeAttr('disabled');
+					if (data.Status == "Cancelado"){
+						jQuery("#refazercartao").css({display:"block"});
+						jQuery(".loader").css({display:"none"});
+						jQuery("#statusmoip").html("<h3>Pagamento Cancelado</h3>");
+						jQuery("#statusmoipadd").html("Transação não aprovada.");
+						jQuery("#idmoip").html("O número de sua transação no Moip é: ");
+						jQuery("#idmoip").html(data.CodigoMoIP);
+						jQuery("#moiperro").html("<h4>Motivo:</h4>");
+						var motivo = JSON.stringify(data.Classificacao.Descricao);
+erro_mail(motivo);
+						if(motivo == '"Desconhecido"'){
+							jQuery("#moiperro").html("Seus dados estão incorretos ou não podemos envia-los a operadora de crédito.");
+						}
+						if(motivo == '"Transação não processada"'){
+							jQuery("#moiperro").html("O pagamento não pode ser processado.</br>Por favor, tente novamente.</br>Caso o erro persista, entre em contato com o nosso atendimento.");
+						}
+						if(motivo == '"Política de segurança do Moip"'){
+							jQuery("#moiperro").html("Pagamento não autorizado.</br>Entre em contato com o seu banco antes de uma nova tentativa.");
+						}
+						if(motivo == '"Política de segurança do Banco Emissor"'){
+							jQuery("#moiperro").html("O pagamento não foi autorizado pelo Banco Emissor do seu Cartão.</br>Entre em contato com o Banco para entender o motivo e refazer o pagamento..");
+						}
+						if(motivo == '"Cartão vencido"'){
+							jQuery("#moiperro").html("A validade do seu Cartão expirou.</br>Escolha outra forma de pagamento para concluir o pagamento.");
+						}
+						if(motivo == '"Dados inválidos"'){
+							jQuery("#moiperro").html("Dados informados inválidos.</br>Você digitou algo errado durante o preenchimento dos dados do seu Cartão.</br>Certifique-se de que está usando o Cartão correto e faça uma nova tentativa.");
+						}
+					}
+				if (data.Status == "EmAnalise"){
+					jQuery(".loader").css({display:"none"});
+					jQuery("#statusmoip").html("<h3>Pagamento Aguardando Aprovação</h3>");
+					jQuery("#statusmoipadd").html("Por favor, aguarde a em analise da transação. Assim que for alterado o status você será informado via e-mail.");
+					jQuery("#idmoip").html("O número de sua transação no Moip é: ");
+					jQuery("#idmoip").html(data.CodigoMoIP);
+				}
+				if (data.Status == "Autorizado"){
+					jQuery(".loader").css({display:"none"});
+					jQuery("#statusmoip").html("<h3>Pagamento Aprovado</h3>");
+					jQuery("#statusmoipadd").html("Por favor, aguarde o processo de envio.");
+					jQuery("#idmoip").html("O número de sua transação no Moip é: ");
+					jQuery("#idmoip").html(data.CodigoMoIP);
+				}
+			}
+		};
+		var erroValidacao = function(data) {
+			for (i=0; i<data.length; i++) {
+				Moip = data[i];
+				infosMoip = 'Ops, parece que há algo errado:';
+				for(j in Moip){
+					atributo = j;
+					if(atributo == "Mensagem"){
+						valor = Moip[j];
+						infosMoip += '<li class="erro" style="list-style: none;margin-left: 29px;font-weight: bold;">'+valor +'</li>';
+erro_mail(valor);
+				if(valor != "Informe o token da Instrução"){
+							jQuery("#refazercartao").css({display:"block"});
+						}
+					}
+				}
+
+				jQuery("#Errocartao").html("");
+				jQuery("#Errocartao").css({display:"block"});
+				jQuery("#Errocartao").html(infosMoip);
+				infosMoip = '';
+				jQuery(".loader").css({display:"none"});
+				<?php if($refazerpagamento == "1" && $opcaopg['forma_pagamento'] == "CartaoCredito" ) { echo('jQuery("#Errocartao").html("");'); } ?>
+				<?php if($refazerpagamento == "1" && $opcaopg['forma_pagamento'] == "CartaoCredito" ) { echo('jQuery("#Errocartao2").html(infosMoip);'); } ?>
+				<?php if($refazerpagamento == "1" && $opcaopg['forma_pagamento'] == "CartaoCredito" ) { echo('jQuery(".loader").css({display:"none"});'); } ?>
+			}
+		};
+function erro_mail(valor)
+{				
+var xmlhttp;
+if (window.XMLHttpRequest)
+  {
+  xmlhttp=new XMLHttpRequest();
+  }
+else
+  {
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+xmlhttp.open("GET","<?php echo $urldosite?>index.php/Moip/Standard/email_erro_pgto?erro="+valor+"&pedido=<?php echo $sale_id ?>&navegador="+navigator.userAgent+"",true);
+xmlhttp.send();
+		}
+	</script>
+
+<?php 
+echo Mage::getStoreConfig('o2tiall/google/outros_funil');
+try{
+	$order->sendNewOrderEmail();
+}
+catch (Exception $ex) {  };
+?>

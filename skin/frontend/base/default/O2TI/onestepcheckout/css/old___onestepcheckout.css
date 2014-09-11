@@ -1,0 +1,157 @@
+.o2ti-osc-block-content{padding:12px;border: 1px solid #ccc;border-radius: 0 0 5px 5px}
+.o2ti-osc-block-contentb{border: 1px solid #ccc;border-radius: 0 0 5px 5px}
+.form-list .field{width: 43% !important;float:left;margin-right: 7%;}
+.form-list .wide{width: 93%;clear:both;}
+.form-list .input-box{width: 100% !important;}
+.form-list .field .input-box{width: 100% !important;padding-right: 40px;}
+.field.dob .field{width:100%;}
+input[type="checkbox"]{float: left; cleaR: none;margin-right: 10px;margin-top:2px}
+.form-list input[type="text"],.form-list input[type="password"] , .form-list select{width: 100% !important;}
+.sp-methods dt, .sp-methods dd{width: 100%; clear: both;}
+.sp-methods dt input[type="radio"]{floaT:left;}
+.sp-methods dt label{margin-top: 0px;display: block;float: left;margin-left:10px}
+.input-text.qty{text-align:center;border-radius: 5px}
+#loginbox{float: left;margin-bottom: 10px;}
+#loading-mask{position: fixed;top: 0; left: 0;width: 100%; height: 100%; display: none;}
+#loading-mask > p{box-shadow: 0 0 10px #666666;border:1px solid blue;background: #fff; width: 290px; text-align: center; padding: 20px;border-radius: 10px;position:absolute; left: 50%;top: 10%;margin-left: -165px;}
+.o2ti-osc-block-title > h3 {padding-top: 5px;}
+textarea {max-width: 280px;min-width: 280px;overflow: auto;}
+.sp-methods .form-list {padding-left: 0px;}
+tr {border-top: 1px solid #CCCCCC;}
+#none {float:left}
+.main {
+padding: 0;
+min-height: 370px;
+}
+#checkout-review-table-wrapper {
+overflow-x: visible !important;
+}
+#co-billing-form{clear:both;}
+.update_shipping, .update_payment {width: 150px; margin: 0 auto; text-align: center; font-size: 14px; min-height: 115px; padding-top: 50px;}
+#co-payment-form {min-height: 150px !important;}
+#advice-required-entry-id_accept_terms{position:relative !important;}
+.sp-methods .form-list {padding-left: 0px !important;}
+
+
+.dados-pj, .dados-titular {
+display: none;
+}
+.erro_frete, .erro_frete_sem_cep {
+	display: none;
+}
+#shipping_show {
+margin-top: 20px;
+}
+
+
+
+
+.o2ti-osc-page-tittle {
+margin-top: 43px;
+line-height: 10px;
+}
+
+
+
+
+.o2ti-osc-column-2.span8.grid12-8 {
+width: 65.67%;
+margin: 0;
+}
+
+#checkout-shipping-method-loadding > dd > ul > li {
+border-color: #ccc !important;
+border: 1px solid; border-radius: 4px;min-height: 36px;width: 100%;
+}
+
+#checkout-shipping-method-loadding > dd > ul > li img {
+float: left;
+padding: 3px;
+max-height: 30px;}
+#checkout-shipping-method-loadding > dd > ul > li > span {
+float: left;
+background: #ccc;
+padding: 9px;
+border-radius: 4px 0 0 4px;
+width: 6%;
+}
+#checkout-shipping-method-loadding > dd > ul > li > label {
+float: left;
+width: 85%;
+}
+.sp-methods .price {
+font-weight: bold;
+float: left;
+}
+.sp-methods label {
+float: left;
+}
+.sp-methods dd {
+margin: 3px 0 0px !important;
+}
+.erro_cep{
+	padding: 0 10px;
+font-weight: bold;
+}
+.com_cep {
+color: red;
+padding: 10px;
+}
+
+.title_shipping, .image_shipping {
+float: left;
+}
+.sp-methods label {
+float: left;
+width: 90%;
+}
+.image_shipping {
+width: 35%;
+}
+
+.title_shipping {
+width: 64%;
+}
+.sp-methods .price {
+float: left;
+width: 100% !important;
+}
+#advice-validate-one-required-by-name-debito_instituicao {
+position: relative;
+min-width: 191px;
+}
+
+#inlinecorreio {
+text-align: left;
+}
+button#correios_end {
+float: right;
+}
+div#resultado {
+float: left;
+clear: both;
+width: 100%;
+}
+.dados_result_end {
+	float: left;
+	width: 80%;
+	padding-left: 4%;
+	border-bottom: 2px solid #F0F0F0;
+}
+.seletec_result_end {
+	float: left;
+	width: 4%;
+	padding: 6%;
+	background: #F0F0F0;
+	border-bottom: 2px solid #F0F0F0;
+}
+span.rua, span.cidade, span.cep {
+width: 100%;
+float: left;
+}
+
+#buscar_nos_correios {
+	float: left;
+	bottom: 0;
+	display: none;
+}

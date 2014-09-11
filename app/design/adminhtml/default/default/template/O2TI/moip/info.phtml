@@ -1,0 +1,57 @@
+<?php 
+/* Mage::getModel("sales/order")->getCollection()->getLastItem()->getIncrementId(); */
+$css_email = "display: block;float: left;clear: both !important;border-radius: 10px;color: #fff;font-size: 16pt;font-weight: bold;text-align: center;text-transform: uppercase;position: relative;margin-left: 70px;margin-top: 10px;margin-bottom: 25px;background: #ff9900;background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+background: -moz-linear-gradient(top, #ff9900 0%, #ff6600 100%);background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ff9900), color-stop(100%,#ff6600));
+background: -webkit-linear-gradient(top, #ff9900 0%,#ff6600 100%);background: -o-linear-gradient(top, #ff9900 0%,#ff6600 100%);background: -ms-linear-gradient(top, #ff9900 0%,#ff6600 100%);background: linear-gradient(to bottom, #ff9900 0%,#ff6600 100%);filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff9900', endColorstr='#ff6600',GradientType=0 );line-height: 20px;position: relative;";
+$css_boleto = "padding: 15px 20px 15px 55px;border: 0;";
+$css_trans = "padding: 20px 20px 20px 40px";
+$css_email_img = "position: absolute !important;left: -70px !important;top: -20px !important;min-height: 100px;width: 115px;"; 
+?>
+<?php $info = $this->_prepareInfo(); ?>
+	<?php if($info['result_meio'] == "Cartão de Crédito"): ?>
+	<div class="cartao" style="width:100%">
+		<h4>Pago em <?php echo $info['creditcard_parc']; ?> parcelas via:</h4>
+	</div>
+	<div class="cartao" style="width:100%">
+		<div class="image" style="width:30%; float:left;">
+			<?php $imagem = $info['image']; ?>
+			<div class="image" style="padding:5px"><img src="<?php echo $imagem; ?>"></div>
+		</div>
+		<div class="dados" style="width:70%; float:left">
+			<label>6 Primeiros dígitos do cartão</label>
+			<div class="input-text"><strong><?php echo $info['first6'] ?></strong></div>
+			<label>4 Últimos dígitos do cartão</label>
+			<div class="input-text"><strong><?php echo $info['last4'] ?></strong></div>
+		</div>
+		<div class="token_repagamento">
+			<div class="input-text"><strong><a href="https://www.moip.com.br/Instrucao.do?token=<?php echo $info['token'] ?>">Link Para repagamento no moip</a></strong></div>
+		</div>
+	</div>
+	<?php endif ?>
+
+	
+	<?php if($info['result_meio'] == "Boleto Bancário"): ?>
+	<div class="metodo title"><h3><?php echo $info['result_meio'] ?></h3></div>
+		<div style="clear:both; width:100%;">
+			<button  style="<?php echo $css_email.$css_boleto ?>" onclick="window.location='<?php echo  $info['url']  ?>'" ><div style="<?php  echo $css_email_img; ?>background:url(<?php echo $this->getSkinUrl('O2TI/moip/imagem/printer.png');echo") no-repeat;"; ?>"/></div>Visualize o boleto aqui</span></button>
+		</div></br>
+		<div class="boleto_line_title"><h4>Ou Cópie o endereço:</h4></div>
+		<div class="boleto_line"><input type="text" class="input-text" value="<?php echo $info['url'] ?>" readonly="true" style="width:350px"></div>
+		<div class="token_repagamento">
+			<div class="input-text"><strong><a href="https://www.moip.com.br/Instrucao.do?token=<?php echo $info['token'] ?>">Link Para repagamento no moip</a></strong></div>
+		</div>
+	<?php endif ?>
+
+	
+
+	<?php if($info['result_meio'] == "Transferência Bancária"): ?>
+	<div class="metodo title"><h3><?php echo $info['result_meio'] ?></h3></div>
+	<div class="trans" style="width:100%">
+		<div style="clear:both;width:100%"><button type="button" title="Finalizar compra" style="<?php echo $css_email.$css_trans ?>" onclick="window.location='<?php echo  $info['url']  ?>'"><div style="<?php  echo $css_email_img; ?>background:url(<?php echo $this->getSkinUrl('O2TI/moip/imagem/bank-icon.png');echo") no-repeat;"; ?>"/></div>Ir ao Banco</button></div>
+		<div class="boleto_line_title" style="clear:both;width:100%"><h4>Ou Cole a Url na Barra do Navegador:</h4></div>
+		<div class="boleto_line" style="clear:both;width:100%"><input type="text" class="input-text" value="<?php echo $info['url'] ?>" readonly="true" style="width:350px"></div>
+		<div class="token_repagamento">
+			<div class="input-text"><strong><a href="https://www.moip.com.br/Instrucao.do?token=<?php echo $info['token'] ?>">Link Para repagamento no moip</a></strong></div>
+		</div>
+	</div>
+	<?php endif ?>

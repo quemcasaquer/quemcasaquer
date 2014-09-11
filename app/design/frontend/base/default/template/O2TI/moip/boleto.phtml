@@ -1,0 +1,101 @@
+<?php $session = Mage::getSingleton('checkout/session'); ?>
+<?php $result_decode = $session->getResult_decode(); ?>
+<?php $client_array = $session->getClient_array(); ?>
+<?php $pgtoArraya = $session->getPgtoarry(); ?>
+<?php $pgtoArray = $this->getOrder_dados($client_array); 
+$customerData = "";
+
+if(Mage::getSingleton('customer/session')->isLoggedIn()) {
+     $customerData = Mage::getSingleton('customer/session')->getCustomer();
+ }
+if (Mage::getSingleton('moip/standard')->getConfigData('ambiente') == "teste") { 
+    $url = "https://desenvolvedor.moip.com.br/sandbox/Instrucao.do?token=";
+    $urljs = "https://desenvolvedor.moip.com.br/sandbox/";
+   }
+   else {
+    $url = "https://www.moip.com.br/Instrucao.do?token=";
+    $urljs = "https://www.moip.com.br/";
+}
+?>
+<?php if (!Mage::helper('core/cookie')->isUserNotAllowSaveCookie()): ?>
+<?php $accountId = 'UA-33860171-1' ?>
+<script type="text/javascript">
+//<![CDATA[
+    var _gaq = _gaq || [];
+  	_gaq.push(['_setAccount', '<?php echo  Mage::getStoreConfig("o2tiall/google/idgoogle") ?>']);
+    <?php echo $this->getTrackingMoip($client_array);  ?>
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+//]]>
+</script>
+<?php endif; ?>
+<?php $order = Mage::getModel('sales/order')->loadByIncrementId($pgtoArray['id_transacao']); ?>
+<?php $this->getSaveDate($pgtoArray['id_transacao'], $result_decode, $customerData, $pgtoArraya, $client_array); ?>
+
+<script type="text/javascript" charset="ISO-8859-1" src="<?php echo $urljs ?>transparente/MoipWidget-v2.js" onerror="erro_mail('erro caiu o moip widget')" ></script>
+<div id="MoipWidget" data-token="<?php echo $result_decode['token'] ?>" callback-method-error="erroValidacao" callback-method-success="sucesso"></div>
+<div class="row grid-full">
+	<div class="grid12-12">
+		<h3>Seu pedido foi enviado com sucesso, <strong><?php echo $client_array['pagador_nome'] ?></strong>!</h3>
+
+		<div class="corpo_moip grid12-5 alpha">
+			<div class="method-type boleto-title">
+				<h3>Falta apenas um passo para finalizar sua compra.</h3>
+				<h4>Imprima seu boleto e faça o pagamento em qualquer banco.</h4>
+			</div>
+			<button class="btn-moip btn-boleto buttonmoip" onclick="abre_boleto()" ><img src="<?php echo $this->getSkinUrl('O2TI/moip/imagem/printer.png') ?>" alt="" />Visualize o boleto<span>clique aqui</span></button>
+			<div class="row boleto-can-pay">
+				<strong>
+					<h3>Você sabia que:</h3>
+				</strong>
+				<h3>Pode pagar o seu boleto bancário pelo celular ou pela internet?</h3>
+				<h3></h3>
+			</div>
+		</div>
+		<div class="col-md-6 grid12-6 omega">
+			<div class="order-id-wrapper">
+				<p>O número do seu pedido é:</p>
+				<span class="order-id">#<?php echo $pgtoArray['id_transacao'] ?></span>
+				<h4>Seu pedido será enviado por <?php  echo $order->getShippingDescription(); ?></h4>
+			</div>
+			<div class="row">
+				<a href="<?php echo Mage::helper('core/url')->getHomeUrl(); ?>" class="back-to-store">Voltar para a home</a>
+			</div>
+		</div>
+	</div>
+</div>
+<?php echo  Mage::getStoreConfig("o2tiall/google/outros_funil"); ?>
+<!-- js importantes não alterem -->
+<script type="text/javascript">
+//<![CDATA[
+			jQuery(document).ready(function(){
+				jQuery('body').append('<div class="modal" id="showXml" ><div class="modal-header"><button class="close" data-dismiss="modal">x</button><h3>Boleto Bancário - Bradesco</h3></div><div class="modal-body"></div></div>');
+				jQuery('#showXml').modal('toggle');
+			});
+			function abre_boleto(){
+				jQuery('#showXml').modal('toggle');
+			};
+//]]>
+</script>
+<script type="text/javascript">
+//<![CDATA[
+				jQuery(document).ready(function(){
+					jQuery("#token").val("<?php echo $result_decode['token'] ?>");
+					var settings = 
+						<?php echo $this->getJson($pgtoArraya); ?>
+					;
+					MoipWidget(settings);
+					
+				});
+				var sucesso = function(data){
+					jQuery(".modal-body").append("<iframe hspace=\"0\" vspace=\"0\" width=\"650\" height=\"900\"  scrolling= \"no\" frameBorder=\"0\" allowtransparency=\"true\" src=\"<?php echo $urljs ?>/Instrucao.do?token=<?php echo $result_decode['token'] ?>\"> </iframe>");
+				};
+
+				var erroValidacao = function(data){
+					alert(data);
+				};
+//]]>
+</script>

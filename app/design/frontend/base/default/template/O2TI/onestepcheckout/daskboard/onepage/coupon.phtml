@@ -1,0 +1,38 @@
+
+ <div id="tab-coupon">
+	 <div id="discount-coupon-form">
+		<div class="discount">
+		 
+			<div class="discount-form">
+				<h2 style="margin-top:3px"> <?php echo $this->__('Discount Codes') ?></h2>
+			  <span class="cupom_tem" style="cursor:pointer"><?php echo $this->__('Você tem um cupom de desconto? Clique aqui para utiliza-lo.') ?></span>
+        <div class="cupom_tem_codigo" style="display:none;">
+				<input type="hidden" name="remove" id="remove-coupone" value="0" />
+				<div class="input-box">
+					<input class="input-text" id="coupon_code" name="coupon_code" value="<?php echo $this->htmlEscape($this->getCouponCode()) ?>" style="max-width: 180px;" />
+				</div>
+				
+				<div class="buttons-set">
+					<button type="button" title="<?php echo $this->__('Apply Coupon') ?>" class="button" onclick="if(!$('coupon_code').value){alert('Please enter coupon code.')}else{updateCoupon($('coupon_code').value,0);}" value="<?php echo $this->__('Apply Coupon') ?>"><span><span><?php echo $this->__('Apply Coupon') ?></span></span></button>			
+					<?php if(strlen($this->getCouponCode())): ?>
+						&nbsp; <button type="button" title="<?php echo $this->__('Cancel Coupon') ?>" class="button" onclick="updateCoupon($('coupon_code').value,1)" value="<?php echo $this->__('Cancel Coupon') ?>"><span><span><?php echo $this->__('Cancel Coupon') ?></span></span></button>
+					<?php endif;?>
+				</div>
+				<div style="clear:both;"></div>
+			</div>
+		</div>
+		<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>	
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+ jQuery(document).ready(function(){
+    jQuery('.cupom_tem').bind({
+        click: function(){
+            jQuery('.cupom_tem_codigo').slideToggle();
+        }
+    });
+});
+ //]]>
+</script>
