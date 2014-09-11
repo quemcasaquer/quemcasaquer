@@ -7,7 +7,7 @@ jQuery(function() {
 		if(val_pass != val_pass2){
 			jQuery("#senha_invalida").html('');
 			jQuery(".senha_invalida").removeClass('validation-advice');
-			jQuery('#billing\\:confirm_password').after('<div class="validation-advice senha_invalida" id="senha_invalida">As Senhas n&atilde;o s&atilde;o iguais</div>');}
+			jQuery('#billing\\:confirm_password').after('<div class="validation-advice senha_invalida" id="senha_invalida">As Senhas não são iguais</div>');}
 		else{
 			jQuery("#senha_invalida").html('');
 			jQuery(".senha_invalida").removeClass('validation-advice');
@@ -33,22 +33,11 @@ jQuery(function() {
 		}
 		else{
 		jQuery('#advice-validate-email-billing\\:email').html("");
-		jQuery('#billing\\:email').after('<div class="validation-advice email_invalido" id="advice-validate-email-billing:email">Informe um endere&ccedil;o de email v&aacute;lido. Por exemplo seunome@gmail.com.</div>');
+		jQuery('#billing\\:email').after('<div class="validation-advice email_invalido" id="advice-validate-email-billing:email">Informe um endereço de email válido. Por exemplo seunome@gmail.com.</div>');
 		}
 	}
 	});
-	if (region_load()) {
-		var regionship_before = jQuery('[id="billing:region"]').val();
-		jQuery('[id="billing:region"]').bind({
-			blur: function() {
-				val = jQuery(this).val();
-				if (val != "" && regionship_before != val) {
-					updateShippingType();
-				}
-				regionship_before = val;
-			}
-		});
-	}
+	
 	var counter = 0;
 	jQuery('.form-list').find('.field').each(function(){
 		if(counter%2==0){
@@ -86,7 +75,7 @@ function TestaCPF(strCPF) {
     if (strCPF == "00000000000" || strCPF == "11111111111" || strCPF == "22222222222" || strCPF == "33333333333" || strCPF == "44444444444" || strCPF == "55555555555" || strCPF == "66666666666"  || strCPF == "77777777777" ||  strCPF == "88888888888" ||  strCPF == "99999999999"){
 			jQuery("#advice-validar_cpf").html('');
 			jQuery(".advice-validar_cpf").removeClass('validation-advice');
-			jQuery('#billing\\:taxvat').after('<div class="validation-advice advice-validar_cpf" id="advice-validar_cpf" style="display: block;">CPF inv&aacute;lido, o seu cpf ser&aacute; mantido em sig&iacute;lo, por&eacute;m &eacute; necess&aacute;rio para a emiss&atilde;o da Nota Fiscal</div>');
+			jQuery('#billing\\:taxvat').after('<div class="validation-advice advice-validar_cpf" id="advice-validar_cpf" style="display: block;">CPF inválido, o seu cpf será mantido em sigílo, porém é necessário para a emissão da Nota Fiscal.</div>');
 	}
     for (i=1; i<=9; i++){
 		Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (11 - i); 
@@ -98,7 +87,7 @@ function TestaCPF(strCPF) {
     if (Resto != parseInt(strCPF.substring(9, 10)) ){
     	jQuery("#advice-validar_cpf").html('');
 			jQuery(".advice-validar_cpf").removeClass('validation-advice');
-			jQuery('#billing\\:taxvat').after('<div class="validation-advice advice-validar_cpf" id="advice-validar_cpf" style="display: block;">CPF inv&aacute;lido, o seu cpf ser&aacute; mantido em sig&iacute;lo, por&eacute;m &eacute; necess&aacute;rio para a emiss&atilde;o da Nota Fiscal</div>');
+			jQuery('#billing\\:taxvat').after('<div class="validation-advice advice-validar_cpf" id="advice-validar_cpf" style="display: block;">CPF inválido, o seu cpf será mantido em sigílo, porém é necessário para a emissão da Nota Fiscal.</div>');
     }
 	Soma = 0;
     for (i = 1; i <= 10; i++){
@@ -111,7 +100,7 @@ function TestaCPF(strCPF) {
     if (Resto != parseInt(strCPF.substring(10, 11) ) ){
     	jQuery("#advice-validar_cpf").html('');
 			jQuery(".advice-validar_cpf").removeClass('validation-advice');
-			jQuery('#billing\\:taxvat').after('<div class="validation-advice advice-validar_cpf" id="advice-validar_cpf" style="display: block;">CPF inv&aacute;lido, o seu cpf ser&aacute; mantido em sig&iacute;lo, por&eacute;m &eacute; necess&aacute;rio para a emiss&atilde;o da Nota Fiscal</div>');
+			jQuery('#billing\\:taxvat').after('<div class="validation-advice advice-validar_cpf" id="advice-validar_cpf" style="display: block;position:absolute;">CPF inválido, o seu cpf será mantido em sigílo, porém é necessário para a emissão da Nota Fiscal.</div>');
     }
     return true;
 }

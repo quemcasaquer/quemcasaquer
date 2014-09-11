@@ -16,14 +16,12 @@ if(Validation) {
 	    'EL': [false, new RegExp('^([0-9]{3})?$'), true],
 	    'HI': [new RegExp('^(606282|3841)[0-9]'), new RegExp('^([0-9]{3})?$'), true]
 	});
-	
 }
 function countChar(val) {
 	var cvv = val.value.length;
 	if (cvv > 2) {
-		jQuery('#formcli').hide();
-		jQuery("#formcli").slideDown("slow");
-		jQuery('#formcli').css({
+		jQuery(".dados-titular").slideDown("slow");
+		jQuery('.dados-titular').css({
 			display: "block"
 		});
 		document.getElementById('credito_portador_nome').value = document.getElementById('billing:firstname').value + ' ' + document.getElementById('billing:lastname').value;
