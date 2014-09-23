@@ -147,6 +147,7 @@ $dn = "";
                         <select name="payment[credito_parcelamento]" id="credito_parcelamento" class="input-text required-entry" >
                             <option value="" select>Selecione as parcelas</option>
                             <?php $parcelas = $this->getParcelamento('parcelas'); ?>
+                            <?php $parcelas = ! is_array($parcelas) ? array($parcelas) : $parcelas; ?>
                             <?php foreach ( $parcelas as $key => $value) { ?>
                                 <?php echo $parcelas[$key]; ?>
                             <?php } ?>
