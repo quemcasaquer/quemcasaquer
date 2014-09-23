@@ -162,6 +162,7 @@ $window_type = Mage::getStoreConfig('catalog/personalization/window_type');
 				<?php echo $this->getChildHtml('manufacturer.center'); ?>
 				<div class="product-name<?php if(!$this->getChildHtml('catalog.product.related')){echo ' no-rel';} ?>">
 					<h1><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
+					<?php $this->helper('yotpo')->showBottomline($this, $_product); ?>
 					<?php if ($_product->getBlacknwhitePrsku() < 2 ):
 						if ($_product->getBlacknwhitePrsku() == 1 or $productpage_sku): ?>
 							<div class="sku"><?php echo $this->__('SKU') . ':<span>' . $_product->getSku() . '</span>'; ?></div>

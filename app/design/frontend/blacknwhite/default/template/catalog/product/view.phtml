@@ -1,413 +1,695 @@
-<?php
-/**
- * Magento
- *
- * NOTICE OF LICENSE
- *
- * This source file is subject to the Academic Free License (AFL 3.0)
- * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magentocommerce.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magentocommerce.com for more information.
- *
- * @category    design
- * @package     base_default
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
- */
-
-/**
- * Product view template
- *
- * @see Mage_Catalog_Block_Product_View
- * @see Mage_Review_Block_Product_View
- */
-?>
-<?php $_helper = $this->helper('catalog/output'); ?>
-<?php $_product = $this->getProduct(); ?>
-<?php 
-	$meigee_blacknwhite_productpage = MAGE::helper('ThemeOptionsBlacknwhite')->getThemeOptionsBlacknwhite('meigee_blacknwhite_productpage');
-    if ($_product->getBlacknwhitePrcolleteral() == 0):
-    	$productpage_collateral = $meigee_blacknwhite_productpage['layout']['collateral'];
-    else:
-    	switch ($_product->getBlacknwhitePrcolleteral()) {
-	        case 1:
-	            $productpage_collateral = 'collateral_list';
-	        break;
-	        case 2:
-	            $productpage_collateral = 'collateral_tabs';
-	        break;
-	        case 3:
-	            $productpage_collateral = 'collateral_accordion';
-	        break;
-        }
-    endif;
-    $productpage_sku = $meigee_blacknwhite_productpage['general']['product_sku'];
-    $productpage_additional = $meigee_blacknwhite_productpage['additional'];
-    if ($_product->getBlacknwhitePrlayout() == 0):
-    	$productpage_pagelayout = $meigee_blacknwhite_productpage['layout']['pagelayout'];
-    else:
-    	$productpage_pagelayout = $_product->getBlacknwhitePrlayout();
-		switch ($productpage_pagelayout) {
-			case 1:
-				$productpage_pagelayout = 'productpage_small';
-            break;
-			case 2:
-				$productpage_pagelayout = 'productpage_medium';
-            break;
-			case 3:
-				$productpage_pagelayout = 'productpage_large';
-            break;
-			case 4:
-				$productpage_pagelayout = 'productpage_extralarge';
-            break;
-		}
-    endif;
-    switch ($productpage_pagelayout) {
-        case 'productpage_extralarge':
-            $leftcol = 'grid_12';
-			$rightcol = 'grid_9';
-			$rightcol_no_rel = 'grid_12';
-            break;
-        case 'productpage_large':
-            $leftcol = 'grid_4';
-            $rightcol = 'grid_5';
-			$rightcol_no_rel = 'grid_8';
-            break;
-        case 'productpage_medium':
-            $leftcol = 'grid_5';
-            $rightcol = 'grid_4';
-			$rightcol_no_rel = 'grid_7';
-            break;
-        case 'productpage_small':
-            $leftcol = 'grid_6';
-            $rightcol = 'grid_3';
-			$rightcol_no_rel = 'grid_6';
-            break;
-        default:
-            $leftcol = 'grid_5';
-            $rightcol = 'grid_4';
-			$rightcol_no_rel = 'grid_7';
-            break;
-    }
-    if ($_product->getBlacknwhitePrbrand() == 0) {
-		$pr_brand = $meigee_blacknwhite_productpage['brand']['productbrand'];
-		$pr_brandsearch = $meigee_blacknwhite_productpage['brand']['brandsearch'];
-		$pr_brandtarget = $meigee_blacknwhite_productpage['brand']['brandtarget'];
-    }
-    else {
-    	$pr_brand = $_product->getBlacknwhitePrbrand();
-    	$pr_brandsearch = $_product->getBlacknwhitePrbrandlink();
-    	$pr_brandtarget = $_product->getBlacknwhitePrbrandtarget();
-    }
-
-    if ($_product->getBlacknwhitePrsidebar() == 0):
-    	$productpageSidebar = $meigee_blacknwhite_productpage['layout']['productsidebar'];
-    else:
-    	$productpageSidebar = $_product->getBlacknwhitePrsidebar();
-		switch ($productpageSidebar) {
-			case 1:
-				$productpageSidebar = 'left';
-            break;
-			case 2:
-				$productpageSidebar = 'right';
-            break;
-			case 3:
-				$productpageSidebar = 'none';
-            break;
-		}
-    endif;
-?>
-<script type="text/javascript">
-    var optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
-</script>
-<div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
-<div class="product-view">
-	<?php if($productpageSidebar == 'left' and $productpage_pagelayout != 'productpage_extralarge'): ?>
-		<aside class="grid_3 alpha">
-			<?php echo $this->getChildHtml('product_col'); ?>
-		</aside>
-	<?php endif; ?>
-	<?php if($productpageSidebar != 'none' and $productpage_pagelayout == 'productpage_extralarge'): ?>
-		<div class="grid_12 alpha omega">
-	<?php elseif($productpageSidebar == 'left'): ?>
-		<div class="grid_9 omega">
-	<?php elseif($productpageSidebar == 'right'): ?>
-		<div class="grid_9 alpha">
-	<?php else: ?>
-		<div class="grid_12 alpha omega">
-	<?php endif; ?>
-		<div class="product-essential <?php echo $productpage_pagelayout; ?>">
-			<div class="<?php echo $leftcol .' '. $productpage_pagelayout; ?> alpha <?php if($productpage_pagelayout == 'productpage_extralarge' and $productpageSidebar == 'none'): ?> omega<?php endif; ?> product-img-box">
-               <?php echo $this->getChildHtml('media'); ?>
-            </div>
-			
-			<?php if($productpageSidebar == 'left' and $productpage_pagelayout == 'productpage_extralarge'): ?>
-				<aside class="grid_3 alpha">
-					<?php echo $this->getChildHtml('product_col'); ?>
-				</aside>
-			<?php endif; ?>
-			
-			<div class="<?php if($productpageSidebar != 'none') echo $rightcol; else echo $rightcol_no_rel; ?> <?php if($productpage_pagelayout == 'productpage_extralarge' and $productpageSidebar == 'right'): ?> alpha<?php elseif($productpage_pagelayout == 'productpage_extralarge' and $productpageSidebar == 'none'): ?> alpha omega<?php else: ?> omega<?php endif; ?> product-shop">
-				<?php echo $this->getChildHtml('manufacturer.center'); ?>
-				<div class="product-name<?php if(!$this->getChildHtml('catalog.product.related')){echo ' no-rel';} ?>">
-					<h1><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
-					<?php if ($_product->getBlacknwhitePrsku() < 2 ):
-						if ($_product->getBlacknwhitePrsku() == 1 or $productpage_sku): ?>
-							<div class="sku"><?php echo $this->__('SKU') . ':<span>' . $_product->getSku() . '</span>'; ?></div>
-					<?php 
-						endif; 
-					endif; ?>
-					<?php echo $_product->getProductSku(); ?>
-				</div>
-				<?php echo MAGE::helper('ThemeOptionsBlacknwhite')->prevnext($_product) ?>
-				<?php if((($_product->isSaleable() && $this->hasOptions()) and $this->getChildChildHtml('container1', '', true, true)) or !($_product->isSaleable() && $this->hasOptions())): ?>
-				<form action="<?php echo $this->getSubmitUrl($_product) ?>" method="post" id="product_addtocart_form"<?php if($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
-				<div class="no-display">
-					<input type="hidden" name="product" value="<?php echo $_product->getId() ?>" />
-					<input type="hidden" name="related_product" id="related-products-field" value="" />
-				</div>
-				<?php endif; ?>
-					   
-					   <?php echo $this->getReviewsSummaryHtml($_product, false, true)?>
-					   <div class="price-block">
-							<?php $priceAvaliable = false; ?>
-							<?php if(!$this->hasOptions()): ?>
-								<?php $priceAvaliable = true; ?>
-								<?php echo $this->getChildHtml('product_type_data'); ?>
-							<?php elseif($_product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_BUNDLE): ?>
-								<?php $priceAvaliable = true; ?>
-								<?php echo $this->getChildHtml('product_type_data'); ?>
-							<?php endif; ?>
-							<?php if($_product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_GROUPED): ?>
-								<?php $priceAvaliable = false; ?>
-							<?php endif; ?>
-							<?php if ($this->displayProductStockStatus()): ?>
-								<?php if ($_product->isAvailable()): ?>
-								   <p class="availability<?php if($priceAvaliable == false){echo ' left';} ?> in-stock"><?php echo $this->__('Availability:') ?><span><?php echo $this->__('In stock') ?></span></p>
-								<?php else: ?>
-								   <p class="availability<?php if($priceAvaliable == false){echo ' left';} ?> out-of-stock"><?php echo $this->__('Availability:') ?><span><?php echo $this->__('Out of stock') ?></span></p>
-								<?php endif; ?>
-							<?php endif; ?>
-						</div>
-						<div class="clear "></div>
-					   <?php echo $this->getChildHtml('alert_urls') ?>
-					   
-					   <?php $optionsAvailability = false; if($_product->isSaleable() && $this->hasOptions()){$optionsAvailability = true;}?>
-					   
-					   <?php if ($_product->getShortDescription()):?>
-						   <div class="short-description">
-							   <div class="std"><h2><?php echo $this->__('Details:') ?></h2><?php echo $_helper->productAttribute($_product, nl2br($_product->getShortDescription()), 'short_description') ?></div>
-						   </div>
-					   <?php endif;?>
-					   
-					   <?php if (!$this->hasOptions()):?>
-					   <div class="product-type-block">
-							<div class="add-to-box">
-								<?php if($_product->isSaleable()): ?>
-									<?php echo $this->getChildHtml('addtocart') ?>
-							   <?php endif; ?>
-							</div>
-							<div class="add-to-links-box">
-							   <?php echo $this->getChildHtml('addto') ?>
-							</div>
-							<div class="clear"></div>
-							<?php echo $this->getChildHtml('extra_buttons') ?>
-					   </div>
-					   <?php endif; ?>
-					   
-					   <?php if ($_product->isSaleable() && $this->hasOptions()):?>
-							<div class="bundled-price">
-								<?php echo $this->getChildHtml('product_type_data'); ?>
-							</div>
-					   <?php endif;?>
-					   <?php echo $this->getChildHtml('extrahint') ?>
-					   <?php echo $this->getChildHtml('other');?>
-					   <?php echo $this->getTierPriceHtml() ?>
-						
-						<?php if ($_product->isSaleable() && $this->hasOptions()):?>
-							<?php echo $this->getChildChildHtml('container1', '', true, true) ?>
-						<?php endif;?>
-						<?php if((($_product->isSaleable() && $this->hasOptions()) and $this->getChildChildHtml('container1', '', true, true)) or !($_product->isSaleable() && $this->hasOptions())): ?>
-						
-						<?php 
-						if ($_product->getBlacknwhitePrcustom()):
-							echo '<div class="product-custom">' . $_product->getBlacknwhitePrcustom() . '</div>';
-						else:
-							$product_custom_blocks = explode(",", $productpage_additional['product_custom']);
-							foreach ($product_custom_blocks as $product_custom_block) {
-								echo '<div class="product-custom">' . $this->getLayout()->createBlock('cms/block')->setBlockId(trim($product_custom_block))->toHtml() . '</div>';
-							};
-							endif;
-						?>
-						
-						<?php echo $this->getChildHtml('upsell_products_slider'); ?>
-
-					
-				</form>
-				<?php endif; ?>
-
-				<?php if ($meigee_blacknwhite_productpage['layout']['collateral_position'] == 'details'): ?>
-				<div class="product-collateral"<?php if ($productpage_collateral == 'collateral_accordion') echo " id='collateral-accordion'"; ?>>
-					<?php 
-					if ($productpage_collateral == 'collateral_tabs'):
-					   echo $this->getChildHtml('info_tabs');
-					else:
-					    foreach ($this->getChildGroup('detailed_info', 'getChildHtml') as $alias => $html):
-				           if ($title = $this->getChildData($alias, 'title')):
-				           	echo '<h2>' . $this->escapeHtml($title) . '</h2>';
-				           endif;
-				           echo $html;
-					    endforeach;
-						echo $this->getChildHtml('upsell_products');
-						echo $this->getChildHtml('product_additional_data');
-					   
-						if ($_product->getBlacknwhitePrtabs()):
-						  $productpage_additional = $_product->getBlacknwhitePrtabs();
-						else:
-						  $productpage_additional = $meigee_blacknwhite_productpage['additional'];
-						  $productpage_additional = $productpage_additional['product_tabs'];
-						endif;
-
-						$custom_tabs = array();
-						$product_custom_tabs = explode(",", $productpage_additional);
-						foreach ($product_custom_tabs as $product_custom_tab) {
-						  $custom_tabs[] = trim($product_custom_tab);
-						}; 
-						foreach ($custom_tabs as $key) {
-							 if(!empty($key)):
-						    ?>
-						    <h2 id="<?php echo $key; ?>"><?php echo Mage::getModel('cms/block')->setStoreId(Mage::app()->getStore()->getId())->load($key)->getTitle(); ?></h2>
-							<div class="box-collateral" id="<?php echo $key; ?>_contents"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId(trim($key))->toHtml() ?></div>
-						    <?php endif; 
-						}
-			        endif;
-					?>
-			        </div>
-				<?php endif; ?>
-				
-           </div>
-		   <?php if($productpageSidebar == 'right' and $productpage_pagelayout == 'productpage_extralarge'): ?>
-				<aside class="grid_3 omega">
-				<?php echo $this->getChildHtml('product_col'); ?>
-				</aside>
-			<?php endif; ?>
-           <div class="clear"></div>
-		</div>
-	</div>
-	<?php if($productpageSidebar == 'right' and $productpage_pagelayout != 'productpage_extralarge'): ?>
-		<aside class="grid_3 omega">
-		<?php echo $this->getChildHtml('product_col'); ?>
-		</aside>
-	<?php endif; ?>
-	<div class="clear"></div>
-            <?php if ($_product->isSaleable() && $this->hasOptions()):?>
-            <?php if (($_product->isSaleable() && $this->hasOptions()) and !$this->getChildChildHtml('container1', '', true, true)): ?>
-                <form action="<?php echo $this->getSubmitUrl($_product) ?>" method="post" id="product_addtocart_form"<?php if($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
-				<div class="no-display">
-					<input type="hidden" name="product" value="<?php echo $_product->getId() ?>" />
-					<input type="hidden" name="related_product" id="related-products-field" value="" />
-				</div>
-				<div class="bundled-price">
- 					<?php echo $this->getChildHtml('product_type_data'); ?>
- 				</div>
-            <?php endif; ?>
-                    <?php echo $this->getChildChildHtml('container2', '', true, true) ?>
-            <?php if (($_product->isSaleable() && $this->hasOptions()) and !$this->getChildChildHtml('container1', '', true, true)): ?>
-                </form>
-            <?php endif; ?>
-            <?php endif; ?>
-        
-			<script type="text/javascript">
-			 //<![CDATA[
-				 var productAddToCartForm = new VarienForm('product_addtocart_form');
-				 productAddToCartForm.submit = function(button, url) {
-					 if (this.validator.validate()) {
-						 var form = this.form;
-						 var oldUrl = form.action;
-		 
-						 if (url) {
-							form.action = url;
-						 }
-						 var e = null;
-						 try {
-							 this.form.submit();
-						 } catch (e) {
-						 }
-						 this.form.action = oldUrl;
-						 if (e) {
-							 throw e;
-						 }
-		 
-						 if (button && button != 'undefined') {
-							 button.disabled = true;
-						 }
-					 }
-				 }.bind(productAddToCartForm);
-		 
-				 productAddToCartForm.submitLight = function(button, url){
-					 if(this.validator) {
-						 var nv = Validation.methods;
-						 delete Validation.methods['required-entry'];
-						 delete Validation.methods['validate-one-required'];
-						 delete Validation.methods['validate-one-required-by-name'];
-						 if (this.validator.validate()) {
-							 if (url) {
-								 this.form.action = url;
-							 }
-							 this.form.submit();
-						 }
-						 Object.extend(Validation.methods, nv);
-					 }
-				 }.bind(productAddToCartForm);
-			 //]]>
-			</script>
-	<?php if ($meigee_blacknwhite_productpage['layout']['collateral_position'] == 'underdetails'): ?>
-	<div class="product-collateral"<?php if ($productpage_collateral == 'collateral_accordion') echo " id='collateral-accordion'"; ?>>
-		<?php 
-		if ($productpage_collateral == 'collateral_tabs'):
-		   echo $this->getChildHtml('info_tabs');
-		else:
-		    foreach ($this->getChildGroup('detailed_info', 'getChildHtml') as $alias => $html):
-	           if ($title = $this->getChildData($alias, 'title')):
-	           	echo '<h2>' . $this->escapeHtml($title) . '</h2>';
-	           endif;
-	           echo $html;
-		    endforeach;
-			echo $this->getChildHtml('upsell_products');
-			echo $this->getChildHtml('product_additional_data');
-		   
-			if ($_product->getBlacknwhitePrtabs()):
-			  $productpage_additional = $_product->getBlacknwhitePrtabs();
-			else:
-			  $productpage_additional = $meigee_blacknwhite_productpage['additional'];
-			  $productpage_additional = $productpage_additional['product_tabs'];
-			endif;
-
-			$custom_tabs = array();
-			$product_custom_tabs = explode(",", $productpage_additional);
-			foreach ($product_custom_tabs as $product_custom_tab) {
-			  $custom_tabs[] = trim($product_custom_tab);
-			}; 
-			foreach ($custom_tabs as $key) {
-				 if(!empty($key)):
-			    ?>
-			    <h2 id="<?php echo $key; ?>"><?php echo Mage::getModel('cms/block')->setStoreId(Mage::app()->getStore()->getId())->load($key)->getTitle(); ?></h2>
-				<div class="box-collateral" id="<?php echo $key; ?>_contents"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId(trim($key))->toHtml() ?></div>
-			    <?php endif; 
-			}
-        endif;
-		?>
-        </div>
-	<?php endif; ?>
-	<?php echo $this->getChildHtml('catalog.product.related.bottom'); ?>
-    <?php echo $this->getChildHtml('product.info.review_list'); ?>
-</div>
+Status:	Resolving address of ftp.quemcasaquer.com
+Status:	Connecting to 91.121.9.75:21...
+Status:	Connection established, waiting for welcome message...
+Response:	220---------- Welcome to Pure-FTPd [privsep] [TLS] ----------
+Response:	220-You are user number 1 of 50 allowed.
+Response:	220-Local time is now 08:14. Server port: 21.
+Response:	220-IPv6 connections are also welcome on this server.
+Response:	220 You will be disconnected after 15 minutes of inactivity.
+Command:	USER qcq2012
+Response:	331 User qcq2012 OK. Password required
+Command:	PASS *******
+Response:	230 OK. Current restricted directory is /
+Command:	SYST
+Response:	215 UNIX Type: L8
+Command:	FEAT
+Response:	211-Extensions supported:
+Response:	 EPRT
+Response:	 IDLE
+Response:	 MDTM
+Response:	 SIZE
+Response:	 MFMT
+Response:	 REST STREAM
+Response:	 MLST type*;size*;sizd*;modify*;UNIX.mode*;UNIX.uid*;UNIX.gid*;unique*;
+Response:	 MLSD
+Response:	 AUTH TLS
+Response:	 PBSZ
+Response:	 PROT
+Response:	 TVFS
+Response:	 ESTA
+Response:	 PASV
+Response:	 EPSV
+Response:	 SPSV
+Response:	 ESTP
+Response:	211 End.
+Status:	Server does not support non-ASCII characters.
+Status:	Connected
+Status:	Retrieving directory listing...
+Command:	PWD
+Response:	257 "/" is your current location
+Command:	TYPE I
+Response:	200 TYPE is now 8-bit binary
+Command:	PASV
+Response:	227 Entering Passive Mode (91,121,9,75,147,219)
+Command:	MLSD
+Response:	150 Accepted data connection
+Response:	226-Options: -a -l 
+Response:	226 46 matches total
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CWD public_html
+Response:	250 OK. Current directory is /public_html
+Command:	PWD
+Response:	257 "/public_html" is your current location
+Command:	PASV
+Response:	227 Entering Passive Mode (91,121,9,75,163,150)
+Command:	MLSD
+Response:	150 Accepted data connection
+Response:	226-Options: -a -l 
+Response:	226 35 matches total
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CWD app
+Response:	250 OK. Current directory is /public_html/app
+Command:	PWD
+Response:	257 "/public_html/app" is your current location
+Command:	PASV
+Response:	227 Entering Passive Mode (91,121,9,75,62,184)
+Command:	MLSD
+Response:	150 Accepted data connection
+Response:	226-Options: -a -l 
+Response:	226 9 matches total
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CWD design
+Response:	250 OK. Current directory is /public_html/app/design
+Command:	PWD
+Response:	257 "/public_html/app/design" is your current location
+Command:	PASV
+Response:	227 Entering Passive Mode (91,121,9,75,213,20)
+Command:	MLSD
+Response:	150 Accepted data connection
+Response:	226-Options: -a -l 
+Response:	226 5 matches total
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CWD frontend
+Response:	250 OK. Current directory is /public_html/app/design/frontend
+Command:	PWD
+Response:	257 "/public_html/app/design/frontend" is your current location
+Command:	PASV
+Response:	227 Entering Passive Mode (91,121,9,75,232,27)
+Command:	MLSD
+Response:	150 Accepted data connection
+Response:	226-Options: -a -l 
+Response:	226 6 matches total
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CWD blacknwhite
+Response:	250 OK. Current directory is /public_html/app/design/frontend/blacknwhite
+Command:	PWD
+Response:	257 "/public_html/app/design/frontend/blacknwhite" is your current location
+Command:	PASV
+Response:	227 Entering Passive Mode (91,121,9,75,153,88)
+Command:	MLSD
+Response:	150 Accepted data connection
+Response:	226-Options: -a -l 
+Response:	226 3 matches total
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CWD default
+Response:	250 OK. Current directory is /public_html/app/design/frontend/blacknwhite/default
+Command:	PWD
+Response:	257 "/public_html/app/design/frontend/blacknwhite/default" is your current location
+Command:	PASV
+Response:	227 Entering Passive Mode (91,121,9,75,36,62)
+Command:	MLSD
+Response:	150 Accepted data connection
+Response:	226-Options: -a -l 
+Response:	226 5 matches total
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CWD template
+Response:	250 OK. Current directory is /public_html/app/design/frontend/blacknwhite/default/template
+Command:	PWD
+Response:	257 "/public_html/app/design/frontend/blacknwhite/default/template" is your current location
+Command:	PASV
+Response:	227 Entering Passive Mode (91,121,9,75,176,241)
+Command:	MLSD
+Response:	150 Accepted data connection
+Response:	226-Options: -a -l 
+Response:	226 24 matches total
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CWD catalog
+Response:	250 OK. Current directory is /public_html/app/design/frontend/blacknwhite/default/template/catalog
+Command:	PWD
+Response:	257 "/public_html/app/design/frontend/blacknwhite/default/template/catalog" is your current location
+Command:	PASV
+Response:	227 Entering Passive Mode (91,121,9,75,199,143)
+Command:	MLSD
+Response:	150 Accepted data connection
+Response:	226-Options: -a -l 
+Response:	226 7 matches total
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CWD product
+Response:	250 OK. Current directory is /public_html/app/design/frontend/blacknwhite/default/template/catalog/product
+Command:	PWD
+Response:	257 "/public_html/app/design/frontend/blacknwhite/default/template/catalog/product" is your current location
+Command:	PASV
+Response:	227 Entering Passive Mode (91,121,9,75,181,178)
+Command:	MLSD
+Response:	150 Accepted data connection
+Response:	226-Options: -a -l 
+Response:	226 9 matches total
+Status:	Directory listing successful
+Status:	Resolving address of ftp.quemcasaquer.com
+Status:	Connecting to 91.121.9.75:21...
+Status:	Connection established, waiting for welcome message...
+Response:	220---------- Welcome to Pure-FTPd [privsep] [TLS] ----------
+Response:	220-You are user number 2 of 50 allowed.
+Response:	220-Local time is now 08:18. Server port: 21.
+Response:	220-IPv6 connections are also welcome on this server.
+Response:	220 You will be disconnected after 15 minutes of inactivity.
+Command:	USER qcq2012
+Response:	331 User qcq2012 OK. Password required
+Command:	PASS *******
+Response:	230 OK. Current restricted directory is /
+Status:	Server does not support non-ASCII characters.
+Status:	Connected
+Status:	Starting download of /public_html/app/design/frontend/blacknwhite/default/template/catalog/product/view.phtml
+Command:	CWD /public_html/app/design/frontend/blacknwhite/default/template/catalog/product
+Response:	250 OK. Current directory is /public_html/app/design/frontend/blacknwhite/default/template/catalog/product
+Command:	PWD
+Response:	257 "/public_html/app/design/frontend/blacknwhite/default/template/catalog/product" is your current location
+Command:	TYPE A
+Response:	200 TYPE is now ASCII
+Command:	PASV
+Response:	227 Entering Passive Mode (91,121,9,75,225,140)
+Command:	RETR view.phtml
+Response:	150 Accepted data connection
+Response:	226 File successfully transferred
+Status:	File transfer successful, transferred 0 bytes in 1 second
+Status:	Disconnected from server
+Status:	Retrieving directory listing...
+Command:	CWD /public_html/cgi-bin
+Response:	250 OK. Current directory is /public_html/cgi-bin
+Command:	PWD
+Response:	257 "/public_html/cgi-bin" is your current location
+Command:	PASV
+Response:	227 Entering Passive Mode (91,121,9,75,18,80)
+Command:	MLSD
+Response:	150 Accepted data connection
+Response:	226-Options: -a -l 
+Response:	226 2 matches total
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CWD /public_html/app/locale
+Response:	250 OK. Current directory is /public_html/app/locale
+Command:	PWD
+Response:	257 "/public_html/app/locale" is your current location
+Command:	PASV
+Response:	227 Entering Passive Mode (91,121,9,75,44,185)
+Command:	MLSD
+Response:	150 Accepted data connection
+Response:	226-Options: -a -l 
+Response:	226 8 matches total
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CWD /public_html/app/etc
+Response:	250 OK. Current directory is /public_html/app/etc
+Command:	PWD
+Response:	257 "/public_html/app/etc" is your current location
+Command:	PASV
+Response:	227 Entering Passive Mode (91,121,9,75,56,175)
+Command:	MLSD
+Response:	150 Accepted data connection
+Response:	226-Options: -a -l 
+Response:	226 7 matches total
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CWD /public_html/app/code
+Response:	250 OK. Current directory is /public_html/app/code
+Command:	PWD
+Response:	257 "/public_html/app/code" is your current location
+Command:	PASV
+Response:	227 Entering Passive Mode (91,121,9,75,223,160)
+Command:	MLSD
+Response:	150 Accepted data connection
+Response:	226-Options: -a -l 
+Response:	226 5 matches total
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CWD core
+Response:	250 OK. Current directory is /public_html/app/code/core
+Command:	PWD
+Response:	257 "/public_html/app/code/core" is your current location
+Command:	PASV
+Response:	227 Entering Passive Mode (91,121,9,75,179,180)
+Command:	MLSD
+Response:	150 Accepted data connection
+Response:	226-Options: -a -l 
+Response:	226 4 matches total
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CWD Mage
+Response:	250 OK. Current directory is /public_html/app/code/core/Mage
+Command:	PWD
+Response:	257 "/public_html/app/code/core/Mage" is your current location
+Command:	PASV
+Response:	227 Entering Passive Mode (91,121,9,75,92,177)
+Command:	MLSD
+Response:	150 Accepted data connection
+Response:	226-Options: -a -l 
+Response:	226 67 matches total
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CWD Backup
+Response:	250 OK. Current directory is /public_html/app/code/core/Mage/Backup
+Command:	PWD
+Response:	257 "/public_html/app/code/core/Mage/Backup" is your current location
+Command:	PASV
+Response:	227 Entering Passive Mode (91,121,9,75,184,125)
+Command:	MLSD
+Response:	150 Accepted data connection
+Response:	226-Options: -a -l 
+Response:	226 6 matches total
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CWD etc
+Response:	250 OK. Current directory is /public_html/app/code/core/Mage/Backup/etc
+Command:	PWD
+Response:	257 "/public_html/app/code/core/Mage/Backup/etc" is your current location
+Command:	PASV
+Response:	227 Entering Passive Mode (91,121,9,75,167,192)
+Command:	MLSD
+Response:	150 Accepted data connection
+Response:	226-Options: -a -l 
+Response:	226 5 matches total
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CDUP
+Response:	250 OK. Current directory is /public_html/app/code/core/Mage/Backup
+Command:	PWD
+Response:	257 "/public_html/app/code/core/Mage/Backup" is your current location
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CWD Helper
+Response:	250 OK. Current directory is /public_html/app/code/core/Mage/Backup/Helper
+Command:	PWD
+Response:	257 "/public_html/app/code/core/Mage/Backup/Helper" is your current location
+Command:	PASV
+Response:	227 Entering Passive Mode (91,121,9,75,42,110)
+Command:	MLSD
+Response:	150 Accepted data connection
+Response:	226-Options: -a -l 
+Response:	226 3 matches total
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CDUP
+Response:	250 OK. Current directory is /public_html/app/code/core/Mage/Backup
+Command:	PWD
+Response:	257 "/public_html/app/code/core/Mage/Backup" is your current location
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CWD Model
+Response:	250 OK. Current directory is /public_html/app/code/core/Mage/Backup/Model
+Command:	PWD
+Response:	257 "/public_html/app/code/core/Mage/Backup/Model" is your current location
+Command:	PASV
+Response:	227 Entering Passive Mode (91,121,9,75,37,78)
+Command:	MLSD
+Response:	150 Accepted data connection
+Response:	226-Options: -a -l 
+Response:	226 9 matches total
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CWD Config
+Response:	250 OK. Current directory is /public_html/app/code/core/Mage/Backup/Model/Config
+Command:	PWD
+Response:	257 "/public_html/app/code/core/Mage/Backup/Model/Config" is your current location
+Command:	PASV
+Response:	227 Entering Passive Mode (91,121,9,75,20,190)
+Command:	MLSD
+Response:	150 Accepted data connection
+Response:	226-Options: -a -l 
+Response:	226 4 matches total
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CWD Source
+Response:	250 OK. Current directory is /public_html/app/code/core/Mage/Backup/Model/Config/Source
+Command:	PWD
+Response:	257 "/public_html/app/code/core/Mage/Backup/Model/Config/Source" is your current location
+Command:	PASV
+Response:	227 Entering Passive Mode (91,121,9,75,57,226)
+Command:	MLSD
+Response:	150 Accepted data connection
+Response:	226-Options: -a -l 
+Response:	226 3 matches total
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CDUP
+Response:	250 OK. Current directory is /public_html/app/code/core/Mage/Backup/Model/Config
+Command:	PWD
+Response:	257 "/public_html/app/code/core/Mage/Backup/Model/Config" is your current location
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CWD Backend
+Response:	250 OK. Current directory is /public_html/app/code/core/Mage/Backup/Model/Config/Backend
+Command:	PWD
+Response:	257 "/public_html/app/code/core/Mage/Backup/Model/Config/Backend" is your current location
+Command:	PASV
+Response:	227 Entering Passive Mode (91,121,9,75,212,154)
+Command:	MLSD
+Response:	150 Accepted data connection
+Response:	226-Options: -a -l 
+Response:	226 3 matches total
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CDUP
+Response:	250 OK. Current directory is /public_html/app/code/core/Mage/Backup/Model/Config
+Command:	PWD
+Response:	257 "/public_html/app/code/core/Mage/Backup/Model/Config" is your current location
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CDUP
+Response:	250 OK. Current directory is /public_html/app/code/core/Mage/Backup/Model
+Command:	PWD
+Response:	257 "/public_html/app/code/core/Mage/Backup/Model" is your current location
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CWD Fs
+Response:	250 OK. Current directory is /public_html/app/code/core/Mage/Backup/Model/Fs
+Command:	PWD
+Response:	257 "/public_html/app/code/core/Mage/Backup/Model/Fs" is your current location
+Command:	PASV
+Response:	227 Entering Passive Mode (91,121,9,75,151,27)
+Command:	MLSD
+Response:	150 Accepted data connection
+Response:	226-Options: -a -l 
+Response:	226 3 matches total
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CDUP
+Response:	250 OK. Current directory is /public_html/app/code/core/Mage/Backup/Model
+Command:	PWD
+Response:	257 "/public_html/app/code/core/Mage/Backup/Model" is your current location
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CWD /public_html/app/code/core/Mage/Compiler
+Response:	250 OK. Current directory is /public_html/app/code/core/Mage/Compiler
+Command:	PWD
+Response:	257 "/public_html/app/code/core/Mage/Compiler" is your current location
+Command:	PASV
+Response:	227 Entering Passive Mode (91,121,9,75,103,217)
+Command:	MLSD
+Response:	150 Accepted data connection
+Response:	226-Options: -a -l 
+Response:	226 7 matches total
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CWD /public_html/app/code/core/Mage/PageCache
+Response:	250 OK. Current directory is /public_html/app/code/core/Mage/PageCache
+Command:	PWD
+Response:	257 "/public_html/app/code/core/Mage/PageCache" is your current location
+Command:	PASV
+Response:	227 Entering Passive Mode (91,121,9,75,119,87)
+Command:	MLSD
+Response:	150 Accepted data connection
+Response:	226-Options: -a -l 
+Response:	226 7 matches total
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CWD /public_html/app/code/core/Mage/PageCache/Block
+Response:	250 OK. Current directory is /public_html/app/code/core/Mage/PageCache/Block
+Command:	PWD
+Response:	257 "/public_html/app/code/core/Mage/PageCache/Block" is your current location
+Command:	PASV
+Response:	227 Entering Passive Mode (91,121,9,75,205,118)
+Command:	MLSD
+Response:	150 Accepted data connection
+Response:	226-Options: -a -l 
+Response:	226 3 matches total
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CWD Adminhtml
+Response:	250 OK. Current directory is /public_html/app/code/core/Mage/PageCache/Block/Adminhtml
+Command:	PWD
+Response:	257 "/public_html/app/code/core/Mage/PageCache/Block/Adminhtml" is your current location
+Command:	PASV
+Response:	227 Entering Passive Mode (91,121,9,75,213,144)
+Command:	MLSD
+Response:	150 Accepted data connection
+Response:	226-Options: -a -l 
+Response:	226 3 matches total
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CWD Cache
+Response:	250 OK. Current directory is /public_html/app/code/core/Mage/PageCache/Block/Adminhtml/Cache
+Command:	PWD
+Response:	257 "/public_html/app/code/core/Mage/PageCache/Block/Adminhtml/Cache" is your current location
+Command:	PASV
+Response:	227 Entering Passive Mode (91,121,9,75,17,203)
+Command:	MLSD
+Response:	150 Accepted data connection
+Response:	226-Options: -a -l 
+Response:	226 3 matches total
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CDUP
+Response:	250 OK. Current directory is /public_html/app/code/core/Mage/PageCache/Block/Adminhtml
+Command:	PWD
+Response:	257 "/public_html/app/code/core/Mage/PageCache/Block/Adminhtml" is your current location
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CDUP
+Response:	250 OK. Current directory is /public_html/app/code/core/Mage/PageCache/Block
+Command:	PWD
+Response:	257 "/public_html/app/code/core/Mage/PageCache/Block" is your current location
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CDUP
+Response:	250 OK. Current directory is /public_html/app/code/core/Mage/PageCache
+Command:	PWD
+Response:	257 "/public_html/app/code/core/Mage/PageCache" is your current location
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CWD controllers
+Response:	250 OK. Current directory is /public_html/app/code/core/Mage/PageCache/controllers
+Command:	PWD
+Response:	257 "/public_html/app/code/core/Mage/PageCache/controllers" is your current location
+Command:	PASV
+Response:	227 Entering Passive Mode (91,121,9,75,245,59)
+Command:	MLSD
+Response:	150 Accepted data connection
+Response:	226-Options: -a -l 
+Response:	226 3 matches total
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CWD Adminhtml
+Response:	250 OK. Current directory is /public_html/app/code/core/Mage/PageCache/controllers/Adminhtml
+Command:	PWD
+Response:	257 "/public_html/app/code/core/Mage/PageCache/controllers/Adminhtml" is your current location
+Command:	PASV
+Response:	227 Entering Passive Mode (91,121,9,75,43,244)
+Command:	MLSD
+Response:	150 Accepted data connection
+Response:	226-Options: -a -l 
+Response:	226 3 matches total
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CDUP
+Response:	250 OK. Current directory is /public_html/app/code/core/Mage/PageCache/controllers
+Command:	PWD
+Response:	257 "/public_html/app/code/core/Mage/PageCache/controllers" is your current location
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CDUP
+Response:	250 OK. Current directory is /public_html/app/code/core/Mage/PageCache
+Command:	PWD
+Response:	257 "/public_html/app/code/core/Mage/PageCache" is your current location
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CWD etc
+Response:	250 OK. Current directory is /public_html/app/code/core/Mage/PageCache/etc
+Command:	PWD
+Response:	257 "/public_html/app/code/core/Mage/PageCache/etc" is your current location
+Command:	PASV
+Response:	227 Entering Passive Mode (91,121,9,75,99,146)
+Command:	MLSD
+Response:	150 Accepted data connection
+Response:	226-Options: -a -l 
+Response:	226 5 matches total
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CDUP
+Response:	250 OK. Current directory is /public_html/app/code/core/Mage/PageCache
+Command:	PWD
+Response:	257 "/public_html/app/code/core/Mage/PageCache" is your current location
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CWD Model
+Response:	250 OK. Current directory is /public_html/app/code/core/Mage/PageCache/Model
+Command:	PWD
+Response:	257 "/public_html/app/code/core/Mage/PageCache/Model" is your current location
+Command:	PASV
+Response:	227 Entering Passive Mode (91,121,9,75,178,68)
+Command:	MLSD
+Response:	150 Accepted data connection
+Response:	226-Options: -a -l 
+Response:	226 5 matches total
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CDUP
+Response:	250 OK. Current directory is /public_html/app/code/core/Mage/PageCache
+Command:	PWD
+Response:	257 "/public_html/app/code/core/Mage/PageCache" is your current location
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CWD Helper
+Response:	250 OK. Current directory is /public_html/app/code/core/Mage/PageCache/Helper
+Command:	PWD
+Response:	257 "/public_html/app/code/core/Mage/PageCache/Helper" is your current location
+Command:	PASV
+Response:	227 Entering Passive Mode (91,121,9,75,124,165)
+Command:	MLSD
+Response:	150 Accepted data connection
+Response:	226-Options: -a -l 
+Response:	226 3 matches total
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CDUP
+Response:	250 OK. Current directory is /public_html/app/code/core/Mage/PageCache
+Command:	PWD
+Response:	257 "/public_html/app/code/core/Mage/PageCache" is your current location
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CWD /public_html/app/code/core/Mage/Directory
+Response:	250 OK. Current directory is /public_html/app/code/core/Mage/Directory
+Command:	PWD
+Response:	257 "/public_html/app/code/core/Mage/Directory" is your current location
+Command:	PASV
+Response:	227 Entering Passive Mode (91,121,9,75,173,167)
+Command:	MLSD
+Response:	150 Accepted data connection
+Response:	226-Options: -a -l 
+Response:	226 10 matches total
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CWD /public_html
+Response:	250 OK. Current directory is /public_html
+Command:	PWD
+Response:	257 "/public_html" is your current location
+Command:	CWD .git
+Response:	250 OK. Current directory is /public_html/.git
+Command:	PWD
+Response:	257 "/public_html/.git" is your current location
+Command:	PASV
+Response:	227 Entering Passive Mode (91,121,9,75,240,137)
+Command:	MLSD
+Response:	150 Accepted data connection
+Response:	226-Options: -a -l 
+Response:	226 16 matches total
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CWD branches
+Response:	250 OK. Current directory is /public_html/.git/branches
+Command:	PWD
+Response:	257 "/public_html/.git/branches" is your current location
+Command:	PASV
+Response:	227 Entering Passive Mode (91,121,9,75,78,108)
+Command:	MLSD
+Response:	150 Accepted data connection
+Response:	226-Options: -a -l 
+Response:	226 2 matches total
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CWD /public_html/.git
+Response:	250 OK. Current directory is /public_html/.git
+Command:	PWD
+Response:	257 "/public_html/.git" is your current location
+Command:	CWD hooks
+Response:	250 OK. Current directory is /public_html/.git/hooks
+Command:	PWD
+Response:	257 "/public_html/.git/hooks" is your current location
+Command:	PASV
+Response:	227 Entering Passive Mode (91,121,9,75,247,133)
+Command:	MLSD
+Response:	150 Accepted data connection
+Response:	226-Options: -a -l 
+Response:	226 10 matches total
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CWD /public_html/.git
+Response:	250 OK. Current directory is /public_html/.git
+Command:	CWD info
+Response:	250 OK. Current directory is /public_html/.git/info
+Command:	PWD
+Response:	257 "/public_html/.git/info" is your current location
+Command:	PASV
+Response:	227 Entering Passive Mode (91,121,9,75,101,198)
+Command:	MLSD
+Response:	150 Accepted data connection
+Response:	226-Options: -a -l 
+Response:	226 4 matches total
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CWD /public_html/.git
+Response:	250 OK. Current directory is /public_html/.git
+Command:	CWD logs
+Response:	250 OK. Current directory is /public_html/.git/logs
+Command:	PWD
+Response:	257 "/public_html/.git/logs" is your current location
+Command:	PASV
+Response:	227 Entering Passive Mode (91,121,9,75,138,253)
+Command:	MLSD
+Response:	150 Accepted data connection
+Response:	226-Options: -a -l 
+Response:	226 4 matches total
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CWD refs
+Response:	250 OK. Current directory is /public_html/.git/logs/refs
+Command:	PWD
+Response:	257 "/public_html/.git/logs/refs" is your current location
+Command:	PASV
+Response:	227 Entering Passive Mode (91,121,9,75,146,68)
+Command:	MLSD
+Response:	150 Accepted data connection
+Response:	226-Options: -a -l 
+Response:	226 4 matches total
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CWD heads
+Response:	250 OK. Current directory is /public_html/.git/logs/refs/heads
+Command:	PWD
+Response:	257 "/public_html/.git/logs/refs/heads" is your current location
+Command:	PASV
+Response:	227 Entering Passive Mode (91,121,9,75,222,222)
+Command:	MLSD
+Response:	150 Accepted data connection
+Response:	226-Options: -a -l 
+Response:	226 5 matches total
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CWD /public_html/.git/logs/refs
+Response:	250 OK. Current directory is /public_html/.git/logs/refs
+Command:	PWD
+Response:	257 "/public_html/.git/logs/refs" is your current location
+Command:	CWD remotes
+Response:	250 OK. Current directory is /public_html/.git/logs/refs/remotes
+Command:	PWD
+Response:	257 "/public_html/.git/logs/refs/remotes" is your current location
+Command:	PASV
+Response:	227 Entering Passive Mode (91,121,9,75,90,24)
+Command:	MLSD
+Response:	150 Accepted data connection
+Response:	226-Options: -a -l 
+Response:	226 3 matches total
+Status:	Directory listing successful
+Status:	Retrieving directory listing...
+Command:	CWD origin
+Response:	250 OK. Current directory is /public_html/.git/logs/refs/remotes/origin
+Command:	PWD
+Response:	257 "/public_html/.git/logs/refs/remotes/origin" is your current location
+Command:	PASV
+Response:	227 Entering Passive Mode (91,121,9,75,244,97)
+Command:	MLSD
+Error:	Directory listing aborted by user
+Status:	Retrieving directory listing...
+Status:	ftpcontrolsocket.cpp(1879): Waiting for replies to skip before sending next command...   caller=033E8248
+Error:	Directory listing aborted by user
+Status:	Retrieving directory listing...
+Status:	ftpcontrolsocket.cpp(1879): Waiting for replies to skip before sending next command...   caller=033E8248
+Error:	Directory listing aborted by user
