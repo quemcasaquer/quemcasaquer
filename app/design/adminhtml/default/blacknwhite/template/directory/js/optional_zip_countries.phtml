@@ -61,7 +61,11 @@ function setPostcodeOptional(zipElement, country) {
         }
     } else {
         zipElement.addClassName('required-entry');
-        zipElement.up(1).down('label > span.required').show();
+
+        // ADDED IF D.S.
+        if(zipElement.up(1).down('label > span.required')) {
+            zipElement.up(1).down('label > span.required').show();
+        }
     }
 }
 
